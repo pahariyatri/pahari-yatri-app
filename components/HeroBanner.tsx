@@ -25,7 +25,7 @@ const HeroBanner = () => {
             <Carousel
                 opts={{
                     align: "start",
-                }}
+                }} className="relative w-full h-screen overflow-hidden"
 
             >
                 <CarouselContent>
