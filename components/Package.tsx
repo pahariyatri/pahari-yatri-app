@@ -47,7 +47,7 @@ export default function Package() {
     return (
         <SectionContainer>
             <PageTitle>
-                <h1 className="text-4xl font-bold mb-8">Explore Our Unexplored Treks!</h1>
+                Explore Our Unexplored Treks!
             </PageTitle>
             <Carousel opts={{ align: "start", }} className="relative w-full h-screen overflow-hidden">
                 <CarouselContent>

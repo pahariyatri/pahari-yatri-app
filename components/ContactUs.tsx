@@ -6,7 +6,7 @@ export default function ContactUs() {
     return (
         <SectionContainer>
             <PageTitle>
-                <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+                Contact Us
             </PageTitle>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>

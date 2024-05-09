@@ -1,10 +1,13 @@
 import SectionContainer from "./SectionContainer";
+import PageTitle from "./common/PageTitle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 export default function Faq() {
     return (
         <SectionContainer>
-            <h1 className="text-4xl font-bold mb-8">FAQ</h1>
+             <PageTitle>
+                 FAQs
+            </PageTitle>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                 <Accordion type="single" collapsible className="w-full">
