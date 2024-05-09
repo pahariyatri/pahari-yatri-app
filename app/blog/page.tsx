@@ -15,11 +15,13 @@ export default async function Blog() {
         <div className="container py-12">
           <div className="-m-4 flex flex-wrap">
             {/* {projectsData.map((d) => ( */}
-            <PackageCard></PackageCard>
-            <PackageCard></PackageCard>
-            <PackageCard></PackageCard>
-            <PackageCard></PackageCard>
-            <PackageCard></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+            <PackageCard title={""} description={""} imageSrc={""} href={""}></PackageCard>
+
             {/* ))} */}
           </div>
         </div>

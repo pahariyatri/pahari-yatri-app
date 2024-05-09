@@ -4,7 +4,6 @@ import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
-import Image from './common/Image'
 
 const Header = () => {
     return (
@@ -13,13 +12,6 @@ const Header = () => {
                 <Link href="/" aria-label={siteMetadata.headerTitle}>
                     <div className="flex items-center justify-between">
                         <div className="mr-3">
-                            {/* <Image
-                                alt={'title'}
-                                src={'/static/images/logo.png'}
-                                className="object-cover object-center md:h-36 lg:h-48"
-                                width={25}
-                                height={5}
-                            /> */}
                         </div>
                         {typeof siteMetadata.headerTitle === 'string' ? (
                             <div className="hidden h-6 text-2xl font-semibold sm:block">
