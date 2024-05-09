@@ -1,4 +1,4 @@
-import PackageCard from "@/components/PackageCard";
+import PackageCard from "@/components/cards/PackageCard";
 import { Card } from "@/components/ui/card";
 
 export default async function Package() {

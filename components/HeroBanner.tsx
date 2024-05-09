@@ -1,16 +1,15 @@
-import PackageCard from "./PackageCard";
+import PackageCard from "./cards/PackageCard";
 import { Button } from "./ui/button";
 
 const HeroBanner = () => {
     return (
         <section className="relative w-full h-screen overflow-hidden shadow-md">
-            {/* Hero Banner Image */}
             {/* <Image
         src="/mountain-landscape.jpg"
         alt="Mountain Landscape"
         layout="fill"
         objectFit="cover"
-    /> */}
+        /> */}
 
             {/* Hero Banner Content */}
             <div className="absolute inset-0 flex flex-col justify-center items-center">

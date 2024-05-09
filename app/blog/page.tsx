@@ -1,4 +1,4 @@
-import PackageCard from "@/components/PackageCard";
+import PackageCard from "@/components/cards/PackageCard";
 
 export default async function Blog() {
   return (

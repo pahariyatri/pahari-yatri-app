@@ -1,11 +1,11 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-    title: 'Pahari Yatri App',
+    title: 'Pahari Yatri - Adventure Trekking and Mountaineering Experiences',
     author: 'Pankaj Kumar',
     headerTitle: 'Pahari Yatri',
-    description: 'A blog created with Next.js and Tailwind.css',
+    description: 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.',
     language: 'en-us',
-    theme: 'system', // system, dark or light
+    theme: 'system',
     siteUrl: 'https://pahariyatri.com',
     siteLogo: '/static/images/logo.png',
     socialBanner: '/static/images/twitter-card.png',
