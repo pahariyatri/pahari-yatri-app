@@ -1,4 +1,5 @@
 import AboutUs from "@/components/AboutUs";
+import Blog from "@/components/Blog";
 import ConactUs from "@/components/ContactUs";
 import Faq from "@/components/Faq";
 import Gallery from "@/components/Gallery";
@@ -12,6 +13,7 @@ export default function Home() {
       <AboutUs></AboutUs>
       <Package></Package>
       <Gallery></Gallery>
+      <Blog></Blog>
       <Faq></Faq>
       <ConactUs></ConactUs>
     </main>

@@ -4,17 +4,45 @@ import PageTitle from "./common/PageTitle";
 export default function Gallery() {
     return (
         <SectionContainer>
-            <PageTitle>
-                Gallery
-            </PageTitle>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {/* Replace the URLs in src attribute with actual image URLs */}
-                <img src="/static/favicons/android-chrome-512x512.png" alt="Gallery Image 1" className="rounded-lg shadow-lg" />
-                <img src="/static/favicons/android-chrome-512x512.png" alt="Gallery Image 2" className="rounded-lg shadow-lg" />
-                <img src="/static/favicons/android-chrome-512x512.png" alt="Gallery Image 3" className="rounded-lg shadow-lg" />
-                <img src="/static/favicons/android-chrome-512x512.png" alt="Gallery Image 4" className="rounded-lg shadow-lg" />
-                {/* Add more images as needed */}
+            <div className="text-center">
+                <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">
+                    Contact
+                </p>
+                <PageTitle>
+                    Gallery
+                </PageTitle>
+                <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">In hac
+                    habitasse platea
+                    dictumst
+                </p>
             </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="" />
+                </div>
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+                </div>
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
+                </div>
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
+                </div>
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
+                </div>
+                <div>
+                    <img className="h-auto max-w-full rounded-lg"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
+                </div>
+            </div>
+
         </SectionContainer>
     );
 }
