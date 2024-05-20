@@ -12,8 +12,7 @@ export default function ContactUs() {
                             <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">
                                 Contact
                             </p>
-                            <PageTitle
-                                className="font-heading mb-4 font-bold tracking-tight text-gray-900 dark:text-white text-3xl sm:text-5xl">
+                            <PageTitle>
                                 Get in Touch
                             </PageTitle>
                             <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">In hac
