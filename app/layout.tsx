@@ -5,7 +5,6 @@ import "./globals.css";
 
 import { Space_Grotesk } from 'next/font/google'
 import Header from '@/components/Header'
-import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
@@ -26,6 +25,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteMetadata.title}`,
   },
   description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
   openGraph: {
     title: siteMetadata.title,
     description: siteMetadata.description,

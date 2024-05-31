@@ -1,13 +1,14 @@
-import SectionContainer from "./SectionContainer";
-import PageTitle from "./common/PageTitle";
+import SectionContainer from "./common/SectionContainer";
+import PageTitle from "./common/TitleCover";
 import AccommodationCard from "./cards/AccommodationCard";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
 
 const accommodations = [
     {
         id: 1001,
         name: "Tranquil Stays: Gayatri Lodge, Kasauli",
         description: "Discover serenity and unmatched comfort at Gayatri Lodge, nestled in the heart of Kasauli.",
-        imageSrc: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/462717126.jpg?k=0a09a8f39a458aa2160a678ffa42a0f9ac3f9936bd43496122b2a6bf3bd9ac58&o=&hp=1",
+        imageSrc: "/static/images/pahari-yatri-banner.png",
         imageAlt: "Gayatri Lodge",
         href: "https://gayatrilodge.com/",
         location: "Kasauli, Himachal Pradesh"
@@ -16,7 +17,7 @@ const accommodations = [
         id: 987,
         name: "Tranquil Stays: Cedar Valley, Saroa",
         description: "Creating dynamic and responsive web applications with Angular",
-        imageSrc: "https://lh3.googleusercontent.com/p/AF1QipOugRhCFIA1xSv_Ayy4ThNDQPBCmtYk8B7b4Uae=s1360-w1360-h1020",
+        imageSrc: "/static/images/pahari-yatri-banner.png",
         imageAlt: "Cedar Valley",
         href: "#",
         location: "Saroa, Himachal Pradesh"
@@ -25,7 +26,7 @@ const accommodations = [
         id: 30092,
         name: "Tranquil Stays: Alpine Cafe, Devidarh",
         description: "Crafting interactive and modern user interfaces with React",
-        imageSrc: "https://images.unsplash.com/photo-1597256817041-0c75c0633658?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=849&q=80",
+        imageSrc: "/static/images/pahari-yatri-banner.png",
         imageAlt: "Alpine Cafe",
         href: "#",
         location: "Devidarh, Himachal Pradesh"
@@ -46,18 +47,24 @@ export default function Accommodation() {
                     Luxury Stay at Kasauli, Devidarh & Saroa
                 </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-                {accommodations.map(accommodation => (
-                    <AccommodationCard
-                        key={accommodation.id}
-                        title={accommodation.name}
-                        description={accommodation.description}
-                        imageSrc={accommodation.imageSrc}
-                        href={accommodation.href}
-                        location={accommodation.location}
-                    />
-                ))}
-            </div>
+            <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden">
+                <CarouselContent className="-ml-4">
+                    {accommodations.map((accommodation, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-4">
+                            <AccommodationCard
+                                key={accommodation.id}
+                                title={accommodation.name}
+                                description={accommodation.description}
+                                imageSrc={accommodation.imageSrc}
+                                href={accommodation.href}
+                                location={accommodation.location}
+                            />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
         </SectionContainer>
     );
 }

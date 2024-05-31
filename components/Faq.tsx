@@ -1,5 +1,5 @@
-import SectionContainer from "./SectionContainer";
-import PageTitle from "./common/PageTitle";
+import SectionContainer from "./common/SectionContainer";
+import PageTitle from "./common/TitleCover";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 const faqs = [

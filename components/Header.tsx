@@ -1,6 +1,6 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-import Link from './Link'
+import Link from './common/Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
@@ -25,7 +25,6 @@ const Header = () => {
             </div >
             <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
                 {headerNavLinks
-                    .filter((link) => link.href !== '/')
                     .map((link) => (
                         <Link
                             key={link.title}

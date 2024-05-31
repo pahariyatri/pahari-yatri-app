@@ -1,6 +1,6 @@
-import SectionContainer from "./SectionContainer";
+import SectionContainer from "./common/SectionContainer";
 import BlogCard from "./cards/BlogCard";
-import PageTitle from "./common/PageTitle";
+import PageTitle from "./common/TitleCover";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 export default function Blog() {
@@ -8,40 +8,40 @@ export default function Blog() {
         {
             title: 'Adventure Trekking',
             description: 'Explore breathtaking trails and majestic mountains with our guided trekking adventures.',
-            href: '/packages/adventure-trekking',
+            href: '/blog/adventure-trekking',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
             tags: ['Adventure', 'Trekking', 'Mountains']
         },
         {
             title: 'Cultural Tours',
             description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/packages/cultural-tours',
+            href: '/blog/cultural-tours',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
             tags: ['Adventure', 'Trekking', 'Mountains']
         },
         {
             title: 'Cultural Tours',
             description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/packages/cultural-tours',
+            href: '/blog/cultural-tours',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
             tags: ['Adventure', 'Trekking', 'Mountains']
         },
         {
             title: 'Cultural Tours',
             description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/packages/cultural-tours',
+            href: '/blog/cultural-tours',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
         },
         {
             title: 'Cultural Tours',
             description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/packages/cultural-tours',
+            href: '/blog/cultural-tours',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
         },
         {
             title: 'Cultural Tours',
             description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/packages/cultural-tours',
+            href: '/blog/cultural-tours',
             imageSrc: '/static/favicons/android-chrome-512x512.png',
         },
         // Add more package objects as needed

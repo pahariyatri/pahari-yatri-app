@@ -1,5 +1,6 @@
-import SectionContainer from "./SectionContainer";
-import PageTitle from "./common/PageTitle";
+import SectionContainer from "./common/SectionContainer";
+import Image from "./common/Image";
+import PageTitle from "./common/TitleCover";
 
 export default function AboutUs() {
     return (
@@ -14,7 +15,7 @@ export default function AboutUs() {
                     </p>
                 </div>
                 <div className='flex items-center justify-center'>
-                    <img src="/static/images/pahari-yatri-banner.png" alt="About Us Image" className="rounded-lg object-cover h-72 w-72 shadow-lg" />
+                    <Image src={"/static/images/pahari-yatri-banner.png"} alt={"Pahari Yatri About Us Image"} height={500} width={500} className="rounded-lg object-cover h-72 w-72 shadow-lg"></Image>
                 </div>
             </div>
         </SectionContainer>

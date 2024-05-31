@@ -1,3 +1,4 @@
+import Image from "../common/Image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
 interface AccommodationCardProps {
@@ -12,7 +13,8 @@ const AccommodationCard = ({ title, description, imageSrc, href, location }: Acc
     return (
         <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
             <CardHeader className="relative">
-                <img src={imageSrc} alt={title} className="w-full h-48 object-cover" />
+                <Image src={imageSrc} alt={title} width={500}
+                    height={500} className="w-full h-48 object-cover"></Image>
                 <div className="absolute inset-0 bg-black opacity-20"></div>
             </CardHeader>
             <CardContent className="p-6">

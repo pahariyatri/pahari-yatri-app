@@ -1,9 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-    title: 'Pahari Yatri - Adventure Trekking and Mountaineering Experiences',
-    author: 'Pankaj Kumar',
+    title: 'Pahari Yatri - Turning Treks into Himalayan Yatras',
+    author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
     description: 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.',
+    keywords: '',
     language: 'en-us',
     theme: 'system',
     siteUrl: 'https://pahariyatri.com',

@@ -1,3 +1,5 @@
+import Link from "../common/Link";
+import Image from "../common/Image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
 interface PackageCardProps {
@@ -13,38 +15,36 @@ interface PackageCardProps {
 
 const PackageCard = ({ title, description, imageSrc, href, price, duration, location, difficulty }: PackageCardProps) => {
     return (
-        <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
-            <CardHeader className="relative">
-                <img src={imageSrc} alt="Package Image" className="w-full h-48 object-cover" />
-                <div className="absolute inset-0 bg-black opacity-20"></div>
-            </CardHeader>
-            <CardContent className="p-6">
-                <div className="text-start">
-                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</CardTitle>
-                    <CardDescription className="mt-2 text-gray-700 dark:text-gray-300">{description}</CardDescription>
+        <Link href={href} className="block mt-6 transition duration-300">
+            <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
+                <CardHeader className="relative">
+                    <Image src={imageSrc} alt={title} width={500} height={500} className="w-full h-48 object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-4 flex flex-col justify-end">
+                        <h2 className="text-xl font-bold text-white">{title}</h2>
+                        <p className="text-sm text-gray-300">{location}</p>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-4">
+                    <CardDescription className="text-gray-700 dark:text-gray-300">{description}</CardDescription>
                     <div className="mt-4 space-y-2">
                         <div className="flex items-center">
                             <div className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></div>
-                            <p className="text-sm font-semibold">Price: {price}</p>
+                            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Price: {price}</p>
                         </div>
                         <div className="flex items-center">
                             <div className="w-2 h-2 bg-green-600 rounded-full mr-2"></div>
-                            <p className="text-sm font-semibold">Duration: {duration}</p>
-                        </div>
-                        <div className="flex items-center">
-                            <div className="w-2 h-2 bg-blue-600 rounded-full mr-2"></div>
-                            <p className="text-sm font-semibold">Location: {location}</p>
+                            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Duration: {duration}</p>
                         </div>
                         {difficulty && (
                             <div className="flex items-center">
                                 <div className="w-2 h-2 bg-red-600 rounded-full mr-2"></div>
-                                <p className="text-sm font-semibold">Difficulty: {difficulty}</p>
+                                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Difficulty: {difficulty}</p>
                             </div>
                         )}
                     </div>
-                </div>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </Link>
     );
 }
 
