@@ -211,7 +211,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Reviews</h3>
           <div className="space-y-6">
             {packageDetails.reviews.map((review, index) => (
-              <ReviewCard name={review.name} comment={review.comment} rating={review.rating}></ReviewCard>
+              <ReviewCard key={index} name={review.name} comment={review.comment} rating={review.rating}></ReviewCard>
             ))}
           </div>
         </div>
