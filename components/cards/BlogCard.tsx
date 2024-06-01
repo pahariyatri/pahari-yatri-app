@@ -31,7 +31,7 @@ const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardPro
                     )}
                     <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</CardTitle>
                     <CardDescription className="mt-2 text-gray-700 dark:text-gray-300">{description}</CardDescription>
-                    <Link href={href} className="inline-block font-bold mt-6 py-3 px-6 text-blue-600 dark:text-blue-400 hover:underline transition duration-300">
+                    <Link href={href} className="inline-block font-bold py-3  text-blue-600 dark:text-blue-400 hover:underline transition duration-300">
                         {'Read more'}
                     </Link>
                 </div>

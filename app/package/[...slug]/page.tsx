@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import siteMetadata from "@/data/siteMetadata";
 import { Metadata } from "next";
 import ReviewCard from "@/components/cards/ReviewCard";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Gallery from "@/components/Gallery";
+import Booking from "@/components/Booking";
 
 const packageDetails = {
   title: 'Cultural Tours',
-  description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
+  description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
   href: '/packages/cultural-tours',
   imageSrc: '/static/favicons/android-chrome-512x512.png',
   price: '$999',
@@ -15,13 +18,13 @@ const packageDetails = {
   location: 'Himalayas',
   difficulty: 'Hard',
   itinerary: [
-    { day: 1, activity: 'Arrival and welcome dinner' },
-    { day: 2, activity: 'City tour and museum visit' },
-    { day: 3, activity: 'Visit to historical monuments' },
-    { day: 4, activity: 'Cultural show and local market visit' },
-    { day: 5, activity: 'Hiking and nature walk' },
-    { day: 6, activity: 'Free day for leisure activities' },
-    { day: 7, activity: 'Departure' },
+    { day: 1, activity: 'Arrival and welcome dinner', details: 'Arrive at the designated meeting point and enjoy a warm welcome dinner with your fellow travelers.' },
+    { day: 2, activity: 'City tour and museum visit', details: 'Explore the vibrant city streets and visit renowned museums to delve deeper into the local history and culture.' },
+    { day: 3, activity: 'Visit to historical monuments', details: 'Discover ancient landmarks and monuments that narrate captivating tales of the region\'s past.' },
+    { day: 4, activity: 'Cultural show and local market visit', details: 'Cultural show and local market visit. Witness mesmerizing cultural performances and immerse yourself in the bustling atmosphere of local markets.' },
+    { day: 5, activity: 'Hiking and nature walk', details: 'Embark on an exhilarating hike through scenic trails and immerse yourself in the natural beauty of the Himalayas.' },
+    { day: 6, activity: 'Free day for leisure activities', details: 'Enjoy a day at your leisure to explore the surroundings or engage in optional activities of your choice.' },
+    { day: 7, activity: 'Departure', details: 'Bid farewell to the Himalayas as you depart for your onward journey with unforgettable memories.' },
   ],
   inclusions: [
     'Accommodation in 3-star hotels',
@@ -148,12 +151,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-7xl mx-auto px-4 py-11 sm:px-6 lg:px-8 lg:py-10">
-        {/* <div className="text-center mb-12">
-      <PageTitle>{packageDetails.title}</PageTitle>
-      <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-slate-400">
-        {packageDetails.description}
-      </p>
-    </div> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="relative w-full h-96">
             <Image
@@ -174,20 +171,27 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
                 <li className="text-gray-900 dark:text-white"><strong>Difficulty:</strong> {packageDetails.difficulty}</li>
               </ul>
             </div>
-            <div className="mt-8">
-              <Button className="w-full py-3 px-6 font-bold rounded-lg"> Book Now</Button>
+            <div className="mt-6">
+              <Booking></Booking>
             </div>
           </div>
         </div>
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Itinerary</h3>
-          <ul className="space-y-4">
+          <Accordion type="multiple" className="w-full">
             {packageDetails.itinerary.map((item, index) => (
-              <li key={index} className="text-gray-900 dark:text-white">
-                <strong>Day {item.day}:</strong> {item.activity}
-              </li>
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger> Day {item.day}: {item.activity}</AccordionTrigger>
+                <AccordionContent>
+                  {item.details}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </ul>
+          </Accordion>
+        </div>
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-6">Gallery</h3>
+          <Gallery></Gallery>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>

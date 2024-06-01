@@ -2,6 +2,7 @@ import SectionContainer from "./common/SectionContainer";
 import PageTitle from "./common/TitleCover";
 import ServiceCard from "./cards/ServiceCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import { title } from "process";
 
 const services = [
     {
@@ -16,9 +17,24 @@ const services = [
     },
     {
         id: 3,
-        title: 'Skiing',
-        body: 'Ski on various slopes suitable for all skill levels, from beginners to experts.',
+        title: 'Mountaineering',
+        body: 'Professionally guided mountaineering expeditions led by experienced climbers.',
     },
+    {
+        id: 4,
+        title: 'Adventure Tours',
+        body: 'Exciting tours combining adventure activities with cultural exploration.',
+    },
+    {
+        id: 5,
+        title: 'Photography Expeditions',
+        body: 'Guided photography tours for enthusiasts to capture stunning landscapes and wildlife.',
+    },
+    {
+        id: 6,
+        title: "Cultural Immersion",
+        body: "Themed tours that offer a deep understanding of local cultures, traditions, and cuisine."
+    }
 ] as const;
 
 const serviceIcons: Record<(typeof services)[number]['title'], JSX.Element> = {
@@ -30,11 +46,27 @@ const serviceIcons: Record<(typeof services)[number]['title'], JSX.Element> = {
             <path d="M12 2L1 21h22L12 2zm0 3.84L18.2 19H5.8L12 5.84zM12 15a2 2 0 100 4 2 2 0 000-4z" />
         </svg>
     ),
-    Skiing: (
+    Mountaineering: (
         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2L1 21h22L12 2zm0 3.84L18.2 19H5.8L12 5.84zM12 15a2 2 0 100 4 2 2 0 000-4z" />
         </svg>
     ),
+    'Adventure Tours': (
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 21h22L12 2zm0 3.84L18.2 19H5.8L12 5.84zM12 15a2 2 0 100 4 2 2 0 000-4z" />
+        </svg>
+    ),
+    'Photography Expeditions': (
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 21h22L12 2zm0 3.84L18.2 19H5.8L12 5.84zM12 15a2 2 0 100 4 2 2 0 000-4z" />
+        </svg>
+    ),
+    "Cultural Immersion": (
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 21h22L12 2zm0 3.84L18.2 19H5.8L12 5.84zM12 15a2 2 0 100 4 2 2 0 000-4z" />
+        </svg>
+    ),
+
 };
 
 export default function Service() {
