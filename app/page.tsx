@@ -10,7 +10,6 @@ import HeroBanner from "@/components/HeroBanner";
 import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
-import { title } from "process";
 
 const heroBanner = {
   title: "Embark on Your Adventure",
@@ -19,9 +18,9 @@ const heroBanner = {
   buttonLink: "/package",
 }
 const customizeBanner = {
-  title: "Customized Holidays",
-  description: "Holidays for you! Tell us what you want and we will design it for you or explore our special packages.",
-  buttonText: "Customize Now",
+  title: "Explore New Places",
+  description: "Our Highly Experienced, Qualified Team Will Guide You For Best Offbeat Feasible Budget Friendly Trip For You.",
+  buttonText: "Customize Trip",
   buttonLink: "/package",
 }
 const packages = [
