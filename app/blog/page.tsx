@@ -1,6 +1,4 @@
 import BlogCard from "@/components/cards/BlogCard";
-import Link from "@/components/common/Link";
-import Image from "@/components/common/Image";
 import FeaturedCard from "@/components/cards/FeaturedCard";
 
 const blogData = [
@@ -62,7 +60,6 @@ export default function Blog() {
       {/* Featured Post */}
       <div className="py-12">
         <FeaturedCard title={featuredPost.title} description={featuredPost.description} imageSrc={featuredPost.imageSrc} href={featuredPost.href}>
-          
         </FeaturedCard>
         {/* <div className="relative flex flex-col md:flex-row items-center rounded-lg overflow-hidden shadow-lg">
           <Image src={featuredPost.imageSrc} alt={featuredPost.title} width={400} height={400} className="w-full md:w-1/2 h-72 object-cover" />
@@ -84,19 +81,17 @@ export default function Blog() {
       </div>
 
       {/* Blog Cards */}
-      <div className="py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {blogData.slice(1).map((blog, index) => (
-            <BlogCard
-              key={index}
-              title={blog.title}
-              description={blog.description}
-              imageSrc={blog.imageSrc}
-              href={blog.href}
-              tags={blog.tags}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {blogData.slice(1).map((blog, index) => (
+          <BlogCard
+            key={index}
+            title={blog.title}
+            description={blog.description}
+            imageSrc={blog.imageSrc}
+            href={blog.href}
+            tags={blog.tags}
+          />
+        ))}
       </div>
     </div>
   );

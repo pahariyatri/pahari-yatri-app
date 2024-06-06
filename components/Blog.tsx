@@ -3,50 +3,17 @@ import BlogCard from "./cards/BlogCard";
 import PageTitle from "./common/TitleCover";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
-export default function Blog() {
-    const blogs = [
-        {
-            title: 'Adventure Trekking',
-            description: 'Explore breathtaking trails and majestic mountains with our guided trekking adventures.',
-            href: '/blog/adventure-trekking',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-            tags: ['Adventure', 'Trekking', 'Mountains']
-        },
-        {
-            title: 'Cultural Tours',
-            description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/blog/cultural-tours',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-            tags: ['Adventure', 'Trekking', 'Mountains']
-        },
-        {
-            title: 'Cultural Tours',
-            description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/blog/cultural-tours',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-            tags: ['Adventure', 'Trekking', 'Mountains']
-        },
-        {
-            title: 'Cultural Tours',
-            description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/blog/cultural-tours',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-        },
-        {
-            title: 'Cultural Tours',
-            description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/blog/cultural-tours',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-        },
-        {
-            title: 'Cultural Tours',
-            description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-            href: '/blog/cultural-tours',
-            imageSrc: '/static/favicons/android-chrome-512x512.png',
-        },
-        // Add more package objects as needed
-    ];
+interface BlogProps {
+    blogs: Array<{
+        title: string;
+        description: string;
+        href: string;
+        imageSrc: string;
+        tags?: string[]
+    }>;
+}
 
+export default function Blog({ blogs }: BlogProps) {
     return (
         <SectionContainer>
             <div className="text-center">
@@ -60,7 +27,7 @@ export default function Blog() {
                     Some Advanter Story
                 </p>
             </div>
-            <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden">
+            <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">
                 <CarouselContent>
                     {blogs.map((blog, index) => (
                         <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
@@ -71,7 +38,7 @@ export default function Blog() {
                                     description={blog.description}
                                     href={blog.href}
                                     imageSrc={blog.imageSrc}
-                                    tags={blog.tags} // Pass tags to BlogCard
+                                    tags={blog.tags}
                                 />
                             </div>
                         </CarouselItem>

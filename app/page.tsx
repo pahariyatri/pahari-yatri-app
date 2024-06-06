@@ -11,81 +11,8 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 
-const heroBanner = {
-  title: "Embark on Your Adventure",
-  description: "Explore breathtaking trekking and mountaineering experiences",
-  buttonText: "Discover Now",
-  buttonLink: "/package",
-}
-const customizeBanner = {
-  title: "Explore New Places",
-  description: "Our Highly Experienced, Qualified Team Will Guide You For Best Offbeat Feasible Budget Friendly Trip For You.",
-  buttonText: "Customize Trip",
-  buttonLink: "/package",
-}
-const packages = [
-  {
-    title: 'Adventure Trekking',
-    description: 'Explore breathtaking trails and majestic mountains with our guided trekking adventures.',
-    href: '/package/adventure-trekking',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard',
-    imageSrc: '/static/favicons/android-chrome-512x512.png'
-  },
-  {
-    title: 'Cultural Tours',
-    description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-    href: '/package/cultural-tours',
-    imageSrc: '/static/favicons/android-chrome-512x512.png',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard'
-  },
-  {
-    title: 'Cultural Tours',
-    description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-    href: '/package/cultural-tours',
-    imageSrc: '/static/favicons/android-chrome-512x512.png',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard'
-  },
-  {
-    title: 'Cultural Tours',
-    description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-    href: '/package/cultural-tours',
-    imageSrc: '/static/favicons/android-chrome-512x512.png',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard'
-  },
-  {
-    title: 'Cultural Tours',
-    description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-    href: '/package/cultural-tours',
-    imageSrc: '/static/favicons/android-chrome-512x512.png',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard'
-  },
-  {
-    title: 'Cultural Tours',
-    description: 'Immerse yourself in the rich culture and heritage of the Himalayan region with our curated tours.',
-    href: '/package/cultural-tours',
-    imageSrc: '/static/favicons/android-chrome-512x512.png',
-    price: '$999',
-    duration: '7 Days',
-    location: 'Himalayas',
-    difficulty: 'Hard'
-  },
-  // Add more package objects as needed
-];
+import { heroBanner, customizeBanner, packages, featuredPackages, categories, services, accommodations, blogs, testimonials, faqs } from "@/data/data";
+
 
 export default function Home() {
   return (
@@ -97,21 +24,21 @@ export default function Home() {
         buttonLink={heroBanner.buttonLink}
       />
       <Package packages={packages} />
-      <Category></Category>
-      <FeaturedPackage></FeaturedPackage>
+      <Category categories={categories}></Category>
+      <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       {/* <Gallery></Gallery> */}
-      <Service></Service>
+      <Service services={services}></Service>
       <HeroBanner
         title={customizeBanner.title}
         description={customizeBanner.description}
         buttonText={customizeBanner.buttonText}
         buttonLink={customizeBanner.buttonLink}
       />
-      <Accommodation></Accommodation>
+      <Accommodation accommodations={accommodations}></Accommodation>
       {/* <AboutUs></AboutUs> */}
-      <Blog></Blog>
-      <Testimonials></Testimonials>
-      <Faq></Faq>
+      <Blog blogs={blogs}></Blog>
+      <Testimonials testimonials={testimonials}></Testimonials>
+      <Faq faqs={faqs}></Faq>
       {/* <ConactUs></ConactUs> */}
     </main>
   );

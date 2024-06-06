@@ -1,9 +1,10 @@
+import Image from "../common/Image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
 interface ServiceCardProps {
     title: string;
     body: string;
-    icon: JSX.Element;
+    icon: string;
 }
 
 const ServiceCard = ({ title, body, icon }: ServiceCardProps) => {
@@ -12,7 +13,7 @@ const ServiceCard = ({ title, body, icon }: ServiceCardProps) => {
             <CardContent className="p-4 md:p-6 h-full flex flex-col justify-between">
                 <div className="text-start">
                     <CardTitle className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center space-x-3">
-                        {icon}
+                        <Image src={icon} alt={`icon-${title}`} height={40} width={40}></Image>
                         <span>{title}</span>
                     </CardTitle>
                     <CardDescription className="mt-2 text-gray-700 dark:text-gray-300 text-sm md:text-base">
