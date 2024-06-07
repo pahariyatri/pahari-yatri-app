@@ -24,10 +24,20 @@ export default config({
             label: 'Packages',
             slugField: 'title',
             path: 'data/packages/*',
-            format: { contentField: 'content' },
+            // format: { contentField: 'content' },
             schema: {
                 title: fields.slug({ name: { label: 'Title' } }),
                 content: fields.markdoc({ label: 'Content' }),
+            },
+        }),
+        testimonials: collection({
+            label: 'Packages',
+            slugField: 'title',
+            path: 'data/testimonials/*',
+            schema: {
+                title: fields.slug({ name: { label: 'Title' } }),
+                description: fields.text({ label: 'Description', multiline: true }),
+                author: fields.slug({ name: { label: 'Author' } })
             },
         }),
     },

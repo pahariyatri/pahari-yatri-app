@@ -24,7 +24,7 @@ export default async function Home() {
     description: blog.entry.description,
     href: `/blog/${blog.slug}`,
     imageSrc: blog.entry.image || blog.entry.image || "/static/images/default-image.png",
-    tags: [] // Add tags if available in your data
+    tags: [] 
   }));
 
   return (
