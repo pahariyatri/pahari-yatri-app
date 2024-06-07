@@ -26,7 +26,7 @@ const PackageCard = ({ title, description, imageSrc, href, price, duration, loca
                 </CardHeader>
                 <CardContent className="p-4">
                     <CardDescription className="text-gray-700 dark:text-gray-300">{description}</CardDescription>
-                    <div className="mt-4 space-y-2">
+                    {/* <div className="mt-4 space-y-2">
                         <div className="flex items-center">
                             <div className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></div>
                             <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Price: {price}</p>
@@ -41,7 +41,7 @@ const PackageCard = ({ title, description, imageSrc, href, price, duration, loca
                                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Difficulty: {difficulty}</p>
                             </div>
                         )}
-                    </div>
+                    </div> */}
                 </CardContent>
             </Card>
         </Link>
