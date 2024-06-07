@@ -3,25 +3,14 @@ import Image from "@/components/common/Image";
 import PageTitle from "@/components/common/TitleCover";
 import siteMetadata from "@/data/siteMetadata";
 import { Metadata } from "next";
+import keystaticConfig from "../../../keystatic.config";
+import { createReader } from "@keystatic/core/reader";
+import Markdoc from "@markdoc/markdoc";
+import React from "react";
 
-const blogDetails = {
-  title: 'Exploring the Himalayas: A Journey of a Lifetime',
-  description: 'Join us as we venture into the heart of the Himalayas, exploring the stunning landscapes and rich cultural heritage of this majestic mountain range.',
-  imageSrc: '/static/images/himalayas.jpg',
-  author: 'John Doe',
-  date: 'May 19, 2024',
-  content: `
-    <p>The Himalayas, home to the world’s highest peaks, offer a breathtaking experience for adventurers and nature enthusiasts alike. From the serene valleys to the rugged mountain trails, every step in this region reveals a new wonder.</p>
-    <h2>Day 1: Arrival and Acclimatization</h2>
-    <p>Our journey begins with a scenic flight into the heart of the Himalayas. Upon arrival, we spend the day acclimatizing to the altitude and exploring the local markets.</p>
-    <h2>Day 2: Trek to the Base Camp</h2>
-    <p>We start our trek towards the base camp, surrounded by towering peaks and pristine landscapes. The trail offers stunning views and a chance to experience the tranquility of the mountains.</p>
-    <h2>Day 3: Cultural Immersion</h2>
-    <p>Today, we visit a local village to learn about the rich cultural heritage of the Himalayan people. From traditional dances to local cuisine, we immerse ourselves in their way of life.</p>
-    <h2>Conclusion</h2>
-    <p>The Himalayas are not just a destination; they are an experience that leaves a lasting impact on all who visit. Join us on this unforgettable journey and create memories that will last a lifetime.</p>
-  `,
-};
+const reader = createReader(process.cwd(), keystaticConfig);
+
+const currentDate = new Date().toDateString();
 
 export async function generateMetadata({
   params,
@@ -29,37 +18,55 @@ export async function generateMetadata({
   params: { slug: string[] }
 }): Promise<Metadata | undefined> {
   const slug = decodeURI(params.slug.join('/'));
+  const blog = await reader.collections.blogs.read(slug);
+
+  if (!blog) {
+    return undefined;
+  }
 
   return {
-    title: blogDetails.title,
-    description: blogDetails.description,
+    title: blog.title,
+    description: blog.description,
     openGraph: {
-      title: blogDetails.title,
-      description: blogDetails.description,
+      title: blog.title,
+      description: blog.description,
       siteName: siteMetadata.title,
       locale: 'en_US',
       type: 'article',
-      publishedTime: blogDetails.date,
+      publishedTime: currentDate,
       url: `${siteMetadata.siteUrl}/blog/${slug}`,
       images: [
         {
-          url: blogDetails.imageSrc.includes('http') ? blogDetails.imageSrc : siteMetadata.siteUrl + blogDetails.imageSrc,
-          alt: blogDetails.title,
+          url: blog.image ? blog.image : siteMetadata.siteUrl + blog.image,
+          alt: blog.title,
         },
       ],
-      authors: [blogDetails.author],
+      authors: [siteMetadata.author],
     },
     twitter: {
       card: 'summary_large_image',
-      title: blogDetails.title,
-      description: blogDetails.description,
-      images: [blogDetails.imageSrc],
+      title: blog.title,
+      description: blog.description,
+      images: [blog.image ?? ""],
     },
   };
 }
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = decodeURI(params.slug.join('/'));
+export default async function Page({ params }: { params: { slug: string } }) {
+  const slug = decodeURI(params.slug);
+  const blog = await reader.collections.blogs.read(slug);
+
+  if (!blog) {
+    return <div>No Post Found</div>;
+  }
+
+  const { node } = await blog.content();
+  const errors = Markdoc.validate(node);
+  if (errors.length) {
+    console.error(errors);
+    throw new Error('Invalid content');
+  }
+  const renderable = Markdoc.transform(node);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -68,20 +75,20 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       "@type": "WebPage",
       "@id": `${siteMetadata.siteUrl}/blog/${slug}`,
     },
-    "headline": blogDetails.title,
+    "headline": blog.title,
     "image": [
       {
         "@type": "ImageObject",
-        "url": blogDetails.imageSrc.includes('http') ? blogDetails.imageSrc : siteMetadata.siteUrl + blogDetails.imageSrc,
+        "url": blog.image ? blog.image : siteMetadata.siteUrl + blog.image,
         "width": 800,
         "height": 400,
       },
     ],
-    "datePublished": blogDetails.date,
-    "dateModified": blogDetails.date,
+    "datePublished": currentDate,
+    "dateModified": currentDate,
     "author": {
       "@type": "Person",
-      "name": blogDetails.author,
+      "name": siteMetadata.author,
     },
     "publisher": {
       "@type": "Organization",
@@ -93,7 +100,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         "height": 60,
       },
     },
-    "description": blogDetails.description,
+    "description": blog.description,
   };
 
   return (
@@ -105,23 +112,23 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       <SectionContainer>
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="text-center mb-12">
-            <PageTitle>{blogDetails.title}</PageTitle>
-            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blogDetails.description}</p>
+            <PageTitle>{blog.title}</PageTitle>
+            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.description}</p>
             <div className="mt-4 text-gray-500 dark:text-gray-400">
-              <span>By {blogDetails.author} | {blogDetails.date}</span>
+              <span>By {siteMetadata.author} | {currentDate}</span>
             </div>
           </div>
           <div className="relative w-full h-96 mb-12">
             <Image
-              src={blogDetails.imageSrc}
-              alt={blogDetails.title}
+              src={blog.image ? blog.image : siteMetadata.siteUrl + blog.image}
+              alt={blog.title}
               width={800}
               height={400}
               className="rounded-lg object-cover w-full h-full"
             />
           </div>
           <div className="prose prose-lg max-w-none dark:prose-dark">
-            <div dangerouslySetInnerHTML={{ __html: blogDetails.content }} />
+            {Markdoc.renderers.react(renderable, React)}
           </div>
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Related Articles</h3>

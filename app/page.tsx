@@ -11,12 +11,24 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 
-import { heroBanner, customizeBanner, packages, featuredPackages, categories, services, accommodations, blogs, testimonials, faqs } from "@/data/data";
+import { heroBanner, customizeBanner, packages, featuredPackages, categories, services, accommodations, testimonials, faqs } from "@/data/data";
+import keystaticConfig from "@/keystatic.config";
+import { createReader } from "@keystatic/core/reader";
 
+const reader = createReader(process.cwd(), keystaticConfig);
 
-export default function Home() {
+export default async function Home() {
+  const blogsData = await reader.collections.blogs.all();
+  const blogs = blogsData.map(blog => ({
+    title: blog.entry.title,
+    description: blog.entry.description,
+    href: `/blog/${blog.slug}`,
+    imageSrc: blog.entry.image || blog.entry.image || "/static/images/default-image.png",
+    tags: [] // Add tags if available in your data
+  }));
+
   return (
-    <main className=" min-h-screen">
+    <div className=" min-h-screen">
       <HeroBanner
         title={heroBanner.title}
         description={heroBanner.description}
@@ -40,6 +52,6 @@ export default function Home() {
       <Testimonials testimonials={testimonials}></Testimonials>
       <Faq faqs={faqs}></Faq>
       {/* <ConactUs></ConactUs> */}
-    </main>
+    </div>
   );
 }
