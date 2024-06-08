@@ -8,7 +8,7 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 
-import { heroBanner, customizeBanner, packages, featuredPackages, categories, services, accommodations, testimonials } from "@/data/data";
+import { heroBanner, customizeBanner, categories, accommodations } from "@/data/data";
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
 
@@ -16,6 +16,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
   const blogsData = await reader.collections.blogs.all();
+  const packageData = await reader.collections.packages.all();
   const faqsList = await reader.singletons.faqs.readOrThrow();
   const testimonialsList = await reader.singletons.testimonials.readOrThrow();
   const serviceList = await reader.singletons.services.readOrThrow();
@@ -27,6 +28,24 @@ export default async function Home() {
     imageSrc: blog.entry.image || "static/images/default-image.png",
     tags: [...blog.entry.tags]
   }));
+  const packages = packageData.map(pkg => ({
+    title: pkg.entry.title,
+    description: pkg.entry.excerpt,
+    imageSrc: pkg.entry.image,
+    href: `/package/${pkg.slug}`,
+    price: pkg.entry.price ?? 0,
+    location: pkg.entry.location,
+  }));
+  const featuredPackages = packageData
+    .filter(pkg => pkg.entry.isFeatured === true)
+    .map(pkg => ({
+      title: pkg.entry.title,
+      description: pkg.entry.excerpt,
+      imageSrc: pkg.entry.image,
+      href: `/package/${pkg.slug}`,
+      price: pkg.entry.price ?? 0,
+      location: pkg.entry.location,
+    }))
   const faqs = faqsList.faqs.map(faq => ({
     question: faq.question,
     answer: faq.answer
@@ -64,7 +83,6 @@ export default async function Home() {
       <Blog blogs={blogs}></Blog>
       <Testimonials testimonials={testimonials}></Testimonials>
       <Faq faqs={faqs}></Faq>
-      {/* <ConactUs></ConactUs> */}
     </div>
   );
 }

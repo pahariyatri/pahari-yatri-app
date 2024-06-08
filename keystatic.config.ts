@@ -115,6 +115,15 @@ export default config({
                 )
             },
         }),
+        accommodations: collection({
+            label: 'Accommodations',
+            slugField: 'title',
+            path: 'data/accommodations/*',
+            format: { data: 'json' },
+            schema: {
+                title: fields.text({ label: 'Title' }),
+            },
+        }),
         tags: collection({
             label: 'Tags',
             slugField: 'title',

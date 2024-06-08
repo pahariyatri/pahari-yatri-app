@@ -7,13 +7,11 @@ export interface PackageCardProps {
     description: string;
     imageSrc: string;
     href: string;
-    price: string;
-    duration: string;
+    price: number;
     location: string;
-    difficulty?: string;
 }
 
-const PackageCard = ({ title, description, imageSrc, href, price, duration, location, difficulty }: PackageCardProps) => {
+const PackageCard = ({ title, description, imageSrc, href, price, location }: PackageCardProps) => {
     return (
         <Link href={href} className="block mt-6 transition duration-300">
             <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
