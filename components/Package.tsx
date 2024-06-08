@@ -1,19 +1,10 @@
 import SectionContainer from "./common/SectionContainer";
-import PackageCard from "./cards/PackageCard";
+import PackageCard, { PackageCardProps } from "./cards/PackageCard";
 import PageTitle from "./common/TitleCover";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 interface PackageProps {
-    packages: Array<{
-        title: string;
-        description: string;
-        href: string;
-        price: string;
-        duration: string;
-        location: string;
-        difficulty: string;
-        imageSrc: string;
-    }>;
+    packages: Array<PackageCardProps>;
 }
 
 export default function Package({ packages }: PackageProps) {

@@ -11,6 +11,10 @@ import { Metadata } from 'next'
 import Footer from "@/components/Footer";
 import { Analytics, AnalyticsConfig } from "pliny/analytics/index.js";
 import { SearchConfig, SearchProvider } from "pliny/search/index.js";
+import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "@/keystatic.config";
+
+const reader = createReader(process.cwd(), keystaticConfig);
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],

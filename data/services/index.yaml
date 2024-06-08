@@ -1,0 +1,29 @@
+data:
+  - title: Camping
+    description: >-
+      Enjoy organized camping trips with modern amenities and beautiful
+      surroundings.
+    icon: /static/icons/camping-tent-svgrepo-com.svg
+  - title: Trekking
+    description: >-
+      Explore picturesque trails and stunning landscapes on our trekking
+      adventures.
+    icon: /static/icons/camping-tent-svgrepo-com.svg
+  - title: Mountaineering
+    description: >-
+      Professionally guided mountaineering expeditions led by experienced
+      climbers.
+    icon: /static/icons/camping-tent-svgrepo-com.svg
+  - title: Adventure Tours
+    description: Exciting tours combining adventure activities with cultural exploration.
+    icon: /static/icons/camping-tent-svgrepo-com.svg
+  - title: Photography Expeditions
+    description: >-
+      Guided photography tours for enthusiasts to capture stunning landscapes
+      and wildlife.
+    icon: /static/icons/camping-tent-svgrepo-com.svg
+  - title: Cultural Immersion
+    description: >-
+      Themed tours that offer a deep understanding of local cultures,
+      traditions, and cuisine.
+    icon: /static/icons/camping-tent-svgrepo-com.svg

@@ -1,15 +1,10 @@
 import SectionContainer from "./common/SectionContainer";
 import PageTitle from "./common/TitleCover";
-import ServiceCard from "./cards/ServiceCard";
+import ServiceCard, { ServiceCardProps } from "./cards/ServiceCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 interface ServiceProps {
-    services: Array<{
-        id: number;
-        title: string;
-        body: string;
-        icon: string;
-    }>;
+    services: Array<ServiceCardProps>;
 }
 
 export default function Service({ services }: ServiceProps) {
@@ -31,9 +26,9 @@ export default function Service({ services }: ServiceProps) {
                     {services.map((service, index) => (
                         <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 p-2">
                             <ServiceCard
-                                key={service.id}
+                                key={index}
                                 title={service.title}
-                                body={service.body}
+                                description={service.description}
                                 icon={service.icon}
                             />
                         </CarouselItem>

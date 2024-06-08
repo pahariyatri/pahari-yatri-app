@@ -4,7 +4,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 
 interface FaqProps {
     faqs: Array<{
-        id: string;
         question: string;
         answer: string;
     }>;
@@ -19,8 +18,8 @@ export default function Faq({ faqs }: FaqProps) {
                 </PageTitle>
             </div>
             <Accordion type="single" collapsible className="w-full">
-                {faqs.map(faq => (
-                    <AccordionItem key={faq.id} value={`item-${faq.id}`}>
+                {faqs.map((faq, index) => (
+                    <AccordionItem key={index} value={`item-${index}`}>
                         <AccordionTrigger>{faq.question}</AccordionTrigger>
                         <AccordionContent>
                             {faq.answer}

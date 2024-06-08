@@ -2,7 +2,7 @@ import Link from "../common/Link";
 import Image from "../common/Image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
-interface PackageCardProps {
+export interface PackageCardProps {
     title: string;
     description: string;
     imageSrc: string;

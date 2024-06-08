@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
-interface BlogCardProps {
+export interface BlogCardProps {
     title: string;
     description: string;
     imageSrc: string;

@@ -19,6 +19,13 @@ export async function generateMetadata({
 }): Promise<Metadata | undefined> {
   const slug = decodeURI(params.slug.join('/'));
   const blog = await reader.collections.blogs.read(slug);
+  const blogData = (blog: { entry: { title: any; excerpt: any; image: any; tags: any; }; slug: any; }) => ({
+    title: blog.entry.title,
+    description: blog.entry.excerpt,
+    imageSrc: `${blog.entry.image}`,
+    href: `/blog/${blog.slug}`,
+    tags: [...blog.entry.tags]
+  });
 
   if (!blog) {
     return undefined;
@@ -26,10 +33,10 @@ export async function generateMetadata({
 
   return {
     title: blog.title,
-    description: blog.description,
+    description: blog.excerpt,
     openGraph: {
       title: blog.title,
-      description: blog.description,
+      description: blog.excerpt,
       siteName: siteMetadata.title,
       locale: 'en_US',
       type: 'article',
@@ -46,7 +53,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: blog.title,
-      description: blog.description,
+      description: blog.excerpt,
       images: [blog.image ?? ""],
     },
   };
@@ -100,7 +107,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         "height": 60,
       },
     },
-    "description": blog.description,
+    "description": blog.excerpt,
   };
 
   return (
@@ -113,7 +120,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="text-center mb-12">
             <PageTitle>{blog.title}</PageTitle>
-            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.description}</p>
+            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
             <div className="mt-4 text-gray-500 dark:text-gray-400">
               <span>By {siteMetadata.author} | {currentDate}</span>
             </div>
@@ -134,21 +141,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Related Articles</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {/* Example of related articles */}
-              <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Trekking in the Andes</h4>
-                <p className="text-gray-600 dark:text-slate-400 mt-2">Discover the beauty of the Andes mountains with our detailed guide.</p>
-                <a href="#" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">Read More</a>
-              </div>
-              <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Safari Adventures in Africa</h4>
-                <p className="text-gray-600 dark:text-slate-400 mt-2">Experience the thrill of a safari adventure with our expert tips.</p>
-                <a href="#" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">Read More</a>
-              </div>
-              <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Exploring the Australian Outback</h4>
-                <p className="text-gray-600 dark:text-slate-400 mt-2">Join us on a journey through the rugged Australian outback.</p>
-                <a href="#" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">Read More</a>
-              </div>
+
             </div>
           </div>
         </div>

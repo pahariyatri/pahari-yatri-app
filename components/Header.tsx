@@ -1,24 +1,27 @@
-import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Link from './common/Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
+import { createReader } from '@keystatic/core/reader'
+import keystaticConfig from '@/keystatic.config'
 
-const Header = () => {
+const reader = createReader(process.cwd(), keystaticConfig);
+const Header = async () => {
+    const config = await reader.singletons.config.read();
     return (
         <header className="flex items-center sticky top-0 z-50 justify-between py-0 sm:py-10">
             <div>
-                <Link href="/" aria-label={siteMetadata.headerTitle}>
+                <Link href="/" aria-label={config?.headerTitle}>
                     <div className="flex items-center justify-between">
                         <div className="mr-3">
                         </div>
-                        {typeof siteMetadata.headerTitle === 'string' ? (
+                        {typeof config?.headerTitle === 'string' ? (
                             <div className="hidden h-6 text-2xl font-semibold sm:block">
-                                {siteMetadata.headerTitle}
+                                {config?.headerTitle}
                             </div>
                         ) : (
-                            siteMetadata.headerTitle
+                            config?.headerTitle
                         )}
                     </div>
                 </Link>

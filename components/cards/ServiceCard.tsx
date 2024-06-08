@@ -1,13 +1,13 @@
 import Image from "../common/Image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 
-interface ServiceCardProps {
+export interface ServiceCardProps {
     title: string;
-    body: string;
+    description: string;
     icon: string;
 }
 
-const ServiceCard = ({ title, body, icon }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
     return (
         <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl h-full">
             <CardContent className="p-4 md:p-6 h-full flex flex-col justify-between">
@@ -17,7 +17,7 @@ const ServiceCard = ({ title, body, icon }: ServiceCardProps) => {
                         <span>{title}</span>
                     </CardTitle>
                     <CardDescription className="mt-2 text-gray-700 dark:text-gray-300 text-sm md:text-base">
-                        {body}
+                        {description}
                     </CardDescription>
                 </div>
             </CardContent>

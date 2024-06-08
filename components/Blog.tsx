@@ -1,16 +1,10 @@
 import SectionContainer from "./common/SectionContainer";
-import BlogCard from "./cards/BlogCard";
+import BlogCard, { BlogCardProps } from "./cards/BlogCard";
 import PageTitle from "./common/TitleCover";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 interface BlogProps {
-    blogs: Array<{
-        title: string;
-        description: string;
-        href: string;
-        imageSrc: string;
-        tags?: string[]
-    }>;
+    blogs: Array<BlogCardProps>;
 }
 
 export default function Blog({ blogs }: BlogProps) {

@@ -9,9 +9,10 @@ export default async function Blog() {
   const blogs = await reader.collections.blogs.all();
   const blogData = blogs.map(blog => ({
     title: blog.entry.title,
-    description: blog.entry.description,
-    imageSrc: `${blog.entry.image}` ?? "",
+    description: blog.entry.excerpt,
+    imageSrc: `${blog.entry.image}`,
     href: `/blog/${blog.slug}`,
+    tags: [...blog.entry.tags]
   }));
   const featuredBlog = blogData[0];
   return (
@@ -39,7 +40,7 @@ export default async function Blog() {
             description={blog.description}
             imageSrc={blog.imageSrc}
             href={blog.href}
-            // tags={blog.tags}
+            tags={blog.tags}
           />
         ))}
       </div>

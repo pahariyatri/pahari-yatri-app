@@ -1,5 +1,8 @@
 import { Metadata } from 'next'
-import siteMetadata from '@/data/siteMetadata'
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '@/keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
 
 interface PageSEOProps {
     title: string
@@ -8,22 +11,24 @@ interface PageSEOProps {
     [key: string]: any
 }
 
-export function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Metadata {
+export async function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Promise<Metadata> {
+    const seo = await reader.singletons.seo.read();
+    const config = await reader.singletons.config.read();
     return {
         title,
         openGraph: {
-            title: `${title} | ${siteMetadata.title}`,
-            description: description || siteMetadata.description,
+            title: `${title} | ${seo?.title}`,
+            description: description || seo?.description,
             url: './',
-            siteName: siteMetadata.title,
-            images: image ? [image] : [siteMetadata.socialBanner],
-            locale: 'en_US',
+            siteName: seo?.title,
+            images: image ? [image] : [seo?.socialBanner || ''],
+            locale: config?.locale,
             type: 'website',
         },
         twitter: {
-            title: `${title} | ${siteMetadata.title}`,
+            title: `${title} | ${seo?.title}`,
             card: 'summary_large_image',
-            images: image ? [image] : [siteMetadata.socialBanner],
+            images: image ? [image] : [seo?.socialBanner || ''],
         },
         ...rest,
     }

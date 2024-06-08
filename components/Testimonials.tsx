@@ -1,14 +1,10 @@
 import SectionContainer from "./common/SectionContainer";
 import PageTitle from "./common/TitleCover";
-import TestimonialCard from "./cards/TestimonialCard";
+import TestimonialCard, { TestimonialCardProps } from "./cards/TestimonialCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 interface TestimonialProps {
-    testimonials: Array<{
-        title: string;
-        body: string;
-        author: string;
-    }>;
+    testimonials: Array<TestimonialCardProps>;
 }
 
 export default function Testimonials({ testimonials }: TestimonialProps) {
@@ -32,7 +28,7 @@ export default function Testimonials({ testimonials }: TestimonialProps) {
                             <TestimonialCard
                                 key={index}
                                 title={testimonial.title}
-                                body={testimonial.body}
+                                description={testimonial.description}
                                 author={testimonial.author}
                             />
                         </CarouselItem>

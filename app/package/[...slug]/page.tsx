@@ -211,14 +211,14 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             </ul>
           </div>
         </div>
-        <div className="mt-16">
+        {/* <div className="mt-16">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Reviews</h3>
           <div className="space-y-6">
             {packageDetails.reviews.map((review, index) => (
               <ReviewCard key={index} name={review.name} comment={review.comment} rating={review.rating}></ReviewCard>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </SectionContainer>
   );
