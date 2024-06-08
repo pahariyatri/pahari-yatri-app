@@ -16,7 +16,7 @@ const packageData = [
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
     price: 1500,
-    duration: '7',
+    duration: 10,
     location: "Switzerland"
   },
   {
@@ -26,7 +26,7 @@ const packageData = [
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
     price: 2000,
-    duration: '10',
+    duration: 10,
     location: "Maldives"
   },
   {
@@ -36,7 +36,7 @@ const packageData = [
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
     price: 1800,
-    duration: '14',
+    duration: 14,
     location: "Various"
   },
   // Add more dummy data as needed

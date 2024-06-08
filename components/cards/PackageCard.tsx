@@ -8,6 +8,8 @@ export interface PackageCardProps {
     imageSrc: string;
     href: string;
     price: number;
+    duration?: number;
+    difficulty?: string;
     location: string;
 }
 
