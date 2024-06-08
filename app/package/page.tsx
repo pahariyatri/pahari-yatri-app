@@ -15,7 +15,7 @@ const packageData = [
     description: "Explore the breathtaking Alps with our guided adventure tour.",
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
-    price: '1500',
+    price: 1500,
     duration: '7',
     location: "Switzerland"
   },
@@ -25,7 +25,7 @@ const packageData = [
     description: "Relax and unwind in a luxurious tropical paradise.",
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
-    price: '2000',
+    price: 2000,
     duration: '10',
     location: "Maldives"
   },
@@ -35,7 +35,7 @@ const packageData = [
     description: "Immerse yourself in the rich cultural heritage of Asia.",
     imageSrc: "/static/images/pahari-yatri-banner.png",
     href: "/package/adventure-trekking",
-    price: '1800',
+    price: 1800,
     duration: '14',
     location: "Various"
   },
