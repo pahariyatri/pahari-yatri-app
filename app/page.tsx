@@ -8,7 +8,7 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 
-import { heroBanner, customizeBanner, categories, accommodations } from "@/data/data";
+import { heroBanner, customizeBanner, categories } from "@/data/data";
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
 
@@ -17,6 +17,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
 export default async function Home() {
   const blogsData = await reader.collections.blogs.all();
   const packageData = await reader.collections.packages.all();
+  const accommodationsData = await reader.collections.accommodations.all();
   const faqsList = await reader.singletons.faqs.readOrThrow();
   const testimonialsList = await reader.singletons.testimonials.readOrThrow();
   const serviceList = await reader.singletons.services.readOrThrow();
@@ -36,6 +37,13 @@ export default async function Home() {
     price: pkg.entry.price ?? 0,
     location: pkg.entry.location,
   }));
+  const accommodations = accommodationsData.map(accommodation => ({
+    name: accommodation.entry.name,
+    description: accommodation.entry.description,
+    imageSrc: accommodation.entry.image || "static/images/default-image.png",
+    href: `/accommodation/${accommodation.slug}`,
+    location: accommodation.entry.location,
+  }))
   const featuredPackages = packageData
     .filter(pkg => pkg.entry.isFeatured === true)
     .map(pkg => ({

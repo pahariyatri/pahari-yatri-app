@@ -13,7 +13,7 @@ interface PageSEOProps {
 
 export async function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Promise<Metadata> {
     const seo = await reader.singletons.seo.read();
-    const config = await reader.singletons.config.read();
+    const settings = await reader.singletons.settings.read();
     return {
         title,
         openGraph: {
@@ -22,7 +22,7 @@ export async function genPageMetadata({ title, description, image, ...rest }: Pa
             url: './',
             siteName: seo?.title,
             images: image ? [image] : [seo?.socialBanner || ''],
-            locale: config?.locale,
+            locale: settings?.locale,
             type: 'website',
         },
         twitter: {

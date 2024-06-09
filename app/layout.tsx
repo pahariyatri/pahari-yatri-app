@@ -1,13 +1,8 @@
 import "./globals.css";
-
-// import 'css/tailwind.css'
-// import 'pliny/search/algolia.css'
-
 import { Space_Grotesk } from 'next/font/google'
 import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
 import Footer from "@/components/Footer";
 import { Analytics, AnalyticsConfig } from "pliny/analytics/index.js";
 import { SearchConfig, SearchProvider } from "pliny/search/index.js";
@@ -22,51 +17,61 @@ const space_grotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteMetadata.siteUrl),
-  title: {
-    default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`,
-  },
-  description: siteMetadata.description,
-  keywords: siteMetadata.keywords,
-  openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: './',
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-    locale: 'en_US',
-    type: 'website',
-  },
-  alternates: {
-    canonical: './',
-    types: {
-      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
+async function getMetadata() {
+  const seo = await reader.singletons.seo.read();
+  const settings = await reader.singletons.settings.read();
+
+  const title = seo?.title ?? 'Pahari Yatri';
+  const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
+  const keywords = seo?.keywords ?? 'default, keywords';
+  const socialBanner = seo?.socialBanner ?? '/default-banner.png';
+  const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
+
+  let metadataBase: URL;
+  try {
+    metadataBase = new URL(siteUrl);
+  } catch (error) {
+    metadataBase = new URL('https://pahariyatri.com');
+  }
+
+  return {
+    metadataBase,
+    title: {
+      default: title,
+      template: `%s | ${title}`,
     },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      url: '/',
+      siteName: title,
+      images: [socialBanner],
+      locale: 'en_US',
+      type: 'website',
     },
-  },
-  twitter: {
-    title: siteMetadata.title,
-    card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
-  },
+    alternates: {
+      canonical: '/',
+      types: {
+        'application/rss+xml': `${siteUrl}/feed.xml`,
+      },
+    },
+    robots: 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1',
+    twitter: {
+      title,
+      card: 'summary_large_image',
+      images: [socialBanner],
+    },
+  };
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const metadata = getMetadata();
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang={siteMetadata.language}
+      lang="en"
       className={`${space_grotesk.variable} scroll-smooth`}
       suppressHydrationWarning
     >
@@ -84,10 +89,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
             <div className="flex flex-col justify-between font-sans">
-              {/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
-                <Header />
+              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+                <Header title={''} />
                 <main className="mb-auto relative">{children}</main>
-              {/* </SearchProvider> */}
+              </SearchProvider>
               <Footer />
             </div>
           </div>

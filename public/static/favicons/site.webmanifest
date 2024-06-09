@@ -1,6 +1,6 @@
 {
-    "name": "Pahari Yatri App",
-    "short_name": "pahariyatri",
+    "name": "Pahari Yatri",
+    "short_name": "PY",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

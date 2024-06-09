@@ -1,18 +1,10 @@
 import SectionContainer from "./common/SectionContainer";
 import PageTitle from "./common/TitleCover";
-import AccommodationCard from "./cards/AccommodationCard";
+import AccommodationCard, { AccommodationCardProps } from "./cards/AccommodationCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
 
 interface AccommodationProps {
-    accommodations: Array<{
-        id: number;
-        name: string;
-        description: string;
-        href: string;
-        imageSrc: string;
-        imageAlt: string;
-        location: string;
-    }>;
+    accommodations: Array<AccommodationCardProps>;
 }
 
 export default function Accommodation({ accommodations }: AccommodationProps) {
@@ -34,8 +26,8 @@ export default function Accommodation({ accommodations }: AccommodationProps) {
                     {accommodations.map((accommodation, index) => (
                         <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-4">
                             <AccommodationCard
-                                key={accommodation.id}
-                                title={accommodation.name}
+                                key={index}
+                                name={accommodation.name}
                                 description={accommodation.description}
                                 imageSrc={accommodation.imageSrc}
                                 href={accommodation.href}

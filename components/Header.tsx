@@ -3,25 +3,25 @@ import Link from './common/Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
-import { createReader } from '@keystatic/core/reader'
-import keystaticConfig from '@/keystatic.config'
 
-const reader = createReader(process.cwd(), keystaticConfig);
-const Header = async () => {
-    const config = await reader.singletons.config.read();
+interface HeaderProps {
+    title: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
     return (
         <header className="flex items-center sticky top-0 z-50 justify-between py-0 sm:py-10">
             <div>
-                <Link href="/" aria-label={config?.headerTitle}>
+                <Link href="/" aria-label={title}>
                     <div className="flex items-center justify-between">
                         <div className="mr-3">
                         </div>
-                        {typeof config?.headerTitle === 'string' ? (
+                        {typeof title === 'string' ? (
                             <div className="hidden h-6 text-2xl font-semibold sm:block">
-                                {config?.headerTitle}
+                                {title}
                             </div>
                         ) : (
-                            config?.headerTitle
+                            title
                         )}
                     </div>
                 </Link>

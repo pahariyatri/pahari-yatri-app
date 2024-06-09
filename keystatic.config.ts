@@ -8,10 +8,11 @@ export default config({
     },
     ui: {
         brand: { name: 'Yatri CMS' },
-        // navigation: {
-        //     'Content': ['packages', 'blogs', 'testimonials', 'faqs', 'tags'],
-        //     'Site Meta data': ['config', 'seo', 'contact'],
-        // },
+        navigation: {
+            'Content': ['packages', 'blogs', 'accommodations', 'tags', 'categories'],
+            'Landing Page': ['services', 'faqs', 'testimonials'],
+            'Site Meta data': ['settings', 'seo', 'contact'],
+        },
     },
     collections: {
         blogs: collection({
@@ -117,11 +118,43 @@ export default config({
         }),
         accommodations: collection({
             label: 'Accommodations',
-            slugField: 'title',
+            slugField: 'name',
             path: 'data/accommodations/*',
             format: { data: 'json' },
             schema: {
+                name: fields.slug({
+                    name: {
+                        label: 'Title', validation: {
+                            isRequired: true,
+                        }
+                    }
+                }),
+                description: fields.text({ label: 'Description', multiline: true }),
+                location: fields.text({ label: 'Location' }),
+                image: fields.image({
+                    label: 'Featured Image', directory: 'public/static/images/accommodations', publicPath: '/static/images/accommodations/', validation: {
+                        isRequired: true,
+                    }
+                }),
+                url: fields.url({
+                    label: 'URL',
+                    description: 'The website URL'
+                })
+            },
+        }),
+        categories: collection({
+            label: 'Categories',
+            slugField: 'title',
+            path: 'data/categories/*',
+            format: { data: 'json' },
+            schema: {
                 title: fields.text({ label: 'Title' }),
+                description: fields.text({ label: 'Description', multiline: true }),
+                image: fields.image({
+                    label: 'Featured Image', directory: 'public/static/images/categories', publicPath: '/static/images/categories/', validation: {
+                        isRequired: true,
+                    }
+                }),
             },
         }),
         tags: collection({
@@ -193,19 +226,27 @@ export default config({
                 author: fields.text({ label: 'Author' }),
                 description: fields.text({ label: 'Description' }),
                 keywords: fields.text({ label: 'Keywords', multiline: true }),
-                socialBanner: fields.text({ label: 'Social Banner' }),
+                socialBanner: fields.image({
+                    label: 'Social Banner', directory: 'public/static/images/seo', publicPath: '/static/images/seo/', validation: {
+                        isRequired: true,
+                    }
+                }),
             }
         }),
-        config: singleton({
-            label: 'Config',
-            path: 'data/config/',
+        settings: singleton({
+            label: 'Settings',
+            path: 'data/settings/',
             schema: {
                 headerTitle: fields.text({ label: 'Header Title' }),
-                siteLogo: fields.text({ label: 'Logo Path' }),
+                logo: fields.image({
+                    label: 'Logo', directory: 'public/static/images', publicPath: '/static/images/', validation: {
+                        isRequired: true,
+                    }
+                }),
                 language: fields.text({ label: 'Language' }),
                 theme: fields.text({ label: 'Theme' }),
                 locale: fields.text({ label: 'Local' }),
-                siteUrl: fields.text({ label: 'siteUrl' }),
+                domain: fields.url({ label: 'Domain' }),
             }
         }),
         contact: singleton({
