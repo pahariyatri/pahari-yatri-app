@@ -24,7 +24,7 @@ async function getMetadata() {
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
   const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
-  const socialBanner = 'https://pahari-yatri-app.vercel.app/api/static' ?? '/default-banner.png';
+  const socialBanner = 'https://pahari-yatri-app.vercel.app/api/og' ?? '/default-banner.png';
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
   let metadataBase: URL;
