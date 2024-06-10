@@ -23,7 +23,7 @@ async function getMetadata() {
 
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
-  const keywords = seo?.keywords ?? 'default, keywords';
+  const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
   const socialBanner = seo?.socialBanner ?? '/default-banner.png';
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
@@ -48,7 +48,7 @@ async function getMetadata() {
       url: '/',
       siteName: title,
       images: [socialBanner],
-      locale: 'en_US',
+      locale: settings?.locale || 'en_US',
       type: 'website',
     },
     alternates: {
@@ -69,9 +69,10 @@ async function getMetadata() {
 export const metadata = getMetadata();
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await reader.singletons.settings.read();
   return (
     <html
-      lang="en"
+      lang={settings?.language || "en-us"}
       className={`${space_grotesk.variable} scroll-smooth`}
       suppressHydrationWarning
     >
@@ -90,7 +91,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
             <div className="flex flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <Header title={''} />
+                <Header title={settings?.headerTitle || "Pahari Yatri"} />
                 <main className="mb-auto relative">{children}</main>
               </SearchProvider>
               <Footer />

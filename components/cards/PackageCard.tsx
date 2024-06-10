@@ -20,7 +20,7 @@ const PackageCard = ({ title, description, imageSrc, href, price, location }: Pa
                 <CardHeader className="relative">
                     <Image src={imageSrc} alt={title} width={500} height={500} className="w-full h-48 object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-4 flex flex-col justify-end">
-                        <h2 className="text-xl font-bold text-white">{title}</h2>
+                        <h3 className="text-xl font-bold text-white">{title}</h3>
                         <p className="text-sm text-gray-300">{location}</p>
                     </div>
                 </CardHeader>

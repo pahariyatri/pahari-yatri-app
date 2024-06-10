@@ -15,7 +15,7 @@ export default function Package({ packages }: PackageProps) {
                     Packages
                 </p>
                 <PageTitle>
-                    Explore Our Unexplored Treks!
+                    Discover Unexplored Himalayan Treks
                 </PageTitle>
                 <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">Join Us For Our Next Advantures
                 </p>

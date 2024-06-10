@@ -1,7 +1,7 @@
 // src/data/data.js
 
 export const heroBanner = {
-    title: "Embark on Your Adventure",
+    title: "Embark on Your Adventure with Pahari Yatri",
     description: "Explore breathtaking trekking and mountaineering experiences",
     buttonText: "Discover Now",
     buttonLink: "/package",

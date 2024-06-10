@@ -148,7 +148,13 @@ export default config({
             path: 'data/categories/*',
             format: { data: 'json' },
             schema: {
-                title: fields.text({ label: 'Title' }),
+                title: fields.slug({
+                    name: {
+                        label: 'Title', validation: {
+                            isRequired: true,
+                        }
+                    }
+                }),
                 description: fields.text({ label: 'Description', multiline: true }),
                 image: fields.image({
                     label: 'Featured Image', directory: 'public/static/images/categories', publicPath: '/static/images/categories/', validation: {
