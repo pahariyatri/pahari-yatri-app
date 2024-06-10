@@ -87,12 +87,12 @@ export default async function Home() {
       <Category categories={categories}></Category>
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       <Service services={services}></Service>
-      <HeroBanner
+      {/* <HeroBanner
         title={customizeBanner.title}
         description={customizeBanner.description}
         buttonText={customizeBanner.buttonText}
         buttonLink={customizeBanner.buttonLink}
-      />
+      /> */}
       <Accommodation accommodations={accommodations}></Accommodation>
       <Blog blogs={blogs}></Blog>
       <Testimonials testimonials={testimonials}></Testimonials>
