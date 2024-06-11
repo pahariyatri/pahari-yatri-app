@@ -114,7 +114,7 @@ export default config({
                         label: 'Exclusions',
                         itemLabel: props => props.value
                     }
-                )
+                ),
             },
         }),
         accommodations: collection({
