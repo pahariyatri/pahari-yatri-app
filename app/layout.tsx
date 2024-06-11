@@ -10,6 +10,7 @@ import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 
 const reader = createReader(process.cwd(), keystaticConfig);
+const currentDate = new Date().toDateString();
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -24,7 +25,7 @@ async function getMetadata() {
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
   const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
-  const socialBanner = 'https://pahari-yatri-app.vercel.app/api/og' ?? '/default-banner.png';
+  const socialBanner = `${settings?.domain}/api/og` ?? settings?.logo;
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
   let metadataBase: URL;
@@ -70,6 +71,41 @@ export const metadata = getMetadata();
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await reader.singletons.settings.read();
+  const seo = await reader.singletons.seo.read();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": `${settings?.domain}`,
+    "name": seo?.title || "Pahari Yatri",
+    "description": seo?.description || "Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.",
+    "publisher": {
+      "@type": "Organization",
+      "name": siteMetadata.title,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteMetadata.siteUrl}/static/logo.png`,
+        "width": 600,
+        "height": 60,
+      },
+    },
+    "image": {
+      "@type": "ImageObject",
+      "url": `${settings?.domain}/api/og`,
+      "width": 800,
+      "height": 400,
+    },
+    "author": {
+      "@type": "Person",
+      "name": siteMetadata.author,
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${settings?.domain}`,
+    },
+    "datePublished": currentDate,
+    "dateModified": currentDate,
+  };
+
   return (
     <html
       lang={settings?.language || "en-us"}
@@ -85,19 +121,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
             <div className="flex flex-col justify-between font-sans">
-              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <Header title={settings?.headerTitle || "Pahari Yatri"} />
-                <main className="mb-auto relative">{children}</main>
-              </SearchProvider>
+              {/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
+              <Header title={settings?.headerTitle || "Pahari Yatri"} />
+              <main className="mb-auto relative">{children}</main>
+              {/* </SearchProvider> */}
               <Footer />
             </div>
           </div>
         </ThemeProviders>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   )

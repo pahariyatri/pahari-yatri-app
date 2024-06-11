@@ -232,11 +232,6 @@ export default config({
                 author: fields.text({ label: 'Author' }),
                 description: fields.text({ label: 'Description' }),
                 keywords: fields.text({ label: 'Keywords', multiline: true }),
-                socialBanner: fields.image({
-                    label: 'Social Banner', directory: 'public/static/images/seo', publicPath: '/static/images/seo/', validation: {
-                        isRequired: true,
-                    }
-                }),
             }
         }),
         settings: singleton({
