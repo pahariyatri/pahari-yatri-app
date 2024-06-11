@@ -25,7 +25,7 @@ async function getMetadata() {
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
   const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
-  const socialBanner = `${settings?.domain}/api/og` ?? settings?.logo;
+  const socialBanner = `https://pahari-yatri-app.vercel.app/api/og` ?? settings?.logo;
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
   let metadataBase: URL;
@@ -90,7 +90,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     },
     "image": {
       "@type": "ImageObject",
-      "url": `${settings?.domain}/api/og`,
+      "url": `https://pahari-yatri-app.vercel.app/api/og`,
       "width": 800,
       "height": 400,
     },
