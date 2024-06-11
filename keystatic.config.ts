@@ -79,6 +79,7 @@ export default config({
                 }),
                 itinerary: fields.array(
                     fields.object({
+                        day: fields.number({ label: "Day" }),
                         title: fields.text({ label: 'Title' }),
                         description: fields.text({ label: 'Description', multiline: true }),
                     }),
