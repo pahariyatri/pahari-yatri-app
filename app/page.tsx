@@ -27,7 +27,7 @@ export default async function Home() {
     title: blog.entry.title,
     description: blog.entry.excerpt,
     href: `/blog/${blog.slug}`,
-    imageSrc: blog.entry.image || "static/images/default-image.png",
+    imageSrc: blog.entry.image || "`https://pahari-yatri-app.vercel.app/api/og?title='Pahari Yatri`",
     tags: [...blog.entry.tags]
   }));
   const packages = packageData.map(pkg => ({
@@ -41,7 +41,7 @@ export default async function Home() {
   const accommodations = accommodationsData.map(accommodation => ({
     name: accommodation.entry.name,
     description: accommodation.entry.description,
-    imageSrc: accommodation.entry.image || "static/images/default-image.png",
+    imageSrc: accommodation.entry.image || `https://pahari-yatri-app.vercel.app/api/og?title='Pahari Yatri`,
     href: `/accommodation/${accommodation.slug}`,
     location: accommodation.entry.location,
   }))
