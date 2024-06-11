@@ -4,7 +4,6 @@ import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import Footer from "@/components/Footer";
-import { Analytics, AnalyticsConfig } from "pliny/analytics/index.js";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 
@@ -123,7 +122,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
-          <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+          {/* <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} /> */}
           <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
             <div className="flex flex-col justify-between font-sans">
               {/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
