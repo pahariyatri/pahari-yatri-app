@@ -61,9 +61,11 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = decodeURI(params.slug);
+  console.log('Slug in Page:', slug);
   const blog = await reader.collections.blogs.read(slug);
 
   if (!blog) {
+    console.warn(`No blog found for slug: ${slug}`);
     return <div>No Post Found</div>;
   }
 

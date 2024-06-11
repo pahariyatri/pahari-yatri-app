@@ -1,3 +1,4 @@
+import Image from '@/components/common/Image';
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
@@ -41,13 +42,9 @@ export async function GET(request: Request) {
                             justifyItems: 'center',
                         }}
                     >
-                        <img
-                            alt="Vercel"
-                            height={200}
-                            src="https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg"
-                            style={{ margin: '0 30px' }}
-                            width={200}
-                        />
+                        <Image src={'https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg'}
+                            alt='Pahari yatri' height={200} width={200} style={{ margin: '0 30px' }}>
+                        </Image>
                     </div>
                     <div
                         style={{
