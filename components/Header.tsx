@@ -2,7 +2,7 @@ import headerNavLinks from '@/data/headerNavLinks'
 import Link from './common/Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
-import SearchButton from './SearchButton'
+import { DektopNav } from './DesktopNav';
 
 interface HeaderProps {
     title: string;
@@ -27,17 +27,9 @@ const Header = ({ title }: HeaderProps) => {
                 </Link>
             </div >
             <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-                {headerNavLinks
-                    .map((link) => (
-                        <Link
-                            key={link.title}
-                            href={link.href}
-                            className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
-                        >
-                            {link.title}
-                        </Link>
-                    ))}
-                {/* <SearchButton /> */}
+                <div className="hidden sm:block">
+                    <DektopNav></DektopNav>
+                </div>
                 <ThemeSwitch />
                 <MobileNav />
             </div>

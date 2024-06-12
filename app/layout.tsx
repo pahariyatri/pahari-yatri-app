@@ -121,6 +121,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProviders>
           {/* <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} /> */}
           <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
@@ -133,10 +137,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </ThemeProviders>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </body>
     </html>
   )
