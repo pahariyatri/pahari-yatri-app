@@ -21,7 +21,7 @@ export default function ContactUsButton() {
         <Sheet>
             <SheetTrigger asChild>
                 <div className="fixed bottom-4 right-4 z-50 animate-pulse">
-                    <Image src={'/static/contact.jpg'} height={60} width={60} alt="" className="rounded-full" />
+                    <Image src={'/static/logo.jpg'} height={60} width={60} alt="" className="rounded-full" />
                 </div>
             </SheetTrigger>
             <SheetContent className="w-full sm:w-[90%] md:w-[80%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]">
