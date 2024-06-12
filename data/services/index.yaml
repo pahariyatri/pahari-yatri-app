@@ -40,8 +40,10 @@ data:
       Airport transfers
       On-ground transportation (4x4 vehicles, buses)
       Porter services
+    icon: /static/icons/camping-tent-svgrepo-com.svg
   - title: Meals
     description: |-
       Full-board options (breakfast, lunch, dinner)
       Packed lunches for day hikes
       Specialized dietary options (vegetarian, vegan, gluten-free)
+    icon: /static/icons/camping-tent-svgrepo-com.svg
