@@ -24,7 +24,7 @@ export default function Service({ services }: ServiceProps) {
             <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">
                 <CarouselContent className="-ml-2 md:ml-0">
                     {services.map((service, index) => (
-                        <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 p-2">
+                        <CarouselItem key={index} className=" md:basis-1/2 lg:basis-1/3 p-2">
                             <ServiceCard
                                 key={index}
                                 title={service.title}

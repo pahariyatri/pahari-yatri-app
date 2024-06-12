@@ -10,15 +10,20 @@ export interface ServiceCardProps {
 const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
     return (
         <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl h-full">
+            <CardHeader className="flex flex-col items-center p-4 md:p-6">
+                <Image src={icon} alt={`icon-${title}`} height={50} width={50} className="rounded-full mb-4" />
+                <CardTitle className="text-xl md:text-2xl font-bold text-center">
+                    {title}
+                </CardTitle>
+            </CardHeader>
             <CardContent className="p-4 md:p-6 h-full flex flex-col justify-between">
-                <div className="text-start">
-                    <CardTitle className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center space-x-3">
-                        <Image src={icon} alt={`icon-${title}`} height={40} width={40}></Image>
-                        <span>{title}</span>
-                    </CardTitle>
-                    <CardDescription className="mt-2 text-gray-700 dark:text-gray-300 text-sm md:text-base">
-                        {description}
-                    </CardDescription>
+                <CardDescription className="mt-2 text-center text-sm md:text-base">
+                    {description}
+                </CardDescription>
+                <div className="mt-4 flex justify-center">
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition-colors">
+                        Learn More
+                    </button>
                 </div>
             </CardContent>
         </Card>
