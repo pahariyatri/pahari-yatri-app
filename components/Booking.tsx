@@ -7,7 +7,9 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 export default function Booking() {
     return (
         <Sheet>
-            <SheetTrigger asChild><Button className="w-full py-3 px-6 font-bold rounded-lg"> Book Now</Button></SheetTrigger>
+            <SheetTrigger asChild>
+                <Button className="w-full py-3 px-6 font-bold rounded-lg"> Book Now</Button>
+            </SheetTrigger>
             <SheetContent className="w-[360px] sm:w-[450px]">
                 <SheetHeader>
                     <SheetTitle>Book Your Trek</SheetTitle>
