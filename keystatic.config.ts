@@ -26,10 +26,21 @@ export default config({
                     name: {
                         label: 'Title', validation: {
                             isRequired: true,
+                            length: {
+                                min: 50,
+                                max: 60
+                            }
                         }
                     }
                 }),
-                excerpt: fields.text({ label: 'Excerpt', multiline: true }),
+                excerpt: fields.text({
+                    label: 'Excerpt', multiline: true, validation: {
+                        length: {
+                            min: 150,
+                            max: 160
+                        }
+                    }
+                }),
                 tags: fields.array(
                     fields.relationship({
                         label: 'Tags',
