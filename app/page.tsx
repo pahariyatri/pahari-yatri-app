@@ -57,7 +57,7 @@ export default async function Home() {
     }))
   const categories = categoryData.filter(category => category.entry.title !== null).map(category => ({
     title: category.entry.title,
-    href: `/package/${category.slug}`,
+    href: `/package?category=${category.slug}`,
     imageSrc: category.entry.image
   }))
   const faqs = faqsList.faqs.map(faq => ({

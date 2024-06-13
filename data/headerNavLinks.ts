@@ -8,11 +8,7 @@ const headerNavLinks = [
         ]
     },
     {
-        href: '/blog', title: 'Blog', submenu: [
-            { href: '/blog/news', title: 'News', description: '' },
-            { href: '/blog/tutorials', title: 'Tutorials', description: '' },
-            { href: '/blog/reviews', title: 'Reviews', description: '' },
-        ]
+        href: '/blog', title: 'Blog',
     },
     { href: '/about-us', title: 'About Us' },
 ];
