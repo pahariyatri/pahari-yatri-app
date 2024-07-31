@@ -36,7 +36,9 @@ const Header = ({ title }: HeaderProps) => {
                     <DektopNav></DektopNav>
                 </div>
                 <ThemeSwitch />
-                <MobileNav />
+                <div className="sm:hidden">
+                    <MobileNav />
+                </div>
             </div>
         </header >
     )

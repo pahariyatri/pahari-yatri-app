@@ -1,3 +1,4 @@
+import AboutUs from "@/components/AboutUs";
 import Accommodation from "@/components/Accommodation";
 import Blog from "@/components/Blog";
 import Category from "@/components/Category";
@@ -87,6 +88,7 @@ export default async function Home() {
       <Category categories={categories}></Category>
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       <Service services={services}></Service>
+      <AboutUs></AboutUs>
       <Accommodation accommodations={accommodations}></Accommodation>
       <Blog blogs={blogs}></Blog>
       <Testimonials testimonials={testimonials}></Testimonials>
