@@ -6,4 +6,44 @@ excerpt: >-
   region. 
 isFeatured: true
 image: /static/images/packages/manimahesh-kailash-yatra/image.jpg
-itinerary: []
+itinerary:
+  - day: 1
+    title: Arrival and Briefing in Bharmour
+    description: >-
+      Arrive in Bharmour and check into a cozy homestay. Receive a personalized
+      welcome and detailed briefing about the Manimahesh Yatra. Spend the
+      evening exploring the local culture and relaxing in the serene
+      environment. Overnight stay in Bharmour.
+  - day: 2
+    title: Trek to Dhancho
+    description: >-
+      Drive from Bharmour to Hadsar, the starting point of the trek. Begin your
+      trek to Dhancho, passing through lush green meadows and picturesque
+      landscapes. Enjoy personalized services with regular breaks and
+      refreshments. Overnight camping at Dhancho with high-quality trekking
+      gear.
+  - day: 3
+    title: Trek to Manimahesh Lake
+    description: >-
+      Continue your trek to Manimahesh Lake, navigating a challenging yet
+      rewarding route. Professional trekking companions ensure your safety and
+      comfort. Marvel at the stunning views and experience the spiritual
+      ambiance of the sacred lake. Overnight camping near Manimahesh Lake with
+      state-of-the-art mountaineering gear.
+  - day: 4
+    title: Return to Dhancho
+    description: >-
+      Start your descent back to Dhancho in the morning. Enjoy the scenic beauty
+      and tranquility of the Himalayas as you trek back. Relive the moments of
+      the past days and capture the beauty of the untouched trails. Camp
+      overnight at Dhancho.
+  - day: 5
+    title: Return to Hadsar and Departure
+    description: >-
+      Trek back to Hadsar with your guides. Enjoy a farewell lunch and share
+      your experiences with fellow adventurers. Drive back to Bharmour for your
+      onward journey, leaving with unforgettable trekking memories and a sense
+      of spiritual fulfillment.
+price: 13500
+duration: 5
+location: Chamba, Himachal Pradesh
