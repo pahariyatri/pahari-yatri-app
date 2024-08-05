@@ -1,13 +1,55 @@
 title: Shrikhand Mahadev Yatra
 excerpt: >-
-  Embark on a sacred pilgrimage to the revered Shrikhand Mahadev peak in the
-  Himalayas. The journey to this holy site is not just a physical trek but a
-  spiritual quest, where devotees seek blessings and enlightenment. 
+  In the realm of the majestic Himalayas, Shrikhand Mahadev stood tall, believed
+  to be the sacred abode of Lord Shiva. Its lofty peak beckoned pilgrims and
+  adventurers, challenging them to embark on a transformative journey
 isFeatured: true
-image: /static/images/packages/shrikhand-mahadev-yatra/image.png
-itinerary: []
-price: 111
-location: Kullu , Himachal Pradesh
-difficulty: easy
-inclusions: []
-exclusions: []
+image: /static/images/packages/shrikhand-mahadev-yatra/image.jpg
+itinerary:
+  - day: 1
+    title: Arrival and Briefing in Rampur
+    description: >-
+      Arrive in Rampur and check into a cozy homestay. Enjoy a personalized
+      welcome and detailed briefing about the Shrikhand Mahadev trek. Spend the
+      evening exploring the local culture of Rampur and relaxing in the peaceful
+      surroundings. Overnight stay in Rampur.
+  - day: 2
+    title: Journey to Jaon Village
+    description: >-
+      After a hearty breakfast, drive to Jaon Village, the starting point of the
+      trek. Meet your certified trekking guides and prepare for the adventure
+      ahead. Gear check and distribution of top-notch safety equipment will
+      ensure a safe and enjoyable trek. Overnight stay in a homestay in Jaon
+      Village.
+  - day: 3
+    title: Trek to Thachru
+    description: >-
+      Begin your trek early morning towards Thachru. Trek through dense forests
+      and picturesque meadows, enjoying personalized services with regular
+      breaks and refreshments. Experience the beauty of untouched nature.
+      Overnight camping at Thachru with high-quality trekking gear.
+  - day: 4
+    title: Thachru to Bhim Dwar
+    description: >-
+      Continue your trek to Bhim Dwar, navigating a challenging yet rewarding
+      route. Professional trekking companions ensure your safety and comfort
+      throughout the journey. Marvel at the stunning views and experience the
+      thrill of exploring off-the-beaten-path trekking destinations. Camp
+      overnight at Bhim Dwar with state-of-the-art mountaineering gear.
+  - day: 5
+    title: 'Summit Day: Shrikhand Mahadev'
+    description: >-
+      Start early for the ascent to Shrikhand Mahadev Summit. Reach the peak
+      with the guidance of expert adventure leaders and spend time soaking in
+      the spiritual and scenic beauty of the summit. Descend back to Bhim Dwar
+      for an overnight stay, reflecting on the day's remarkable achievements.
+  - day: 6
+    title: Return to Jaon Village and Departure
+    description: >-
+      Trek back to Jaon Village with your guides. Enjoy a farewell lunch and
+      share your trekking experiences with fellow adventurers. Drive back to
+      Rampur for your onward journey, leaving with unforgettable trekking
+      memories and a sense of accomplishment.
+price: 15500
+duration: 6
+location: Kullu, Himachal Pradesh

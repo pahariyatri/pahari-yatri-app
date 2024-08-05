@@ -82,8 +82,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       "name": `Day ${item.day}: ${item.title}`
     })),
     "touristType": "Adventurous travelers",
-    "inclusion": getPackageDetails?.inclusions,
-    "exclusion": getPackageDetails?.exclusions,
+    // "inclusion": getPackageDetails?.inclusions,
+    // "exclusion": getPackageDetails?.exclusions,
     "location": {
       "@type": "Place",
       "name": getPackageDetails?.location
@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       "@type": "Duration",
       "name": getPackageDetails?.duration
     },
-    "difficulty": getPackageDetails?.difficulty,
+    // "difficulty": getPackageDetails?.difficulty,
     "datePublished": new Date().toISOString(),
     "dateModified": new Date().toISOString(),
     "author": {
@@ -134,7 +134,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
                 <li className="text-gray-900 dark:text-white"><strong>Price:</strong> {getPackageDetails.price}</li>
                 <li className="text-gray-900 dark:text-white"><strong>Duration:</strong> {getPackageDetails.duration}</li>
                 <li className="text-gray-900 dark:text-white"><strong>Location:</strong> {getPackageDetails.location}</li>
-                <li className="text-gray-900 dark:text-white"><strong>Difficulty:</strong> {getPackageDetails.difficulty}</li>
+                {/* <li className="text-gray-900 dark:text-white"><strong>Difficulty:</strong> {getPackageDetails.difficulty}</li> */}
               </ul>
             </div>
             <div className="mt-6">
@@ -155,7 +155,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             ))}
           </Accordion>
         </div>
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Inclusions</h3>
             <ul className="space-y-2 list-disc list-inside text-gray-900 dark:text-white">
@@ -172,7 +172,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
         {/* <div>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-6">Gallery</h3>
           <Gallery></Gallery>

@@ -102,30 +102,30 @@ export default config({
                 price: fields.number({ label: 'Price' }),
                 duration: fields.integer({ label: 'Duration' }),
                 location: fields.text({ label: 'Location' }),
-                difficulty: fields.select({
-                    label: 'Difficulty',
-                    description: "The person's difficulty at the company",
-                    options: [
-                        { label: 'Easy', value: 'easy' },
-                        { label: 'Modrate', value: 'developer' },
-                        { label: 'Product manager', value: 'product-manager' },
-                    ],
-                    defaultValue: 'easy'
-                }),
-                inclusions: fields.array(
-                    fields.text({ label: 'Inclusions' }),
-                    {
-                        label: 'Inclusions',
-                        itemLabel: props => props.value
-                    }
-                ),
-                exclusions: fields.array(
-                    fields.text({ label: 'Exclusions' }),
-                    {
-                        label: 'Exclusions',
-                        itemLabel: props => props.value
-                    }
-                ),
+                // difficulty: fields.select({
+                //     label: 'Difficulty',
+                //     description: "The person's difficulty at the company",
+                //     options: [
+                //         { label: 'Easy', value: 'easy' },
+                //         { label: 'Modrate', value: 'developer' },
+                //         { label: 'Product manager', value: 'product-manager' },
+                //     ],
+                //     defaultValue: 'easy'
+                // }),
+                // inclusions: fields.array(
+                //     fields.text({ label: 'Inclusions' }),
+                //     {
+                //         label: 'Inclusions',
+                //         itemLabel: props => props.value
+                //     }
+                // ),
+                // exclusions: fields.array(
+                //     fields.text({ label: 'Exclusions' }),
+                //     {
+                //         label: 'Exclusions',
+                //         itemLabel: props => props.value
+                //     }
+                // ),
             },
         }),
         accommodations: collection({
