@@ -7,6 +7,9 @@ export default function AboutUs() {
     return (
         <SectionContainer>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-20">
+                <div className='flex items-center justify-center'>
+                    <Image src={"/static/images/pahari-yatri-banner.png"} alt={"Pahari Yatri About Us Image"} height={500} width={500} className="rounded-lg object-cover h-72 w-72 shadow-lg"></Image>
+                </div>
                 <div>
                     <PageTitle>
                         About Us
@@ -18,9 +21,7 @@ export default function AboutUs() {
                         {'Read more'}
                     </Link>
                 </div>
-                <div className='flex items-center justify-center'>
-                    <Image src={"/static/images/pahari-yatri-banner.png"} alt={"Pahari Yatri About Us Image"} height={500} width={500} className="rounded-lg object-cover h-72 w-72 shadow-lg"></Image>
-                </div>
+
             </div>
         </SectionContainer>
     );
