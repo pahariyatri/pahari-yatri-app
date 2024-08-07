@@ -131,8 +131,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{getPackageDetails.title}</h2>
               <p className="mt-4 text-gray-600 dark:text-slate-400">{getPackageDetails.excerpt}</p>
               <ul className="mt-6 space-y-4">
-                <li className="text-gray-900 dark:text-white"><strong>Price:</strong> {getPackageDetails.price}</li>
-                <li className="text-gray-900 dark:text-white"><strong>Duration:</strong> {getPackageDetails.duration}</li>
+                <li className="text-gray-900 dark:text-white"><strong>Price:</strong> {getPackageDetails.price} INR</li>
+                <li className="text-gray-900 dark:text-white"><strong>Duration:</strong> {getPackageDetails.duration} Days</li>
                 <li className="text-gray-900 dark:text-white"><strong>Location:</strong> {getPackageDetails.location}</li>
                 {/* <li className="text-gray-900 dark:text-white"><strong>Difficulty:</strong> {getPackageDetails.difficulty}</li> */}
               </ul>

@@ -1,0 +1,44 @@
+title: ' Mural Danda '
+excerpt: >-
+  Embark on a journey that echoes with the tales of ancient times, where kings
+  once ventured for royal hunts and the mystical charm of medicinal plants
+  lingers in the air. Ethereal realm of Aatma Yum Lok and reveals the
+  mesmerizing valleys of Rohru .
+isFeatured: false
+image: /static/images/packages/mural-danda/image.jpg
+itinerary:
+  - day: 1
+    title: Departure from Shimla to Sungri
+    description: >-
+      Depart from Shimla in the morning for a scenic 100 km drive to Sungri.
+      Arrive in Sungri, set up camp, and enjoy the serene environment. Overnight
+      stay at Sungri, preparing for the adventure ahead.
+  - day: 2
+    title: Trek to Batbamni Ka Kola
+    description: >-
+      Begin the trek from Sungri to Batbamni Ka Kola, covering a distance of 3
+      km. Trek through picturesque landscapes, enjoying the natural beauty and
+      tranquility. Set up camp and overnight stay at Batbamni Ka Kola.
+  - day: 3
+    title: Trek to Mural Danda Base Camp
+    description: >-
+      Continue the trek from Batbamni Ka Kola to Mural Danda Base Camp.
+      Experience a gradual increase in altitude as you reach the base camp,
+      covering a distance of 5 km. Set up camp and overnight stay at Mural Danda
+      Base Camp.
+  - day: 4
+    title: 'Summit Day: Mural Danda Peak'
+    description: >-
+      Early morning trek to Mural Danda Peak, reaching the summit at an altitude
+      of 4,100 meters (13,451 feet). Enjoy panoramic views and have lunch at the
+      peak. Descend to the base camp and trek back to Batbamni Ka Kola for an
+      overnight stay.
+  - day: 5
+    title: Trek Back to Sungri and Departure to Shimla
+    description: >-
+      Trek back to Sungri from Batbamni Ka Kola, enjoying the scenic beauty and
+      reflecting on the journey. Depart for Shimla, concluding the trek with
+      cherished memories of the adventure.
+price: 10500
+duration: 6
+location: Shimla, Himachal Pradesh
