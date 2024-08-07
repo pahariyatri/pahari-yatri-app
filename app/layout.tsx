@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import ContactUsButton from "@/components/ContactUsButton";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 const currentDate = new Date().toDateString();
@@ -134,7 +135,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Header title={settings?.headerTitle || "Pahari Yatri"} />
               <main className="mb-auto relative">{children}</main>
               {/* </SearchProvider> */}
-              <ContactUsButton></ContactUsButton>
+              {/* <ContactUsButton></ContactUsButton> */}
+              <WhatsAppButton></WhatsAppButton>
               <Footer />
             </div>
           </div>
