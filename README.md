@@ -53,6 +53,7 @@ To get started with Pahari Yatri, follow these steps:
 - **Next.js:** A React framework for building server-side rendered and static web applications.
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
 - **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
+- **Keystatic:** A JavaScript based CMS for backend.
 
 ---
 
