@@ -21,14 +21,14 @@ export async function genPageMetadata({ title, description, image, ...rest }: Pa
             description: description || seo?.description,
             url: './',
             siteName: seo?.title,
-            images: image ? [image] : ['https://pahari-yatri-app.vercel.app/api/og' || ''],
+            images: image ? [image] : ['https://pahariyatri.com/api/og' || ''],
             locale: settings?.locale,
             type: 'website',
         },
         twitter: {
             title: `${title} | ${seo?.title}`,
             card: 'summary_large_image',
-            images: image ? [image] : ['https://pahari-yatri-app.vercel.app/api/og' || ''],
+            images: image ? [image] : ['https://pahariyatri.com/api/og' || ''],
         },
         ...rest,
     }
