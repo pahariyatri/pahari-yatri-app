@@ -17,7 +17,7 @@ export async function generateMetadata({
   const slug = decodeURI(params.slug.join('/'));
   const seo = await reader.singletons.seo.read();
   const settings = await reader.singletons.settings.read();
-  const getPackageDetails = await reader.collections.packages.read(slug);
+  const getPackageDetails = (await reader.collections.packages.all()).find((pkg=> pkg.slug == slug))?.entry;
   return {
     title: getPackageDetails?.title,
     description: getPackageDetails?.excerpt,
@@ -50,8 +50,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const slug = decodeURI(params.slug.join('/'));
   const seo = await reader.singletons.seo.read();
   const settings = await reader.singletons.settings.read();
-  const getPackageDetails = await reader.collections.packages.read(slug);
-
+  const getPackageDetails = await (await reader.collections.packages.all()).find((pkg => pkg.slug == slug))?.entry;
   if (!getPackageDetails) {
     return undefined;
   }
