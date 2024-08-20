@@ -18,6 +18,7 @@ export async function generateMetadata({
   params: { slug: string[] }
 }): Promise<Metadata | undefined> {
   const slug = decodeURI(params.slug.join('/'));
+  console.log(`Fetching blog with slug: ${slug}`);
   const blog = await reader.collections.blogs.read(slug);
   const blogData = (blog: { entry: { title: any; excerpt: any; image: any; tags: any; }; slug: any; }) => ({
     title: blog.entry.title,
