@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (!blog) {
     console.warn(`No blog found for slug: ${slug}`);
-    return <div>No Post Found</div>;
+    return <div>No Post Found: ${slug}, ${blog}</div>;
   }
 
   const { node } = await blog.content();
