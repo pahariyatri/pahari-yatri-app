@@ -3,14 +3,12 @@ import SectionContainer from "@/components/common/SectionContainer";
 export default function About() {
   return (
     <SectionContainer>
-      <div className="flex flex-col items-center justify-center p-8">
-        <header className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 ">Quick Contact</h2>
+      <div className="flex flex-col items-center justify-center">
+        <div className="mb-12">
+          <h2 className="text-3xl mb-6 font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">Quick Contact</h2>
           <p className="text-lg ">Get in touch with us quickly and easily.</p>
-        </header>
-
+        </div>
         <div className="flex flex-col md:flex-row justify-between items-start w-full gap-8">
-
           {/* Contact Details Column */}
           <div className="w-full md:w-1/2 flex flex-col p-6 rounded-lg shadow-lg">
             <h3 className="text-2xl font-semibold mb-4">Our Address</h3>
@@ -28,7 +26,7 @@ export default function About() {
           <div className="w-full md:w-1/2 flex flex-col gap-6">
             {/* WhatsApp Contact */}
             <a
-              href="https://wa.me/yourwhatsappnumber"
+              href="https://wa.me/6280888188"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center bg-green-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-green-600"
@@ -77,6 +75,18 @@ export default function About() {
                 <img
                   src="/icons/instagram.svg"
                   alt="Instagram"
+                  className="w-6 h-6"
+                />
+              </a>
+              <a
+                href="https://twitter.com/pahariyatri"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-400 text-white p-3 rounded-full shadow-lg hover:bg-blue-500"
+              >
+                <img
+                  src="/icons/twitter.svg"
+                  alt="Twitter"
                   className="w-6 h-6"
                 />
               </a>
