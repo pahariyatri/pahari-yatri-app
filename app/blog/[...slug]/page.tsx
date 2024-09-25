@@ -65,14 +65,14 @@ const currentDate = new Date().toDateString();
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = decodeURI(params.slug);
   console.log('Slug in Page:', slug);
-  const blog = await reader.collections.blogs.read(slug);
+  const blog = (await reader.collections.blogs.all()).find(blog => blog.slug === slug);
 
   if (!blog) {
     console.warn(`No blog found for slug: ${slug}`);
     return <div>No Post Found</div>;
   }
 
-  const { node } = await blog.content();
+  const { node } = await blog.entry.content();
   const errors = Markdoc.validate(node);
   if (errors.length) {
     console.error(errors);
@@ -80,64 +80,64 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
   const renderable = Markdoc.transform(node);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${siteMetadata.siteUrl}/blog/${slug}`,
-    },
-    "headline": blog.title,
-    "image": [
-      {
-        "@type": "ImageObject",
-        "url": blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
-        "width": 800,
-        "height": 400,
-      },
-    ],
-    "datePublished": currentDate,
-    "dateModified": currentDate,
-    "author": {
-      "@type": "Person",
-      "name": siteMetadata.author,
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": siteMetadata.title,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${siteMetadata.siteUrl}/static/logo.png`,
-        "width": 600,
-        "height": 60,
-      },
-    },
-    "description": blog.excerpt,
-  };
+  // const jsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Article",
+  //   "mainEntityOfPage": {
+  //     "@type": "WebPage",
+  //     "@id": `${siteMetadata.siteUrl}/blog/${slug}`,
+  //   },
+  //   "headline": blog.title,
+  //   "image": [
+  //     {
+  //       "@type": "ImageObject",
+  //       "url": blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
+  //       "width": 800,
+  //       "height": 400,
+  //     },
+  //   ],
+  //   "datePublished": currentDate,
+  //   "dateModified": currentDate,
+  //   "author": {
+  //     "@type": "Person",
+  //     "name": siteMetadata.author,
+  //   },
+  //   "publisher": {
+  //     "@type": "Organization",
+  //     "name": siteMetadata.title,
+  //     "logo": {
+  //       "@type": "ImageObject",
+  //       "url": `${siteMetadata.siteUrl}/static/logo.png`,
+  //       "width": 600,
+  //       "height": 60,
+  //     },
+  //   },
+  //   "description": blog.excerpt,
+  // };
 
   return (
     <>
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      /> */}
       <SectionContainer>
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="text-center mb-12">
-            <PageTitle>{blog.title}</PageTitle>
-            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
+            <PageTitle>{blog.entry.title}</PageTitle>
+            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.entry.excerpt}</p>
             <div className="mt-4 text-gray-500 dark:text-gray-400">
               <span>By {siteMetadata.author} | {currentDate}</span>
             </div>
           </div>
           <div className="relative w-full h-96 mb-12">
-            <Image
+            {/* <Image
               src={blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`}
               alt={blog.title}
               width={800}
               height={400}
               className="rounded-lg object-cover w-full h-full"
-            />
+            /> */}
           </div>
           <div className="prose prose-lg max-w-none dark:prose-dark">
             {Markdoc.renderers.react(renderable, React)}
