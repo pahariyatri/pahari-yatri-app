@@ -21,14 +21,14 @@ export async function genPageMetadata({ title, description, image, ...rest }: Pa
             description: description || seo?.description,
             url: './',
             siteName: seo?.title,
-            images: image ? [image] : ['https://pahariyatri.com/api/og' || ''],
+            images: image ? [image] : ['https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg' || ''],
             locale: settings?.locale,
             type: 'website',
         },
         twitter: {
             title: `${title} | ${seo?.title}`,
             card: 'summary_large_image',
-            images: image ? [image] : ['https://pahariyatri.com/api/og' || ''],
+            images: image ? [image] : ['https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg' || ''],
         },
         ...rest,
     }
