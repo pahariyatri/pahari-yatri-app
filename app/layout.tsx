@@ -25,7 +25,7 @@ async function getMetadata() {
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
   const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
-  const socialBanner = `https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg` ?? settings?.logo;
+  const socialBanner = `https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpahari-yatri-banner.png&w=640&q=75` ?? settings?.logo;
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
   let metadataBase: URL;
@@ -90,7 +90,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     },
     "image": {
       "@type": "ImageObject",
-      "url": `https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg`,
+      "url": `https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpahari-yatri-banner.png&w=640&q=75`,
       "width": 800,
       "height": 400,
     },
