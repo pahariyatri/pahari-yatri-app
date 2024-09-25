@@ -12,55 +12,55 @@ const reader = createReader(process.cwd(), keystaticConfig);
 
 const currentDate = new Date().toDateString();
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string[] }
-}): Promise<Metadata | undefined> {
-  const slug = decodeURI(params.slug.join('/'));
-  console.log(`Fetching blog with slug: ${slug}`);
-  const blog = (await reader.collections.blogs.readOrThrow(slug));
-  console.log('Blog data is here : ', blog);
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { slug: string[] }
+// }): Promise<Metadata | undefined> {
+//   const slug = decodeURI(params.slug.join('/'));
+//   console.log(`Fetching blog with slug: ${slug}`);
+//   const blog = (await reader.collections.blogs.readOrThrow(slug));
+//   console.log('Blog data is here : ', blog);
 
-  const blogData = (blog: { entry: { title: any; excerpt: any; image: any; tags: any; }; slug: any; }) => ({
-    title: blog.entry.title,
-    description: blog.entry.excerpt,
-    imageSrc: `${blog.entry.image}`,
-    href: `/blog/${blog.slug}`,
-    tags: [...blog.entry.tags]
-  });
+//   const blogData = (blog: { entry: { title: any; excerpt: any; image: any; tags: any; }; slug: any; }) => ({
+//     title: blog.entry.title,
+//     description: blog.entry.excerpt,
+//     imageSrc: `${blog.entry.image}`,
+//     href: `/blog/${blog.slug}`,
+//     tags: [...blog.entry.tags]
+//   });
 
-  if (!blog) {
-    return undefined;
-  }
+//   if (!blog) {
+//     return undefined;
+//   }
 
-  return {
-    title: blog.title,
-    description: blog.excerpt,
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      siteName: siteMetadata.title,
-      locale: 'en_US',
-      type: 'article',
-      publishedTime: currentDate,
-      url: `${siteMetadata.siteUrl}/blog/${slug}`,
-      images: [
-        {
-          url: blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
-          alt: blog.title,
-        },
-      ],
-      authors: [siteMetadata.author],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: blog.title,
-      description: blog.excerpt,
-      images: [blog.image ?? ""],
-    },
-  };
-}
+//   return {
+//     title: blog.title,
+//     description: blog.excerpt,
+//     openGraph: {
+//       title: blog.title,
+//       description: blog.excerpt,
+//       siteName: siteMetadata.title,
+//       locale: 'en_US',
+//       type: 'article',
+//       publishedTime: currentDate,
+//       url: `${siteMetadata.siteUrl}/blog/${slug}`,
+//       images: [
+//         {
+//           url: blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
+//           alt: blog.title,
+//         },
+//       ],
+//       authors: [siteMetadata.author],
+//     },
+//     twitter: {
+//       card: 'summary_large_image',
+//       title: blog.title,
+//       description: blog.excerpt,
+//       images: [blog.image ?? ""],
+//     },
+//   };
+// }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = decodeURI(params.slug);
