@@ -1,5 +1,5 @@
 import SectionContainer from "@/components/common/SectionContainer";
-import Image from "@/components/common/Image";
+import Image from "next/image"; // Ensure you're importing from 'next/image'
 import PageTitle from "@/components/common/TitleCover";
 import siteMetadata from "@/data/siteMetadata";
 import { Metadata } from "next";
@@ -47,7 +47,7 @@ export async function generateMetadata({
       url: `${siteMetadata.siteUrl}/blog/${slug}`,
       images: [
         {
-          url: blog.image ? blog.image : siteMetadata.siteUrl + blog.image,
+          url: blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
           alt: blog.title,
         },
       ],
@@ -91,7 +91,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     "image": [
       {
         "@type": "ImageObject",
-        "url": blog.image ? blog.image : siteMetadata.siteUrl + blog.image,
+        "url": blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`,
         "width": 800,
         "height": 400,
       },
@@ -132,7 +132,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
           <div className="relative w-full h-96 mb-12">
             <Image
-              src={blog.image ? blog.image : siteMetadata.siteUrl + blog.image}
+              src={blog.image ? blog.image : `${siteMetadata.siteUrl}${blog.image}`}
               alt={blog.title}
               width={800}
               height={400}
@@ -146,7 +146,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Related Articles</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {/* Example of related articles */}
-
             </div>
           </div>
         </div>
