@@ -110,7 +110,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             <PageTitle>{blog.title}</PageTitle>
             <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
             <div className="mt-4 text-gray-500 dark:text-gray-400">
-              <span>By {siteMetadata.author} | {new Date(blog.datePublished).toDateString()}</span>
+              <span>By {siteMetadata.author} | {new Date().toDateString()}</span>
             </div>
           </div>
 
