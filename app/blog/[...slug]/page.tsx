@@ -1,7 +1,6 @@
 import SectionContainer from "@/components/common/SectionContainer";
 import PageTitle from "@/components/common/TitleCover";
 import siteMetadata from "@/data/siteMetadata";
-import { Metadata } from "next";
 import keystaticConfig from "../../../keystatic.config";
 import { createReader } from "@keystatic/core/reader";
 import Markdoc from "@markdoc/markdoc";
@@ -65,14 +64,14 @@ const currentDate = new Date().toDateString();
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = decodeURI(params.slug);
   console.log('Slug in Page:', slug);
-  const blog = (await reader.collections.blogs.all()).find(blog => blog.slug === slug);
+  const blog = await reader.collections.blogs.read(slug);
 
   if (!blog) {
     console.warn(`No blog found for slug: ${slug}`);
     return <div>No Post Found</div>;
   }
 
-  const { node } = await blog.entry.content();
+  const { node } = await blog.content();
   const errors = Markdoc.validate(node);
   if (errors.length) {
     console.error(errors);
@@ -124,8 +123,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <SectionContainer>
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="text-center mb-12">
-            <PageTitle>{blog.entry.title}</PageTitle>
-            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.entry.excerpt}</p>
+            <PageTitle>{blog.title}</PageTitle>
+            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
             <div className="mt-4 text-gray-500 dark:text-gray-400">
               <span>By {siteMetadata.author} | {currentDate}</span>
             </div>
