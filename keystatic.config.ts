@@ -1,4 +1,5 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
+import { heroBanner } from './data/data';
 
 export const showAdminUI = process.env.NODE_ENV === "development"
 
@@ -10,7 +11,7 @@ export default config({
         brand: { name: 'Yatri CMS' },
         navigation: {
             'Content': ['packages', 'blogs', 'accommodations', 'tags', 'categories'],
-            'Landing Page': ['services', 'faqs', 'testimonials'],
+            'Landing Page': ['banners','services', 'faqs', 'testimonials'],
             'Site Meta data': ['settings', 'seo', 'contact'],
         },
     },
@@ -186,6 +187,29 @@ export default config({
         }),
     },
     singletons: {
+        banners: singleton({
+            label: 'Hero Banner',
+            path: 'data/banners/',
+            schema: {
+                data: fields.array(
+                    fields.object({
+                        title: fields.text({ label: 'Title' }),
+                        description: fields.text({ label: 'Description', multiline: true }),
+                        buttonText: fields.text({ label: 'Button Text' }),
+                        buttonLink: fields.text({ label: 'Button Link' }),
+                        image: fields.image({
+                            label: 'Featured Image', directory: 'public/static/images/banners', publicPath: '/static/images/banners/', validation: {
+                                isRequired: true,
+                            }
+                        }),
+                    }),
+                    {
+                        label: 'Hero Banners List',
+                        itemLabel: (props) => props.fields.title.value,
+                    }
+                ),
+            },
+        }),
         testimonials: singleton({
             label: 'Testimonials',
             path: 'data/testimonials/',

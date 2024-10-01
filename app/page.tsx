@@ -9,13 +9,13 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 
-import { heroBanner, customizeBanner } from "@/data/data";
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
+  const heroBannersData = await reader.singletons.banners.read();
   const blogsData = await reader.collections.blogs.all();
   const packageData = await reader.collections.packages.all();
   const accommodationsData = await reader.collections.accommodations.all();
@@ -23,6 +23,14 @@ export default async function Home() {
   const faqsList = await reader.singletons.faqs.readOrThrow();
   const testimonialsList = await reader.singletons.testimonials.readOrThrow();
   const serviceList = await reader.singletons.services.readOrThrow();
+
+  const heroBanners = heroBannersData?.data.map(banner => ({
+    title: banner.title,
+    description: banner.description,
+    buttonText: banner.buttonText,
+    buttonLink: banner.buttonLink,
+    image: banner.image
+  })) || [];
 
   const blogs = blogsData.map(blog => ({
     title: blog.entry.title,
@@ -78,12 +86,7 @@ export default async function Home() {
 
   return (
     <div className=" min-h-screen">
-      <HeroBanner
-        title={heroBanner.title}
-        description={heroBanner.description}
-        buttonText={heroBanner.buttonText}
-        buttonLink={heroBanner.buttonLink}
-      />
+      <HeroBanner heroBanners={heroBanners} />
       <Package packages={packages} />
       <Category categories={categories}></Category>
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
