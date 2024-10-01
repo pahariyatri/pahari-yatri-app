@@ -171,3 +171,13 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     </SectionContainer>
   );
 }
+
+// Generate static params with slug as an array
+export async function generateStaticParams() {
+  const slugs = await reader.collections.packages.list();
+
+  // Return slugs as an array, even if it's a single-level slug
+  return slugs.map((slug: any) => ({
+    slug: [slug],
+  }));
+}
