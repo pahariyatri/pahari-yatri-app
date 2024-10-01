@@ -91,7 +91,7 @@ export default async function Home() {
       <Category categories={categories}></Category>
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       <Service services={services}></Service>
-      <AboutUs></AboutUs>
+      {/* <AboutUs></AboutUs> */}
       <Accommodation accommodations={accommodations}></Accommodation>
       <Blog blogs={blogs}></Blog>
       <Testimonials testimonials={testimonials}></Testimonials>
