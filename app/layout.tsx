@@ -122,15 +122,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
 
-      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <ThemeProviders>
           {/* <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} /> */}
-          <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
-            <div className="flex flex-col justify-between font-sans">
+          {/* <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
+            <div className="flex flex-col justify-between font-sans"> */}
               {/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
               <Header title={settings?.headerTitle || "Pahari Yatri"} />
               <main className="mb-auto relative">{children}</main>
@@ -138,8 +138,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               {/* <ContactUsButton></ContactUsButton> */}
               <WhatsAppButton></WhatsAppButton>
               <Footer />
-            </div>
-          </div>
+            {/* </div>
+          </div> */}
         </ThemeProviders>
       </body>
     </html>
