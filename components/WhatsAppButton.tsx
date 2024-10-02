@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "./common/Image";
 
@@ -8,8 +8,8 @@ export default function WhatsAppButton() {
     };
 
     return (
-        <div className="fixed bottom-4 right-4 z-50" onClick={handleWhatsAppClick}>
-            <Image src={'/static/WhatsApp-Logo.png'} height={80} width={80} alt="Pahari Yatri Contact Us" className="rounded-full mb-4 mr-4" />
+        <div className="fixed bottom-4 right-2 z-50" onClick={handleWhatsAppClick}>
+            <Image src={'/static/WhatsApp-Logo.png'} height={80} width={80} alt="Pahari Yatri Contact Us" className="rounded-full" />
         </div>
     );
-};
+}

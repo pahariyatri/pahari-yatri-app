@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
     return (
-        <header className="flex items-center sticky top-0 z-50  justify-between py-4  px-4 sm:px-10 ">
+        <header className="flex items-center sticky top-0 z-50 justify-between py-4  px-4 sm:px-10 ">
             <div>
                 <Link href="/" aria-label={title}>
                     <div className="flex items-center justify-between">

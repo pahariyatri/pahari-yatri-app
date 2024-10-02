@@ -135,7 +135,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Header title={settings?.headerTitle || "Pahari Yatri"} />
               <main className="mb-auto relative">{children}</main>
               {/* </SearchProvider> */}
-              {/* <ContactUsButton></ContactUsButton> */}
               <WhatsAppButton></WhatsAppButton>
               <Footer />
             {/* </div>

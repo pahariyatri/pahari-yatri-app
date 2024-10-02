@@ -44,15 +44,15 @@ const HeroBanner = ({ heroBanners }: HeroBannersProps) => {
                                 <div className="absolute inset-0 bg-black/50"></div>
 
                                 {/* Content */}
-                                <div className="relative z-10 max-w-2xl mx-auto p-4">
-                                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold mb-4">
+                                <div className="relative z-10 max-w-4xl mx-auto p-4">
+                                    <h1 className="text-2xl sm:text-6xl md:text-6xl font-extrabold mb-4">
                                         {heroBanner.title}
                                     </h1>
-                                    <p className="text-lg sm:text-xl md:text-2xl mb-6">
+                                    <p className="text-lg sm:text-xl md:text-xl mb-6">
                                         {heroBanner.description}
                                     </p>
                                     <Link href={heroBanner.buttonLink}>
-                                        <Button className="font-bold py-3 px-6 rounded-full transition duration-300 bg-blue-600 hover:bg-blue-700">
+                                        <Button className="font-bold py-3 px-6 rounded-full transition duration-300 ">
                                             {heroBanner.buttonText}
                                         </Button>
                                     </Link>

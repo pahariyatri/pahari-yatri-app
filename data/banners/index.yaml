@@ -1,6 +1,15 @@
 data:
   - title: Embark on Your Adventure with Pahari Yatri
-    description: Explore breathtaking trekking and mountaineering experiences
+    description: >-
+      Discover stunning treks and immersive experiences in the heart of Himachal
+      Pradesh.
     buttonText: Discover Now
     buttonLink: /package
     image: /static/images/banners/data/0/image.jpg
+  - title: Join Us for Unforgettable Himalayan Treks
+    description: >-
+      Experience the beauty of nature through guided trekking and mountaineering
+      adventures.
+    buttonText: Discover Now
+    buttonLink: /packages
+    image: /static/images/banners/data/1/image.jpg
