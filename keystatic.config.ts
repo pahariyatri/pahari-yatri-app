@@ -11,7 +11,7 @@ export default config({
         brand: { name: 'Yatri CMS' },
         navigation: {
             'Content': ['packages', 'blogs', 'accommodations', 'tags', 'categories'],
-            'Landing Page': ['banners','services', 'faqs', 'testimonials'],
+            'Landing Page': ['banners', 'services', 'faqs', 'testimonials'],
             'Site Meta data': ['settings', 'seo', 'contact'],
         },
     },

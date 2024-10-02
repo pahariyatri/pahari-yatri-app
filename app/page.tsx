@@ -87,14 +87,14 @@ export default async function Home() {
   return (
     <div className=" min-h-screen">
       <HeroBanner heroBanners={heroBanners} />
-      <Package packages={packages} />
-      <Category categories={categories}></Category>
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       <Service services={services}></Service>
-      <AboutUs></AboutUs>
+      <Package packages={packages} />
+      <Category categories={categories}></Category>
+      <Testimonials testimonials={testimonials}></Testimonials>
+      {/* <AboutUs></AboutUs> */}
       <Accommodation accommodations={accommodations}></Accommodation>
       <Blog blogs={blogs}></Blog>
-      <Testimonials testimonials={testimonials}></Testimonials>
       <Faq faqs={faqs}></Faq>
     </div>
   );

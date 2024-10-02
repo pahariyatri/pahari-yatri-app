@@ -2,10 +2,11 @@ import SectionContainer from "@/components/common/SectionContainer";
 import Image from "@/components/common/Image";
 import { Metadata } from "next";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import Gallery from "@/components/Gallery";
 import Booking from "@/components/Booking";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import Link from "@/components/common/Link";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -14,10 +15,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] }
 }): Promise<Metadata | undefined> {
-  const slug = decodeURI(params.slug.join('/'));
+  const slug = decodeURI(params.slug.join("/"));
   const seo = await reader.singletons.seo.read();
   const settings = await reader.singletons.settings.read();
-  const getPackageDetails = (await reader.collections.packages.all()).find((pkg=> pkg.slug == slug))?.entry;
+  const getPackageDetails = (await reader.collections.packages.all()).find((pkg => pkg.slug == slug))?.entry;
+
+  if (!getPackageDetails) return undefined;
+
   return {
     title: getPackageDetails?.title,
     description: getPackageDetails?.excerpt,
@@ -47,16 +51,19 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = decodeURI(params.slug.join('/'));
+  const slug = decodeURI(params.slug.join("/"));
   const seo = await reader.singletons.seo.read();
   const settings = await reader.singletons.settings.read();
   const getPackageDetails = await (await reader.collections.packages.all()).find((pkg => pkg.slug == slug))?.entry;
+
   if (!getPackageDetails) {
-    return undefined;
+    return <div>Package not found</div>;
   }
+
+  // Structured Data (JSON-LD)
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "TouristTrip",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `${settings?.domain}/package/${slug}`,
@@ -78,20 +85,17 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     },
     "itinerary": getPackageDetails?.itinerary.map(item => ({
       "@type": "TouristTrip",
-      "name": `Day ${item.day}: ${item.title}`
+      "name": `Day ${item.day}: ${item.title}`,
     })),
     "touristType": "Adventurous travelers",
-    // "inclusion": getPackageDetails?.inclusions,
-    // "exclusion": getPackageDetails?.exclusions,
     "location": {
       "@type": "Place",
-      "name": getPackageDetails?.location
+      "name": getPackageDetails?.location,
     },
     "tripDuration": {
       "@type": "Duration",
-      "name": getPackageDetails?.duration
+      "name": getPackageDetails?.duration,
     },
-    // "difficulty": getPackageDetails?.difficulty,
     "datePublished": new Date().toISOString(),
     "dateModified": new Date().toISOString(),
     "author": {
@@ -110,12 +114,37 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     },
     "description": getPackageDetails?.excerpt,
   };
+
   return (
     <SectionContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <Link href="/" className="block">
+              Home
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <Link href="/package" className="block">
+              Packages
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{getPackageDetails.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 py-11 sm:px-6 lg:px-8 lg:py-10">
+        {/* Package Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="relative w-full h-96">
             <Image
@@ -123,68 +152,54 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
               alt={getPackageDetails.title}
               width={500}
               height={500}
-              className="rounded-lg object-cover w-full h-full" />
+              className="rounded-lg object-cover w-full h-full"
+            />
           </div>
           <div className="flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{getPackageDetails.title}</h2>
               <p className="mt-4 text-gray-600 dark:text-slate-400">{getPackageDetails.excerpt}</p>
               <ul className="mt-6 space-y-4">
-                <li className="text-gray-900 dark:text-white"><strong>Price:</strong> {getPackageDetails.price} INR</li>
-                <li className="text-gray-900 dark:text-white"><strong>Duration:</strong> {getPackageDetails.duration} Days</li>
-                <li className="text-gray-900 dark:text-white"><strong>Location:</strong> {getPackageDetails.location}</li>
-                {/* <li className="text-gray-900 dark:text-white"><strong>Difficulty:</strong> {getPackageDetails.difficulty}</li> */}
+                <li className="text-gray-900 dark:text-white">
+                  <strong>Price:</strong> {getPackageDetails.price} INR
+                </li>
+                <li className="text-gray-900 dark:text-white">
+                  <strong>Duration:</strong> {getPackageDetails.duration} Days
+                </li>
+                <li className="text-gray-900 dark:text-white">
+                  <strong>Location:</strong> {getPackageDetails.location}
+                </li>
               </ul>
             </div>
             <div className="mt-6">
-              <Booking></Booking>
+              <Booking />
             </div>
           </div>
         </div>
+
+        {/* Itinerary Section */}
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Itinerary</h3>
           <Accordion type="multiple" className="w-full">
             {getPackageDetails.itinerary.map((item, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger> Day {item.day}: {item.title}</AccordionTrigger>
-                <AccordionContent>
-                  {item.description}
-                </AccordionContent>
+                <AccordionTrigger>Day {item.day}: {item.title}</AccordionTrigger>
+                <AccordionContent>{item.description}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
-        {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Inclusions</h3>
-            <ul className="space-y-2 list-disc list-inside text-gray-900 dark:text-white">
-              {getPackageDetails.inclusions.map((inclusion, index) => (
-                <li key={index}>{inclusion}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Exclusions</h3>
-            <ul className="space-y-2 list-disc list-inside text-gray-900 dark:text-white">
-              {getPackageDetails.exclusions.map((exclusion, index) => (
-                <li key={index}>{exclusion}</li>
-              ))}
-            </ul>
-          </div>
-        </div> */}
-        {/* <div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-6">Gallery</h3>
-          <Gallery></Gallery>
-        </div> */}
-        {/* <div className="mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Reviews</h3>
-          <div className="space-y-6">
-            {packageDetails.reviews.map((review, index) => (
-              <ReviewCard key={index} name={review.name} comment={review.comment} rating={review.rating}></ReviewCard>
-            ))}
-          </div>
-        </div> */}
       </div>
     </SectionContainer>
   );
+}
+
+// Generate static params with slug as an array
+export async function generateStaticParams() {
+  const slugs = await reader.collections.packages.list();
+
+  // Return slugs as an array, even if it's a single-level slug
+  return slugs.map((slug: any) => ({
+    slug: [slug],
+  }));
 }

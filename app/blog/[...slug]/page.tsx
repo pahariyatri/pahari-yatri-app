@@ -1,6 +1,8 @@
 import Image from "@/components/common/Image";
+import Link from "@/components/common/Link";
 import SectionContainer from "@/components/common/SectionContainer";
 import PageTitle from "@/components/common/TitleCover";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import siteMetadata from "@/data/siteMetadata";
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
@@ -98,6 +100,25 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   return (
     <>
       <SectionContainer>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <Link href="/" className="block">
+                Home
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <Link href="/blog" className="block">
+                Blogs
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{blog.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         {/* Structured Data for SEO */}
         <script
           type="application/ld+json"
