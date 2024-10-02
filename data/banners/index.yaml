@@ -3,13 +3,13 @@ data:
     description: >-
       Discover stunning treks and immersive experiences in the heart of Himachal
       Pradesh.
-    buttonText: Discover Now
-    buttonLink: /package
+    buttonText: Book Now
+    buttonLink: https://forms.gle/XETbtiu49kss2sHj8
     image: /static/images/banners/data/0/image.jpg
   - title: Join Us for Unforgettable Himalayan Treks
     description: >-
       Experience the beauty of nature through guided trekking and mountaineering
       adventures.
-    buttonText: Discover Now
-    buttonLink: /packages
+    buttonText: Book Now
+    buttonLink: https://forms.gle/XETbtiu49kss2sHj8
     image: /static/images/banners/data/1/image.jpg

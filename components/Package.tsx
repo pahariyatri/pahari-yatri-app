@@ -21,7 +21,7 @@ export default function Package({ packages }: PackageProps) {
                 </p>
             </div>
 
-            <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden">
+            <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">
                 <CarouselContent>
                     {packages.map((pkg, index) => (
                         <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
