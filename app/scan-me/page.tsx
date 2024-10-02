@@ -4,7 +4,7 @@ import Image from "@/components/common/Image";
 export default function About() {
   return (
     <SectionContainer>
-      <div className="flex flex-col items-center justify-center px-4 py-8 md:py-16 lg:py-24">
+      <div className="flex flex-col items-center justify-center">
         {/* Title Section */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:text-5xl">
@@ -23,10 +23,10 @@ export default function About() {
             <p className="text-lg text-gray-700 dark:text-gray-300">
               Pahari Yatri Pvt. Ltd.<br />
               123 Mountain View Road,<br />
-              Shimla, Himachal Pradesh, India<br />
+              Himachal Pradesh, India<br />
               Zip Code: 171001<br />
-              Phone: +91-6280888188<br />
-              Email: info@pahariyatri.com
+              Phone: <a href="tel:+916280888188" className="text-blue-500 hover:underline">+91-6280888188</a><br />
+              Email: <a href="mailto:info@pahariyatri.com" className="text-blue-500 hover:underline">info@pahariyatri.com</a>
             </p>
           </div>
 
