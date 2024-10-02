@@ -48,8 +48,9 @@ export default async function Package({ searchParams }: PackageProps) {
     packages = packages.filter(pkg => pkg.location.toLowerCase().includes(locationFilter.toLowerCase()));
   }
   if (durationFilter > 0) {
-    packages = packages.filter(pkg => pkg.duration <= durationFilter);
+    packages = packages.filter(pkg => pkg.duration !== null && pkg.duration <= durationFilter);
   }
+
   if (priceFilter > 0) {
     packages = packages.filter(pkg => pkg.price <= priceFilter);
   }
