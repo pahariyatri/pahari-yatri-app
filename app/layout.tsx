@@ -25,7 +25,8 @@ async function getMetadata() {
   const title = seo?.title ?? 'Pahari Yatri';
   const description = seo?.description ?? 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.';
   const keywords = seo?.keywords ?? 'Pahari Yatri, keywords';
-  const socialBanner = `https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpahari-yatri-banner.png&w=640&q=75` ?? settings?.logo;
+  const socialBanner = settings?.logo || `https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpahari-yatri-banner.png&w=640&q=75`;
+
   const siteUrl = settings?.domain ?? 'https://pahariyatri.com';
 
   let metadataBase: URL;
