@@ -24,7 +24,7 @@ I’d like to book *${packageName}* for *${participants}* people on ${dates}.
 Could you share the details—stay, food, trek guide, and booking process?
 
 Thanks,
-*${name}*`;
+${name}`;
 
         const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, "_blank");
