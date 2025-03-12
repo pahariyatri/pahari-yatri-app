@@ -172,7 +172,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
               </ul>
             </div>
             <div className="mt-6">
-              <Booking />
+              <Booking packageName={getPackageDetails.title} />
             </div>
           </div>
         </div>
