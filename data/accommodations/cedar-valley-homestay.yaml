@@ -1,0 +1,28 @@
+name: Cedar Valley Homestay
+description: >-
+  A peaceful retreat in the lap of nature, offering breathtaking mountain views
+  and warm hospitality.
+address:
+  street: Village Saroa
+  city: Mandi
+  state: Himachal Pradesh
+  postcode: '12345'
+  country: India
+  let: 31.75
+  long: 76.95
+amenities:
+  - WiFi
+  - Bonfire
+  - Parking
+capacity: 8
+attractions:
+  - Kamrunag Lake Trek
+  - Shikari Devi Temple
+image: /static/images/accommodations/cedar-valley-homestay/image.png
+gallery:
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/0.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/1.png
+activities:
+  - Hiking
+  - Bird Watching
+  - Camping

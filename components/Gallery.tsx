@@ -1,33 +1,45 @@
-import SectionContainer from "./common/SectionContainer";
-import Image from "./common/Image";
-import PageTitle from "./common/TitleCover";
+"use client";
 
-const imageUrls = [
-    "/static/images/pahari-yatri-banner.png",
-    "/static/images/pahari-yatri-banner.png",
-    "/static/images/pahari-yatri-banner.png",
-    "/static/images/pahari-yatri-banner.png",
-    "/static/images/pahari-yatri-banner.png",
-    "/static/images/pahari-yatri-banner.png",
-];
+import SectionContainer from "@/components/common/SectionContainer";
+import Image from "@/components/common/Image";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import React from "react";
 
+export default function Gallery({ images = [] }: { images?: (string | null)[] }) {
+    const plugin = React.useRef<any>(null);
 
-export default function Gallery() {
+    React.useEffect(() => {
+        plugin.current = Autoplay({ delay: 2000, stopOnInteraction: false });
+    }, []);
+
+    // Convert readonly array to mutable and filter out null values
+    const processedImages: string[] = [...images].filter((url): url is string => url !== null);
+
     return (
         <SectionContainer>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {imageUrls.map((url, index) => (
-                    <div key={index} className="relative w-full h-48">
-                        <Image
-                            src={url}
-                            alt={`Gallery Image ${index + 1}`}
-                            height={500}
-                            width={500}
-                            className="rounded-lg"
-                        />
-                    </div>
-                ))}
-            </div>
+            <Carousel
+                opts={{ align: "start", loop: true }}
+                plugins={plugin.current ? [plugin.current] : []}
+                className="relative w-full h-96 overflow-hidden"
+            >
+                <CarouselContent>
+                    {processedImages.map((url, index) => (
+                        <CarouselItem key={index} className="relative w-full h-96">
+                            <Image
+                                src={url}
+                                alt={`Gallery Image ${index + 1}`}
+                                height={500}
+                                width={500}
+                                className="rounded-lg object-cover w-full h-full"
+                            />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
         </SectionContainer>
     );
 }

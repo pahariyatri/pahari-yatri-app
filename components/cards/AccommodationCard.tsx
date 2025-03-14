@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Image from "../common/Image";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
+import { Button } from "../ui/button";
 
 export interface AccommodationCardProps {
     name: string;
@@ -26,6 +28,11 @@ const AccommodationCard = ({ name, description, imageSrc, href, location }: Acco
                     <CardDescription className="mt-2 text-gray-700 dark:text-gray-300">{description}</CardDescription>
                 </div>
             </CardContent>
+            <CardFooter>
+                <Link href={href} className="block w-full mt-6 transition duration-300">
+                    <Button className="font-bold py-3 px-6 rounded-lg w-full transition duration-300">{"View Details"}</Button>
+                </Link>
+            </CardFooter>
         </Card>
     );
 }

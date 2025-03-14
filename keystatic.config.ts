@@ -133,7 +133,7 @@ export default config({
             label: 'Accommodations',
             slugField: 'name',
             path: 'data/accommodations/*',
-            format: { data: 'json' },
+            // format: { data: 'json' },
             schema: {
                 name: fields.slug({
                     name: {
@@ -143,11 +143,52 @@ export default config({
                     }
                 }),
                 description: fields.text({ label: 'Description', multiline: true }),
-                location: fields.text({ label: 'Location' }),
+                address: fields.object({
+                    street: fields.text({ label: 'Street' }),
+                    city: fields.text({ label: 'City' }),
+                    state: fields.text({ label: 'State' }),
+                    postcode: fields.text({ label: 'Postcode' }),
+                    country: fields.text({ label: 'Country' }),
+                    let: fields.number({ label: 'Latitude' }),
+                    long: fields.number({ label: 'Longitude' }),
+                },
+                    {
+                        label: 'Address',
+                        description: 'The address of the user',
+                        layout: [12, 6, 3, 3, 6, 3, 3],
+                    }),
+                amenities: fields.array(
+                    fields.text({ label: 'Amenities' }), {
+                    label: 'Amenities',
+                    itemLabel: (props) => props.value || 'New Amenity'
+                }),
+                capacity: fields.number({ label: 'Capacity' }),
+                attractions: fields.array(
+                    fields.text({ label: 'Attractions' }), {
+                    label: 'Attractions',
+                    itemLabel: (props) => props.value || 'New Attraction'
+                }),
                 image: fields.image({
                     label: 'Featured Image', directory: 'public/static/images/accommodations', publicPath: '/static/images/accommodations/', validation: {
                         isRequired: true,
                     }
+                }),
+                gallery: fields.array(
+                    fields.image({
+                        label: 'Gallery Image',
+                        directory: 'public/static/images/accommodations/gallery',
+                        publicPath: '/static/images/accommodations/gallery/',
+                        validation: { isRequired: false }
+                    }),
+                    {
+                        label: 'Gallery',
+                        itemLabel: (props) => props.value?.filename || 'New Image'
+                    }
+                ),
+                activities: fields.array(
+                    fields.text({ label: 'Activities' }), {
+                    label: 'Activities',
+                    itemLabel: (props) => props.value || 'New Activity'
                 }),
                 url: fields.url({
                     label: 'URL',
