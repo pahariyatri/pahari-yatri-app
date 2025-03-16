@@ -8,6 +8,7 @@ import HeroBanner from "@/components/HeroBanner";
 import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
@@ -52,7 +53,7 @@ export default async function Home() {
     description: accommodation.entry.description,
     imageSrc: accommodation.entry.image || `https://pahariyatri.com/api/og?title='Pahari Yatri`,
     href: `/accommodation/${accommodation.slug}`,
-    location: accommodation.entry.location,
+    location: accommodation.entry.address.city,
   }))
   const featuredPackages = packageData
     .filter(pkg => pkg.entry.isFeatured === true)
@@ -96,6 +97,7 @@ export default async function Home() {
       <Accommodation accommodations={accommodations}></Accommodation>
       <Blog blogs={blogs}></Blog>
       <Faq faqs={faqs}></Faq>
+      <WhatsAppButton></WhatsAppButton>
     </div>
   );
 }

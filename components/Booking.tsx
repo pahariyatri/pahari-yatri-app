@@ -39,7 +39,7 @@ ${name}`;
             </SheetTrigger>
             <SheetContent className="w-[360px] sm:w-[450px]">
                 <SheetHeader>
-                    <SheetTitle>Book Your Trek</SheetTitle>
+                    <SheetTitle>Book Your Package</SheetTitle>
                     <SheetDescription>Fill in your details & book instantly via WhatsApp.</SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
@@ -48,7 +48,7 @@ ${name}`;
                         <Input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="dates">Preferred Trek Dates *</Label>
+                        <Label htmlFor="dates">Preferred Dates *</Label>
                         <Input type="date" id="dates" value={dates} onChange={(e) => setDates(e.target.value)} required />
                     </div>
                     <div className="grid gap-2">
