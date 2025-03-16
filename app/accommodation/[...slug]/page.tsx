@@ -1,5 +1,4 @@
 import SectionContainer from "@/components/common/SectionContainer";
-import Image from "@/components/common/Image";
 import { Metadata } from "next";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Booking from "@/components/Booking";
@@ -143,9 +142,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
                 <li><strong>Amenities:</strong> {accommodationDetails.amenities?.join(", ") || "N/A"}</li>
               </ul>
             </div>
-            <div className="mt-6">
-              <Booking packageName={accommodationDetails.name} />
-            </div>
           </div>
         </div>
         <div className="mt-16">
@@ -156,6 +152,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             ))}
           </ul>
         </div>
+      </div>
+      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 shadow-lg p-4 flex justify-center">
+        <Booking packageName={accommodationDetails.name} />
       </div>
     </SectionContainer >
   );

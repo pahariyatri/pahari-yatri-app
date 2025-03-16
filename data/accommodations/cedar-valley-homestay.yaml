@@ -18,10 +18,11 @@ capacity: 8
 attractions:
   - Kamrunag Lake Trek
   - Shikari Devi Temple
-image: /static/images/accommodations/cedar-valley-homestay/image.png
+image: /static/images/accommodations/cedar-valley-homestay/image.jpg
 gallery:
-  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/0.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/0.png
   - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/1.png
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/2.png
 activities:
   - Hiking
   - Bird Watching
