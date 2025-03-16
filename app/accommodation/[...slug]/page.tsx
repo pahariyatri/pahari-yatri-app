@@ -74,8 +74,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     ],
     "address": {
       "@type": "PostalAddress",
-      // "streetAddress": accommodationDetails?.address || "",
-      "addressLocality": accommodationDetails?.location || "",
+      "addressLocality": accommodationDetails?.address.city || "",
       "addressRegion": "Himachal Pradesh",
       "addressCountry": "IN",
     },
@@ -131,7 +130,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       <div className="max-w-7xl mx-auto px-4 py-11 sm:px-6 lg:px-8 lg:py-10">
         {/* Accommodation Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <Gallery images={accommodationDetails.gallery || []} />
+          <Gallery images={[...(accommodationDetails.gallery || [])]} />
           <div className="flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{accommodationDetails.name}</h2>

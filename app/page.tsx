@@ -53,7 +53,7 @@ export default async function Home() {
     description: accommodation.entry.description,
     imageSrc: accommodation.entry.image || `https://pahariyatri.com/api/og?title='Pahari Yatri`,
     href: `/accommodation/${accommodation.slug}`,
-    location: accommodation.entry.location,
+    location: accommodation.entry.address.city,
   }))
   const featuredPackages = packageData
     .filter(pkg => pkg.entry.isFeatured === true)
