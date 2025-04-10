@@ -15,10 +15,10 @@ export default function Accommodation({ accommodations }: AccommodationProps) {
                     Accommodation
                 </p>
                 <PageTitle>
-                    Our Luxury Homestays
+                    Our Cozy Homestays
                 </PageTitle>
                 <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">
-                    Luxury Stay at Kasauli, Devidarh & Saroa
+                    Escape to cozy mountain stays with local vibes and modern comfort
                 </p>
             </div>
             <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">
