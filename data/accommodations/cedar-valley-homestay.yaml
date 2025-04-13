@@ -29,9 +29,15 @@ attractions:
   - Shikari Devi Temple
 image: /static/images/accommodations/cedar-valley-homestay/image.jpg
 gallery:
-  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/0.png
-  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/1.png
-  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/2.png
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/0.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/1.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/2.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/3.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/4.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/5.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/6.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/7.jpg
+  - /static/images/accommodations/gallery/cedar-valley-homestay/gallery/8.jpg
 activities:
   - Hiking
   - Bird Watching
