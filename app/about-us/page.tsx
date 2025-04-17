@@ -130,6 +130,13 @@ export default function About() {
             <p className="text-lg sm:text-xl leading-relaxed   mt-4">
               Drawing from these personal experiences and my mountaineering certification, I formed a team of highly skilled, certified experts who specialize in creating safe, sustainable, and transformative Himalayan adventures. <strong className="">Pahari Yatri</strong> is more than a trekking agency—we offer a doorway into the sacred Himalayas, combining adventure with spirituality in every journey.
             </p>
+            <p className="text-lg sm:text-xl leading-relaxed  mt-4">
+                Our treks are designed for everyone, from seasoned trekkers to first-timers. We believe that the Himalayas should be accessible to all, and we strive to create experiences that resonate with each individual’s spiritual journey. 
+                Whether you seek adventure, spirituality, or a deeper connection with nature, we are here to guide you every step of the way.
+            </p>
+            <p className="text-lg sm:text-xl leading-relaxed   mt-4">
+            In addition to trekking, Pahari Yatri also hosts stays in some of Himachal's untouched and unexplored locations, offering guests the chance to experience the serene beauty and spiritual tranquility of these hidden gems. These offbeat locations, away from the crowd, are perfect for those seeking peace and a deeper connection with nature.
+            </p>
           </section>
 
           {/* Turning Treks into Himalayan Yatras Section */}
