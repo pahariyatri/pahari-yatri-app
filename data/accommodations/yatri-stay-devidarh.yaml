@@ -1,0 +1,42 @@
+name: Yatri Stay, Devidarh
+description: >-
+  Escape to Yatri Stay in Devidarh, a hidden gem surrounded by deodar forests and pristine nature. This cozy mountain retreat is ideal for explorers, trekkers, and anyone seeking an authentic offbeat Himachali experience. Enjoy peaceful surroundings, local cuisine, and direct access to scenic trails.
+address:
+  street: Village Devidarh
+  city: Mandi
+  state: Himachal Pradesh
+  postcode: '175035'
+  country: India
+  let: 31.6500
+  long: 77.1000
+amenities:
+  - WiFi
+  - Bonfire
+  - Local Cuisine
+  - Parking
+capacity: 10
+attractions:
+  - Devidarh Temple
+  - Janjehli Valley
+  - Shikari Devi Trek
+image: /static/images/accommodations/yatri-stay-devidarh/image.jpg
+gallery:
+  - /static/images/accommodations/gallery/yatri-stay-devidarh/gallery/0.jpg
+  - /static/images/accommodations/gallery/yatri-stay-devidarh/gallery/1.jpg
+  - /static/images/accommodations/gallery/yatri-stay-devidarh/gallery/2.jpg
+activities:
+  - Trekking
+  - Forest Walks
+  - Village Tours
+faqs:
+  - question: Is Yatri Stay suitable for families?
+    answer: Yes, it is ideal for families, solo travelers, and groups seeking a peaceful retreat.
+  - question: Are meals included?
+    answer: Local cuisine is available on request; please inform us in advance.
+reviews:
+  - author: Sunil Thakur
+    rating: 5
+    comment: "A hidden gem in Devidarh! The hosts were wonderful and the location is perfect for nature lovers."
+  - author: Meena Gupta
+    rating: 4
+    comment: "Loved the peaceful environment and the food was delicious. Highly recommended for a quiet getaway." 

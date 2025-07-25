@@ -135,8 +135,20 @@ export default function About() {
               Whether you seek adventure, spirituality, or a deeper connection with nature, we are here to guide you every step of the way.
             </p>
             <p className="text-lg sm:text-xl leading-relaxed   mt-4">
-              In addition to trekking, Pahari Yatri also hosts stays in some of Himachal&apos;s untouched and unexplored locations...
+              In addition to trekking, Pahari Yatri also hosts stays in some of Himachal's untouched and unexplored locations. As a proud pahari and property owner, I invite you to experience our signature accommodations:
             </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 text-left">
+                <h3 className="text-2xl font-bold mb-2">Gayatri Lodge, Kasauli</h3>
+                <p className="mb-2">A peaceful retreat nestled in the pine forests of Kasauli, blending traditional pahari hospitality with modern comfort. Perfect for families, couples, and solo travelers seeking tranquility and easy access to Kasauli&apos;s attractions.</p>
+                <Link href="/accommodation/gayatri-lodge-kasauli" className="text-blue-600 hover:underline">View Details</Link>
+              </div>
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 text-left">
+                <h3 className="text-2xl font-bold mb-2">Yatri Stay, Devidarh</h3>
+                <p className="mb-2">Experience the untouched beauty of Devidarh with our cozy mountain stay, surrounded by deodar forests and pristine nature. Ideal for explorers, trekkers, and those seeking a true offbeat Himachali experience.</p>
+                <Link href="/accommodation/yatri-stay-devidarh" className="text-blue-600 hover:underline">View Details</Link>
+              </div>
+            </div>
           </section>
 
           {/* Turning Treks into Himalayan Yatras Section */}
