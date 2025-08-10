@@ -32,9 +32,9 @@ export default function FeaturedPackage({ featuredPackages }: FeaturedPackagePro
                 <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">
                     Featured
                 </p>
-                <PageTitle>Kailash Yatra with Pahari Yatri</PageTitle>
+                <PageTitle> Himalayan Treks & Yatras</PageTitle>
                 <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">
-                    Embark on a Spiritual Journey to Shrikhand, Manimahesh, and Kinnaur Kailash
+                    Handpicked journeys blending adventure and spirituality. Explore pristine trails, sacred sites, and cultural heritage with expert guides ensuring safety and authentic experiences.
                 </p>
             </div>
 

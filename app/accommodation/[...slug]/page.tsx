@@ -102,6 +102,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     "description": accommodationDetails?.description,
   };
 
+  // FAQ and Reviews are not currently supported in the accommodation schema
+
   return (
     <SectionContainer>
       <Breadcrumb>
@@ -151,6 +153,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             ))}
           </ul>
         </div>
+
       </div>
       <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 shadow-lg p-4 flex justify-center">
         <Booking packageName={accommodationDetails.name} />

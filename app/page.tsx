@@ -91,10 +91,10 @@ export default async function Home() {
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
       <Service services={services}></Service>
       <Package packages={packages} />
-      <Category categories={categories}></Category>
+      {/* <Category categories={categories}></Category> */}
       <Testimonials testimonials={testimonials}></Testimonials>
       {/* <AboutUs></AboutUs> */}
-      <Accommodation accommodations={accommodations}></Accommodation>
+      {/* <Accommodation accommodations={accommodations}></Accommodation> */}
       <Blog blogs={blogs}></Blog>
       <Faq faqs={faqs}></Faq>
       <WhatsAppButton></WhatsAppButton>

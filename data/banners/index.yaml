@@ -1,15 +1,8 @@
 data:
-  - title: Embark on Your Adventure with Pahari Yatri
+  - title: Where Treks Become Yatras
     description: >-
-      Discover stunning treks and immersive experiences in the heart of Himachal
-      Pradesh.
-    buttonText: Book Now
-    buttonLink: https://pahariyatri.com/package/manimahesh-kailash-yatra
+      Discover untouched Himalayan trails, sacred peaks, and authentic cultural
+      experiences with expert-guided treks designed to transform your life.
+    buttonText: Explore Treks
+    buttonLink: https://pahariyatri.com/package
     image: /static/images/banners/data/0/image.jpg
-  - title: Join Us for Unforgettable Himalayan Treks
-    description: >-
-      Experience the beauty of nature through guided trekking and mountaineering
-      adventures.
-    buttonText: Book Now
-    buttonLink: https://pahariyatri.com/package/manimahesh-kailash-yatra
-    image: /static/images/banners/data/1/image.jpg
