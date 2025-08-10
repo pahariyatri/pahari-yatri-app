@@ -18,7 +18,7 @@ export default function Service({ services }: ServiceProps) {
                     Popular Activities
                 </PageTitle>
                 <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">
-                    Our activities include camping, trekking, skiing, and 4x4 expeditions.
+                More than just treks – we offer full support to make your Himalayan journey effortless and enriching.
                 </p>
             </div>
             <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">

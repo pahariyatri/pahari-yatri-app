@@ -102,41 +102,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     "description": accommodationDetails?.description,
   };
 
-  // FAQ JSON-LD
-  const faqs = accommodationDetails?.faqs ?? [];
-  const reviews = accommodationDetails?.reviews ?? [];
-  const faqJsonLd = faqs.length > 0 ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map((faq: any) => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer,
-      },
-    })),
-  } : null;
-
-  // Review JSON-LD
-  const reviewJsonLd = reviews.length > 0 ? {
-    "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    "name": accommodationDetails.name,
-    "review": reviews.map((review: any) => ({
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": review.rating,
-        "bestRating": "5",
-      },
-      "author": {
-        "@type": "Person",
-        "name": review.author,
-      },
-      "reviewBody": review.comment,
-    })),
-  } : null;
+  // FAQ and Reviews are not currently supported in the accommodation schema
 
   return (
     <SectionContainer>
@@ -162,8 +128,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
       {/* Structured Data for SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />}
-      {reviewJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewJsonLd) }} />}
 
       <div className="max-w-7xl mx-auto px-4 py-11 sm:px-6 lg:px-8 lg:py-10">
         {/* Accommodation Details */}
@@ -189,37 +153,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             ))}
           </ul>
         </div>
-        {/* FAQ Section */}
-        {faqs.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible>
-              {faqs.map((faq: any, idx: number) => (
-                <AccordionItem value={`faq-${idx}`} key={idx}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        )}
-        {/* Reviews Section */}
-        {reviews.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Guest Reviews</h2>
-            <div className="space-y-6">
-              {reviews.map((review: any, idx: number) => (
-                <div key={idx} className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-                  <div className="flex items-center mb-2">
-                    <span className="font-semibold text-lg mr-2">{review.author}</span>
-                    <span className="text-yellow-500">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300">{review.comment}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+
       </div>
       <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 shadow-lg p-4 flex justify-center">
         <Booking packageName={accommodationDetails.name} />
