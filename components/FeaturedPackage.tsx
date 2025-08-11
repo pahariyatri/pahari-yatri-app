@@ -28,6 +28,7 @@ export default function FeaturedPackage({ featuredPackages }: FeaturedPackagePro
 
     return (
         <SectionContainer>
+            <div id="featured" />
             <div className="text-center">
                 <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">
                     Featured

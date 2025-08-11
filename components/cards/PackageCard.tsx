@@ -14,7 +14,7 @@ export interface PackageCardProps {
     location: string;
 }
 
-const PackageCard = ({ title, description, imageSrc, href, price, location }: PackageCardProps) => {
+const PackageCard = ({ title, description, imageSrc, href, price, location, duration }: PackageCardProps) => {
     return (
         <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
             <CardHeader className="relative">
@@ -25,7 +25,22 @@ const PackageCard = ({ title, description, imageSrc, href, price, location }: Pa
                 </div>
             </CardHeader>
             <CardContent className="p-4">
-                <CardDescription className="text-gray-700 dark:text-gray-300">{description}</CardDescription>
+                <CardDescription className="text-muted-foreground">{description}</CardDescription>
+                <div className="mt-4 flex flex-wrap gap-2">
+                    {duration !== undefined && (
+                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                            {duration} Days
+                        </span>
+                    )}
+                    {/* <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                        {price ? `${price} INR` : 'Contact for price'}
+                    </span> */}
+                    {location && (
+                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                            {location}
+                        </span>
+                    )}
+                </div>
                 {/* <div className="mt-4 space-y-2">
                         <div className="flex items-center">
                             <div className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></div>
