@@ -9,6 +9,7 @@ import Package from "@/components/Package";
 import Service from "@/components/Service";
 import Testimonials from "@/components/Testimonials";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import WhyTravelWithUs from "@/components/WhyTravelWithUs";
 
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
@@ -89,11 +90,12 @@ export default async function Home() {
     <div className=" min-h-screen">
       <HeroBanner heroBanners={heroBanners} />
       <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
-      <Service services={services}></Service>
+      {/* <AboutUs></AboutUs> */}
+      <WhyTravelWithUs></WhyTravelWithUs>
       <Package packages={packages} />
+      <Service services={services}></Service>
       {/* <Category categories={categories}></Category> */}
       <Testimonials testimonials={testimonials}></Testimonials>
-      {/* <AboutUs></AboutUs> */}
       {/* <Accommodation accommodations={accommodations}></Accommodation> */}
       <Blog blogs={blogs}></Blog>
       <Faq faqs={faqs}></Faq>
