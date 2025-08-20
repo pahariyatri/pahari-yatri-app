@@ -2,7 +2,6 @@ import Link from "../common/Link";
 import BaseCard from "../common/BaseCard";
 import { Button } from "../ui/button";
 import ResponsiveImage from "../common/ResponsiveImage";
-import { formatCurrency, formatDuration, formatDifficulty } from '@/lib/format-utils';
 
 export interface PackageCardProps {
     title: string;
@@ -41,28 +40,6 @@ const PackageCard = ({ title, description, imageSrc, href, price, location, dura
         >
             <div>
                 <p className="text-muted-foreground">{description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                    {price && (
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                            {formatCurrency(price)}
-                        </span>
-                    )}
-                    {duration !== undefined && (
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                            {formatDuration(duration)}
-                        </span>
-                    )}
-                    {difficulty && (
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                            Difficulty: {formatDifficulty(difficulty)}
-                        </span>
-                    )}
-                    {location && (
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                            {location}
-                        </span>
-                    )}
-                </div>
             </div>
         </BaseCard>
     );

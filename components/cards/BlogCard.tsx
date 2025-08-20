@@ -2,7 +2,6 @@ import Link from "../common/Link";
 import BaseCard from "../common/BaseCard";
 import ResponsiveImage from "../common/ResponsiveImage";
 import CustomBadge from "../common/CustomBadge";
-import { truncateText } from "@/lib/format-utils";
 
 export interface BlogCardProps {
     title: string;
@@ -24,7 +23,6 @@ const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardPro
         </div>
     );
 
-    const truncatedDescription = truncateText(description, 120);
     const showReadMore = description.length > 120;
 
     return (
@@ -42,9 +40,7 @@ const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardPro
                     </div>
                 )}
                 <h3 className="text-xl font-bold text-foreground">{title}</h3>
-                <p className="text-muted-foreground">
-                    {truncatedDescription}
-                </p>
+                
                 {showReadMore && (
                     <Link href={href} className="inline-block font-medium text-primary hover:underline transition duration-300">
                         Read more

@@ -9,7 +9,7 @@ export function YatriWay() {
         <p className="text-xs md:text-sm font-medium uppercase tracking-[0.15em] text-primary mb-4 animate-fade-in">
           The Yatri Way
         </p>
-        <PageTitle className="mb-5 animate-fade-in-up">
+        <PageTitle>
           Our Approach
         </PageTitle>
         <p className="text-base md:text-lg mx-auto max-w-2xl text-muted-foreground leading-relaxed animate-fade-in">
