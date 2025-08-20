@@ -1,38 +1,21 @@
-import AboutUs from "@/components/AboutUs";
-import Accommodation from "@/components/Accommodation";
-import Blog from "@/components/Blog";
-import Category from "@/components/Category";
-import Faq from "@/components/Faq";
-import FeaturedPackage from "@/components/FeaturedPackage";
 import HeroBanner from "@/components/HeroBanner";
-import Package from "@/components/Package";
-import Service from "@/components/Service";
-import Testimonials from "@/components/Testimonials";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import WhyTravelWithUs from "@/components/WhyTravelWithUs";
 
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
+import { FinalCTA } from "@/components/FinalCTA";
+import { HiddenTrails } from "@/components/HiddenTrails";
+import { LegendsAndCulture } from "@/components/LegendsAndCulture";
+import ManifestoSection from "@/components/Manifesto";
+import ProgressRail from "@/components/ProgressRail";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
-  const heroBannersData = await reader.singletons.banners.read();
+  const heroBanner = await reader.singletons.banners.readOrThrow();
   const blogsData = await reader.collections.blogs.all();
   const packageData = await reader.collections.packages.all();
-  const accommodationsData = await reader.collections.accommodations.all();
-  const categoryData = await reader.collections.categories.all();
-  const faqsList = await reader.singletons.faqs.readOrThrow();
   const testimonialsList = await reader.singletons.testimonials.readOrThrow();
-  const serviceList = await reader.singletons.services.readOrThrow();
 
-  const heroBanners = heroBannersData?.data.map(banner => ({
-    title: banner.title,
-    description: banner.description,
-    buttonText: banner.buttonText,
-    buttonLink: banner.buttonLink,
-    image: banner.image
-  })) || [];
 
   const blogs = blogsData.map(blog => ({
     title: blog.entry.title,
@@ -49,13 +32,6 @@ export default async function Home() {
     price: pkg.entry.price ?? 0,
     location: pkg.entry.location,
   }));
-  const accommodations = accommodationsData.map(accommodation => ({
-    name: accommodation.entry.name,
-    description: accommodation.entry.description,
-    imageSrc: accommodation.entry.image || `https://pahariyatri.com/api/og?title='Pahari Yatri`,
-    href: `/accommodation/${accommodation.slug}`,
-    location: accommodation.entry.address.city,
-  }))
   const featuredPackages = packageData
     .filter(pkg => pkg.entry.isFeatured === true)
     .map(pkg => ({
@@ -66,40 +42,31 @@ export default async function Home() {
       price: pkg.entry.price ?? 0,
       location: pkg.entry.location,
     }))
-  const categories = categoryData.filter(category => category.entry.title !== null).map(category => ({
-    title: category.entry.title,
-    href: `/package?category=${category.slug}`,
-    imageSrc: category.entry.image
-  }))
-  const faqs = faqsList.faqs.map(faq => ({
-    question: faq.question,
-    answer: faq.answer
-  }));
-  const testimonials = testimonialsList.data.map(testimonial => ({
+  const testimonials = testimonialsList.data ? testimonialsList.data.map(testimonial => ({
     title: testimonial.title,
     description: testimonial.description,
     author: testimonial.author,
-  }));
-  const services = serviceList.data.map(service => ({
-    title: service.title,
-    description: service.description,
-    icon: service.icon
-  }))
+  })) : [];
 
   return (
-    <div className=" min-h-screen">
-      <HeroBanner heroBanners={heroBanners} />
-      <FeaturedPackage featuredPackages={featuredPackages}></FeaturedPackage>
-      {/* <AboutUs></AboutUs> */}
-      <WhyTravelWithUs></WhyTravelWithUs>
-      <Package packages={packages} />
-      <Service services={services}></Service>
-      {/* <Category categories={categories}></Category> */}
-      <Testimonials testimonials={testimonials}></Testimonials>
-      {/* <Accommodation accommodations={accommodations}></Accommodation> */}
-      <Blog blogs={blogs}></Blog>
-      <Faq faqs={faqs}></Faq>
-      <WhatsAppButton></WhatsAppButton>
+    <div className="min-h-screen">
+      {/* <ScarcityStrip /> */}
+      {heroBanner && (
+        <HeroBanner
+          title={heroBanner.title}
+          description={heroBanner.description}
+          buttonText={heroBanner.buttonText || "Start Your Yatra"}
+          buttonLink={heroBanner.buttonLink}
+          media={heroBanner.media} // MP4 file from Keystatic
+        />
+      )}
+      <ManifestoSection />
+      <HiddenTrails id="hidden-trails" />
+      <LegendsAndCulture />
+      {/* <YatriWay /> */}
+      {/* <Insights/> */}
+      <FinalCTA />
+      <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} />
     </div>
   );
 }

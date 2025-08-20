@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "./common/Image";
+import ResponsiveImage from "./common/ResponsiveImage";
 import { Button } from "./ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 
@@ -21,7 +21,7 @@ export default function ContactUsButton() {
         <Sheet>
             <SheetTrigger asChild>
                 <div className="fixed bottom-4 right-4 z-50 animate-pulse">
-                    <Image src={'/static/contact.jpg'} height={60} width={60} alt="Pahari Yatri Contact Us" className="rounded-full mb-4 mr-4" />
+                    <ResponsiveImage src={'/static/contact.jpg'} alt="Pahari Yatri Contact Us" className="mb-4 mr-4 w-[60px] h-[60px]" aspectRatio="1:1" rounded="full" />
                 </div>
             </SheetTrigger>
             <SheetContent className="w-full sm:w-[90%] md:w-[80%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]">

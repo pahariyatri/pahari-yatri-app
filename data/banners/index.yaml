@@ -1,8 +1,5 @@
-data:
-  - title: Where Treks Become Yatras
-    description: >-
-      Discover untouched Himalayan trails, sacred peaks, and authentic cultural
-      experiences with expert-guided treks designed to transform your life.
-    buttonText: Apply to Join the Next Yatra
-    buttonLink: https://forms.gle/2Ddfo68ayJ3mHKpC7
-    image: /static/images/banners/data/0/image.jpg
+title: Not tourism. A movement of Yatri.
+description: Hear the mountains. Feel the silence.
+buttonText: Begin Your Yatra
+buttonLink: https://forms.gle/2Ddfo68ayJ3mHKpC7
+media: /static/videos/banners/media.mp4

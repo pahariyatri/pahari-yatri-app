@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 const Sun = () => (
@@ -8,7 +8,7 @@ const Sun = () => (
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="h-6 w-6 text-gray-900 dark:text-gray-100"
+        className="h-6 w-6 text-primary transition-colors duration-300"
         fillRule="evenodd"
     >
         <path
@@ -21,7 +21,7 @@ const Moon = () => (
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="h-6 w-6 text-gray-900 dark:text-gray-100"
+        className="h-6 w-6 text-primary transition-colors duration-300"
         fillRule="evenodd"
     >
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
@@ -43,9 +43,15 @@ const ThemeSwitch = () => {
         }
     }
 
+    if (!mounted) return null;
+
     return (
         <div className="mr-5">
-            <button onClick={toggleTheme}>
+            <button 
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
+                aria-label={resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
                 {resolvedTheme === 'dark' ? <Sun /> : <Moon />}
             </button>
         </div>

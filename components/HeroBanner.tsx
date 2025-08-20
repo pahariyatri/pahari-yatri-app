@@ -1,110 +1,60 @@
-'use client';
+"use client";
 
 import Link from "./common/Link";
 import { Button } from "./ui/button";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import React from "react";
+import { cn } from "@/lib/utils";
 
-interface HeroBannersProps {
-    heroBanners: Array<{
-        title: string;
-        description: string;
-        buttonText: string;
-        buttonLink: string;
-        image: string;
-    }>;
+interface HeroBannerProps {
+    title: string;
+    description: string;
+    buttonText?: string;
+    buttonLink?: string;
+    media: string; // MP4 video file path
 }
 
-const HeroBanner = ({ heroBanners }: HeroBannersProps) => {
-    const plugin = React.useRef<any>(null);
-
-    React.useEffect(() => {
-        const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
-        plugin.current = autoplay;
-    }, []);
-
+const HeroBanner = ({ title, description, buttonText, buttonLink, media }: HeroBannerProps) => {
     return (
-        <section className="relative w-full h-[90vh] sm:h-screen overflow-hidden">
-            {/* Carousel Layer */}
-            <div className="absolute inset-0">
-                <Carousel
-                    opts={{ align: "start", loop: true }}
-                    plugins={plugin.current ? [plugin.current] : []}
-                    className="relative w-full h-full overflow-hidden"
+        <section id="hero-banner" className="w-full">
+            {/* Cinematic Background Video */}
+            <div className="relative w-full h-[60vh] sm:h-[75vh] lg:h-[65vh] overflow-hidden">
+                <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="/static/images/hero-poster.jpg"
                 >
-                    <CarouselContent>
-                        {heroBanners.map((heroBanner, index) => {
-                            const isVideo = heroBanner.image?.toLowerCase().endsWith('.mp4');
-                            return (
-                                <CarouselItem
-                                    key={index}
-                                    className="relative w-full h-[90vh] sm:h-screen flex items-center justify-center text-white text-center"
-                                >
-                                    {/* Background Media */}
-                                    <div className="absolute inset-0 -z-10">
-                                        {isVideo ? (
-                                            <video
-                                                className="w-full h-full object-cover"
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                                preload="none"
-                                            >
-                                                <source src={heroBanner.image} type="video/mp4" />
-                                            </video>
-                                        ) : (
-                                            <div
-                                                className="w-full h-full bg-center bg-cover"
-                                                style={{ backgroundImage: `url(${heroBanner.image})` }}
-                                            />
-                                        )}
-                                        {/* Subtle gradient overlay for readability */}
-                                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="relative z-10 max-w-4xl mx-auto p-4">
-                                        <p className="mb-2 text-sm sm:text-base tracking-widest uppercase text-white/90">
-                                            A spiritual journey beyond peaks.
-                                        </p>
-                                        <h1 className="text-3xl sm:text-6xl md:text-6xl font-extrabold mb-4">
-                                            {heroBanner.title}
-                                        </h1>
-                                        <p className="text-base sm:text-xl md:text-xl mb-6 text-white/95">
-                                            {heroBanner.description}
-                                        </p>
-                                        <Link href={heroBanner.buttonLink}>
-                                            <Button className="font-bold py-3 px-8 rounded-full transition-transform duration-300 hover:scale-[1.03]">
-                                                {heroBanner.buttonText}
-                                            </Button>
-                                        </Link>
-                                    </div>
-
-                                    {/* Scroll Indicator */}
-                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90">
-                                        <a href="#featured" className="flex flex-col items-center gap-1">
-                                            <span className="text-xs tracking-widest uppercase">Scroll</span>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="currentColor"
-                                                className="w-5 h-5 animate-bounce"
-                                            >
-                                                <path d="M12 16.5l-6-6 1.5-1.5L12 13.5l4.5-4.5L18 10.5z" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </CarouselItem>
-                            );
-                        })}
-                    </CarouselContent>
-
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
+                    <source src={media} type="video/mp4" />
+                </video>
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent dark:from-background/95 dark:via-background/60 dark:to-transparent" />
+                {/* Decorative silhouette */}
+                {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-[url('/static/images/himalaya-silhouette.svg')] bg-repeat-x bg-bottom opacity-10 dark:opacity-15" /> */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-fade-in-up [animation-delay:1000ms]">
+                <span className="text-xs uppercase tracking-widest text-white/70 mb-2 font-light">
+                    Walk with us
+                </span>
+                <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-1">
+                    <div className="w-1.5 h-1.5 bg-white/70 rounded-full animate-scroll-indicator"></div>
+                </div>
             </div>
+            </div>
+
+
+
+            {/* Scroll Indicator */}
+            
+            {/* Text & CTA overlay - CENTERED */}
+            {/* <div className="text-center mt-12 mb-12 px-6">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-brandSerif drop-shadow-lg">
+                    {title}
+                </h1>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-brandSerif drop-shadow-lg">
+                    {description}
+                </h2>
+            </div> */}
         </section>
     );
 };

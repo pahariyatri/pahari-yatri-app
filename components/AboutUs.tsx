@@ -1,5 +1,5 @@
 import SectionContainer from "./common/SectionContainer";
-import Image from "./common/Image";
+import ResponsiveImage from "./common/ResponsiveImage";
 import PageTitle from "./common/TitleCover";
 import Link from "./common/Link";
 
@@ -8,7 +8,7 @@ export default function AboutUs() {
         <SectionContainer>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-20">
                 <div className='flex items-center justify-center'>
-                    <Image src={"/static/images/pahari-yatri-banner.png"} alt={"Pahari Yatri About Us Image"} height={500} width={500} className="rounded-lg object-cover h-72 w-72 shadow-lg"></Image>
+                    <ResponsiveImage src={"/static/images/pahari-yatri-banner.png"} alt={"Pahari Yatri About Us Image"} className="h-72 w-72 shadow-lg" aspectRatio="1:1" rounded="lg"></ResponsiveImage>
                 </div>
                 <div>
                     <PageTitle>

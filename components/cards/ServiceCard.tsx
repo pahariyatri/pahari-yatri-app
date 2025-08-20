@@ -1,5 +1,6 @@
-import Image from "../common/Image";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
+import ResponsiveImage from "../common/ResponsiveImage";
+import BaseCard from "../common/BaseCard";
+import IconButton from "../common/IconButton";
 
 export interface ServiceCardProps {
     title: string;
@@ -8,25 +9,32 @@ export interface ServiceCardProps {
 }
 
 const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
+    const header = (
+        <div className="flex flex-col items-center p-4 md:p-6">
+            <ResponsiveImage src={icon} alt={`icon-${title}`} className="w-[50px] h-[50px] mb-4" aspectRatio="1:1" rounded="full" />
+            <h3 className="text-xl md:text-2xl font-bold text-center text-foreground">
+                {title}
+            </h3>
+        </div>
+    );
+
     return (
-        <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl h-full">
-            <CardHeader className="flex flex-col items-center p-4 md:p-6">
-                <Image src={icon} alt={`icon-${title}`} height={50} width={50} className="rounded-full mb-4" />
-                <CardTitle className="text-xl md:text-2xl font-bold text-center">
-                    {title}
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 md:p-6 h-full flex flex-col justify-between">
-                <CardDescription className="mt-2 text-center text-sm md:text-base">
+        <BaseCard 
+            header={header}
+            hoverEffect="scale"
+            contentClassName="p-4 md:p-6 flex flex-col justify-between"
+        >
+            <div className="flex flex-col h-full">
+                <p className="mt-2 text-center text-sm md:text-base text-muted-foreground">
                     {description}
-                </CardDescription>
+                </p>
                 <div className="mt-4 flex justify-center">
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition-colors">
+                    <IconButton variant="default" iconPosition="right" iconType="info">
                         Learn More
-                    </button>
+                    </IconButton>
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </BaseCard>
     );
 }
 

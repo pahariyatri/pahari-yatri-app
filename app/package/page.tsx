@@ -1,3 +1,4 @@
+import FeaturedCard from "@/components/cards/FeaturedCard";
 import PackageCard from "@/components/cards/PackageCard";
 import SectionContainer from "@/components/common/SectionContainer";
 import {
@@ -76,6 +77,14 @@ export default async function Package({ searchParams }: PackageProps) {
           <p className="text-lg leading-7 mb-8">
             Find your perfect adventure with our curated travel packages.
           </p>
+        </div>
+        <div className="py-12">
+          <FeaturedCard 
+            title="Featured Package" 
+            description="Experience the beauty of nature with our featured package. Enjoy a relaxing getaway with top-notch amenities." 
+            imageSrc="/static/images/logo.png" 
+            href="/package/featured"
+          />
         </div>
 
         {/* Package Cards Section */}

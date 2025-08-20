@@ -1,7 +1,7 @@
 "use client";
 
 import SectionContainer from "@/components/common/SectionContainer";
-import Image from "@/components/common/Image";
+import ResponsiveImage from "@/components/common/ResponsiveImage";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
@@ -26,12 +26,12 @@ export default function Gallery({ images = [] }: { images?: (string | null)[] })
                 <CarouselContent>
                     {processedImages.map((url, index) => (
                         <CarouselItem key={index} className="relative w-full h-96">
-                            <Image
+                            <ResponsiveImage
                                 src={url}
                                 alt={`Gallery Image ${index + 1}`}
-                                height={500}
-                                width={500}
-                                className="rounded-lg object-cover w-full h-full"
+                                className="w-full h-full"
+                                aspectRatio="16:9"
+                                rounded="lg"
                             />
                         </CarouselItem>
                     ))}
