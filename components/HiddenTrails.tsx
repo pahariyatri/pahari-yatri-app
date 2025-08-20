@@ -6,7 +6,7 @@ import SectionContainer from "./common/SectionContainer";
 
 type Props = { id?: string };
 
-export function HiddenTrails({ id }: Props) {
+export default function HiddenTrails({ id }: Props) {
     return (
         <SectionContainer id={id} className="py-16 sm:py-24 md:py-32 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

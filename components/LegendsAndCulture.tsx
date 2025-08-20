@@ -2,7 +2,7 @@
 
 import SectionContainer from "./common/SectionContainer";
 
-export function LegendsAndCulture() {
+export default function LegendsAndCulture() {
     return (
         <section className="relative w-full overflow-hidden py-28 md:py-40">
             {/* Full-Width Cinematic Background - Temple/Prayer Flags/Ritual */}
@@ -47,7 +47,7 @@ export function LegendsAndCulture() {
                         </div>
                         <div className="text-left">
                             <p className="text-white text-lg italic font-medium leading-relaxed">
-                                "A silent guardian watches every step. Move with respect, move as a Yatri."
+                                &quot;A silent guardian watches every step. Move with respect, move as a Yatri.&quot;
                             </p>
                             <p className="text-white/70 text-sm mt-3 font-light tracking-wide">— Elder from Mandi District</p>
                         </div>

@@ -2,11 +2,10 @@ import HeroBanner from "@/components/HeroBanner";
 
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
-import { FinalCTA } from "@/components/FinalCTA";
-import { HiddenTrails } from "@/components/HiddenTrails";
-import { LegendsAndCulture } from "@/components/LegendsAndCulture";
+import FinalCTA from "@/components/FinalCTA";
+import HiddenTrails from "@/components/HiddenTrails";
+import LegendsAndCulture from "@/components/LegendsAndCulture";
 import ManifestoSection from "@/components/Manifesto";
-import ProgressRail from "@/components/ProgressRail";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -66,7 +65,7 @@ export default async function Home() {
       {/* <YatriWay /> */}
       {/* <Insights/> */}
       <FinalCTA />
-      <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} />
+      {/* <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} /> */}
     </div>
   );
 }

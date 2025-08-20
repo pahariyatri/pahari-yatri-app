@@ -1,5 +1,6 @@
 import SectionContainer from "@/components/common/SectionContainer";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
+import Image from "@/components/common/Image";
 
 export default function About() {
   return (

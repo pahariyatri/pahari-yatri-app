@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="transparent" />
+  
+  <!-- Small particles -->
+  <g filter="url(#blur)">
+    <circle cx="100" cy="100" r="2" fill="white" />
+    <circle cx="300" cy="200" r="1.5" fill="white" />
+    <circle cx="500" cy="150" r="2" fill="white" />
+    <circle cx="700" cy="300" r="1" fill="white" />
+    <circle cx="900" cy="250" r="2" fill="white" />
+    <circle cx="1100" cy="100" r="1.5" fill="white" />
+    <circle cx="1300" cy="350" r="1" fill="white" />
+    <circle cx="1500" cy="200" r="2" fill="white" />
+    <circle cx="1700" cy="150" r="1.5" fill="white" />
+    <circle cx="1900" cy="300" r="1" fill="white" />
+    
+    <circle cx="150" cy="400" r="2" fill="white" />
+    <circle cx="350" cy="450" r="1" fill="white" />
+    <circle cx="550" cy="500" r="1.5" fill="white" />
+    <circle cx="750" cy="550" r="2" fill="white" />
+    <circle cx="950" cy="600" r="1" fill="white" />
+    <circle cx="1150" cy="650" r="1.5" fill="white" />
+    <circle cx="1350" cy="700" r="2" fill="white" />
+    <circle cx="1550" cy="750" r="1" fill="white" />
+    <circle cx="1750" cy="800" r="1.5" fill="white" />
+    <circle cx="1950" cy="850" r="2" fill="white" />
+    
+    <circle cx="200" cy="900" r="1" fill="white" />
+    <circle cx="400" cy="950" r="1.5" fill="white" />
+    <circle cx="600" cy="1000" r="2" fill="white" />
+    <circle cx="800" cy="1050" r="1" fill="white" />
+    <circle cx="1000" cy="900" r="1.5" fill="white" />
+    <circle cx="1200" cy="950" r="2" fill="white" />
+    <circle cx="1400" cy="1000" r="1" fill="white" />
+    <circle cx="1600" cy="1050" r="1.5" fill="white" />
+    <circle cx="1800" cy="900" r="2" fill="white" />
+  </g>
+</svg>

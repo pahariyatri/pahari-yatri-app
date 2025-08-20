@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, Variants, easeOut } from 'framer-motion';
 import { useRef } from 'react';
 
 interface TextRevealProps {
@@ -11,16 +11,10 @@ interface TextRevealProps {
   duration?: number;
   once?: boolean;
   staggerChildren?: number;
-  threshold?: number;
+  amount?: number;
   children?: React.ReactNode;
 }
 
-/**
- * Clean TextReveal Component
- * - Simple fade + slide animation
- * - No gradients / fancy backgrounds
- * - Mobile-first & brand-neutral
- */
 const TextReveal = ({
   text,
   className = '',
@@ -29,17 +23,17 @@ const TextReveal = ({
   duration = 0.5,
   once = true,
   staggerChildren = 0.05,
-  threshold = 0.2,
+  amount = 0.2,
   children,
 }: TextRevealProps) => {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once, threshold });
 
-  // Split text into words
+  const isInView = useInView(containerRef, { once, amount });
+
   const words = text ? text.split(' ') : [];
 
-  // Container animation
-  const container = {
+  // Correct typing for Variants
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -47,20 +41,18 @@ const TextReveal = ({
     },
   };
 
-  // Child word animation
-  const child = {
+  const child: Variants = {
     hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration,
-        ease: 'easeOut',
+        ease: easeOut, // ✅ use framer-motion predefined easing
       },
     },
   };
 
-  // Render words
   const renderWords = () =>
     words.map((word, index) => (
       <motion.span
@@ -72,7 +64,6 @@ const TextReveal = ({
       </motion.span>
     ));
 
-  // Props for motion element
   const props = {
     ref: containerRef,
     className,

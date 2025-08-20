@@ -52,11 +52,11 @@ export default function YatriPass() {
         <p className="text-base font-semibold uppercase tracking-widest text-himalayan-saffron mb-4">
           Membership
         </p>
-        <PageTitle className="font-brandSerif text-himalayan-green">
+        <PageTitle>
           Yatri Pass
         </PageTitle>
         <p className="mx-auto mt-6 max-w-3xl text-xl text-muted-foreground leading-relaxed">
-          Join an exclusive community of Himalayan seekers. Our membership program offers more than just treks—it's a gateway to transformation.
+          Join an exclusive community of Himalayan seekers. Our membership program offers more than just treks—it&apos;s a gateway to transformation.
         </p>
       </div>
 

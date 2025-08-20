@@ -12,7 +12,7 @@ export default function WhyPahariYatri() {
       <SectionHeader
         eyebrow="Our Story"
         title={<PageTitle>Why Pahari Yatri?</PageTitle>}
-        description="We don't just organize treks—we curate transformative journeys that connect you with the spiritual essence of the Himalayas."
+        description="We don&apos;t just organize treks—we curate transformative journeys that connect you with the spiritual essence of the Himalayas."
       />
 
       {/* Brand Story Section */}
@@ -31,7 +31,7 @@ export default function WhyPahariYatri() {
             Not Just Treks. Transformations.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Every journey with Pahari Yatri is designed to be more than a physical challenge—it's a spiritual awakening, a cultural immersion, and a personal transformation.
+            Every journey with Pahari Yatri is designed to be more than a physical challenge—it&apos;s a spiritual awakening, a cultural immersion, and a personal transformation.
           </p>
           <div className="space-y-4">
             <div className="flex items-start gap-3">

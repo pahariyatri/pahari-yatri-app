@@ -19,11 +19,12 @@ export default function Contact() {
 
           Get In Touch
         </p>
-        <PageTitle className="font-brandSerif text-foreground">
+        <PageTitle>
           Contact & Apply
         </PageTitle>
         <p className="mx-auto mt-6 max-w-3xl text-xl text-muted-foreground leading-relaxed animate-fade-in-up">
-          Ready to begin your Himalayan transformation? We're here to guide you on your journey.
+          Ready to begin your Himalayan transformation? We&apos;re here to guide you on your journey.
+
         </p>
       </div>
 
@@ -196,7 +197,7 @@ export default function Contact() {
                 <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 animate-pulse-slow [animation-delay:200ms]">
                   <span className="text-primary-foreground text-sm font-bold">2</span>
                 </div>
-                <p className="text-sm text-muted-foreground">We'll review and schedule a call</p>
+                <p className="text-sm text-muted-foreground">We&apos;ll review and schedule a call</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 animate-pulse-slow [animation-delay:400ms]">
