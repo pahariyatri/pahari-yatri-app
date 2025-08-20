@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "../common/Image";
+import ResponsiveImage from "../common/ResponsiveImage";
 import {
   Card,
   CardHeader,
@@ -33,12 +33,13 @@ const AccommodationCard = ({
   return (
     <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
       <CardHeader className="relative">
-        <Image
+        <ResponsiveImage
           src={imageSrc}
           alt={name}
-          width={500}
-          height={500}
-          className="w-full h-48 object-cover"
+          className="w-full h-48"
+          aspectRatio="16:9"
+          overlay={true}
+          overlayOpacity={0.2}
         />
         <div className="absolute inset-0 bg-black opacity-20"></div>
       </CardHeader>

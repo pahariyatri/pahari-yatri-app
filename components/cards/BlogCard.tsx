@@ -1,7 +1,7 @@
 import Link from "../common/Link";
-import Image from "../common/Image";
-import { Badge } from "../ui/badge";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
+import BaseCard from "../common/BaseCard";
+import ResponsiveImage from "../common/ResponsiveImage";
+import CustomBadge from "../common/CustomBadge";
 
 export interface BlogCardProps {
     title: string;
@@ -12,32 +12,42 @@ export interface BlogCardProps {
 }
 
 const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardProps) => {
+    const header = (
+        <div className="relative w-full h-40 overflow-hidden">
+            <ResponsiveImage 
+                src={imageSrc} 
+                alt={title} 
+                className="w-full h-40" 
+                aspectRatio="16:9"
+            />
+        </div>
+    );
+
+    const showReadMore = description.length > 120;
+
     return (
-        <Card className="shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
-            <CardHeader>
-                <Image src={imageSrc} alt={title} width={500} height={500} className="w-full h-40 object-cover"></Image>
-            </CardHeader>
-            <CardContent className="p-6">
-                <div className="text-start">
-                    {tags.length > 0 && (
-                        <div className="flex flex-wrap mt-4">
-                            {tags.map((tag, index) => (
-                                <Badge key={index} className="px-2 py-1 mr-2 mb-2">{tag}</Badge>
-                            ))}
-                        </div>
-                    )}
-                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</CardTitle>
-                    <CardDescription className="mt-2 text-gray-700 dark:text-gray-300">
-                        {description.length > 120 ? `${description.slice(0, 120)}...` : description}
-                    </CardDescription>
-                    {description.length > 120 && (
-                        <Link href={href} className="inline-block font-bold py-3 text-blue-600 dark:text-blue-400 hover:underline transition duration-300">
-                            Read more
-                        </Link>
-                    )}
-                </div>
-            </CardContent>
-        </Card>
+        <BaseCard
+            className="overflow-hidden h-full"
+            hoverEffect="scale"
+            header={header}
+        >
+            <div className="text-start space-y-3">
+                {tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                        {tags.map((tag, index) => (
+                            <CustomBadge key={index} variant="secondary">{tag}</CustomBadge>
+                        ))}
+                    </div>
+                )}
+                <h3 className="text-xl font-bold text-foreground">{title}</h3>
+                
+                {showReadMore && (
+                    <Link href={href} className="inline-block font-medium text-primary hover:underline transition duration-300">
+                        Read more
+                    </Link>
+                )}
+            </div>
+        </BaseCard>
     );
 }
 

@@ -1,4 +1,5 @@
 import SectionContainer from "@/components/common/SectionContainer";
+import ResponsiveImage from "@/components/common/ResponsiveImage";
 import Image from "@/components/common/Image";
 
 export default function About() {
@@ -39,12 +40,11 @@ export default function About() {
               rel="noopener noreferrer"
               className="flex items-center bg-green-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-green-600"
             >
-              <Image
+              <ResponsiveImage
                 src="/static/icons/whatsapp logo_icon.svg"
                 alt="WhatsApp"
-                width={24}
-                height={24}
-                className="mr-2"
+                className="w-6 h-6 mr-2"
+                aspectRatio="1:1"
               />
               Contact Us on WhatsApp
             </a>

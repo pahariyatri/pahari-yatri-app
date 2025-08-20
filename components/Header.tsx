@@ -11,20 +11,20 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
     return (
-        <header className="flex items-center sticky top-0 z-50 justify-between py-4 px-4 sm:px-10 bg-white dark:bg-gray-900 shadow-sm">
+        <header className="flex items-center sticky top-0 z-50 justify-between py-4 px-4 sm:px-10 bg-background/80 backdrop-blur-md border-b border-border">
             <div>
                 <Link href="/" aria-label={title}>
                     <div className="flex items-center justify-between">
                         <div className="mr-3">
                             <div className="flex items-center">
                                 <Image src="/static/logo.jpg" height={50} width={50} alt="Pahari Yatri Logo" className="rounded-full mr-4" />
-                                {typeof title === 'string' ? (
+                                {/* {typeof title === 'string' ? (
                                     <div className="hidden h-6 text-2xl font-semibold sm:block">
-                                        <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</span>
+                                        <span className="text-2xl font-bold text-foreground font-brandSerif">{title}</span>
                                     </div>
                                 ) : (
-                                    <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</span>
-                                )}
+                                    <span className="text-2xl font-bold text-foreground font-brandSerif">{title}</span>
+                                )} */}
                             </div>
                         </div>
                     </div>

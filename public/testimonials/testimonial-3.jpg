@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background with Himalayan gradient -->
+  <rect width="800" height="600" fill="#0E2219"/>
+  
+  <!-- Mountain silhouette -->
+  <path d="M0,600 L200,300 L300,400 L400,200 L500,350 L600,250 L800,450 L800,600 Z" fill="#1A3A2E"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="650" cy="150" r="80" fill="#E9B949" opacity="0.7"/>
+  
+  <!-- Testimonial placeholder text -->
+  <text x="400" y="150" font-family="Arial" font-size="40" fill="#F7F6F2" text-anchor="middle">Testimonial 3</text>
+  <text x="400" y="200" font-family="Arial" font-size="24" fill="#F7F6F2" text-anchor="middle">Shrikhand Mahadev</text>
+  
+  <!-- Decorative line -->
+  <line x1="300" y1="230" x2="500" y2="230" stroke="#E9B949" stroke-width="3"/>
+  
+  <!-- Quote marks -->
+  <text x="400" y="300" font-family="Arial" font-size="120" fill="#E9B949" opacity="0.3" text-anchor="middle">❝</text>
+</svg>

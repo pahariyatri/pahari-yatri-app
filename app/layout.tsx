@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Space_Grotesk } from 'next/font/google'
+import { Space_Grotesk, Inter, Playfair_Display } from 'next/font/google'
 import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
@@ -14,6 +14,18 @@ const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-space-grotesk',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-brand-sans',
+})
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-brand-serif',
 })
 
 async function getMetadata() {
@@ -121,7 +133,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
 
-      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className={`bg-white text-black antialiased dark:bg-gray-950 dark:text-white ${inter.variable} ${playfair.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
