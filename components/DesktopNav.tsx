@@ -3,10 +3,8 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { cn } from "@/lib/utils"
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
@@ -20,10 +18,11 @@ export function DektopNav() {
             <NavigationMenuList>
                 {headerNavLinks.map((link) => (
                     <NavigationMenuItem key={link.title}>
-                        <Link href={link.href} passHref legacyBehavior>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                {link.title}
-                            </NavigationMenuLink>
+                        <Link
+                            href={link.href}
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            {link.title}
                         </Link>
                     </NavigationMenuItem>
                 ))}
