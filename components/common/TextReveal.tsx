@@ -7,7 +7,6 @@ interface TextRevealProps {
   text: string;
   className?: string;
   element?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-  delay?: number;
   duration?: number;
   once?: boolean;
   staggerChildren?: number;
@@ -19,11 +18,10 @@ const TextReveal = ({
   text,
   className = '',
   element = 'p',
-  delay = 0,
-  duration = 0.5,
-  once = true,
-  staggerChildren = 0.05,
-  amount = 0.2,
+  duration = 0.4,
+  once = false,             // ✅ not limited to one time
+  staggerChildren = 0.03,   // ✅ quick stagger
+  amount = 0.05,            // ✅ small threshold, triggers even on fast scroll
   children,
 }: TextRevealProps) => {
   const containerRef = useRef(null);
@@ -32,12 +30,11 @@ const TextReveal = ({
 
   const words = text ? text.split(' ') : [];
 
-  // Correct typing for Variants
   const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren, delayChildren: delay },
+      transition: { staggerChildren }, // ✅ no delayChildren
     },
   };
 
@@ -48,7 +45,7 @@ const TextReveal = ({
       y: 0,
       transition: {
         duration,
-        ease: easeOut, // ✅ use framer-motion predefined easing
+        ease: easeOut,
       },
     },
   };

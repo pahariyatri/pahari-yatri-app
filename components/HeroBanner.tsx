@@ -41,11 +41,6 @@ const HeroBanner = ({ title, description, buttonText, buttonLink, media }: HeroB
                 </div>
             </div>
             </div>
-
-
-
-            {/* Scroll Indicator */}
-            
             {/* Text & CTA overlay - CENTERED */}
             {/* <div className="text-center mt-12 mb-12 px-6">
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-brandSerif drop-shadow-lg">

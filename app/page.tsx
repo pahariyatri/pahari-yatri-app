@@ -13,7 +13,6 @@ export default async function Home() {
   const heroBanner = await reader.singletons.banners.readOrThrow();
   const blogsData = await reader.collections.blogs.all();
   const packageData = await reader.collections.packages.all();
-  const testimonialsList = await reader.singletons.testimonials.readOrThrow();
 
 
   const blogs = blogsData.map(blog => ({
@@ -41,11 +40,6 @@ export default async function Home() {
       price: pkg.entry.price ?? 0,
       location: pkg.entry.location,
     }))
-  const testimonials = testimonialsList.data ? testimonialsList.data.map(testimonial => ({
-    title: testimonial.title,
-    description: testimonial.description,
-    author: testimonial.author,
-  })) : [];
 
   return (
     <div className="min-h-screen">
@@ -62,8 +56,6 @@ export default async function Home() {
       <ManifestoSection />
       <HiddenTrails id="hidden-trails" />
       <LegendsAndCulture />
-      {/* <YatriWay /> */}
-      {/* <Insights/> */}
       <FinalCTA />
       {/* <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} /> */}
     </div>

@@ -9,9 +9,7 @@ import { ParallaxLayer } from './common/ParallaxLayer';
 
 const MANIFESTO_LINES = [
   'Not tourism. A movement of Yatri.',
-  'Hear the mountains. Feel the silence.',
   "We don't just see the mountains. We surrender to them.",
-  'We travel lightly. We listen deeply. We return transformed.',
 ];
 
 function ManifestoLine({
@@ -113,7 +111,6 @@ function ManifestoLine({
           <TextReveal
             text={line}
             element="h2"
-            delay={index === 0 ? 0 : 0.1}
             duration={index === 0 ? 0.2 : 0.4}
             staggerChildren={index === 0 ? 0.02 : 0.04}
             once={index === 0}
