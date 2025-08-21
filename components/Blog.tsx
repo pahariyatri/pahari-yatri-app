@@ -1,8 +1,7 @@
 import SectionContainer from "./common/SectionContainer";
 import BlogCard, { BlogCardProps } from "./cards/BlogCard";
-import PageTitle from "./common/TitleCover";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import { SectionHeader } from "./common/SectionHeader";
+import SectionHeading from "./common/SectionHeading";
 
 interface BlogProps {
     blogs: Array<BlogCardProps>;
@@ -11,10 +10,8 @@ interface BlogProps {
 export default function Blog({ blogs }: BlogProps) {
     return (
         <SectionContainer>
-            <SectionHeader
-                eyebrow="Our Blog"
-                title={<PageTitle>Himalyan Insights</PageTitle>}
-            />
+            <SectionHeading title={"Himalyan Insights"}>
+            </SectionHeading>
             <Carousel opts={{ align: "start", }} className="relative w-full overflow-hidden mt-4">
                 <CarouselContent>
                     {blogs.map((blog, index) => (

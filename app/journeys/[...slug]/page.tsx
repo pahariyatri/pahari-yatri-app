@@ -2,7 +2,6 @@ import SectionContainer from "@/components/common/SectionContainer";
 import Image from "@/components/common/Image";
 import { Metadata } from "next";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import Booking from "@/components/Booking";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -171,9 +170,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
                 </li>
               </ul>
             </div>
-            <div className="mt-6">
-              <Booking packageName={getPackageDetails.title} />
-            </div>
+            
           </div>
         </div>
 

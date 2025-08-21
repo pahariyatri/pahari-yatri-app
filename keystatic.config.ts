@@ -10,7 +10,7 @@ export default config({
     brand: { name: "Yatri CMS" },
     navigation: {
       Content: ["packages", "blogs"],
-      "Landing Page": ["banners", "faqs", "testimonials"],
+      "Landing Page": ["banners", "faqs"],
       "Site Meta data": ["settings", "seo", "contact"],
     },
   },
@@ -160,24 +160,6 @@ export default config({
           publicPath: "/static/videos/banners/",
           validation: { isRequired: true },
         }),
-      },
-    }),
-
-    testimonials: singleton({
-      label: "Testimonials",
-      path: "data/testimonials/",
-      schema: {
-        data: fields.array(
-          fields.object({
-            title: fields.text({ label: "Title" }),
-            description: fields.text({ label: "Description", multiline: true }),
-            author: fields.text({ label: "Author" }),
-          }),
-          {
-            label: "Testimonials List",
-            itemLabel: (props) => props.fields.title.value,
-          }
-        ),
       },
     }),
     faqs: singleton({

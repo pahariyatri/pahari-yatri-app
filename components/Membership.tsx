@@ -1,6 +1,6 @@
 import Link from "./common/Link";
 import SectionContainer from "./common/SectionContainer";
-import { SectionHeader } from "./common/SectionHeader";
+import SectionHeading from "./common/SectionHeading";
 import PageTitle from "./common/TitleCover";
 import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
@@ -10,13 +10,8 @@ export default function Membership() {
     return (
         <SectionContainer>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionHeader
-                    eyebrow="Membership"
-
-                    title={"Yatri Pass Membership"}
-                    description="Join a circle of seekers. Not just treks — transformation."
-                />
-
+                <SectionHeading title="Yatri Pass Membership">
+                </SectionHeading>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     {[
                         {
