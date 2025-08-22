@@ -1,7 +1,5 @@
-import headerNavLinks from '@/data/headerNavLinks';
 import Link from './common/Link';
 import MobileNav from './MobileNav';
-import ThemeSwitch from './ThemeSwitch';
 import { DektopNav } from './DesktopNav';
 import Image from './common/Image';
 
@@ -11,7 +9,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
     return (
-        <header className="flex items-center sticky top-0 z-50 justify-between py-4 px-4 sm:px-10 bg-background/80 backdrop-blur-md border-b border-border">
+        <header className="flex items-center sticky top-0 z-50 justify-between py-4 px-4 sm:px-10 backdrop-blur-md border-b border-border">
             <div>
                 <Link href="/" aria-label={title}>
                     <div className="flex items-center justify-between">
@@ -35,7 +33,6 @@ const Header = ({ title }: HeaderProps) => {
                 <div className="hidden sm:block">
                     <DektopNav />
                 </div>
-                <ThemeSwitch />
                 <div className="sm:hidden">
                     <MobileNav />
                 </div>

@@ -3,14 +3,12 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 export const showAdminUI = process.env.NODE_ENV === "development";
 
 export default config({
-  storage: {
-    kind: "local",
-  },
+  storage: { kind: "local" },
   ui: {
     brand: { name: "Yatri CMS" },
     navigation: {
-      Content: ["packages", "blogs"],
-      "Landing Page": ["banners", "faqs"],
+      Journeys: ["packages", "blogs"],
+      "Landing Page": ["banners", "faqs", "philosophy"],
       "Site Meta data": ["settings", "seo", "contact"],
     },
   },
@@ -27,118 +25,86 @@ export default config({
             label: "Title",
             validation: {
               isRequired: true,
-              length: {
-                min: 50,
-                max: 60,
-              },
+              length: { min: 50, max: 60 },
             },
           },
         }),
         excerpt: fields.text({
           label: "Excerpt",
           multiline: true,
-          validation: {
-            length: {
-              min: 150,
-              max: 160,
-            },
-          },
+          validation: { length: { min: 150, max: 160 } },
         }),
-        tags: fields.array(
-          fields.relationship({
-            label: "Tags",
-            collection: "tags",
-            validation: {
-              isRequired: true,
-            },
-          }),
-          {
-            label: "Tags",
-            itemLabel: (props) => props.value ?? "Select a tags",
-          }
+        tags: fields.array(fields.text({ label: "Tag" }), {
+          label: "Tags",
+          itemLabel: (props) => props.value ?? "Tag",
+        }),
+        relatedJourneys: fields.array(
+          fields.relationship({ label: "Journey", collection: "packages" }),
+          { label: "Related Journeys" }
         ),
         image: fields.image({
           label: "Featured Image",
           directory: "public/static/images/blogs",
           publicPath: "/static/images/blogs/",
-          validation: {
-            isRequired: true,
-          },
+          validation: { isRequired: true },
         }),
         content: fields.markdoc({ label: "Content" }),
       },
     }),
+
     packages: collection({
-      label: "Packages",
+      label: "Journeys",
       slugField: "title",
       path: "data/packages/*",
       schema: {
         title: fields.slug({
-          name: {
-            label: "Title",
-            validation: {
-              isRequired: true,
-            },
-          },
+          name: { label: "Title", validation: { isRequired: true } },
+        }),
+        invitation: fields.text({
+          label: "Sacred Invitation",
+          multiline: true,
+          description:
+            "1–2 lines emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
         }),
         excerpt: fields.text({
           label: "Excerpt",
           multiline: true,
-          validation: {
-            isRequired: true,
-            length: {
-              min: 50,
-              max: 250,
-            },
-          },
+          validation: { isRequired: true, length: { min: 50, max: 250 } },
         }),
-        isFeatured: fields.checkbox({ label: "is Featured" }),
+        isFeatured: fields.checkbox({ label: "Featured Journey" }),
         image: fields.image({
           label: "Featured Image",
           directory: "public/static/images/packages",
           publicPath: "/static/images/packages/",
-          validation: {
-            isRequired: true,
-          },
+          validation: { isRequired: true },
         }),
         itinerary: fields.array(
           fields.object({
             day: fields.number({ label: "Day" }),
             title: fields.text({ label: "Title" }),
-            description: fields.text({ label: "Description", multiline: true }),
+            description: fields.text({
+              label: "Experience",
+              multiline: true,
+              description:
+                "Write like a story, not just logistics. Example: ‘We begin in silence, listening to the forest at dawn.’",
+            }),
           }),
-          {
-            label: "Itinerary",
-            itemLabel: (props) => props.fields.title.value,
-          }
+          { label: "Itinerary", itemLabel: (props) => props.fields.title.value }
         ),
-        price: fields.number({ label: "Price" }),
-        duration: fields.integer({ label: "Duration" }),
-        location: fields.text({ label: "Location" }),
-        // difficulty: fields.select({
-        //     label: 'Difficulty',
-        //     description: "The person's difficulty at the company",
-        //     options: [
-        //         { label: 'Easy', value: 'easy' },
-        //         { label: 'Modrate', value: 'developer' },
-        //         { label: 'Product manager', value: 'product-manager' },
-        //     ],
-        //     defaultValue: 'easy'
-        // }),
-        // inclusions: fields.array(
-        //     fields.text({ label: 'Inclusions' }),
-        //     {
-        //         label: 'Inclusions',
-        //         itemLabel: props => props.value
-        //     }
-        // ),
-        // exclusions: fields.array(
-        //     fields.text({ label: 'Exclusions' }),
-        //     {
-        //         label: 'Exclusions',
-        //         itemLabel: props => props.value
-        //     }
-        // ),
+        offering: fields.text({
+          label: "Offering (instead of Price)",
+          description: "e.g. ‘Your energy exchange: ₹20,000’",
+        }),
+        duration: fields.integer({ label: "Duration (days)" }),
+        location: fields.text({ label: "Region / Trailhead" }),
+        themes: fields.array(fields.text({ label: "Theme" }), {
+          label: "Journey Themes",
+          itemLabel: (props) => props.value,
+        }),
+        giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
+          label: "What the Mountains Give",
+          itemLabel: (props) => props.value ?? "Gift",
+        }),
       },
     }),
   },
@@ -162,6 +128,7 @@ export default config({
         }),
       },
     }),
+
     faqs: singleton({
       label: "Faqs",
       path: "data/faqs/",
@@ -178,6 +145,19 @@ export default config({
         ),
       },
     }),
+
+    philosophy: singleton({
+      label: "Philosophy",
+      path: "data/philosophy/",
+      schema: {
+        statement: fields.markdoc({
+          label: "Philosophy Statement",
+          description:
+            "Write your brand’s deeper story: why you exist, what Yatra means, how it’s different from tourism.",
+        }),
+      },
+    }),
+
     seo: singleton({
       label: "SEO",
       path: "data/seo/",
@@ -188,6 +168,7 @@ export default config({
         keywords: fields.text({ label: "Keywords", multiline: true }),
       },
     }),
+
     settings: singleton({
       label: "Settings",
       path: "data/settings/",
@@ -197,16 +178,15 @@ export default config({
           label: "Logo",
           directory: "public/static/images",
           publicPath: "/static/images/",
-          validation: {
-            isRequired: true,
-          },
+          validation: { isRequired: true },
         }),
         language: fields.text({ label: "Language" }),
         theme: fields.text({ label: "Theme" }),
-        locale: fields.text({ label: "Local" }),
+        locale: fields.text({ label: "Locale" }),
         domain: fields.url({ label: "Domain" }),
       },
     }),
+
     contact: singleton({
       label: "Contact",
       path: "data/contact/",

@@ -1,167 +1,70 @@
-import Image from "@/components/common/Image";
-import Link from "@/components/common/Link";
-import SectionContainer from "@/components/common/SectionContainer";
-import PageTitle from "@/components/common/TitleCover";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import siteMetadata from "@/data/siteMetadata";
-import keystaticConfig from "@/keystatic.config";
+import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "@/keystatic.config";
+import BlogPageClient from "./client-page";
 import Markdoc from "@markdoc/markdoc";
-import React from "react";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-// SEO Metadata Generation
-export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const slug = decodeURI(params.slug.join("/"));
-  const blog = await reader.collections.blogs.read(slug);
-  if (!blog) return undefined;
-
-  return {
-    title: blog.title,
-    description: blog.excerpt,
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      siteName: siteMetadata.title || 'Pahari Yatri',
-      url: `${siteMetadata.siteUrl}/blog/${slug}`,
-      images: [
-        {
-          url: blog.image || `${siteMetadata.siteUrl}/static/og-image.jpg`,
-          alt: blog.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: blog.title,
-      description: blog.excerpt,
-      images: [blog.image || `${siteMetadata.siteUrl}/static/og-image.jpg`],
-    },
-  };
-}
-
-// Blog Page Component
-export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = decodeURI(params.slug.join("/"));
-  console.log('Slug in Page:', slug);
+export default async function Page({ params }: any) {
+  const paramsData = await params;
+  const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
+  const slug = decodeURIComponent(slugArr.join("/"));
 
   const blog = await reader.collections.blogs.read(slug);
-
-  if (!blog) {
-    console.warn(`No blog found for slug: ${slug}`);
-    return <div>No Post Found</div>;
-  }
-
-  const { node } = await blog.content();
-  const errors = Markdoc.validate(node);
-  if (errors.length) {
-    console.error(errors);
-    throw new Error('Invalid content');
-  }
-  const renderable = Markdoc.transform(node);
-
-  // Structured Data (JSON-LD)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${siteMetadata.siteUrl}/blog/${slug}`,
-    },
-    "headline": blog.title,
-    "image": [
-      {
-        "@type": "ImageObject",
-        "url": blog.image ? blog.image : `${siteMetadata.siteUrl}/static/og-image.jpg`,
-        "width": 800,
-        "height": 400,
-      },
-    ],
-    "author": {
-      "@type": "Person",
-      "name": siteMetadata.author,
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": siteMetadata.title,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${siteMetadata.siteUrl}/static/logo.png`,
-        "width": 600,
-        "height": 60,
-      },
-    },
-    "datePublished": new Date().toISOString(),
-    "dateModified": new Date().toISOString(),
-    "description": blog.excerpt,
+  if (!blog) notFound();
+  
+  // Define a type that includes only serializable properties
+  type BlogData = {
+    title: string;
+    excerpt: string;
+    image: string;
+    slug: string;
+    tags: string[];
+    relatedJourneys: (string | null)[];
+    contentHtml?: string; // Pre-rendered HTML content
   };
 
-  return (
-    <>
-      <SectionContainer>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <Link href="/" className="block">
-                Home
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <Link href="/blog" className="block">
-                Blogs
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{blog.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        {/* Structured Data for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+  // Pre-render the content on the server
+  let contentHtml = '';
+  try {
+    if (typeof blog.content === 'function') {
+      const contentData = await blog.content();
+      if (contentData) {
+        // Convert the content to a string if possible
+        const contentStr = typeof contentData.toString === 'function' 
+          ? contentData.toString() 
+          : '';
+        
+        // Parse and transform with Markdoc
+        if (contentStr) {
+          const ast = Markdoc.parse(contentStr);
+          const transformed = Markdoc.transform(ast);
+          // Convert to HTML string
+          contentHtml = JSON.stringify(transformed);
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error pre-rendering content:', error);
+  }
+  
+  // Create a new object with only serializable properties
+  const blogData: BlogData = {
+    title: blog.title || '',
+    excerpt: blog.excerpt || '',
+    image: blog.image || '',
+    slug: slug,
+    tags: [...(blog.tags || [])],
+    relatedJourneys: [...(blog.relatedJourneys || [])],
+    contentHtml: contentHtml
+  };
 
-        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          {/* Blog Title and Meta Info */}
-          <div className="text-center mb-12">
-            <PageTitle>{blog.title}</PageTitle>
-            <p className="mt-4 text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
-            <div className="mt-4 text-gray-500 dark:text-gray-400">
-              <span>By {siteMetadata.author} | {new Date().toDateString()}</span>
-            </div>
-          </div>
-
-          {/* Blog Featured Image */}
-          <div className="relative w-full h-96 mb-12">
-            <Image
-              src={blog.image ? blog.image : `${siteMetadata.siteUrl}/static/og-image.jpg`}
-              alt={blog.title}
-              width={800}
-              height={400}
-              className="rounded-lg object-cover w-full h-full"
-            />
-          </div>
-
-          {/* Blog Content */}
-          <div className="prose prose-lg max-w-none dark:prose-dark">
-            {Markdoc.renderers.react(renderable, React)}
-          </div>
-        </div>
-      </SectionContainer>
-    </>
-  );
+  return <BlogPageClient blog={blogData} />;
 }
 
-// Generate static params with slug as an array
+
 export async function generateStaticParams() {
   const slugs = await reader.collections.blogs.list();
-
-  // Return slugs as an array, even if it's a single-level slug
-  return slugs.map((slug: any) => ({
-    slug: [slug],
-  }));
+  return slugs.map((slug: string) => ({ slug: [slug] }));
 }

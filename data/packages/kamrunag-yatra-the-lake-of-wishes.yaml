@@ -1,7 +1,42 @@
-title: Kamrunag Yatra — The Lake of Wishes
-excerpt: >-
-  A hidden trail leading to the lake of legends. A walk of devotion, not
-  tourism.
-isFeatured: true
-image: /static/images/packages/kamrunag-yatra-the-lake-of-wishes/image.jpg
-itinerary: []
+  title: Kamrunag Yatra — The Lake of Wishes
+  invitation: A walk into silence, where the mountain teaches you who you are.
+  excerpt: |2-
+    A hidden trail leading to the lake of legends. This is not tourism. It is a
+      pilgrimage of silence, devotion, and inner clarity.
+  isFeatured: true
+  image: /static/images/packages/kamrunag-yatra-the-lake-of-wishes/image.jpg
+  itinerary:
+    - day: 1
+      title: The Calling
+      description: |-
+        Begin your yatra from Rohanda village. Walk through cedar forests where
+              every step feels like an initiation. This day is less about distance, more
+              about leaving behind your everyday noise.
+    - day: 2
+      title: Into the Sacred Forests
+      description: >-
+        The climb becomes steeper. Silence deepens. You share simple meals with
+        fellow yatris, and the mountains start whispering their ancient stories.
+    - day: 3
+      title: The Lake of Wishes
+      description: >-
+        Reach Kamrunag Lake — still, mystical, and vast like the sky itself. Here,
+        people for centuries have offered wishes to the waters. Sit, reflect, and
+        listen. The lake reflects not only the peaks, but your own heart.
+    - day: 4
+      title: Return as Someone Else
+      description: >-
+        The descent feels lighter, though the path is the same. What you carry is
+        different now — clarity, strength, and a memory that will keep guiding you
+        long after you leave.
+  offering: 'Your energy exchange: ₹15,000'
+  duration: 4
+  location: Mandi, Himachal Pradesh
+  themes:
+    - Pilgrimage
+    - Silence
+    - Self-discovery
+  giftsFromMountains:
+    - Clarity of mind
+    - Inner stillness
+    - A sense of connection with the sacred Himalayas

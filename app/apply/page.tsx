@@ -9,12 +9,12 @@ export default function Apply() {
         <p className="text-base font-semibold uppercase tracking-widest text-primary mb-4 animate-pulse bg-clip-text">
           Begin Your Journey
         </p>
-        <PageTitle>
+        {/* <PageTitle>
           Application Form
         </PageTitle>
         <p className="mx-auto mt-6 max-w-3xl text-xl text-muted-foreground leading-relaxed animate-fade-in-up">
           Ready to embark on a transformative Himalayan journey? Complete the form below to start your adventure with Pahari Yatri.
-        </p>
+        </p> */}
       </div>
 
       <div className="max-w-3xl mx-auto mb-20">

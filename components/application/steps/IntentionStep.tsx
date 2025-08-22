@@ -1,9 +1,8 @@
 'use client';
 
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 type Props = {
   formData: {
@@ -16,91 +15,152 @@ type Props = {
 
 export default function IntentionStep({ formData, updateFormData }: Props) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="text-center mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="text-center mb-4"
       >
-        <h2 className="text-2xl font-bold tracking-tight mb-2">Your Calling</h2>
-        <p className="text-muted-foreground">
-          What draws you to the mountains? Tell us about your intentions for this journey.
-        </p>
+        <h2 className="text-xl font-bold mb-1">Your Intentions</h2>
       </motion.div>
 
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="space-y-2"
+        className="space-y-4"
       >
-        <Label htmlFor="calling">What draws you to the Himalayas?</Label>
-        <Select 
-          value={formData.calling} 
-          onValueChange={(value) => updateFormData('calling', value)}
-        >
-          <SelectTrigger id="calling" className="w-full">
-            <SelectValue placeholder="Select what calls you" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="silence">Seeking Silence & Solitude</SelectItem>
-            <SelectItem value="adventure">Adventure & Challenge</SelectItem>
-            <SelectItem value="spiritual">Spiritual Connection</SelectItem>
-            <SelectItem value="nature">Connection with Nature</SelectItem>
-            <SelectItem value="culture">Cultural Immersion</SelectItem>
-            <SelectItem value="photography">Photography & Creative Inspiration</SelectItem>
-            <SelectItem value="healing">Healing & Transformation</SelectItem>
-          </SelectContent>
-        </Select>
+        <Label className="text-base font-medium">What draws you to the Himalayas?</Label>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+          {[
+            { value: 'silence', label: 'Seeking Silence & Solitude', icon: '🧘' },
+            { value: 'adventure', label: 'Adventure & Challenge', icon: '🏔️' },
+            { value: 'spiritual', label: 'Spiritual Connection', icon: '✨' },
+            { value: 'nature', label: 'Connection with Nature', icon: '🌿' },
+            { value: 'culture', label: 'Cultural Immersion', icon: '🏮' },
+            { value: 'photography', label: 'Creative Inspiration', icon: '📸' },
+            { value: 'healing', label: 'Healing & Transformation', icon: '🌱' },
+          ].map((option) => (
+            <motion.div
+              key={option.value}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={cn(
+                'relative rounded-lg border-2 p-3 cursor-pointer transition-all duration-200',
+                formData.calling === option.value 
+                  ? 'border-primary bg-primary/10 shadow-md' 
+                  : 'border-muted bg-background hover:border-muted-foreground/20'
+              )}
+              onClick={() => updateFormData('calling', option.value)}
+            >
+              <div className="text-xl mb-1">{option.icon}</div>
+              <div className="font-medium text-sm">{option.label}</div>
+              {formData.calling === option.value && (
+                <motion.div 
+                  className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring' }}
+                >
+                  ✓
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
 
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="space-y-2"
+        className="space-y-4"
       >
-        <Label htmlFor="season">When do you feel most called to journey?</Label>
-        <Select 
-          value={formData.season} 
-          onValueChange={(value) => updateFormData('season', value)}
-        >
-          <SelectTrigger id="season" className="w-full">
-            <SelectValue placeholder="Select your preferred season" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="spring">Spring (March-May) - Blooming Rhododendrons</SelectItem>
-            <SelectItem value="summer">Summer (June-August) - Clear Mountain Views</SelectItem>
-            <SelectItem value="monsoon">Monsoon (July-September) - Lush Green Landscapes</SelectItem>
-            <SelectItem value="autumn">Autumn (September-November) - Golden Light</SelectItem>
-            <SelectItem value="winter">Winter (December-February) - Snow-Covered Peaks</SelectItem>
-          </SelectContent>
-        </Select>
+        <Label className="text-base font-medium">When do you feel called to journey?</Label>
+        
+        <div className="grid grid-cols-2 gap-2 pt-2">
+          {[
+            { value: 'spring', label: 'Spring (Mar-May)', description: 'Blooming Rhododendrons', icon: '🌸' },
+            { value: 'summer', label: 'Summer (Jun-Aug)', description: 'Clear Mountain Views', icon: '☀️' },
+            { value: 'monsoon', label: 'Monsoon (Jul-Sep)', description: 'Lush Green Landscapes', icon: '🌧️' },
+            { value: 'autumn', label: 'Autumn (Sep-Nov)', description: 'Golden Light', icon: '🍂' },
+            { value: 'winter', label: 'Winter (Dec-Feb)', description: 'Snow-Covered Peaks', icon: '❄️' },
+          ].map((option) => (
+            <motion.div
+              key={option.value}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={cn(
+                'relative rounded-lg border-2 p-3 cursor-pointer transition-all duration-200',
+                formData.season === option.value 
+                  ? 'border-primary bg-primary/10 shadow-md' 
+                  : 'border-muted bg-background hover:border-muted-foreground/20'
+              )}
+              onClick={() => updateFormData('season', option.value)}
+            >
+              <div className="text-xl mb-1">{option.icon}</div>
+              <div className="font-medium text-sm">{option.label}</div>
+              <div className="text-xs text-muted-foreground">{option.description}</div>
+              {formData.season === option.value && (
+                <motion.div 
+                  className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring' }}
+                >
+                  ✓
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
 
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="space-y-2"
+        className="space-y-4"
       >
-        <Label htmlFor="companionship">How do you prefer to travel?</Label>
-        <Select 
-          value={formData.companionship} 
-          onValueChange={(value) => updateFormData('companionship', value)}
-        >
-          <SelectTrigger id="companionship" className="w-full">
-            <SelectValue placeholder="Select your travel preference" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="solo">Solo Journey - Finding My Path</SelectItem>
-            <SelectItem value="friends">With Friends - Shared Experience</SelectItem>
-            <SelectItem value="guided-small">Small Guided Group (2-6 people)</SelectItem>
-            <SelectItem value="guided-medium">Medium Guided Group (7-12 people)</SelectItem>
-            <SelectItem value="custom">Custom Experience</SelectItem>
-          </SelectContent>
-        </Select>
+        <Label className="text-base font-medium">How do you prefer to travel?</Label>
+        
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          {[
+            { value: 'solo', label: 'Solo Journey', description: 'Finding My Path', icon: '🧭' },
+            { value: 'friends', label: 'With Friends', description: 'Shared Experience', icon: '👥' },
+            { value: 'guided-small', label: 'Small Guided Group', description: '2-6 people', icon: '🧗‍♀️' },
+            { value: 'guided-medium', label: 'Medium Guided Group', description: '7-12 people', icon: '👨‍👩‍👧‍👦' },
+          ].map((option) => (
+            <motion.div
+              key={option.value}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className={cn(
+                'relative rounded-lg border-2 p-4 cursor-pointer transition-all duration-200',
+                formData.companionship === option.value 
+                  ? 'border-primary bg-primary/10 shadow-md' 
+                  : 'border-muted bg-background hover:border-muted-foreground/20'
+              )}
+              onClick={() => updateFormData('companionship', option.value)}
+            >
+              <div className="text-2xl mb-2">{option.icon}</div>
+              <div className="font-medium">{option.label}</div>
+              <div className="text-sm text-muted-foreground">{option.description}</div>
+              {formData.companionship === option.value && (
+                <motion.div 
+                  className="absolute -top-2 -right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring' }}
+                >
+                  ✓
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
     </div>
   );

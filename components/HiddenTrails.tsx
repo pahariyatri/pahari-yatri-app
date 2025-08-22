@@ -15,11 +15,11 @@ export default function HiddenTrails({ id }: Props) {
                     {/* Left: Text Content */}
                     <div className="animate-fade-in-left">
                         {/* Decorative line */}
-                        <div className="w-16 h-1 bg-gradient-to-r from-himalayan-green/40 via-himalayan-saffron to-himalayan-green/40 rounded-full mb-6 sm:mb-8 animate-pulse-slow"></div>
+                        <div className="w-16 h-1  rounded-full mb-6 sm:mb-8 animate-pulse-slow"></div>
 
                         {/* Headline */}
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-brandSerif mb-6 leading-snug sm:leading-tight">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 dark:from-foreground dark:via-foreground/90 dark:to-foreground/80">
+                        <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-6xl font-bold font-brandSerif mb-8 text-white animate-fade-in-up">
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/80 dark:from-white dark:via-white/90 dark:to-white/80">
                                 Secret valleys. Forgotten trails. Only a Yatri knows.
                             </span>
                         </h2>

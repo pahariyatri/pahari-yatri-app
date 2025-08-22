@@ -1,6 +1,6 @@
+import BlogClientPage from './client-page';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
-import BlogClientPage from './client-page';
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
