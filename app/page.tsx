@@ -27,7 +27,6 @@ export default async function Home() {
     description: pkg.entry.excerpt,
     imageSrc: pkg.entry.image,
     href: `/package/${pkg.slug}`,
-    price: pkg.entry.price ?? 0,
     location: pkg.entry.location,
   }));
   const featuredPackages = packageData
@@ -37,7 +36,6 @@ export default async function Home() {
       description: pkg.entry.excerpt,
       imageSrc: pkg.entry.image,
       href: `/package/${pkg.slug}`,
-      price: pkg.entry.price ?? 0,
       location: pkg.entry.location,
     }))
 

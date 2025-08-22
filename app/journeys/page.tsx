@@ -11,7 +11,7 @@ export default async function Journeys() {
     title: j.entry.title || "Untitled Journey",
     description: j.entry.excerpt || "A path into the Himalayas.",
     imageSrc: j.entry.image || "/static/images/journey-banner.jpg",
-    href: `/journey/${j.slug}`,
+    href: `/journeys/${j.slug}`,
   }));
 
   return (

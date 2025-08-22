@@ -2,21 +2,27 @@
 
 import Link from "./common/Link";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface HeroBannerProps {
     title: string;
     description: string;
     buttonText?: string;
     buttonLink?: string;
-    media: string; // MP4 video file path
+    media: string; // MP4 video path
 }
 
-const HeroBanner = ({ title, description, buttonText, buttonLink, media }: HeroBannerProps) => {
+const HeroBanner = ({
+    title,
+    description,
+    buttonText,
+    buttonLink,
+    media,
+}: HeroBannerProps) => {
     return (
-        <section id="hero-banner" className="w-full">
-            {/* Cinematic Background Video */}
-            <div className="relative w-full h-[60vh] sm:h-[75vh] lg:h-[65vh] overflow-hidden">
+        <section id="hero-banner" className="relative w-full bg-background">
+            {/* 🎥 Background Video Section */}
+            <div className="relative w-full h-[70vh] lg:h-[60vh] overflow-hidden">
                 <video
                     className="absolute inset-0 w-full h-full object-cover"
                     autoPlay
@@ -28,28 +34,28 @@ const HeroBanner = ({ title, description, buttonText, buttonLink, media }: HeroB
                 >
                     <source src={media} type="video/mp4" />
                 </video>
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent dark:from-background/95 dark:via-background/60 dark:to-transparent" />
-                {/* Decorative silhouette */}
-                {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-[url('/static/images/himalaya-silhouette.svg')] bg-repeat-x bg-bottom opacity-10 dark:opacity-15" /> */}
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-fade-in-up [animation-delay:1000ms]">
-                <span className="text-xs uppercase tracking-widest text-white/70 mb-2 font-light">
-                    Walk with us
-                </span>
-                <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-1">
-                    <div className="w-1.5 h-1.5 bg-white/70 rounded-full animate-scroll-indicator"></div>
+
+
+            </div>
+
+            {/* ✨ Content Section BELOW the video */}
+            <div className="relative z-10 bg-background -mt-8 sm:-mt-20 lg:-mt-2 rounded-t-3xl shadow-lg">
+                <div className="max-w-4xl mx-auto px-6 py-12 text-center">
+                    {/* Title */}
+                    <h1 className="text-4xl sm:text-6xl md:text-6xl lg:text-7xl font-bold font-brandSerif mb-8 text-white animate-fade-in-up">
+                            {title}
+                    </h1>
+                    {/* <motion.h1
+                        className="text-3xl sm:text-5xl lg:text-6xl font-brandSerif font-bold text-foreground"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+
+                    >
+                        {title}
+                    </motion.h1> */}
                 </div>
             </div>
-            </div>
-            {/* Text & CTA overlay - CENTERED */}
-            {/* <div className="text-center mt-12 mb-12 px-6">
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-brandSerif drop-shadow-lg">
-                    {title}
-                </h1>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-brandSerif drop-shadow-lg">
-                    {description}
-                </h2>
-            </div> */}
         </section>
     );
 };

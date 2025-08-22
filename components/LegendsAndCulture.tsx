@@ -26,7 +26,7 @@ export default function LegendsAndCulture() {
                 {/* Premium decorative element */}
                 <div className="w-24 h-1 bg-gradient-to-r from-himalayan-green/40 via-himalayan-saffron to-himalayan-green/40 rounded-full mb-10 mx-auto animate-pulse-slow"></div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-brandSerif mb-8 text-white animate-fade-in-up">
+                <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-brandSerif mb-8 text-white animate-fade-in-up">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/80 dark:from-white dark:via-white/90 dark:to-white/80">
                         Where Legends Still Breathe
                     </span>

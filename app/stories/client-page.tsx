@@ -1,6 +1,7 @@
 'use client';
 
 import BlogCard from "@/components/cards/BlogCard";
+import FeaturedCard from "@/components/cards/FeaturedCard";
 import SectionContainer from "@/components/common/SectionContainer";
 
 interface BlogClientPageProps {
@@ -41,7 +42,15 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
           </p>
         </div>
 
-       
+        {/* Featured Post */}
+        <div className="py-12">
+          <FeaturedCard 
+            title={featuredBlog.title} 
+            description={featuredBlog.description} 
+            imageSrc={featuredBlog.imageSrc} 
+            href={featuredBlog.href}
+          />
+        </div>
         
         {/* Blog Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

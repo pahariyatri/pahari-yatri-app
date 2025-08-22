@@ -10,6 +10,7 @@ import keystaticConfig from "@/keystatic.config";
 const reader = createReader(process.cwd(), keystaticConfig);
 const currentDate = new Date().toDateString();
 
+// Base fonts (we map them to Tailwind theme variables)
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
@@ -19,13 +20,13 @@ const space_grotesk = Space_Grotesk({
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-brand-sans',
+  variable: '--font-brand-sans', // ✅ mapped to brandSans in Tailwind
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-brand-serif',
+  variable: '--font-brand-serif', // ✅ mapped to brandSerif in Tailwind
 })
 
 async function getMetadata() {
@@ -78,7 +79,9 @@ async function getMetadata() {
   };
 }
 
-export const metadata = getMetadata();
+export async function generateMetadata() {
+  return getMetadata();
+}
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await reader.singletons.settings.read();
@@ -120,9 +123,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang={settings?.language || "en-us"}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${space_grotesk.variable} ${inter.variable} ${playfair.variable} scroll-smooth`}
       suppressHydrationWarning
     >
+      {/* Favicons */}
       <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
@@ -133,22 +137,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
 
-      <body className={`bg-white text-black antialiased dark:bg-gray-950 dark:text-white ${inter.variable} ${playfair.variable}`}>
+      <body
+        className={`bg-background text-foreground antialiased font-brandSans dark:bg-himalayan-slate dark:text-white`}
+      >
+        {/* Schema JSON */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <ThemeProviders>
-          {/* <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} /> */}
-          {/* <div className={'mx-auto max-w-3xl px-4 sm:px-6 mt-4 xl:max-w-5xl xl:px-0'}>
-            <div className="flex flex-col justify-between font-sans"> */}
-              {/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
-              <Header title={settings?.headerTitle || "Pahari Yatri"} />
-              <main className="mb-auto relative">{children}</main>
-              {/* </SearchProvider> */}
-              <Footer />
-            {/* </div>
-          </div> */}
+          <Header title={settings?.headerTitle || "Pahari Yatri"} />
+          <main className="mb-auto relative">{children}</main>
+          <Footer />
         </ThemeProviders>
       </body>
     </html>

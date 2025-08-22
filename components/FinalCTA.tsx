@@ -14,12 +14,12 @@ export default function FinalCTA() {
     <section className="w-full py-28 md:py-36 relative overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-105 animate-scale-up"
+        className="absolute inset-0 scale-105 animate-scale-up"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       />
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50" />
+      {/* <div className="absolute inset-0 from-black/90 via-black/70 to-black/50" /> */}
 
       {/* Silhouette */}
       <div className="absolute inset-0 opacity-40">
