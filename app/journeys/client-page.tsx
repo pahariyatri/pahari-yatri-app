@@ -61,7 +61,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
             {/* Banner with loading transition */}
             <AnimatePresence>
                 {isLoading ? (
-                    <Loading></Loading>
+                    <Loading message='Loading Himalayan journeys...'></Loading>
                 ) : null}
             </AnimatePresence>
 
