@@ -33,27 +33,20 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="space-y-6"
       variants={container}
       initial="hidden"
       animate="show"
     >
-      <motion.div
-        variants={item}
-        className="text-center mb-6"
-      >
-        <h2 className="text-h2 font-brandSerif font-semibold mb-2 text-primary">Your Journey</h2>
-        <p className="text-muted-foreground">Tell us about your experience and expectations</p>
-      </motion.div>
 
-      <motion.div 
-        variants={item}
+      <motion.div
+        
         className="space-y-4"
       >
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <Label htmlFor="energy" variant="premium" size="lg">Fitness Level</Label>
+            <Label htmlFor="energy">Fitness Level</Label>
             <span className="text-sm font-medium bg-primary/10 px-3 py-1 rounded-full">
               {formData.energy === 1 && "Beginner"}
               {formData.energy === 2 && "Moderate"}
@@ -62,7 +55,8 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
               {formData.energy === 5 && "Advanced"}
             </span>
           </div>
-          
+
+          {/* FIXED SLIDER WITH TRACK + THUMB */}
           <Slider
             id="energy"
             min={1}
@@ -70,18 +64,33 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
             step={1}
             value={[formData.energy]}
             onValueChange={(value) => updateFormData('energy', value[0])}
-            className="py-4"
-            variant="premium"
-            size="lg"
-          />
-          
+            className="w-full py-6 "
+          >
+            <div className="relative w-full py-6">
+              {/* Track background */}
+              <div className="absolute top-1/2 left-0 w-full h-1.5 -translate-y-1/2 rounded-full bg-muted/60 backdrop-blur-sm" />
+
+              {/* Filled track */}
+              <div
+                className="absolute top-1/2 left-0 h-1.5 -translate-y-1/2 rounded-full bg-primary transition-all"
+                style={{ width: `${(formData.energy / 5) * 100}%` }}
+              />
+
+              {/* Thumb */}
+              <div
+                className="absolute top-1/2 h-6 w-6 -translate-y-1/2 -ml-3 rounded-full bg-primary border border-white shadow-lg shadow-primary/20 transition-all"
+                style={{ left: `${((formData.energy - 1) / 4) * 100}%` }}
+              />
+            </div>
+          </Slider>
+
           <div className="flex justify-between text-sm text-muted-foreground font-medium">
             <span>Beginner</span>
             <span>Advanced</span>
           </div>
-          
+
           {/* Description based on selected level */}
-          <motion.div 
+          <motion.div
             className={cn(
               "mt-4 p-4 rounded-xl text-sm border-2 transition-all duration-300",
               "bg-gradient-to-br from-primary/5 to-secondary/10 border-primary/20 shadow-brand-sm"
@@ -101,10 +110,10 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
       </motion.div>
 
       <motion.div
-        variants={item}
+        
         className="space-y-2"
       >
-        <Label htmlFor="pastExperiences" variant="premium" size="lg">Past Experiences</Label>
+        <Label htmlFor="pastExperiences">Past Experiences</Label>
         <Textarea
           id="pastExperiences"
           placeholder="Tell us about any previous mountain experiences you've had..."
@@ -114,16 +123,15 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
             "min-h-[100px] transition-all duration-300",
             formData.pastExperiences ? "border-primary shadow-brand-sm" : ""
           )}
-          variant="premium"
-          size="lg"
+          
         />
       </motion.div>
 
       <motion.div
-        variants={item}
+        
         className="space-y-2"
       >
-        <Label htmlFor="expectations" variant="premium" size="lg">Your Expectations</Label>
+        <Label htmlFor="expectations">Your Expectations</Label>
         <Textarea
           id="expectations"
           placeholder="What do you hope to experience on your Himalayan journey?"
@@ -133,8 +141,7 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
             "min-h-[100px] transition-all duration-300",
             formData.expectations ? "border-primary shadow-brand-sm" : ""
           )}
-          variant="premium"
-          size="lg"
+          
         />
       </motion.div>
     </motion.div>

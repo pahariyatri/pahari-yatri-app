@@ -79,18 +79,10 @@ export default function ReflectionStep({ formData }: Props) {
       variants={container}
       initial="hidden"
       animate="show"
-      <motion.div
-        variants={item}
-        className="text-center mb-8"
-      >
-        <h2 className="text-h2 font-brandSerif font-semibold mb-3 text-primary">Your Path Ahead</h2>
-        <p className="text-muted-foreground text-lg">
-          Review your journey intentions before we connect you with the mountains.
-        </p>
-      </motion.div>
+    >
 
       <motion.div 
-        variants={item}
+        
         className={cn(
           "space-y-6 p-8 rounded-xl",
           "bg-gradient-to-br from-background to-muted/30 border-2 border-primary/20",
@@ -131,7 +123,7 @@ export default function ReflectionStep({ formData }: Props) {
       </motion.div>
 
       <motion.div
-        variants={item}
+        
         className={cn(
           "p-8 rounded-xl",
           "bg-gradient-to-br from-primary/10 to-secondary/5",

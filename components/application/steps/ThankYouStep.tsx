@@ -14,8 +14,21 @@ type Props = {
 
 export default function ThankYouStep({ formData }: Props) {
   const [showConfetti, setShowConfetti] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   
-  // Confetti animation elements with premium colors
+  // Detect mobile device on client side
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Confetti animation elements with premium colors - Reduced for mobile
   const confettiElements = [
     { id: 1, color: 'bg-primary', size: 'w-3 h-3', delay: 0 },
     { id: 2, color: 'bg-secondary', size: 'w-2 h-2', delay: 0.1 },
@@ -31,14 +44,14 @@ export default function ThankYouStep({ formData }: Props) {
     { id: 12, color: 'bg-accent/40', size: 'w-2 h-2', delay: 1.1 },
   ];
   
-  // Hide confetti after 5 seconds
+  // Hide confetti after 5 seconds on desktop, 3 seconds on mobile for better performance
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConfetti(false);
-    }, 5000);
+    }, isMobile ? 3000 : 5000);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
   
   // Random position generator for confetti
   const getRandomPosition = (i: number) => {
@@ -59,21 +72,27 @@ export default function ThankYouStep({ formData }: Props) {
     return positions[i % positions.length];
   };
   
-  // Animation variants
+  // Animation variants - Enhanced for better mobile experience
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
+        staggerChildren: isMobile ? 0.05 : 0.1, // Faster on mobile
+        delayChildren: isMobile ? 0.2 : 0.3 // Faster on mobile
       }
     }
   };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+    show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.5, ease: "easeOut" } }
+  };
+  
+  // Mobile-optimized tap animation
+  const tapAnimation = {
+    scale: 0.95,
+    transition: { duration: 0.1 }
   };
   
   return (
@@ -82,6 +101,7 @@ export default function ThankYouStep({ formData }: Props) {
       variants={container}
       initial="hidden"
       animate="show"
+    >
       {/* Confetti Animation - Enhanced for premium feel */}
       <AnimatePresence>
         {showConfetti && (
@@ -89,14 +109,15 @@ export default function ThankYouStep({ formData }: Props) {
             className="absolute inset-0 z-0 overflow-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            exit={{ opacity: 0, transition: { duration: isMobile ? 0.5 : 0.8 } }}
           >
             {/* Confetti Pieces - Enhanced with premium colors */}
-            {Array.from({ length: 40 }).map((_, i) => {
-              const size = Math.random() * 10 + 5;
+            {Array.from({ length: isMobile ? 20 : 40 }).map((_, i) => {
+              // Optimized confetti for mobile - smaller pieces, faster animation
+              const size = isMobile ? (Math.random() * 5 + 2) : (Math.random() * 10 + 5);
               const xPos = Math.random() * 100;
-              const fallDelay = Math.random() * 3;
-              const fallDuration = Math.random() * 8 + 8;
+              const fallDelay = Math.random() * (isMobile ? 1 : 2);
+              const fallDuration = isMobile ? (Math.random() * 3 + 3) : (Math.random() * 8 + 8);
               const rotation = Math.random() * 360;
               const color = [
                 'bg-primary', 'bg-secondary', 'bg-accent', 'bg-primary/80', 'bg-secondary/80', 'bg-accent/80'
@@ -132,7 +153,7 @@ export default function ThankYouStep({ formData }: Props) {
               );
             })}
             
-            {/* Premium Mountain Silhouette */}
+            {/* Himalayan Mountain Range Silhouette */}
             <motion.div 
               className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-primary/10 to-transparent"
               initial={{ opacity: 0, y: 20 }}
@@ -147,13 +168,16 @@ export default function ThankYouStep({ formData }: Props) {
                   d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,181.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
                 ></path>
               </svg>
+              
+              {/* Snow-capped peaks */}
+              <div className="absolute top-1/3 left-0 w-full h-2 bg-white/20 blur-sm"></div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
       
       <motion.div
-        variants={item}
+        
         className="mb-6 relative z-10"
       >
         <motion.div 
@@ -186,49 +210,52 @@ export default function ThankYouStep({ formData }: Props) {
         </motion.div>
         
         <motion.h2 
-          className="text-h2 font-brandSerif font-semibold mb-2 text-primary"
-          variants={item}
+          className="text-2xl sm:text-h3 md:text-h2 font-brandSerif font-semibold mb-2 text-primary tracking-wide"
+          
         >
           Application Received
         </motion.h2>
         
         <motion.p 
-          className="text-muted-foreground text-lg"
-          variants={item}
+          className="text-muted-foreground text-sm sm:text-base md:text-lg px-2"
+          
         >
-          Thank you, {formData.firstName}! Your journey with us begins now.
+          Thank you, <span className="text-primary font-medium">{formData.firstName}</span>! Your Himalayan journey begins now.
         </motion.p>
       </motion.div>
 
       <motion.div 
-        variants={item}
+        
         className={cn(
-          "p-8 max-w-md mx-auto relative z-10",
+          "p-5 sm:p-8 max-w-md mx-auto relative z-10",
           "bg-gradient-to-br from-background to-muted/30 border-2 border-primary/20",
-          "rounded-xl shadow-brand-md backdrop-blur-sm"
+          "rounded-xl shadow-brand-md backdrop-blur-sm",
+          "touch-manipulation"
         )}
       >
         <motion.div
-          variants={item}
+          
         >
-          <p className="mb-4 text-base">
+          <p className="mb-4 text-base leading-relaxed">
             We&apos;ve received your application and will be in touch within 48 hours to discuss the next steps of your Himalayan journey.
           </p>
-          <p className="text-muted-foreground text-base">
+          <p className="text-muted-foreground text-base leading-relaxed">
             In the meantime, explore our blog for stories from fellow travelers and preparation tips.
           </p>
         </motion.div>
         
-        {/* Mountain icon */}
+        {/* Himalayan Mountain icon with snow cap */}
         <motion.div 
           className={cn(
-            "absolute -top-5 -right-5 w-12 h-12 rounded-full flex items-center justify-center",
+            "absolute -top-5 -right-5 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden",
             "bg-gradient-to-br from-primary to-secondary text-white shadow-brand-sm"
           )}
           initial={{ scale: 0, rotate: -45 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ delay: 0.8, type: "spring" }}
         >
+          {/* Snow cap */}
+          <div className="absolute top-0 left-0 w-full h-1/3 bg-white/30"></div>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
           </svg>
@@ -236,18 +263,18 @@ export default function ThankYouStep({ formData }: Props) {
       </motion.div>
 
       <motion.div
-        variants={item}
-        className="pt-8 relative z-10"
+        
+        className="pt-6 sm:pt-8 relative z-10"
       >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md mx-auto px-4 sm:px-0">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={tapAnimation} className="w-full sm:w-auto">
             <Button 
-              asChild 
-              variant="outline" 
-              size="lg"
-              className="relative overflow-hidden group shadow-brand-sm border-2 border-primary/20 h-14"
-            >
-              <Link href="/blog" className="flex items-center gap-3">
+                asChild 
+                variant="outline" 
+                size="lg"
+                className="relative overflow-hidden group shadow-brand-sm border-2 border-primary/20 h-14 w-full touch-manipulation"
+              >
+              <Link href="/blog" className="flex items-center justify-center gap-3 px-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -263,14 +290,14 @@ export default function ThankYouStep({ formData }: Props) {
             </Button>
           </motion.div>
           
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={tapAnimation} className="w-full sm:w-auto">
             <Button 
-              asChild 
-              variant="premium" 
-              size="lg"
-              className="relative overflow-hidden group h-14"
-            >
-              <Link href="/" className="flex items-center gap-3">
+                asChild 
+                variant="premium" 
+                size="lg"
+                className="relative overflow-hidden group h-14 w-full touch-manipulation"
+              >
+              <Link href="/" className="flex items-center justify-center gap-3 px-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>

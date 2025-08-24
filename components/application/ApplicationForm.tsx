@@ -205,9 +205,20 @@ export default function ApplicationForm() {
             </span>
           </div>
           
-          {/* Enhanced Progress Path */}
+          {/* Himalayan Journey Progress Path */}
           <div className="relative mt-6 mb-6">
-            {/* Step Markers with Premium Styling */}
+            {/* Mountain Silhouette Background */}
+            <div className="absolute top-0 left-0 w-full h-16 overflow-hidden opacity-20 pointer-events-none">
+              <svg viewBox="0 0 1440 320" className="absolute top-0 left-0 w-full">
+                <path 
+                  fill="currentColor" 
+                  className="text-primary"
+                  d="M0,192L60,176C120,160,240,128,360,128C480,128,600,160,720,186.7C840,213,960,235,1080,229.3C1200,224,1320,192,1380,176L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
+                ></path>
+              </svg>
+            </div>
+            
+            {/* Step Markers with Himalayan Theme */}
             <div className="flex justify-between relative z-10">
               {STEPS.map((step, index) => (
                 <motion.div 
@@ -229,18 +240,35 @@ export default function ApplicationForm() {
                   >
                     {index + 1 < currentStep ? <Check className="h-5 w-5" /> : index + 1}
                   </motion.div>
+                  
+                  {/* Mountain peak for completed steps */}
+                  {index + 1 <= currentStep && (
+                    <motion.div 
+                      className="absolute -top-3"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3 + (index * 0.1), duration: 0.4 }}
+                    >
+                      <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0L24 16H0L12 0Z" className={index + 1 < currentStep ? "fill-primary" : "fill-primary/60"} />
+                      </svg>
+                    </motion.div>
+                  )}
                 </motion.div>
               ))}
             </div>
             
-            {/* Premium Progress Path */}
-            <div className="absolute top-5 left-0 w-full h-1 bg-background rounded-full z-0 shadow-inner">
+            {/* Himalayan Range Progress Path */}
+            <div className="absolute top-5 left-0 w-full h-2 bg-background rounded-full z-0 shadow-inner overflow-hidden">
               <motion.div 
-                className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-brand-sm"
+                className="h-full bg-gradient-to-r from-primary/40 via-primary to-secondary rounded-full shadow-brand-sm relative"
                 initial={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
                 animate={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-              />
+              >
+                {/* Snow caps effect */}
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-white/30"></div>
+              </motion.div>
             </div>
           </div>
           
@@ -279,7 +307,7 @@ export default function ApplicationForm() {
             transition={{ duration: 0.3 }}
           >
             <Button
-              variant="ghost"
+              variant="outline"
               size="lg"
               rounded="full"
               onClick={handlePrevious}
@@ -299,7 +327,7 @@ export default function ApplicationForm() {
             whileTap={{ scale: 0.98 }}
           >
             <Button
-              variant={currentStep === TOTAL_STEPS ? "premium" : "default"}
+              variant={currentStep === TOTAL_STEPS ? "default" : "outline"}
               size="lg"
               rounded="full"
               onClick={handleNext}

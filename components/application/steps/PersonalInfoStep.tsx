@@ -16,116 +16,102 @@ type Props = {
 };
 
 export default function PersonalInfoStep({ formData, updateFormData }: Props) {
+  // Detect mobile for optimized animations
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+        staggerChildren: isMobile ? 0.05 : 0.1,
+        delayChildren: isMobile ? 0.1 : 0.2,
+      },
+    },
   };
 
   const item = {
     hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+    show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.4 } },
   };
 
   return (
-    <motion.div 
-      className="space-y-6"
+    <motion.div
+      className="space-y-8"
       variants={container}
       initial="hidden"
       animate="show"
     >
-      <motion.div
-        variants={item}
-        className="text-center mb-6"
-      >
-        <h2 className="text-h2 font-brandSerif font-semibold mb-2 text-primary">Begin Your Journey</h2>
-        <p className="text-muted-foreground">Tell us a bit about yourself</p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <motion.div 
-          variants={item}
-          className="space-y-2"
-        >
-          <Label htmlFor="firstName" variant="premium" size="lg">First Name</Label>
+      {/* First + Last Name */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <motion.div variants={item} className="space-y-2">
+          <Label htmlFor="firstName" className="text-base font-medium text-foreground">
+            First Name
+          </Label>
           <Input
             id="firstName"
-            placeholder="Your first name"
+            placeholder="Pahari"
             value={formData.firstName}
             onChange={(e) => updateFormData('firstName', e.target.value)}
-            variant="premium"
-            size="lg"
             className={cn(
-              "transition-all duration-300",
-              formData.firstName ? "border-primary shadow-brand-sm" : ""
+              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+              formData.firstName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
             )}
             required
           />
         </motion.div>
 
-        <motion.div 
-          variants={item}
-          className="space-y-2"
-        >
-          <Label htmlFor="lastName" variant="premium" size="lg">Last Name</Label>
+        <motion.div variants={item} className="space-y-2">
+          <Label htmlFor="lastName" className="text-base font-medium text-foreground">
+            Last Name
+          </Label>
           <Input
             id="lastName"
-            placeholder="Your last name"
+            placeholder="Yatri"
             value={formData.lastName}
             onChange={(e) => updateFormData('lastName', e.target.value)}
-            variant="premium"
-            size="lg"
             className={cn(
-              "transition-all duration-300",
-              formData.lastName ? "border-primary shadow-brand-sm" : ""
+              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+              formData.lastName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
             )}
             required
           />
         </motion.div>
       </div>
 
-      <motion.div 
-        variants={item}
-        className="space-y-2"
-      >
-        <Label htmlFor="email" variant="premium" size="lg">Email Address</Label>
+      {/* Email */}
+      <motion.div variants={item} className="space-y-2">
+        <Label htmlFor="email" className="text-base font-medium text-foreground">
+          Email Address
+        </Label>
         <Input
           id="email"
           type="email"
-          placeholder="your@email.com"
+          placeholder="hi@pahariyatri.com"
           value={formData.email}
           onChange={(e) => updateFormData('email', e.target.value)}
-          variant="premium"
-          size="lg"
           className={cn(
-            "transition-all duration-300",
-            formData.email ? "border-primary shadow-brand-sm" : ""
+            'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+            formData.email ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
           )}
           required
         />
       </motion.div>
 
-      <motion.div 
-        variants={item}
-        className="space-y-2"
-      >
-        <Label htmlFor="phone" variant="premium" size="lg">Phone Number</Label>
+      {/* Phone */}
+      <motion.div variants={item} className="space-y-2">
+        <Label htmlFor="phone" className="text-base font-medium text-foreground">
+          Phone Number
+        </Label>
         <Input
           id="phone"
           type="tel"
-          placeholder="Your phone number"
+          placeholder="+91 62808-88188"
           value={formData.phone}
           onChange={(e) => updateFormData('phone', e.target.value)}
-          variant="premium"
-          size="lg"
           className={cn(
-            "transition-all duration-300",
-            formData.phone ? "border-primary shadow-brand-sm" : ""
+            'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+            formData.phone ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
           )}
           required
         />
