@@ -127,7 +127,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.5 }}
                     >
-                        Our carefully curated journeys blend adventure with spiritual growth, taking you through the sacred landscapes of the Himalayas. Each path offers a unique experience designed to transform your perspective.
+                        Curated journeys through the Himalayas — where adventure meets transformation.
                     </motion.p>
                 </motion.div>
 

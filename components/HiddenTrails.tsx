@@ -30,7 +30,7 @@ export default function HiddenTrails({ id }: Props) {
                         </p>
 
                         {/* CTA Button */}
-                        <Link href="/customize-trip">
+                        <Link href="/journeys" aria-label="Discover Hidden Trails">
                             <Button
                                 variant="outline"
                                 className="group relative overflow-hidden border-himalayan-green hover:border-himalayan-saffron hover:bg-himalayan-green/5
