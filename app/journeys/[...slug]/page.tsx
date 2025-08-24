@@ -16,8 +16,6 @@ export default async function Page({ params }: any) {
 
   if (!journey) notFound();
   
-  // Extract only the data needed by the client component
-  // Exclude functions that can't be serialized
   const journeyData = {
     title: journey.title,
     excerpt: journey.excerpt,

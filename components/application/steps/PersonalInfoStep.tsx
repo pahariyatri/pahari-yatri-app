@@ -3,6 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 type Props = {
   formData: {
@@ -15,84 +16,106 @@ type Props = {
 };
 
 export default function PersonalInfoStep({ formData, updateFormData }: Props) {
-  return (
-    <div className="space-y-4">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="text-center mb-4"
-      >
-        <h2 className="text-xl font-bold mb-1">Begin Your Journey</h2>
-      </motion.div>
+  // Detect mobile for optimized animations
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-1"
-        >
-          <Label htmlFor="firstName">First Name</Label>
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: isMobile ? 0.05 : 0.1,
+        delayChildren: isMobile ? 0.1 : 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.4 } },
+  };
+
+  return (
+    <motion.div
+      className="space-y-8"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      {/* First + Last Name */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <motion.div variants={item} className="space-y-2">
+          <Label htmlFor="firstName" className="text-base font-medium text-foreground">
+            First Name
+          </Label>
           <Input
             id="firstName"
-            placeholder="First name"
+            placeholder="Pahari"
             value={formData.firstName}
             onChange={(e) => updateFormData('firstName', e.target.value)}
+            className={cn(
+              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+              formData.firstName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
+            )}
             required
           />
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-1"
-        >
-          <Label htmlFor="lastName">Last Name</Label>
+        <motion.div variants={item} className="space-y-2">
+          <Label htmlFor="lastName" className="text-base font-medium text-foreground">
+            Last Name
+          </Label>
           <Input
             id="lastName"
-            placeholder="Last name"
+            placeholder="Yatri"
             value={formData.lastName}
             onChange={(e) => updateFormData('lastName', e.target.value)}
+            className={cn(
+              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+              formData.lastName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
+            )}
             required
           />
         </motion.div>
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="space-y-1"
-      >
-        <Label htmlFor="email">Email</Label>
+      {/* Email */}
+      <motion.div variants={item} className="space-y-2">
+        <Label htmlFor="email" className="text-base font-medium text-foreground">
+          Email Address
+        </Label>
         <Input
           id="email"
           type="email"
-          placeholder="your@email.com"
+          placeholder="hi@pahariyatri.com"
           value={formData.email}
           onChange={(e) => updateFormData('email', e.target.value)}
+          className={cn(
+            'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+            formData.email ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
+          )}
           required
         />
       </motion.div>
 
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="space-y-1"
-      >
-        <Label htmlFor="phone">Phone</Label>
+      {/* Phone */}
+      <motion.div variants={item} className="space-y-2">
+        <Label htmlFor="phone" className="text-base font-medium text-foreground">
+          Phone Number
+        </Label>
         <Input
           id="phone"
           type="tel"
-          placeholder="Phone number"
+          placeholder="+91 62808-88188"
           value={formData.phone}
           onChange={(e) => updateFormData('phone', e.target.value)}
+          className={cn(
+            'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+            formData.phone ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
+          )}
           required
         />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
