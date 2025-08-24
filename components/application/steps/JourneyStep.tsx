@@ -41,7 +41,7 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
     >
 
       <motion.div
-        
+
         className="space-y-4"
       >
         <div className="space-y-2">
@@ -57,33 +57,32 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
           </div>
 
           {/* FIXED SLIDER WITH TRACK + THUMB */}
-          <Slider
-            id="energy"
-            min={1}
-            max={5}
-            step={1}
-            value={[formData.energy]}
-            onValueChange={(value) => updateFormData('energy', value[0])}
-            className="w-full py-6 "
-          >
-            <div className="relative w-full py-6">
-              {/* Track background */}
-              <div className="absolute top-1/2 left-0 w-full h-1.5 -translate-y-1/2 rounded-full bg-muted/60 backdrop-blur-sm" />
+         <Slider
+  id="energy"
+  min={1}
+  max={5}
+  step={1}
+  value={[formData.energy]}
+  onValueChange={(value) => updateFormData('energy', value[0])}
+  className="w-full py-6"
+>
+  <div className="relative w-full py-6">
+    {/* Track as border */}
+    <div className="absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 border-t-2 border-white z-0" />
 
-              {/* Filled track */}
-              <div
-                className="absolute top-1/2 left-0 h-1.5 -translate-y-1/2 rounded-full bg-primary transition-all"
-                style={{ width: `${(formData.energy / 5) * 100}%` }}
-              />
+    {/* Filled track */}
+    <div
+      className="absolute top-1/2 left-0 h-1.5 -translate-y-1/2 rounded-full bg-primary z-10 transition-all"
+      style={{ width: `${(formData.energy / 5) * 100}%` }}
+    />
 
-              {/* Thumb */}
-              <div
-                className="absolute top-1/2 h-6 w-6 -translate-y-1/2 -ml-3 rounded-full bg-primary border border-white shadow-lg shadow-primary/20 transition-all"
-                style={{ left: `${((formData.energy - 1) / 4) * 100}%` }}
-              />
-            </div>
-          </Slider>
-
+    {/* Thumb */}
+    <div
+      className="absolute top-1/2 h-6 w-6 -translate-y-1/2 -ml-3 rounded-full bg-primary border border-white shadow-lg shadow-primary/20 z-20 transition-all"
+      style={{ left: `${((formData.energy - 1) / 4) * 100}%` }}
+    />
+  </div>
+</Slider>
           <div className="flex justify-between text-sm text-muted-foreground font-medium">
             <span>Beginner</span>
             <span>Advanced</span>
@@ -110,7 +109,7 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
       </motion.div>
 
       <motion.div
-        
+
         className="space-y-2"
       >
         <Label htmlFor="pastExperiences">Past Experiences</Label>
@@ -123,12 +122,12 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
             "min-h-[100px] transition-all duration-300",
             formData.pastExperiences ? "border-primary shadow-brand-sm" : ""
           )}
-          
+
         />
       </motion.div>
 
       <motion.div
-        
+
         className="space-y-2"
       >
         <Label htmlFor="expectations">Your Expectations</Label>
@@ -141,7 +140,7 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
             "min-h-[100px] transition-all duration-300",
             formData.expectations ? "border-primary shadow-brand-sm" : ""
           )}
-          
+
         />
       </motion.div>
     </motion.div>
