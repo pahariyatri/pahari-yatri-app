@@ -1,94 +1,154 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
-      /* Base colors */
-      --background: 0 0% 100%;
-      --foreground: 147 41% 18%;
+@layer base {
+  :root {
+    /* Base Colors */
+    --himalayan-green-50: 160 84% 98%;
+    --himalayan-green-100: 160 78% 96%;
+    --himalayan-green-200: 161 75% 92%;
+    --himalayan-green-300: 161 67% 83%;
+    --himalayan-green-400: 161 56% 62%;
+    --himalayan-green-500: 161 54% 45%;
+    --himalayan-green-600: 161 63% 36%;
+    --himalayan-green-700: 162 72% 28%;
+    --himalayan-green-800: 163 74% 22%;
+    --himalayan-green-900: 164 70% 18%;
+    --himalayan-green-950: 165 80% 10%;
 
-      /* Card colors */
-      --card: 0 0% 100%;
-      --card-foreground: 147 41% 18%;
+    --himalayan-saffron-50: 36 100% 97%;
+    --himalayan-saffron-100: 35 96% 94%;
+    --himalayan-saffron-200: 35 92% 88%;
+    --himalayan-saffron-300: 35 91% 78%;
+    --himalayan-saffron-400: 34 90% 68%;
+    --himalayan-saffron-500: 33 90% 58%;
+    --himalayan-saffron-600: 30 84% 48%;
+    --himalayan-saffron-700: 27 87% 40%;
+    --himalayan-saffron-800: 24 86% 33%;
+    --himalayan-saffron-900: 22 78% 28%;
+    --himalayan-saffron-950: 20 80% 15%;
 
-      /* Popover colors */
-      --popover: 0 0% 100%;
-      --popover-foreground: 147 41% 18%;
+    --himalayan-mist-50: 210 40% 98%;
+    --himalayan-mist-100: 210 40% 96%;
+    --himalayan-mist-200: 214 32% 91%;
+    --himalayan-mist-300: 213 27% 84%;
+    --himalayan-mist-400: 215 20% 65%;
+    --himalayan-mist-500: 215 16% 47%;
+    --himalayan-mist-600: 215 19% 35%;
+    --himalayan-mist-700: 215 25% 27%;
+    --himalayan-mist-800: 217 33% 17%;
+    --himalayan-mist-900: 222 47% 11%;
+    --himalayan-mist-950: 229 84% 5%;
 
-      /* Primary colors - Himalayan Green */
-      --primary: 147 41% 18%;
-      --primary-foreground: 0 0% 100%;
+    --himalayan-slate-50: 240 6% 97%;
+    --himalayan-slate-100: 240 5% 96%;
+    --himalayan-slate-200: 240 6% 90%;
+    --himalayan-slate-300: 240 5% 84%;
+    --himalayan-slate-400: 240 5% 65%;
+    --himalayan-slate-500: 240 4% 46%;
+    --himalayan-slate-600: 240 5% 34%;
+    --himalayan-slate-700: 240 5% 26%;
+    --himalayan-slate-800: 240 4% 16%;
+    --himalayan-slate-900: 240 6% 10%;
+    --himalayan-slate-950: 240 10% 4%;
 
-      /* Secondary colors - Himalayan Saffron */
-      --secondary: 43 78% 60%;
-      --secondary-foreground: 147 41% 18%;
+    /* Semantic Colors - Light Theme */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 4%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    
+    --primary: 162 72% 28%;
+    --primary-foreground: 160 84% 98%;
+    
+    --secondary: 33 90% 58%;
+    --secondary-foreground: 20 80% 15%;
+    
+    --muted: 240 6% 97%;
+    --muted-foreground: 240 4% 46%;
+    
+    --accent: 240 6% 90%;
+    --accent-foreground: 240 6% 10%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-      /* Muted colors */
-      --muted: 60 14% 97%;
-      --muted-foreground: 147 41% 40%;
-
-      /* Accent colors - Himalayan Mist */
-      --accent: 60 14% 97%;
-      --accent-foreground: 147 41% 18%;
-
-      /* Destructive colors */
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
-
-      /* Border, input and ring colors */
-      --border: 147 41% 90%;
-      --input: 147 41% 90%;
-      --ring: 147 41% 18%;
-
-      --radius: 0.5rem;
-    }
-
-    .dark {
-      /* Base colors */
-      --background: 147 41% 10%;
-      --foreground: 60 14% 97%;
-
-      /* Card colors */
-      --card: 147 41% 12%;
-      --card-foreground: 60 14% 97%;
-
-      /* Popover colors */
-      --popover: 147 41% 10%;
-      --popover-foreground: 60 14% 97%;
-
-      /* Primary colors - Himalayan Saffron in dark mode */
-      --primary: 43 78% 60%;
-      --primary-foreground: 147 41% 10%;
-
-      /* Secondary colors - Himalayan Green in dark mode */
-      --secondary: 147 41% 18%;
-      --secondary-foreground: 60 14% 97%;
-
-      /* Muted colors in dark mode */
-      --muted: 147 41% 15%;
-      --muted-foreground: 60 14% 80%;
-
-      /* Accent colors in dark mode */
-      --accent: 147 41% 25%;
-      --accent-foreground: 60 14% 97%;
-
-      /* Destructive colors in dark mode */
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 60 14% 97%;
-
-      /* Border, input and ring colors in dark mode */
-      --border: 147 41% 25%;
-      --input: 147 41% 25%;
-      --ring: 43 78% 60%;
-    }
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 240 5% 84%;
+    
+    --radius: 0.5rem;
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 4%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 161 54% 45%;
+    --primary-foreground: 160 84% 98%;
+    
+    --secondary: 33 90% 58%;
+    --secondary-foreground: 20 80% 15%;
+    
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    
+    --accent: 240 5% 26%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 5% 26%;
+    --input: 240 5% 26%;
+    --ring: 240 5% 65%;
   }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .text-shadow-none {
+    text-shadow: none;
+  }
+}

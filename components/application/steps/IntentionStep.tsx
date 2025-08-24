@@ -14,26 +14,44 @@ type Props = {
 };
 
 export default function IntentionStep({ formData, updateFormData }: Props) {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+  };
+
   return (
-    <div className="space-y-4">
+    <motion.div 
+      className="space-y-6"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="text-center mb-4"
+        variants={item}
+        className="text-center mb-6"
       >
-        <h2 className="text-xl font-bold mb-1">Your Intentions</h2>
+        <h2 className="text-h2 font-brandSerif font-semibold mb-2 text-primary">Your Intentions</h2>
+        <p className="text-muted-foreground">Tell us what draws you to the mountains</p>
       </motion.div>
 
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        variants={item}
         className="space-y-4"
       >
-        <Label className="text-base font-medium">What draws you to the Himalayas?</Label>
+        <Label variant="premium" size="lg" className="font-medium">What draws you to the Himalayas?</Label>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           {[
             { value: 'silence', label: 'Seeking Silence & Solitude', icon: '🧘' },
             { value: 'adventure', label: 'Adventure & Challenge', icon: '🏔️' },
@@ -45,24 +63,24 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
           ].map((option) => (
             <motion.div
               key={option.value}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               className={cn(
-                'relative rounded-lg border-2 p-3 cursor-pointer transition-all duration-200',
+                'relative rounded-xl border-2 p-4 cursor-pointer transition-all duration-300',
                 formData.calling === option.value 
-                  ? 'border-primary bg-primary/10 shadow-md' 
-                  : 'border-muted bg-background hover:border-muted-foreground/20'
+                  ? 'border-primary bg-gradient-to-br from-primary/5 to-secondary/10 shadow-brand-sm' 
+                  : 'border-border bg-card hover:border-primary/20 hover:shadow-soft-sm'
               )}
               onClick={() => updateFormData('calling', option.value)}
             >
-              <div className="text-xl mb-1">{option.icon}</div>
-              <div className="font-medium text-sm">{option.label}</div>
+              <div className="text-2xl mb-2">{option.icon}</div>
+              <div className="font-medium">{option.label}</div>
               {formData.calling === option.value && (
                 <motion.div 
-                  className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-primary-foreground text-xs shadow-brand-sm"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: 'spring' }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   ✓
                 </motion.div>
@@ -73,14 +91,12 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
       </motion.div>
 
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        variants={item}
         className="space-y-4"
       >
-        <Label className="text-base font-medium">When do you feel called to journey?</Label>
+        <Label variant="premium" size="lg" className="font-medium">When do you feel called to journey?</Label>
         
-        <div className="grid grid-cols-2 gap-2 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           {[
             { value: 'spring', label: 'Spring (Mar-May)', description: 'Blooming Rhododendrons', icon: '🌸' },
             { value: 'summer', label: 'Summer (Jun-Aug)', description: 'Clear Mountain Views', icon: '☀️' },
@@ -90,25 +106,25 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
           ].map((option) => (
             <motion.div
               key={option.value}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               className={cn(
-                'relative rounded-lg border-2 p-3 cursor-pointer transition-all duration-200',
+                'relative rounded-xl border-2 p-4 cursor-pointer transition-all duration-300',
                 formData.season === option.value 
-                  ? 'border-primary bg-primary/10 shadow-md' 
-                  : 'border-muted bg-background hover:border-muted-foreground/20'
+                  ? 'border-primary bg-gradient-to-br from-primary/5 to-secondary/10 shadow-brand-sm' 
+                  : 'border-border bg-card hover:border-primary/20 hover:shadow-soft-sm'
               )}
               onClick={() => updateFormData('season', option.value)}
             >
-              <div className="text-xl mb-1">{option.icon}</div>
-              <div className="font-medium text-sm">{option.label}</div>
-              <div className="text-xs text-muted-foreground">{option.description}</div>
+              <div className="text-2xl mb-2">{option.icon}</div>
+              <div className="font-medium">{option.label}</div>
+              <div className="text-sm text-muted-foreground">{option.description}</div>
               {formData.season === option.value && (
                 <motion.div 
-                  className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-primary-foreground text-xs shadow-brand-sm"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: 'spring' }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   ✓
                 </motion.div>
@@ -119,14 +135,12 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
       </motion.div>
 
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        variants={item}
         className="space-y-4"
       >
-        <Label className="text-base font-medium">How do you prefer to travel?</Label>
+        <Label variant="premium" size="lg" className="font-medium">How do you prefer to travel?</Label>
         
-        <div className="grid grid-cols-2 gap-3 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           {[
             { value: 'solo', label: 'Solo Journey', description: 'Finding My Path', icon: '🧭' },
             { value: 'friends', label: 'With Friends', description: 'Shared Experience', icon: '👥' },
@@ -138,10 +152,10 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className={cn(
-                'relative rounded-lg border-2 p-4 cursor-pointer transition-all duration-200',
+                'relative rounded-xl border-2 p-4 cursor-pointer transition-all duration-300',
                 formData.companionship === option.value 
-                  ? 'border-primary bg-primary/10 shadow-md' 
-                  : 'border-muted bg-background hover:border-muted-foreground/20'
+                  ? 'border-primary bg-gradient-to-br from-primary/5 to-secondary/10 shadow-brand-sm' 
+                  : 'border-border bg-card hover:border-primary/20 hover:shadow-soft-sm'
               )}
               onClick={() => updateFormData('companionship', option.value)}
             >
@@ -150,10 +164,10 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
               <div className="text-sm text-muted-foreground">{option.description}</div>
               {formData.companionship === option.value && (
                 <motion.div 
-                  className="absolute -top-2 -right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-primary-foreground text-xs shadow-brand-sm"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: 'spring' }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   ✓
                 </motion.div>
@@ -162,6 +176,6 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
           ))}
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

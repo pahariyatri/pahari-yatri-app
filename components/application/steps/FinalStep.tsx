@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
  // Reuse the type from ApplicationForm
 
  type FormData = {
@@ -23,76 +24,110 @@ type Props = {
 };
 
 export default function FinalStep({ formData, onSubmit }: Props) {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+  };
+
   return (
-    <div className="space-y-4">
+    <motion.div 
+      className="space-y-6"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
       {/* Heading */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="text-center mb-4"
+        variants={item}
+        className="text-center mb-6"
       >
-        <h2 className="text-xl font-bold mb-1">Review Your Journey</h2>
+        <h2 className="text-h2 font-brandSerif font-semibold mb-2 text-primary">Review Your Journey</h2>
+        <p className="text-muted-foreground">Confirm your details before we begin</p>
       </motion.div>
 
       {/* Personal Info */}
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border/50"
+        variants={item}
+        className={cn(
+          "space-y-4 p-6 rounded-xl border-2 transition-all duration-300",
+          "bg-gradient-to-br from-background to-muted/30 border-primary/20 shadow-brand-sm"
+        )}
       >
-        <div className="grid grid-cols-1 gap-3">
-          <div>
-            <h3 className="text-xs font-medium text-muted-foreground">Name</h3>
-            <p className="text-sm">{formData.firstName} {formData.lastName}</p>
+        <h3 className="text-base font-semibold text-primary/90 font-brandSerif border-b border-primary/10 pb-2 mb-2">
+          Personal Information
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <h4 className="text-sm font-medium text-muted-foreground">Name</h4>
+            <p className="text-base font-medium">{formData.firstName} {formData.lastName}</p>
           </div>
           
-          <div>
-            <h3 className="text-xs font-medium text-muted-foreground">Contact</h3>
-            <p className="text-sm">{formData.email}</p>
-            <p className="text-sm">{formData.phone}</p>
+          <div className="space-y-3">
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground">Email</h4>
+              <p className="text-base">{formData.email}</p>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground">Phone</h4>
+              <p className="text-base">{formData.phone}</p>
+            </div>
           </div>
         </div>
       </motion.div>
 
       {/* Journey Details */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="space-y-3"
+        variants={item}
+        className="space-y-4"
       >
-        <div className="bg-muted/30 p-3 rounded-lg space-y-2">
-          <div>
-            <h3 className="text-base font-semibold mb-1 flex items-center">
-              Journey Details
-            </h3>
-            <div className="grid grid-cols-1 gap-2">
-              <div>
-                <p className="text-xs text-muted-foreground">Intention</p>
-                <p className="text-sm">{formData.calling}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Season</p>
-                <p className="text-sm">{formData.season}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Fitness Level</p>
-                <p className="text-sm">
-                  {formData.energy ? `Level ${formData.energy}` : "Not specified"}
-                </p>
-              </div>
+        <div className={cn(
+          "p-6 rounded-xl border-2 transition-all duration-300",
+          "bg-gradient-to-br from-primary/5 to-secondary/10 border-primary/20 shadow-brand-sm"
+        )}>
+          <h3 className="text-base font-semibold text-primary/90 font-brandSerif border-b border-primary/10 pb-2 mb-4">
+            Journey Details
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium text-muted-foreground">Intention</h4>
+              <p className="text-base font-medium">{formData.calling}</p>
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium text-muted-foreground">Season</h4>
+              <p className="text-base font-medium">{formData.season}</p>
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium text-muted-foreground">Fitness Level</h4>
+              <p className="text-base font-medium">
+                {formData.energy === 1 && "Beginner"}
+                {formData.energy === 2 && "Moderate"}
+                {formData.energy === 3 && "Active"}
+                {formData.energy === 4 && "Experienced"}
+                {formData.energy === 5 && "Advanced"}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium text-muted-foreground">Past Experiences</h4>
+              <p className="text-base">{formData.pastExperiences || "None shared"}</p>
             </div>
             
-            <div className="mt-2">
-              <p className="text-xs text-muted-foreground">Past Experiences</p>
-              <p className="text-sm">{formData.pastExperiences || "None shared"}</p>
-            </div>
-            
-            <div className="mt-2">
-              <p className="text-xs text-muted-foreground">Expectations</p>
-              <p className="text-sm">{formData.expectations || "None shared"}</p>
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium text-muted-foreground">Expectations</h4>
+              <p className="text-base">{formData.expectations || "None shared"}</p>
             </div>
           </div>
         </div>
@@ -100,18 +135,18 @@ export default function FinalStep({ formData, onSubmit }: Props) {
 
       {/* Submit Button */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="flex justify-center pt-4"
+        variants={item}
+        className="flex justify-center pt-6"
       >
         <Button 
           onClick={onSubmit}
-          className="w-full py-2"
+          className="w-full py-6 text-base font-medium"
+          variant="premium"
+          size="lg"
         >
-          Begin Your Journey
+          Begin Your Himalayan Journey
         </Button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

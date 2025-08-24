@@ -169,148 +169,164 @@ export default function ApplicationForm() {
   }
 
   return (
-    <div className="border rounded-lg bg-card text-card-foreground shadow-sm border-border/50 overflow-hidden relative max-w-md mx-auto">
-      {/* Inspirational Quote - Only on larger screens */}
-      <div className="absolute top-0 right-0 max-w-[150px] p-2 italic text-xs text-muted-foreground/70 hidden md:block">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          {quote}
-        </motion.p>
-      </div>
-
-      {/* Mobile-friendly Mountain Journey Progress */}
-      <div className="bg-muted/30 p-4 border-b border-border/30">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center space-x-2">
-            <div className="bg-primary/20 p-2 rounded-full">
-              {STEPS[currentStep - 1].icon}
-            </div>
-            <div>
-              <h3 className="text-base font-medium text-primary">{STEPS[currentStep - 1].title}</h3>
-            </div>
-          </div>
-          <span className="text-sm font-medium text-muted-foreground">
-            {currentStep}/{TOTAL_STEPS}
-          </span>
+    <div className="overflow-hidden relative max-w-md mx-auto">
+      <motion.div 
+        className="rounded-xl bg-card text-card-foreground shadow-soft-lg border-2 border-primary/10 overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Inspirational Quote - Only on larger screens */}
+        <div className="absolute top-3 right-3 max-w-[180px] p-2 italic text-xs text-muted-foreground/70 hidden md:block bg-background/50 backdrop-blur-sm rounded-lg shadow-soft-sm">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {quote}
+          </motion.p>
         </div>
-        
-        {/* Simplified Progress Path */}
-        <div className="relative mt-4 mb-4">
-          {/* Step Markers - Simplified for mobile */}
-          <div className="flex justify-between relative z-10">
-            {STEPS.map((step, index) => (
-              <motion.div 
-                key={index} 
-                className="flex flex-col items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.3 }}
-              >
-                <motion.div 
-                  className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center transition-all",
-                    index + 1 < currentStep ? "bg-primary text-primary-foreground" : 
-                    index + 1 === currentStep ? "bg-primary/80 text-primary-foreground ring-1 ring-primary/30" : 
-                    "bg-muted text-muted-foreground"
-                  )}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {index + 1 < currentStep ? <Check className="h-4 w-4" /> : index + 1}
-                </motion.div>
-              </motion.div>
-            ))}
+
+        {/* Premium Header with Mountain Journey Progress */}
+        <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-6 border-b border-border/20">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <div className="bg-gradient-to-br from-primary to-secondary p-2.5 rounded-full shadow-brand-sm">
+                {STEPS[currentStep - 1].icon}
+              </div>
+              <div>
+                <h3 className="text-h3 font-brandSerif font-semibold text-primary">
+                  {STEPS[currentStep - 1].title}
+                </h3>
+              </div>
+            </div>
+            <span className="text-sm font-medium text-muted-foreground bg-background/50 px-3 py-1 rounded-full shadow-soft-sm">
+              {currentStep}/{TOTAL_STEPS}
+            </span>
           </div>
           
-          {/* Progress Path */}
-          <div className="absolute top-4 left-0 w-full h-0.5 bg-muted/50 z-0">
-            <motion.div 
-              className="h-full bg-primary"
-              initial={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
-              animate={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
-              transition={{ duration: 0.3 }}
-            />
+          {/* Enhanced Progress Path */}
+          <div className="relative mt-6 mb-6">
+            {/* Step Markers with Premium Styling */}
+            <div className="flex justify-between relative z-10">
+              {STEPS.map((step, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex flex-col items-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.4 }}
+                >
+                  <motion.div 
+                    className={cn(
+                      "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-soft",
+                      index + 1 < currentStep ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground" : 
+                      index + 1 === currentStep ? "bg-primary text-primary-foreground ring-2 ring-primary/30 shadow-brand" : 
+                      "bg-background text-muted-foreground border border-border"
+                    )}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {index + 1 < currentStep ? <Check className="h-5 w-5" /> : index + 1}
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Premium Progress Path */}
+            <div className="absolute top-5 left-0 w-full h-1 bg-background rounded-full z-0 shadow-inner">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-brand-sm"
+                initial={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
+                animate={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              />
+            </div>
           </div>
-        </div>
-        
-        {/* Simplified Microcopy */}
-        <motion.div 
-          className="text-center text-xs italic text-muted-foreground"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showMicrocopy ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {STEPS[currentStep - 1].microcopy}
-        </motion.div>
-      </div>
-
-      {/* Form Content - Mobile Optimized */}
-      <div className="p-4 min-h-[350px] flex flex-col justify-center">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.3 }}
-            className="flex-1 flex flex-col"
+          
+          {/* Enhanced Microcopy */}
+          <motion.div 
+            className="text-center text-sm italic text-foreground/80 font-medium mt-4 bg-background/30 py-2 px-4 rounded-lg backdrop-blur-sm"
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: showMicrocopy ? 1 : 0, y: showMicrocopy ? 0 : 5 }}
+            transition={{ duration: 0.4 }}
           >
-            {renderStep()}
+            {STEPS[currentStep - 1].microcopy}
           </motion.div>
-        </AnimatePresence>
-      </div>
+        </div>
 
-      {/* Navigation Buttons - Mobile Optimized */}
-      <div className="p-4 flex justify-between items-center border-t border-border/20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: currentStep === 1 ? 0 : 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handlePrevious}
-            disabled={currentStep === 1}
-            className={cn(
-              currentStep === 1 ? "opacity-0 pointer-events-none" : "opacity-100",
-              "flex items-center"
-            )}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sm:inline hidden">Back</span>
-          </Button>
-        </motion.div>
+        {/* Form Content with Premium Styling */}
+        <div className="p-6 min-h-[350px] flex flex-col justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="flex-1 flex flex-col"
+            >
+              {renderStep()}
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        <motion.div whileTap={{ scale: 0.98 }}>
-          <Button
-            onClick={handleNext}
-            disabled={!canProceed()}
-            className={cn(
-              !canProceed() ? "opacity-70" : "opacity-100",
-              "relative overflow-hidden",
-              currentStep === TOTAL_STEPS ? "bg-primary hover:bg-primary/90" : "",
-              "flex items-center justify-center gap-1"
-            )}
+        {/* Premium Navigation Buttons */}
+        <div className="p-6 flex justify-between items-center border-t border-border/10 bg-gradient-to-r from-primary/5 to-secondary/5">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: currentStep === 1 ? 0 : 1 }}
+            transition={{ duration: 0.3 }}
           >
-            {currentStep === TOTAL_STEPS ? (
-              <>
-                Begin Journey
-                <Sparkles className="ml-1 h-4 w-4" />
-              </>
-            ) : (
-              <>
-                {currentStep === 1 ? "Next" : 
-                 currentStep === 2 ? "Next" : 
-                 currentStep === 3 ? "Review" : "Continue"}
-                <ChevronRight className="h-4 w-4" />
-              </>
-            )}
-          </Button>
-        </motion.div>
-      </div>
+            <Button
+              variant="ghost"
+              size="lg"
+              rounded="full"
+              onClick={handlePrevious}
+              disabled={currentStep === 1}
+              className={cn(
+                currentStep === 1 ? "opacity-0 pointer-events-none" : "opacity-100",
+                "flex items-center gap-1"
+              )}
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span>Back</span>
+            </Button>
+          </motion.div>
+
+          <motion.div 
+            whileHover={{ scale: 1.02 }} 
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button
+              variant={currentStep === TOTAL_STEPS ? "premium" : "default"}
+              size="lg"
+              rounded="full"
+              onClick={handleNext}
+              disabled={!canProceed()}
+              className={cn(
+                !canProceed() ? "opacity-70" : "opacity-100",
+                "relative overflow-hidden",
+                "flex items-center justify-center gap-2 px-6"
+              )}
+            >
+              {currentStep === TOTAL_STEPS ? (
+                <>
+                  Begin Your Journey
+                  <Sparkles className="ml-1 h-5 w-5" />
+                </>
+              ) : (
+                <>
+                  {currentStep === 1 ? "Continue" : 
+                   currentStep === 2 ? "Next Step" : 
+                   currentStep === 3 ? "Review Application" : "Continue"}
+                  <ChevronRight className="h-5 w-5" />
+                </>
+              )}
+            </Button>
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }
