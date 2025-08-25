@@ -32,11 +32,14 @@ async function getMetadata() {
   const seo = await reader.singletons.seo.read();
   const settings = await reader.singletons.settings.read();
 
-  const title = seo?.title ?? "Pahari Yatri";
+  const title =
+    seo?.title ??
+    "Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys";
   const description =
     seo?.description ??
-    "Pahari Yatri offers transformative Himalayan journeys — not tourism, but a movement.";
-  const keywords = seo?.keywords ?? "Pahari Yatri, Himalaya, Yatri, journeys";
+    "Join Pahari Yatri to discover untouched Himalayan trails, sacred peaks, and authentic yatras. Not tourism. A movement of Yatri.";
+  const keywords =
+    seo?.keywords ?? "Pahari Yatri, Himalaya, Yatri, journeys, treks";
   const socialBanner =
     settings?.logo ||
     `${siteMetadata.siteUrl}/static/images/pahari-yatri-banner.png`;
@@ -62,8 +65,21 @@ async function getMetadata() {
       title,
       description,
       url: siteUrl,
-      siteName: title,
-      images: [socialBanner],
+      siteName: "Pahari Yatri",
+      images: [
+        {
+          url: `${siteUrl}/static/images/pahari-yatri-banner.png`,
+          width: 1200,
+          height: 630,
+          alt: "Pahari Yatri - Himalayan Treks & Spiritual Journeys",
+        },
+        {
+          url: `${siteUrl}/static/images/pahari-yatri-thumbnail.png`,
+          width: 600,
+          height: 315,
+          alt: "Pahari Yatri Logo",
+        },
+      ],
       locale: settings?.locale || "en_US",
       type: "website",
     },
@@ -76,9 +92,17 @@ async function getMetadata() {
     robots:
       "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
     twitter: {
-      title,
       card: "summary_large_image",
+      title,
+      description,
       images: [socialBanner],
+      creator: "@pahariyatri", // update if you have
+      site: "@pahariyatri",
+    },
+    other: {
+      author: siteMetadata.author,
+      publisher: siteMetadata.title,
+      copyright: `© ${new Date().getFullYear()} Pahari Yatri`,
     },
   };
 }
@@ -95,12 +119,14 @@ export default async function RootLayout({
   const settings = await reader.singletons.settings.read();
   const seo = await reader.singletons.seo.read();
 
+  const siteUrl = settings?.domain || siteMetadata.siteUrl;
   const currentDate = new Date().toISOString();
 
-  const jsonLd = {
+  // Schema.org JSON-LD
+  const jsonLdWebsite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    url: settings?.domain || siteMetadata.siteUrl,
+    url: siteUrl,
     name: seo?.title || "Pahari Yatri",
     description:
       seo?.description ||
@@ -118,8 +144,8 @@ export default async function RootLayout({
     image: {
       "@type": "ImageObject",
       url: `${siteMetadata.siteUrl}/static/images/pahari-yatri-banner.png`,
-      width: 800,
-      height: 400,
+      width: 1200,
+      height: 630,
     },
     author: {
       "@type": "Person",
@@ -127,10 +153,50 @@ export default async function RootLayout({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": settings?.domain || siteMetadata.siteUrl,
+      "@id": siteUrl,
     },
     datePublished: currentDate,
     dateModified: currentDate,
+  };
+
+  const jsonLdOrg = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Pahari Yatri",
+    url: siteUrl,
+    logo: `${siteUrl}/static/logo.png`,
+    sameAs: [
+      "https://facebook.com/pahariyatri",
+      "https://instagram.com/pahariyatri",
+      "https://twitter.com/pahariyatri",
+      "https://www.youtube.com/@pahariyatri",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+91-XXXXXXXXXX",
+      contactType: "Customer Support",
+      areaServed: "IN",
+      availableLanguage: ["en", "hi"],
+    },
+  };
+
+  const jsonLdBreadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Journeys",
+        item: `${siteUrl}/journeys`,
+      },
+    ],
   };
 
   return (
@@ -175,13 +241,23 @@ export default async function RootLayout({
           media="(prefers-color-scheme: dark)"
           content="#000000"
         />
+        {/* Canonical + alternate languages */}
+        <link rel="canonical" href={siteUrl} />
+        <link rel="alternate" hrefLang="en" href={siteUrl} />
+        <link rel="alternate" hrefLang="hi" href={`${siteUrl}/hi`} />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className="bg-background text-foreground antialiased font-sans">
         {/* Schema JSON */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              jsonLdWebsite,
+              jsonLdOrg,
+              jsonLdBreadcrumbs,
+            ]),
+          }}
         />
         <ThemeProviders>
           <Header title={settings?.headerTitle || "Pahari Yatri"} />

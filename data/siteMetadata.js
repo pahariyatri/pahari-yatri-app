@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-   title: 'Pahari Yatri – Where Treks Become Yatras',
+   title: 'Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys',
     author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
-    description: 'Pahari Yatri is more than trekking. We craft transformative Himalayan journeys—where adventure meets culture, and trails turn into spiritual yatras. Designed for seekers, not tourists.',
+    description: 'Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys',
     keywords: 'Himalayan yatras, transformative treks, Himachal trekking, spiritual journeys, mindful adventure, cultural expeditions, eco-conscious trekking, authentic Himalayan experience, pilgrimage treks, high altitude journeys, outdoor seekers, spiritual adventure, conscious travel, nature immersion',
     language: 'en-us',
     theme: 'dark',
