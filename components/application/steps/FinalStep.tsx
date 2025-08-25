@@ -6,8 +6,7 @@ import { cn } from '@/lib/utils';
  // Reuse the type from ApplicationForm
 
  type FormData = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
   calling: string;
@@ -69,8 +68,8 @@ export default function FinalStep({ formData, onSubmit }: Props) {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <h4 className="text-sm font-medium text-muted-foreground">Name</h4>
-            <p className="text-base font-medium">{formData.firstName} {formData.lastName}</p>
+            <h4 className="text-sm font-medium text-muted-foreground">Full Name</h4>
+            <p className="text-base font-medium">{formData.fullName}</p>
           </div>
           
           <div className="space-y-3">
