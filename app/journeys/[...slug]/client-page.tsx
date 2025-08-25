@@ -43,25 +43,6 @@ export default function JourneyPageClient({ journey }: any) {
                     >
                         {journey.excerpt}
                     </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.8, duration: 0.7, type: "spring" }}
-                        className="mt-10"
-                    >
-                        <Link href="#apply" className="inline-block group">
-                            <Button
-                                variant="default"
-                                className="font-semibold text-xl px-12 py-6 rounded-full relative overflow-hidden group transition-all duration-500 transform hover:scale-105 shadow-xl border border-primary/30 hover:border-primary"
-                            >
-                                <motion.span
-                                    layoutId="cta-bg"
-                                    className="absolute top-0 left-0 w-full h-full bg-primary-foreground/20 scale-0 rounded-full group-hover:scale-150 transition-transform duration-700 ease-out"
-                                />
-                                <span className="relative z-10">Begin Your Yatra</span>
-                            </Button>
-                        </Link>
-                    </motion.div>
                 </div>
             </section>
 
