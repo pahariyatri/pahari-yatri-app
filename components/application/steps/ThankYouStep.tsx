@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 type Props = {
   formData: {
-    firstName: string;
+    fullName: string;
   };
 };
 
@@ -220,7 +220,7 @@ export default function ThankYouStep({ formData }: Props) {
           className="text-muted-foreground text-sm sm:text-base md:text-lg px-2"
           
         >
-          Thank you, <span className="text-primary font-medium">{formData.firstName}</span>! Your Himalayan journey begins now.
+          Thank you, <span className="text-primary font-medium">{formData.fullName}</span>! Your Himalayan journey begins now.
         </motion.p>
       </motion.div>
 

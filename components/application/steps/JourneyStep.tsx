@@ -2,7 +2,6 @@
 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Slider } from '@/components/ui/slider';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -21,126 +20,112 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+        staggerChildren: 0.08,
+        delayChildren: 0.15,
+      },
+    },
   };
 
   return (
     <motion.div
-      className="space-y-6"
+      className="space-y-10"
       variants={container}
       initial="hidden"
       animate="show"
     >
-
-      <motion.div
-
-        className="space-y-4"
-      >
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <Label htmlFor="energy">Fitness Level</Label>
-            <span className="text-sm font-medium bg-primary/10 px-3 py-1 rounded-full">
-              {formData.energy === 1 && "Beginner"}
-              {formData.energy === 2 && "Moderate"}
-              {formData.energy === 3 && "Active"}
-              {formData.energy === 4 && "Experienced"}
-              {formData.energy === 5 && "Advanced"}
-            </span>
-          </div>
-
-          {/* FIXED SLIDER WITH TRACK + THUMB */}
-         <Slider
-  id="energy"
-  min={1}
-  max={5}
-  step={1}
-  value={[formData.energy]}
-  onValueChange={(value) => updateFormData('energy', value[0])}
-  className="w-full py-6"
->
-  <div className="relative w-full py-6">
-    {/* Track as border */}
-    <div className="absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 border-t-2 border-white z-0" />
-
-    {/* Filled track */}
-    <div
-      className="absolute top-1/2 left-0 h-1.5 -translate-y-1/2 rounded-full bg-primary z-10 transition-all"
-      style={{ width: `${(formData.energy / 5) * 100}%` }}
-    />
-
-    {/* Thumb */}
-    <div
-      className="absolute top-1/2 h-6 w-6 -translate-y-1/2 -ml-3 rounded-full bg-primary border border-white shadow-lg shadow-primary/20 z-20 transition-all"
-      style={{ left: `${((formData.energy - 1) / 4) * 100}%` }}
-    />
-  </div>
-</Slider>
-          <div className="flex justify-between text-sm text-muted-foreground font-medium">
-            <span>Beginner</span>
-            <span>Advanced</span>
-          </div>
-
-          {/* Description based on selected level */}
-          <motion.div
-            className={cn(
-              "mt-4 p-4 rounded-xl text-sm border-2 transition-all duration-300",
-              "bg-gradient-to-br from-primary/5 to-secondary/10 border-primary/20 shadow-brand-sm"
-            )}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            key={formData.energy}
-            transition={{ duration: 0.3 }}
-          >
-            {formData.energy === 1 && "I enjoy casual walks and am new to hiking."}
-            {formData.energy === 2 && "I exercise regularly and have some hiking experience."}
-            {formData.energy === 3 && "I'm comfortable with day hikes and moderate terrain."}
-            {formData.energy === 4 && "I've done multi-day treks and am prepared for challenges."}
-            {formData.energy === 5 && "I seek challenging expeditions and am in excellent condition."}
-          </motion.div>
+      {/* Fitness Level */}
+      <motion.div className="space-y-6">
+        {/* Label & Current Selection */}
+        <div className="flex items-center justify-between">
+          <Label htmlFor="energy" className="text-base font-semibold text-foreground">
+            Fitness Level
+          </Label>
+          <span className="text-sm font-medium text-muted">
+            {formData.energy === 1 && "Beginner"}
+            {formData.energy === 2 && "Moderate"}
+            {formData.energy === 3 && "Active"}
+            {formData.energy === 4 && "Experienced"}
+            {formData.energy === 5 && "Advanced"}
+          </span>
         </div>
+
+        {/* Segmented Buttons (2–3 per row) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {["Beginner", "Moderate", "Active", "Experienced", "Advanced"].map(
+            (level, i) => (
+              <button
+                key={level}
+                onClick={() => updateFormData("energy", i + 1)}
+                className={cn(
+                  "rounded-xl px-3 py-3 text-sm font-medium transition",
+                  "border border-border shadow-sm",
+                  formData.energy === i + 1
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-surface text-muted hover:bg-accent"
+                )}
+              >
+                {level}
+              </button>
+            )
+          )}
+        </div>
+
+        {/* Context Text */}
+        <motion.p
+          key={formData.energy}
+          className="text-sm text-muted leading-relaxed"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          {formData.energy === 1 &&
+            "Just starting out — casual walks feel good."}
+          {formData.energy === 2 &&
+            "You move often and enjoy light hikes."}
+          {formData.energy === 3 &&
+            "Day treks are comfortable for you."}
+          {formData.energy === 4 &&
+            "Multi-day trails? You’re ready."}
+          {formData.energy === 5 &&
+            "You thrive on challenge — mountains call you."}
+        </motion.p>
       </motion.div>
 
-      <motion.div
-
-        className="space-y-2"
-      >
-        <Label htmlFor="pastExperiences">Past Experiences</Label>
+      {/* Past Experiences */}
+      <motion.div className="space-y-3">
+        <Label htmlFor="pastExperiences" className="text-base font-semibold">
+          Past Experiences
+        </Label>
         <Textarea
           id="pastExperiences"
-          placeholder="Tell us about any previous mountain experiences you've had..."
+          placeholder="Any treks, hikes, or adventures so far?"
           value={formData.pastExperiences}
           onChange={(e) => updateFormData('pastExperiences', e.target.value)}
           className={cn(
-            "min-h-[100px] transition-all duration-300",
-            formData.pastExperiences ? "border-primary shadow-brand-sm" : ""
+            'min-h-[90px] rounded-2xl border transition-all',
+            formData.pastExperiences
+              ? 'border-black/40 dark:border-white/40'
+              : 'border-neutral-300 dark:border-neutral-700'
           )}
-
         />
       </motion.div>
 
-      <motion.div
-
-        className="space-y-2"
-      >
-        <Label htmlFor="expectations">Your Expectations</Label>
+      {/* Expectations */}
+      <motion.div className="space-y-3">
+        <Label htmlFor="expectations" className="text-base font-semibold">
+          Your Expectations
+        </Label>
         <Textarea
           id="expectations"
-          placeholder="What do you hope to experience on your Himalayan journey?"
+          placeholder="What do you hope to find in the Himalayas?"
           value={formData.expectations}
           onChange={(e) => updateFormData('expectations', e.target.value)}
           className={cn(
-            "min-h-[100px] transition-all duration-300",
-            formData.expectations ? "border-primary shadow-brand-sm" : ""
+            'min-h-[90px] rounded-2xl border transition-all',
+            formData.expectations
+              ? 'border-black/40 dark:border-white/40'
+              : 'border-neutral-300 dark:border-neutral-700'
           )}
-
         />
       </motion.div>
     </motion.div>

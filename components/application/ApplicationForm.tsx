@@ -15,38 +15,38 @@ import ThankYouStep from './steps/ThankYouStep';
 
 const TOTAL_STEPS = 4;
 
-// Define the step titles, icons, and inspirational microcopy (simplified for mobile)
+// Apple/Nike-inspired minimal steps
 const STEPS = [
   { 
     title: "Identity", 
     icon: <Mountain className="h-5 w-5" />, 
     description: "Begin",
-    microcopy: "Who will climb this mountain?"
+    microcopy: "Who are you becoming?"
   },
   { 
     title: "Calling", 
     icon: <Heart className="h-5 w-5" />, 
     description: "Feel",
-    microcopy: "What do the mountains whisper to you?"
+    microcopy: "What pulls you higher?"
   },
   { 
     title: "Path", 
     icon: <Map className="h-5 w-5" />, 
     description: "Map",
-    microcopy: "What terrain have you conquered?"
+    microcopy: "Where have your steps led?"
   },
   { 
     title: "Summit", 
     icon: <Star className="h-5 w-5" />, 
-    description: "Prepare",
-    microcopy: "Ready to transform?"
+    description: "Rise",
+    microcopy: "Are you ready to ascend?"
   }
 ];
 
+
 // Define the form data type
 type FormData = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
   calling: string;
@@ -76,8 +76,7 @@ export default function ApplicationForm() {
   }, []);
   
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
     phone: '',
     calling: '',
@@ -100,11 +99,11 @@ export default function ApplicationForm() {
   const canProceed = () => {
     switch (currentStep) {
       case 1: // Your Identity
-        return !!formData.firstName && !!formData.lastName && !!formData.email && !!formData.phone;
+        return !!formData.fullName && !!formData.email && !!formData.phone;
       case 2: // Your Calling
         return !!formData.calling && !!formData.season && !!formData.companionship;
       case 3: // Your Path
-        return formData.energy > 0 && !!formData.pastExperiences && !!formData.expectations;
+        return formData.energy > 0 ;
       case 4: // Your Summit
         // Always allow proceeding from the final review step to submit
         return true;

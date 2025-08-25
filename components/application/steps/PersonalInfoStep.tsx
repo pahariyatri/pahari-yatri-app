@@ -7,8 +7,7 @@ import { cn } from '@/lib/utils';
 
 type Props = {
   formData: {
-    firstName: string;
-    lastName: string;
+    fullName: string;
     email: string;
     phone: string;
   };
@@ -43,46 +42,28 @@ export default function PersonalInfoStep({ formData, updateFormData }: Props) {
       animate="show"
     >
       {/* First + Last Name */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <motion.div variants={item} className="space-y-2">
-          <Label htmlFor="firstName" className="text-base font-medium text-foreground">
-            First Name
-          </Label>
-          <Input
-            id="firstName"
-            placeholder="Pahari"
-            value={formData.firstName}
-            onChange={(e) => updateFormData('firstName', e.target.value)}
-            className={cn(
-              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
-              formData.firstName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
-            )}
-            required
-          />
-        </motion.div>
+      <motion.div variants={item} className="space-y-2">
+        <Label htmlFor="fullName" className="text-base font-medium text-foreground">
+          Your Name
+        </Label>
+        <Input
+          id="fullName"
+          placeholder="Pahari Yatri"
+          value={formData.fullName}
+          onChange={(e) => updateFormData('fullName', e.target.value)}
+          className={cn(
+            'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
+            formData.fullName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
+          )}
+          required
+        />
+      </motion.div>
 
-        <motion.div variants={item} className="space-y-2">
-          <Label htmlFor="lastName" className="text-base font-medium text-foreground">
-            Last Name
-          </Label>
-          <Input
-            id="lastName"
-            placeholder="Yatri"
-            value={formData.lastName}
-            onChange={(e) => updateFormData('lastName', e.target.value)}
-            className={cn(
-              'h-12 sm:h-14 text-base rounded-xl border transition-all duration-300',
-              formData.lastName ? 'border-primary shadow-sm shadow-primary/10' : 'border-input'
-            )}
-            required
-          />
-        </motion.div>
-      </div>
 
       {/* Email */}
       <motion.div variants={item} className="space-y-2">
         <Label htmlFor="email" className="text-base font-medium text-foreground">
-          Email Address
+          Your Email
         </Label>
         <Input
           id="email"
@@ -101,7 +82,7 @@ export default function PersonalInfoStep({ formData, updateFormData }: Props) {
       {/* Phone */}
       <motion.div variants={item} className="space-y-2">
         <Label htmlFor="phone" className="text-base font-medium text-foreground">
-          Phone Number
+          WhatsApp number (preferred for updates)
         </Label>
         <Input
           id="phone"
