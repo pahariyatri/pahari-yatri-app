@@ -27,13 +27,13 @@ const HeroBanner = ({
     >
       {/* ✅ Background Poster for LCP */}
       <div className="relative w-full h-[55vh] sm:h-[55vh] md:h-[60vh] overflow-hidden">
-        <Image
+        {/* <Image
           src="/static/image.jpg"
           alt="Pahari Yatri Himalayas"
           fill
           priority
           className="object-cover"
-        />
+        /> */}
 
         {/* 🎥 Load video after paint */}
         <video
