@@ -22,7 +22,7 @@ const HeroBanner = ({
     return (
         <section id="hero-banner" className="relative w-full bg-background">
             {/* 🎥 Background Video Section */}
-            <div className="relative w-full h-[70vh] lg:h-[60vh] overflow-hidden">
+            <div className="relative w-full h-[50vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
                 <video
                     className="absolute inset-0 w-full h-full object-cover"
                     autoPlay
