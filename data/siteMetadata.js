@@ -1,10 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-    title: 'Pahari Yatri - Turning Treks into Himalayan Yatras',
+   title: 'Pahari Yatri – Where Treks Become Yatras',
     author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
-    description: 'Pahari Yatri offers exceptional trekking and mountaineering experiences, connecting adventure seekers with nature, culture, and their adventurous spirit.',
-    keywords: 'Himalayan treks, trekking in Himachal Pradesh, trekking tours, guided treks, adventure trekking, mountaineering expeditions, Himalayan expeditions, mountaineering in Himachal, guided mountaineering, trekking packages, Himachal trekking, adventure travel, trekking holidays, yatra tours, pilgrimage treks, spiritual treks, Himalayan yatras, Kinnaur Kailash Yatra, Shrikhand Mahadev Yatra, Manimahesh Yatra, Triund trek, Hampta Pass trek, Kheerganga trek, Pin Parvati Pass trek, Chanderkhani Pass trek, unexplored treks, remote treks, trekking tours Himachal, adventure tours, trekking guides, mountain guides, trekking routes, best treks in Himachal, mountaineering trips, high altitude treks, camping treks, cultural treks, nature treks, trekking adventure, trekking experiences, sustainable trekking, eco-trekking, trekking safety, customized trekking tours, personalized mountaineering trips, trekking with locals, off-the-beaten-path treks, serene trekking routes, untouched trekking trails, peaceful trekking, Himachal adventure, trek packages, spiritual journeys, pilgrimage packages, cultural expeditions, mountain expeditions, challenging treks, adventure seekers, outdoor adventures, trekking gear, trekking equipment, Himalayan adventures, trek planning, trekking tips, Himachal trekking guide, adventure holidays, trekking and camping, trekking deals, trekking discounts, group trekking tours, family trekking packages, solo trekking trips',
+    description: 'Pahari Yatri is more than trekking. We craft transformative Himalayan journeys—where adventure meets culture, and trails turn into spiritual yatras. Designed for seekers, not tourists.',
+    keywords: 'Himalayan yatras, transformative treks, Himachal trekking, spiritual journeys, mindful adventure, cultural expeditions, eco-conscious trekking, authentic Himalayan experience, pilgrimage treks, high altitude journeys, outdoor seekers, spiritual adventure, conscious travel, nature immersion',
     language: 'en-us',
     theme: 'dark',
     siteUrl: 'https://pahariyatri.com',
