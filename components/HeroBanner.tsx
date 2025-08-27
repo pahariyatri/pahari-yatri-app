@@ -44,7 +44,7 @@ const HeroBanner = ({
           playsInline
           preload="none" // 🚀 don’t block LCP
         >
-          <source src={media} type="video/mp4" />
+          <source src={media} type="video/webm" />
         </video>
       </div>
       

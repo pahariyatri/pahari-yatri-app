@@ -143,11 +143,14 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, delay: index * 0.15 }}
-                                className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${isEven ? "" : "md:flex-row-reverse"
-                                    }`}
+                                className="grid grid-cols-1 md:grid-cols-2 gap-12 md:items-stretch"
                             >
-                                {/* Text Block */}
-                                <div className="flex-1 space-y-4">
+                                {/* Content Block */}
+                                <div
+                                    className={`flex flex-col justify-center space-y-4 ${isEven ? "" : "md:col-start-2"
+                                        }`}
+                                >
+                                    {/* Chapter */}
                                     <motion.span
                                         className="text-sm md:text-base text-primary font-mono inline-block"
                                         initial={{ opacity: 0, x: isEven ? -20 : 20 }}
@@ -157,6 +160,8 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                     >
                                         Chapter {String(index + 1).padStart(2, "0")}
                                     </motion.span>
+
+                                    {/* Title */}
                                     <motion.h2
                                         className="text-xl md:text-2xl font-serif font-bold"
                                         initial={{ opacity: 0, x: isEven ? -20 : 20 }}
@@ -166,36 +171,23 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                     >
                                         {journey.title}
                                     </motion.h2>
-                                     <motion.div
-                                    className="flex-1 relative w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-xl group"
-                                    initial={{ opacity: 0, scale: 0.95, y: 40 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-                                    whileHover={{ scale: isMobile ? 1.02 : 1.05 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    {/* Mountain overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                    {/* Mountain silhouette */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-16 z-20 opacity-30 pointer-events-none overflow-hidden transform translate-y-full group-hover:translate-y-0 transition-transform duration-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-full" preserveAspectRatio="none">
-                                            <path fill="currentColor" fillOpacity="1" className="text-white" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,186.7C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                                        </svg>
-                                    </div>
+                                    {/* Mobile Image */}
+                                    <motion.div
+                                        className="relative w-full h-56 md:hidden rounded-xl overflow-hidden shadow-xl"
+                                        initial={{ opacity: 0, scale: 0.95, y: 40 }}
+                                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+                                    >
+                                        <Image
+                                            src={journey.imageSrc}
+                                            alt={journey.title}
+                                            className="w-full h-full object-cover rounded-xl"
+                                        />
+                                    </motion.div>
 
-                                    <Image
-                                        src={journey.imageSrc}
-                                        alt={journey.title}
-                                        className="w-full h-full object-cover rounded-xl transition-transform duration-10000 group-hover:scale-110"
-                                    />
-
-                                    {/* Journey number badge */}
-                                    <div className="absolute top-4 right-4 z-20 bg-primary/90 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">
-                                        {index + 1}
-                                    </div>
-                                </motion.div>
+                                    {/* Description */}
                                     <motion.p
                                         className="text-base md:text-lg leading-relaxed text-muted-foreground"
                                         initial={{ opacity: 0, x: isEven ? -20 : 20 }}
@@ -205,6 +197,8 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                     >
                                         {journey.description}
                                     </motion.p>
+
+                                    {/* CTA */}
                                     <motion.div
                                         initial={{ opacity: 0, x: isEven ? -20 : 20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
@@ -216,30 +210,50 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                     >
                                         <Link
                                             href={journey.href}
-                                            className="inline-flex items-center gap-2 mt-4 bg-primary hover:bg-primary/90 font-semibold py-3 px-6 rounded-lg transition text-background relative overflow-hidden group
-    border-2 border-primary/60 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                                            tabIndex={0}
+                                            className="inline-flex items-center gap-2 mt-4 bg-primary hover:bg-primary/90 font-semibold py-3 px-6 rounded-lg transition text-background border-2 border-primary/60 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                                         >
                                             <span>Explore Journey</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="18"
+                                                height="18"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
                                                 <path d="M5 12h14"></path>
                                                 <path d="m12 5 7 7-7 7"></path>
                                             </svg>
-                                            <motion.span
-                                                className="absolute inset-0 bg-white/10 pointer-events-none"
-                                                initial={{ x: "-100%" }}
-                                                whileHover={{ x: "0%" }}
-                                                transition={{ duration: 0.3 }}
-                                            />
                                         </Link>
                                     </motion.div>
                                 </div>
 
-                                {/* Image Block */}
-                               
+                                {/* Desktop Image */}
+                                <motion.div
+                                    className="relative w-full h-full rounded-xl overflow-hidden shadow-xl hidden md:flex items-center justify-center"
+                                    initial={{ opacity: 0, scale: 0.95, y: 40 }}
+                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+                                >
+                                    <Image
+                                        src={journey.imageSrc}
+                                        alt={journey.title}
+                                        className="w-full h-full object-cover rounded-xl"
+                                    />
+                                    <div className="absolute top-4 right-4 z-20 bg-primary/90 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">
+                                        {index + 1}
+                                    </div>
+                                </motion.div>
                             </motion.div>
                         );
                     })}
+
+
+
                 </div>
             </SectionContainer>
         </>
