@@ -26,7 +26,7 @@ const HeroBanner = ({
       className="relative w-full bg-background"
     >
       {/* ✅ Background Poster for LCP */}
-      <div className="relative w-full h-[55vh] sm:h-[55vh] md:h-[60vh] overflow-hidden">
+      <div className="relative w-full h-[55vh] sm:h-[58vh] md:h-[60vh] overflow-hidden">
         {/* <Image
           src="/static/image.jpg"
           alt="Pahari Yatri Himalayas"
