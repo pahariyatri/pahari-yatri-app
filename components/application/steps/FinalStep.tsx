@@ -46,14 +46,6 @@ export default function FinalStep({ formData, onSubmit }: Props) {
       initial="hidden"
       animate="show"
     >
-      {/* Heading */}
-      <motion.div
-        variants={item}
-        className="text-center mb-6"
-      >
-        <h2 className="text-h2 font-brandSerif font-semibold mb-2 text-primary">Review Your Journey</h2>
-        <p className="text-muted-foreground">Confirm your details before we begin</p>
-      </motion.div>
 
       {/* Personal Info */}
       <motion.div 
@@ -132,20 +124,6 @@ export default function FinalStep({ formData, onSubmit }: Props) {
         </div>
       </motion.div>
 
-      {/* Submit Button */}
-      <motion.div
-        variants={item}
-        className="flex justify-center pt-6"
-      >
-        <Button 
-          onClick={onSubmit}
-          className="w-full py-6 text-base font-medium"
-          variant="premium"
-          size="lg"
-        >
-          Begin Your Himalayan Journey
-        </Button>
-      </motion.div>
     </motion.div>
   );
 }
