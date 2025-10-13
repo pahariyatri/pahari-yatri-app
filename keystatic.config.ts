@@ -1,6 +1,28 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
+import {
+  wrapper,
+  block,
+  inline,
+  mark,
+  repeating,
+} from "@keystatic/core/content-components";
 
 export const showAdminUI = process.env.NODE_ENV === "development";
+export const Highlight = mark({
+  label: "Highlight",
+  description: "Emphasize text with color or style",
+  schema: {
+    variant: fields.select({
+      label: "Style Variant",
+      options: [
+        { label: "Fluro (bright)", value: "fluro" },
+        { label: "Minimal (subtle)", value: "minimal" },
+        { label: "Brutalist (bold)", value: "brutalist" },
+      ],
+      defaultValue: "fluro",
+    }),
+  },
+});
 
 export default config({
   storage: { kind: "local" },
@@ -48,7 +70,11 @@ export default config({
           publicPath: "/static/images/blogs/",
           validation: { isRequired: true },
         }),
-        content: fields.markdoc({ label: "Content" }),
+        content: fields.mdx({
+          label: "Content",
+          extension: "md",
+          components: { Highlight },
+        }),
       },
     }),
 
