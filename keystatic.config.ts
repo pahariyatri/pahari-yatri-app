@@ -133,6 +133,60 @@ export default config({
         }),
       },
     }),
+    chapters: collection({
+      label: "Journeys",
+      slugField: "title",
+      path: "data/chapters/*",
+      schema: {
+        title: fields.slug({
+          name: { label: "Title", validation: { isRequired: true } },
+        }),
+        invitation: fields.text({
+          label: "Sacred Invitation",
+          multiline: true,
+          description:
+            "1–2 lines emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
+        }),
+        excerpt: fields.text({
+          label: "Excerpt",
+          multiline: true,
+          validation: { isRequired: true, length: { min: 50, max: 250 } },
+        }),
+        image: fields.image({
+          label: "Featured Image",
+          directory: "public/static/images/packages",
+          publicPath: "/static/images/packages/",
+          validation: { isRequired: true },
+        }),
+        itinerary: fields.array(
+          fields.object({
+            day: fields.number({ label: "Day" }),
+            title: fields.text({ label: "Title" }),
+            description: fields.text({
+              label: "Experience",
+              multiline: true,
+              description:
+                "Write like a story, not just logistics. Example: ‘We begin in silence, listening to the forest at dawn.’",
+            }),
+          }),
+          { label: "Itinerary", itemLabel: (props) => props.fields.title.value }
+        ),
+        offering: fields.text({
+          label: "Offering (instead of Price)",
+          description: "e.g. ‘Your energy exchange: ₹20,000’",
+        }),
+        duration: fields.integer({ label: "Duration (days)" }),
+        location: fields.text({ label: "Region / Trailhead" }),
+        themes: fields.array(fields.text({ label: "Theme" }), {
+          label: "Journey Themes",
+          itemLabel: (props) => props.value,
+        }),
+        giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
+          label: "What the Mountains Give",
+          itemLabel: (props) => props.value ?? "Gift",
+        }),
+      },
+    }),
   },
   singletons: {
     banners: singleton({

@@ -12,33 +12,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
   const heroBanner = await reader.singletons.banners.readOrThrow();
-  const blogsData = await reader.collections.blogs.all();
-  const packageData = await reader.collections.packages.all();
 
-
-  const blogs = blogsData.map(blog => ({
-    title: blog.entry.title,
-    description: blog.entry.excerpt,
-    href: `/blog/${blog.slug}`,
-    imageSrc: blog.entry.image || "`https://pahariyatri.com/api/og?title='Pahari Yatri`",
-    tags: [...blog.entry.tags]
-  }));
-  const packages = packageData.map(pkg => ({
-    title: pkg.entry.title,
-    description: pkg.entry.excerpt,
-    imageSrc: pkg.entry.image,
-    href: `/package/${pkg.slug}`,
-    location: pkg.entry.location,
-  }));
-  const featuredPackages = packageData
-    .filter(pkg => pkg.entry.isFeatured === true)
-    .map(pkg => ({
-      title: pkg.entry.title,
-      description: pkg.entry.excerpt,
-      imageSrc: pkg.entry.image,
-      href: `/package/${pkg.slug}`,
-      location: pkg.entry.location,
-    }))
 
   return (
     <div className="min-h-screen">
@@ -47,9 +21,8 @@ export default async function Home() {
         <HeroBanner
           title={heroBanner.title}
           description={heroBanner.description}
-          buttonText={heroBanner.buttonText || "Start Your Yatra"}
-          buttonLink={heroBanner.buttonLink}
-          media={heroBanner.media} // MP4 file from Keystatic
+          buttonText={ "Start Your Yatra"}
+          media={heroBanner.media || "/static/videos/default-banner.mp4"}
         />
       )}
       {/* ✨ Content Section BELOW the video */}
