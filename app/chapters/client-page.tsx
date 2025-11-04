@@ -7,18 +7,18 @@ import Image from "@/components/common/Image";
 import { useEffect, useState } from "react";
 import Loading from "../looding";
 
-interface Journey {
+interface Chapters {
     title: string;
     description: string;
     imageSrc: string;
     href: string;
 }
 
-interface JourneyClientPageProps {
-    journeys: Journey[];
+interface ChaptersClientPageProps {
+    chapters: Chapters[];
 }
 
-export default function JourneyClientPage({ journeys }: JourneyClientPageProps) {
+export default function ChaptersClientPage({ chapters }: ChaptersClientPageProps) {
     const [isMobile, setIsMobile] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -41,12 +41,12 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
             clearTimeout(timer);
         };
     }, []);
-    if (!journeys?.length) {
+    if (!chapters?.length) {
         return (
             <SectionContainer>
                 <div className="pb-20 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                        Journeys Coming Soon
+                        Chapters Coming Soon
                     </h1>
                     <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
                         The Himalayas are calling. Our curated Yatras will be revealed soon.
@@ -133,7 +133,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
 
                 <div className="py-8 md:py-16 space-y-16 md:space-y-24">
 
-                    {journeys.map((journey, index) => {
+                    {chapters.map((chapters, index) => {
                         const isEven = index % 2 === 0;
 
                         return (
@@ -169,7 +169,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.5, delay: 0.2 }}
                                     >
-                                        {journey.title}
+                                        {chapters.title}
                                     </motion.h2>
 
                                     {/* Mobile Image */}
@@ -181,8 +181,8 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                         transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
                                     >
                                         <Image
-                                            src={journey.imageSrc}
-                                            alt={journey.title}
+                                            src={chapters.imageSrc}
+                                            alt={chapters.title}
                                             className="w-full h-full object-cover rounded-xl"
                                         />
                                     </motion.div>
@@ -195,7 +195,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.5, delay: 0.3 }}
                                     >
-                                        {journey.description}
+                                        {chapters.description}
                                     </motion.p>
 
                                     {/* CTA */}
@@ -209,7 +209,7 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                         className="inline-block touch-manipulation"
                                     >
                                         <Link
-                                            href={journey.href}
+                                            href={chapters.href}
                                             className="inline-flex items-center gap-2 mt-4 bg-primary hover:bg-primary/90 font-semibold py-3 px-6 rounded-lg transition text-background border-2 border-primary/60 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                                         >
                                             <span>Explore Journey</span>
@@ -240,8 +240,8 @@ export default function JourneyClientPage({ journeys }: JourneyClientPageProps) 
                                     transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
                                 >
                                     <Image
-                                        src={journey.imageSrc}
-                                        alt={journey.title}
+                                        src={chapters.imageSrc}
+                                        alt={chapters.title}
                                         className="w-full h-full object-cover rounded-xl"
                                     />
                                     <div className="absolute top-4 right-4 z-20 bg-primary/90 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">
