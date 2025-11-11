@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Image from "@/components/common/Image";
 import Link from "@/components/common/Link";
 import { Button } from "@/components/ui/button";
-import BrandStory from "@/components/BrandStory";
+import BrandStory from "@/components/BookCardLayout";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';

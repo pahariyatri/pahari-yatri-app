@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
-            url: 'https://pahariyatri.com/package',
+            url: 'https://pahariyatri.com/books',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8,

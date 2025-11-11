@@ -1,189 +1,143 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
-import {
-  wrapper,
-  block,
-  inline,
-  mark,
-  repeating,
-} from "@keystatic/core/content-components";
 
 export const showAdminUI = process.env.NODE_ENV === "development";
-export const Highlight = mark({
-  label: "Highlight",
-  description: "Emphasize text with color or style",
-  schema: {
-    variant: fields.select({
-      label: "Style Variant",
-      options: [
-        { label: "Fluro (bright)", value: "fluro" },
-        { label: "Minimal (subtle)", value: "minimal" },
-        { label: "Brutalist (bold)", value: "brutalist" },
-      ],
-      defaultValue: "fluro",
-    }),
-  },
-});
 
 export default config({
   storage: { kind: "local" },
   ui: {
     brand: { name: "Yatri CMS" },
     navigation: {
-      Journeys: ["packages", "blogs"],
-      "Landing Page": ["banners", "faqs", "philosophy"],
+      Journeys: ["books", "chapters", "stories"],
+      "Landing Page": ["banners"],
       "Site Meta data": ["settings", "seo", "contact"],
     },
   },
   collections: {
-    blogs: collection({
-      label: "Blogs",
+    books: collection({
+      label: "Books (Editions)",
       slugField: "title",
-      path: "data/blogs/*",
-      format: { contentField: "content" },
-      entryLayout: "content",
+      path: "data/books/*",
       schema: {
         title: fields.slug({
-          name: {
-            label: "Title",
-            validation: {
-              isRequired: true,
-              length: { min: 50, max: 60 },
-            },
-          },
+          name: { label: "Edition Title", validation: { isRequired: true } },
         }),
-        excerpt: fields.text({
-          label: "Excerpt",
-          multiline: true,
-          validation: { length: { min: 150, max: 160 } },
-        }),
-        tags: fields.array(fields.text({ label: "Tag" }), {
-          label: "Tags",
-          itemLabel: (props) => props.value ?? "Tag",
-        }),
-        relatedJourneys: fields.array(
-          fields.relationship({ label: "Journey", collection: "packages" }),
-          { label: "Related Journeys" }
-        ),
-        image: fields.image({
-          label: "Featured Image",
-          directory: "public/static/images/blogs",
-          publicPath: "/static/images/blogs/",
-          validation: { isRequired: true },
-        }),
-        content: fields.mdx({
-          label: "Content",
-          extension: "md",
-          components: { Highlight },
-        }),
-      },
-    }),
-
-    packages: collection({
-      label: "Journeys",
-      slugField: "title",
-      path: "data/packages/*",
-      schema: {
-        title: fields.slug({
-          name: { label: "Title", validation: { isRequired: true } },
-        }),
+        year: fields.integer({ label: "Edition Year" }),
         invitation: fields.text({
           label: "Sacred Invitation",
           multiline: true,
           description:
-            "1–2 lines emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
+            "1–2 poetic lines that introduce the energy of this season.",
         }),
         excerpt: fields.text({
-          label: "Excerpt",
+          label: "Edition Summary",
           multiline: true,
-          validation: { isRequired: true, length: { min: 50, max: 250 } },
+          validation: { length: { min: 50, max: 300 } },
         }),
-        isFeatured: fields.checkbox({ label: "Featured Journey" }),
-        image: fields.image({
-          label: "Featured Image",
-          directory: "public/static/images/packages",
-          publicPath: "/static/images/packages/",
+        coverImage: fields.image({
+          label: "Cover Image",
+          directory: "public/static/images/books",
+          publicPath: "/static/images/books/",
           validation: { isRequired: true },
         }),
-        itinerary: fields.array(
-          fields.object({
-            day: fields.number({ label: "Day" }),
-            title: fields.text({ label: "Title" }),
-            description: fields.text({
-              label: "Experience",
-              multiline: true,
-              description:
-                "Write like a story, not just logistics. Example: ‘We begin in silence, listening to the forest at dawn.’",
-            }),
+        relatedChapters: fields.array(
+          fields.relationship({
+            label: "Chapters in this Edition",
+            collection: "chapters",
           }),
-          { label: "Itinerary", itemLabel: (props) => props.fields.title.value }
+          {
+            label: "Chapters",
+            itemLabel: (props) => {
+              const v = props.value;
+              if (v && typeof v === "object") return (v as any).title ?? "Select or create a Chapter";
+              if (typeof v === "string") return v;
+              return "Select or create a Chapter";
+            },
+          }
         ),
-        offering: fields.text({
-          label: "Offering (instead of Price)",
-          description: "e.g. ‘Your energy exchange: ₹20,000’",
-        }),
-        duration: fields.integer({ label: "Duration (days)" }),
-        location: fields.text({ label: "Region / Trailhead" }),
-        themes: fields.array(fields.text({ label: "Theme" }), {
-          label: "Journey Themes",
-          itemLabel: (props) => props.value,
-        }),
-        giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
-          label: "What the Mountains Give",
-          itemLabel: (props) => props.value ?? "Gift",
-        }),
       },
     }),
+
     chapters: collection({
-      label: "Journeys",
+      label: "Chapters (Journeys)",
       slugField: "title",
       path: "data/chapters/*",
       schema: {
         title: fields.slug({
-          name: { label: "Title", validation: { isRequired: true } },
+          name: { label: "Chapter Title", validation: { isRequired: true } },
         }),
         invitation: fields.text({
-          label: "Sacred Invitation",
+          label: "Chapter Invitation",
           multiline: true,
           description:
-            "1–2 lines emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
+            "Emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
         }),
         excerpt: fields.text({
-          label: "Excerpt",
+          label: "Chapter Summary",
           multiline: true,
-          validation: { isRequired: true, length: { min: 50, max: 250 } },
+          validation: { length: { min: 50, max: 250 } },
         }),
+        location: fields.text({ label: "Region / Trailhead" }),
         image: fields.image({
           label: "Featured Image",
-          directory: "public/static/images/packages",
-          publicPath: "/static/images/packages/",
+          directory: "public/static/images/chapters",
+          publicPath: "/static/images/chapters/",
           validation: { isRequired: true },
         }),
-        itinerary: fields.array(
-          fields.object({
-            day: fields.number({ label: "Day" }),
-            title: fields.text({ label: "Title" }),
-            description: fields.text({
-              label: "Experience",
-              multiline: true,
-              description:
-                "Write like a story, not just logistics. Example: ‘We begin in silence, listening to the forest at dawn.’",
-            }),
+        relatedStories: fields.array(
+          fields.relationship({
+            label: "Stories in this Chapter",
+            collection: "stories",
           }),
-          { label: "Itinerary", itemLabel: (props) => props.fields.title.value }
+          { label: "Stories", itemLabel: (props) => props.value?.title }
         ),
+        giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
+          label: "What the Mountains Give",
+          itemLabel: (props) => props.value ?? "Gift",
+        }),
         offering: fields.text({
           label: "Offering (instead of Price)",
           description: "e.g. ‘Your energy exchange: ₹20,000’",
         }),
-        duration: fields.integer({ label: "Duration (days)" }),
-        location: fields.text({ label: "Region / Trailhead" }),
         themes: fields.array(fields.text({ label: "Theme" }), {
           label: "Journey Themes",
           itemLabel: (props) => props.value,
         }),
-        giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
-          label: "What the Mountains Give",
-          itemLabel: (props) => props.value ?? "Gift",
+      },
+    }),
+
+    stories: collection({
+      label: "Stories (Experiences)",
+      slugField: "title",
+      path: "data/stories/*",
+      format: { contentField: "content" },
+      entryLayout: "content",
+      schema: {
+        title: fields.slug({
+          name: { label: "Story Title", validation: { isRequired: true } },
+        }),
+        excerpt: fields.text({
+          label: "Short Introduction",
+          multiline: true,
+          validation: { length: { min: 80, max: 180 } },
+        }),
+        relatedChapter: fields.relationship({
+          label: "Belongs to Chapter",
+          collection: "chapters",
+        }),
+        image: fields.image({
+          label: "Story Image",
+          directory: "public/static/images/stories",
+          publicPath: "/static/images/stories/",
+        }),
+        content: fields.mdx({
+          label: "Story Content",
+          extension: "mdx",
+          description: "Write your story or reflection here in markdown/MDX.",
+        }),
+        quote: fields.text({
+          label: "Featured Quote",
+          multiline: true,
+          description: "One reflective quote or dialogue from this story.",
         }),
       },
     }),
@@ -205,35 +159,6 @@ export default config({
           directory: "public/static/videos/banners",
           publicPath: "/static/videos/banners/",
           validation: { isRequired: true },
-        }),
-      },
-    }),
-
-    faqs: singleton({
-      label: "Faqs",
-      path: "data/faqs/",
-      schema: {
-        faqs: fields.array(
-          fields.object({
-            question: fields.text({ label: "Question" }),
-            answer: fields.text({ label: "Answer", multiline: true }),
-          }),
-          {
-            label: "Faqs List",
-            itemLabel: (props) => props.fields.question.value,
-          }
-        ),
-      },
-    }),
-
-    philosophy: singleton({
-      label: "Philosophy",
-      path: "data/philosophy/",
-      schema: {
-        statement: fields.markdoc({
-          label: "Philosophy Statement",
-          description:
-            "Write your brand’s deeper story: why you exist, what Yatra means, how it’s different from tourism.",
         }),
       },
     }),
