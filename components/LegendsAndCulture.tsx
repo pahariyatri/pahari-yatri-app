@@ -6,9 +6,11 @@ import SectionContainer from "./common/SectionContainer";
 export default function LegendsAndCulture() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasAudio, setHasAudio] = useState(false);
 
   const handleToggle = () => {
     if (!audioRef.current) return;
+    if (!hasAudio) return;
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -21,6 +23,14 @@ export default function LegendsAndCulture() {
   const handleEnded = () => {
     setIsPlaying(false);
   };
+
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      fetch('/static/audio/elder-story.mp3', { method: 'HEAD' })
+        .then((res) => setHasAudio(res.ok))
+        .catch(() => setHasAudio(false));
+    }
+  });
 
   return (
     <section className="relative w-full overflow-hidden py-28 md:py-40">
@@ -82,12 +92,15 @@ export default function LegendsAndCulture() {
           </div>
 
           {/* Hidden Audio */}
-          <audio
-            ref={audioRef}
-            src="/static/audio/elder-story.mp3"
-            className="hidden"
-            onEnded={handleEnded}
-          />
+          {hasAudio && (
+            <audio
+              ref={audioRef}
+              src="/static/audio/elder-story.mp3"
+              className="hidden"
+              preload="none"
+              onEnded={handleEnded}
+            />
+          )}
 
           {/* Play Button */}
           <div className="mt-4 flex justify-center">
@@ -107,7 +120,7 @@ export default function LegendsAndCulture() {
                   </svg>
                 )}
               </span>
-              <span>{isPlaying ? "Pause Story" : "Listen to Story"}</span>
+              <span>{hasAudio ? (isPlaying ? "Pause Story" : "Listen to Story") : "Story Coming Soon"}</span>
             </button>
           </div>
         </div>

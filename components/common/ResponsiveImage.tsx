@@ -15,7 +15,7 @@ interface ResponsiveImageProps extends Omit<ImageProps, 'onError'> {
 export default function ResponsiveImage({
   src,
   alt,
-  fallbackSrc = '/images/placeholder.jpg',
+  fallbackSrc = '/static/images/testimonial-default.jpg',
   aspectRatio = '16:9',
   rounded = 'md',
   overlay = false,
