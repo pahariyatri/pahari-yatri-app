@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import SectionContainer from "./common/SectionContainer";
 
 export default function LegendsAndCulture() {
@@ -24,13 +24,21 @@ export default function LegendsAndCulture() {
     setIsPlaying(false);
   };
 
-  useState(() => {
-    if (typeof window !== 'undefined') {
-      fetch('/static/audio/elder-story.mp3', { method: 'HEAD' })
-        .then((res) => setHasAudio(res.ok))
-        .catch(() => setHasAudio(false));
-    }
-  });
+  useEffect(() => {
+    let alive = true;
+    const controller = new AbortController();
+    fetch('/static/audio/elder-story.mp3', { method: 'HEAD', signal: controller.signal })
+      .then((res) => {
+        if (alive) setHasAudio(res.ok);
+      })
+      .catch(() => {
+        if (alive) setHasAudio(false);
+      });
+    return () => {
+      alive = false;
+      controller.abort();
+    };
+  }, []);
 
   return (
     <section className="relative w-full overflow-hidden py-28 md:py-40">

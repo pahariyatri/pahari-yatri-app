@@ -41,7 +41,7 @@ export default function BooksClientPage({ books }: BooksClientPageProps) {
           alt="Himalayan Library Banner"
           fill
           priority
-          className="object-cover scale-105 transition-transform duration-[10s] hover:scale-110"
+          className="object-cover scale-105 transition-transform duration-[10000ms] hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
