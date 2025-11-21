@@ -22,7 +22,7 @@ export default async function BookCardLayout() {
 
       {/* Book Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {books.map((book) => (
+        {books.filter(Boolean).map((book) => (
           <div
             key={book?.title}
             className="group relative overflow-hidden rounded-2xl shadow-lg bg-card hover:shadow-xl transition-all duration-500"

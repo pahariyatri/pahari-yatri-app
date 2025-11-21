@@ -88,7 +88,11 @@ export default config({
             label: "Stories in this Chapter",
             collection: "stories",
           }),
-          { label: "Stories", itemLabel: (props) => props.value?.title }
+          {
+            label: "Stories",
+            itemLabel: (props) =>
+              typeof props.value === "string" ? props.value : "Story",
+          }
         ),
         giftsFromMountains: fields.array(fields.text({ label: "Gift" }), {
           label: "What the Mountains Give",

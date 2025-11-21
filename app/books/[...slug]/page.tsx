@@ -6,7 +6,9 @@ import BookPageClient from "./client-page";
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Page({ params }: any) {
-  const { slug } = params;
+  const paramsData = await params;
+  const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
+  const slug = decodeURIComponent(slugArr.join("/"));
 
   const allBooks = await reader.collections.books.all();
   const bookEntry = allBooks.find((b) => b.slug === slug)?.entry;
@@ -23,17 +25,19 @@ export default async function Page({ params }: any) {
 
   // Fetch full chapters
   const chapters = await Promise.all(
-    (bookData.relatedChapters || []).map(async (slug: string) => {
-      const chapter = await reader.collections.chapters.read(slug);
-      return chapter
-        ? {
-            slug,
-            title: chapter.title,
-            description: chapter.description,
-            coverImage: chapter.coverImage,
-          }
-        : null;
-    })
+    (bookData.relatedChapters || [])
+      .filter((s: string | null): s is string => typeof s === "string")
+      .map(async (slug: string) => {
+        const chapter = await reader.collections.chapters.read(slug);
+        return chapter
+          ? {
+              slug,
+              title: chapter.title,
+              description: chapter.excerpt,
+              coverImage: chapter.image,
+            }
+          : null;
+      })
   );
 
   return <BookPageClient book={bookData} chapters={chapters.filter(Boolean)} />;

@@ -7,7 +7,7 @@ import SectionContainer from "@/components/common/SectionContainer";
 import PageTitle from "@/components/common/TitleCover";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import siteMetadata from "@/data/siteMetadata";
-import Markdoc from "@markdoc/markdoc";
+// Simple renderer: we use pre-rendered string content if available
 
 interface BlogPageClientProps {
   blog: any;
@@ -15,7 +15,7 @@ interface BlogPageClientProps {
 
 export default function BlogPageClient({ blog }: BlogPageClientProps) {
   const [content, setContent] = React.useState<any>(null);
-  const [renderable, setRenderable] = React.useState<any>(null);
+  const [renderable, setRenderable] = React.useState<string>("");
   const [isMobile, setIsMobile] = React.useState(false);
   
   React.useEffect(() => {
@@ -35,14 +35,8 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
   }, []);
 
   React.useEffect(() => {
-    // Use the pre-rendered content HTML from the server
-    if (blog.contentHtml) {
-      try {
-        const transformed = JSON.parse(blog.contentHtml);
-        setRenderable(transformed);
-      } catch (error) {
-        console.error('Error parsing pre-rendered content:', error);
-      }
+    if (typeof blog.contentHtml === 'string') {
+      setRenderable(blog.contentHtml);
     }
   }, [blog]);
 
@@ -116,8 +110,8 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
         </div>
 
         {renderable && (
-          <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none dark:prose-dark">
-            {Markdoc.renderers.react(renderable, React)}
+          <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none dark:prose-dark whitespace-pre-line">
+            {renderable}
           </div>
         )}
         

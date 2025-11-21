@@ -6,28 +6,24 @@ import JourneyPageClient from "./client-page";
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Page({ params }: any) {
-  // Next 15 internal types may pass slug differently
   const paramsData = await params;
   const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
   const slug = decodeURIComponent(slugArr.join("/"));
 
-  const allJourneys = await reader.collections.packages.all();
-  const journey = allJourneys.find((p) => p.slug === slug)?.entry;
+  const chapter = await reader.collections.chapters.read(slug);
+  if (!chapter) notFound();
 
-  if (!journey) notFound();
-  
   const journeyData = {
-    title: journey.title,
-    excerpt: journey.excerpt,
-    image: journey.image,
-    duration: journey.duration,
-    itinerary: journey.itinerary || []
+    title: chapter.title,
+    excerpt: chapter.excerpt,
+    image: chapter.image,
+    location: chapter.location,
   };
 
   return <JourneyPageClient journey={journeyData} />;
 }
 
 export async function generateStaticParams() {
-  const slugs = await reader.collections.packages.list();
+  const slugs = await reader.collections.chapters.list();
   return slugs.map((slug: string) => ({ slug: [slug] }));
 }

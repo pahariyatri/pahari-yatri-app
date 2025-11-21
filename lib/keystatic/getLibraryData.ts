@@ -22,7 +22,17 @@ export async function getAllBooks() {
       };
     })
   );
-  return entries.filter(Boolean);
+  return entries.filter(Boolean) as {
+    id: string;
+    slug: string;
+    title: string;
+    year: number | null;
+    excerpt: string;
+    invitation: string;
+    coverImage: string;
+    relatedChapters: readonly (string | null)[];
+    link: string;
+  }[];
 }
 
 export async function getAllChapters() {
@@ -35,14 +45,22 @@ export async function getAllChapters() {
         id: slug,
         slug,
         title: entry.title || "Untitled Chapter",
-        description: entry.description || "",
-        coverImage: entry.coverImage || "/static/images/placeholder.png",
+        excerpt: entry.excerpt || "",
+        image: entry.image || "/static/images/placeholder.png",
         relatedStories: entry.relatedStories || [],
         link: `/chapters/${slug}`,
       };
     })
   );
-  return entries.filter(Boolean);
+  return entries.filter(Boolean) as {
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    image: string;
+    relatedStories: readonly (string | null)[];
+    link: string;
+  }[];
 }
 
 export async function getAllStories() {
@@ -55,12 +73,20 @@ export async function getAllStories() {
         id: slug,
         slug,
         title: entry.title || "Untitled Story",
-        content: entry.content || "",
+        excerpt: entry.excerpt || "",
         image: entry.image || "/static/images/placeholder.png",
         quote: entry.quote || "",
         link: `/stories/${slug}`,
       };
     })
   );
-  return entries.filter(Boolean);
+  return entries.filter(Boolean) as {
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    image: string;
+    quote: string;
+    link: string;
+  }[];
 }

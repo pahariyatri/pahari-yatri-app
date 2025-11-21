@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Image from "@/components/common/Image";
 import Link from "@/components/common/Link";
 import { Button } from "@/components/ui/button";
-import BrandStory from "@/components/BookCardLayout";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
@@ -45,13 +44,7 @@ export default function WhyPahariYatri() {
     <AnimatePresence mode="wait">
       <motion.div key="why-pahari-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <SectionContainer>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <BrandStory />
-        </motion.div>
+        {/* Reserved for brand story grid (server-rendered) */}
         
         <motion.div 
           className="text-center mb-10 md:mb-14 relative"

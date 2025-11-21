@@ -5,16 +5,14 @@ import ChaptersClientPage from "./client-page";
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Chapters() {
-  const journeyData = await reader.collections.packages.all();
+  const chapterData = await reader.collections.chapters.all();
 
-  const chapters = journeyData.map((j) => ({
-    title: j.entry.title || "Untitled Journey",
-    description: j.entry.excerpt || "A path into the Himalayas.",
-    imageSrc: j.entry.image || "/static/images/journey-banner.jpg",
-    href: `/chapters/${j.slug}`,
+  const chapters = chapterData.map((c) => ({
+    title: c.entry.title || "Untitled Chapter",
+    description: c.entry.excerpt || "A path into the Himalayas.",
+    imageSrc: c.entry.image || "/static/images/journey-banner.jpg",
+    href: `/chapters/${c.slug}`,
   }));
 
-  return (
-    <ChaptersClientPage chapters={chapters} />
-  );
+  return <ChaptersClientPage chapters={chapters} />;
 }
