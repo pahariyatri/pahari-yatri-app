@@ -5,7 +5,7 @@ import SectionContainer from "@/components/common/SectionContainer";
 import Link from "@/components/common/Link";
 import Image from "@/components/common/Image";
 import { useEffect, useState } from "react";
-import Loading from "../looding";
+import Loading from "../loading";
 
 interface Chapters {
     title: string;

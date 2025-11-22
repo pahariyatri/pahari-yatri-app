@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import headerNavLinks from "@/data/headerNavLinks"
 
-export function DektopNav() {
+export function DesktopNav() {
     return (
         <NavigationMenu>
             <NavigationMenuList>

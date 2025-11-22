@@ -46,14 +46,14 @@ const config = {
 
       fontFamily: {
         brandSerif: [
-          "var(--font-brand-serif)",
+          "var(--font-serif)",
           "Playfair Display",
           "Tiempos",
           "Merriweather",
           "serif"
         ],
         brandSans: [
-          "var(--font-brand-sans)",
+          "var(--font-sans)",
           "Inter",
           "Satoshi",
           "Graphik",
