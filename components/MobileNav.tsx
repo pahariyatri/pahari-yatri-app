@@ -42,7 +42,7 @@ const MobileNav = () => {
         </nav>
         <div className="absolute bottom-8 left-6 right-6">
           <p className="text-xs text-muted-foreground text-center font-brandSerif italic">
-            "The mountains are calling..."
+            &quot;The mountains are calling...&quot;
           </p>
         </div>
       </SheetContent>
