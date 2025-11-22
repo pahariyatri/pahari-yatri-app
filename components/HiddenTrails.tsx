@@ -1,74 +1,67 @@
-"use client";
-
 import { Button } from "./ui/button";
 import Link from "./common/Link";
 import SectionContainer from "./common/SectionContainer";
+import Image from "./common/Image";
 
 type Props = { id?: string };
 
+const HIDDEN_LOCATIONS = [
+    { name: "The Silent Valley", image: "/static/images/hidden-1.jpg", description: "Where the wind carries ancient prayers." },
+    { name: "Monk's Cave", image: "/static/images/hidden-2.jpg", description: "A sanctuary carved by time and devotion." },
+    { name: "The Forbidden Lake", image: "/static/images/hidden-3.jpg", description: "Reflecting the stars of a thousand nights." },
+];
+
 export default function HiddenTrails({ id }: Props) {
     return (
-        <SectionContainer id={id} className="py-16 sm:py-24 md:py-32 overflow-hidden">
+        <SectionContainer id={id} className="py-24 md:py-32 bg-muted/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Split-Screen Layout: Mobile stacks, Desktop side-by-side */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                    {/* Left: Text Content */}
-                    <div className="animate-fade-in-left">
-                        {/* Decorative line */}
-                        <div className="w-16 h-1  rounded-full mb-6 sm:mb-8 animate-pulse-slow"></div>
+                <div className="text-center mb-16">
+                    <span className="text-primary text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
+                        For the Seekers
+                    </span>
+                    <h2 className="text-3xl md:text-5xl font-brandSerif font-bold text-foreground mb-6">
+                        Secret Valleys. Forgotten Trails.
+                    </h2>
+                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-light">
+                        Beyond the maps, where only a Yatri knows the way.
+                    </p>
+                </div>
 
-                        {/* Headline */}
-                        <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-6xl font-bold font-brandSerif mb-8 text-white animate-fade-in-up">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/80 dark:from-white dark:via-white/90 dark:to-white/80">
-                                Secret valleys. Forgotten trails. Only a Yatri knows.
-                            </span>
-                        </h2>
-
-                        {/* Supporting micro-copy for mobile storytelling */}
-                        <p className="text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed mb-6 max-w-md">
-                            Step into raw Himalayan life. Meet villages, mountains, and moments that awaken the Yatri within.
-                        </p>
-
-                        {/* CTA Button */}
-                        <Link href="/journeys" aria-label="Discover Hidden Trails">
-                            <Button
-                                variant="outline"
-                                className="group relative overflow-hidden border-himalayan-green hover:border-himalayan-saffron hover:bg-himalayan-green/5
-                           text-sm sm:text-base md:text-lg px-8 sm:px-10 py-4 sm:py-5 rounded-full transition-all duration-500 transform hover:-translate-y-1
-                           shadow-sm hover:shadow-md w-full sm:w-auto"
-                            >
-                                <span className="relative z-10 font-medium tracking-wide">Discover Hidden Trails</span>
-                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-himalayan-green to-himalayan-saffron group-hover:w-full transition-all duration-500 ease-in-out"></span>
-                            </Button>
-                        </Link>
-                    </div>
-
-                    {/* Right: Image / Video */}
-                    <div className="relative h-64 sm:h-80 md:h-96 lg:h-[600px] overflow-hidden rounded-2xl md:rounded-3xl shadow-lg dark:shadow-xl animate-fade-in-right">
-                        {/* Border effect */}
-                        <div className="absolute inset-0 rounded-2xl md:rounded-3xl border border-himalayan-green/10 dark:border-himalayan-green/20 z-10"></div>
-
-                        {/* Background image */}
-                        <div
-                            className="absolute inset-0 w-full h-full rounded-2xl md:rounded-3xl bg-cover bg-center"
-                            style={{ backgroundImage: "url('/static/images/hidden-trails-poster.jpg')" }}
-                        ></div>
-
-                        {/* Gradient overlay for readability */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/40 to-transparent rounded-2xl md:rounded-3xl"></div>
-
-                        {/* Play indicator */}
-                        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 bg-himalayan-green/20 backdrop-blur-md p-2 sm:p-3 rounded-full shadow-lg transform transition-transform duration-500 hover:scale-110 cursor-pointer group">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:text-himalayan-saffron transition-colors duration-300">
-                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                            </svg>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {HIDDEN_LOCATIONS.map((location, index) => (
+                        <div key={index} className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
+                            <Image
+                                src={location.image}
+                                alt={location.name}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            {/* Blur Overlay */}
+                            <div className="absolute inset-0 bg-background/80 backdrop-blur-md group-hover:backdrop-blur-none group-hover:bg-black/40 transition-all duration-700 flex flex-col items-center justify-center p-6 text-center">
+                                <div className="transform transition-transform duration-500 group-hover:-translate-y-4">
+                                    <h3 className="text-2xl font-brandSerif font-bold text-foreground group-hover:text-white mb-2 transition-colors">
+                                        {location.name}
+                                    </h3>
+                                    <p className="text-muted-foreground group-hover:text-white/80 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                        {location.description}
+                                    </p>
+                                </div>
+                                <div className="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                                    <span className="text-white text-xs uppercase tracking-widest border-b border-white/50 pb-1">
+                                        Discover
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+                    ))}
+                </div>
 
-                        {/* Premium badge */}
-                        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-himalayan-saffron/90 backdrop-blur-md px-3 sm:px-4 py-1 rounded-full text-[10px] sm:text-xs uppercase tracking-wider font-medium text-white shadow-lg">
-                            Premium Experience
-                        </div>
-                    </div>
+                <div className="mt-16 text-center">
+                    <Link href="/journeys">
+                        <Button variant="outline" className="rounded-full px-8 py-6 border-primary/20 hover:bg-primary/5 text-foreground">
+                            Explore All Hidden Trails
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </SectionContainer>

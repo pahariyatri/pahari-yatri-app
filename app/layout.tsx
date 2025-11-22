@@ -116,10 +116,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await reader.singletons.settings.read();
   const seo = await reader.singletons.seo.read();
 
-  const siteUrl = settings?.domain || siteMetadata.siteUrl;
+  const siteUrl = siteMetadata.siteUrl;
   const currentDate = new Date().toISOString();
 
   // Schema.org JSON-LD
@@ -201,7 +200,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={settings?.language || "en"}
+      lang={"en"}
       className={`${spaceGrotesk.variable} ${inter.variable} ${playfair.variable} scroll-smooth`}
       suppressHydrationWarning
     >
@@ -260,7 +259,7 @@ export default async function RootLayout({
           }}
         />
         <ThemeProviders>
-          <Header title={settings?.headerTitle || "Pahari Yatri"} />
+          <Header title={"Pahari Yatri"} />
           <main className="mb-auto relative">{children}</main>
           <Footer />
         </ThemeProviders>

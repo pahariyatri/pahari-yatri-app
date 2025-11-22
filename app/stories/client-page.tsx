@@ -6,7 +6,7 @@ import FeaturedCard from "@/components/cards/FeaturedCard";
 import SectionContainer from "@/components/common/SectionContainer";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import Loading from '../looding';
+import Loading from '../loading';
 
 interface BlogClientPageProps {
   blogData: {

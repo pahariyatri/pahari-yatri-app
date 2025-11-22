@@ -1,139 +1,108 @@
 "use client";
 
-import React from "react";
-import Image from "next/image"; // Use next/image for optimization
-import Link from "@/components/common/Link";
+import React, { useEffect, useState } from "react";
+import Image from "@/components/common/Image";
 import SectionContainer from "@/components/common/SectionContainer";
-import PageTitle from "@/components/common/TitleCover";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import Link from "@/components/common/Link";
 import siteMetadata from "@/data/siteMetadata";
-import Markdoc from "@markdoc/markdoc";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 
 interface BlogPageClientProps {
   blog: any;
 }
 
 export default function BlogPageClient({ blog }: BlogPageClientProps) {
-  const [content, setContent] = React.useState<any>(null);
-  const [renderable, setRenderable] = React.useState<any>(null);
-  const [isMobile, setIsMobile] = React.useState(false);
-  
-  React.useEffect(() => {
-    // Check if we're on the client-side
-    if (typeof window !== 'undefined') {
-      // Set initial mobile state
-      setIsMobile(window.innerWidth < 768);
-      
-      // Add resize listener
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-      
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
-  React.useEffect(() => {
-    // Use the pre-rendered content HTML from the server
-    if (blog.contentHtml) {
-      try {
-        const transformed = JSON.parse(blog.contentHtml);
-        setRenderable(transformed);
-      } catch (error) {
-        console.error('Error parsing pre-rendered content:', error);
-      }
+  const [renderable, setRenderable] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof blog.contentHtml === 'string') {
+      setRenderable(blog.contentHtml);
     }
   }, [blog]);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteMetadata.siteUrl}/blog/${blog.slug}` },
-    headline: blog.title,
-    image: [
-      { "@type": "ImageObject", url: blog.image || `${siteMetadata.siteUrl}/static/og-image.jpg`, width: 800, height: 400 },
-    ],
-    author: { "@type": "Person", name: siteMetadata.author },
-    publisher: {
-      "@type": "Organization",
-      name: siteMetadata.title,
-      logo: { "@type": "ImageObject", url: `${siteMetadata.siteUrl}/static/logo.png`, width: 600, height: 60 },
-    },
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
-    description: blog.excerpt,
-  };
-
   return (
-    <SectionContainer>
-      <Breadcrumb className="text-xs sm:text-sm">
-        <BreadcrumbList>
-          <BreadcrumbItem><Link href="/">Home</Link></BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem><Link href="/stories">Stories</Link></BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem><BreadcrumbPage className="truncate max-w-[150px] sm:max-w-none">{blog.title}</BreadcrumbPage></BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div className="min-h-screen bg-background">
+      {/* Reading Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
+        style={{ scaleX }}
+      />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 p-6 z-40">
+        <Link href="/stories" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors bg-background/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50">
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back to Stories</span>
+        </Link>
+      </nav>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 md:py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="text-center mb-8 sm:mb-12 relative">
-          {/* Mountain silhouette background */}
-          <div className="absolute top-0 right-0 opacity-5 pointer-events-none hidden md:block">
-            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-            </svg>
-          </div>
-          
-          <PageTitle>{blog.title}</PageTitle>
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl text-gray-600 dark:text-slate-400">{blog.excerpt}</p>
-          <div className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-500 dark:text-gray-400">
-            <span>By {siteMetadata.author} | {new Date().toDateString()}</span>
-          </div>
-        </div>
+      {/* Hero Image */}
+      <div className="relative w-full h-[60vh] md:h-[70vh]">
+        <Image
+          src={blog.image || `${siteMetadata.siteUrl}/static/og-image.jpg`}
+          alt={blog.title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
 
-        <div className="relative w-full h-64 sm:h-80 md:h-96 mb-8 sm:mb-12 overflow-hidden rounded-lg">
-          <Image
-            src={blog.image || `${siteMetadata.siteUrl}/static/og-image.jpg`}
-            alt={blog.title}
-            width={800}
-            height={400}
-            className="object-cover w-full h-full transition-transform duration-700 hover:scale-105"
-          />
-          
-          {/* Mountain icon overlay */}
-          <div className="absolute top-4 right-4 opacity-70">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-            </svg>
-          </div>
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
-        </div>
-
-        {renderable && (
-          <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none dark:prose-dark">
-            {Markdoc.renderers.react(renderable, React)}
-          </div>
-        )}
-        
-        {/* Mountain journey footer */}
-        <div className="pt-8 pb-4 text-center">
-          <div className="inline-flex items-center justify-center gap-2 text-primary/70 text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-            </svg>
-            <span>Continue your journey with Pahari Yatri</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-            </svg>
-          </div>
+        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-12 md:p-20 max-w-4xl mx-auto text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl sm:text-5xl md:text-7xl font-bold font-brandSerif text-foreground mb-6 leading-tight drop-shadow-lg"
+          >
+            {blog.title}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg sm:text-xl text-muted-foreground font-light max-w-2xl mx-auto"
+          >
+            {blog.excerpt}
+          </motion.p>
         </div>
       </div>
-    </SectionContainer>
+
+      {/* Content */}
+      <SectionContainer className="py-16 md:py-24">
+        <article className="prose prose-lg md:prose-xl dark:prose-invert mx-auto font-brandSerif leading-loose">
+          {/* Meta */}
+          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-12 font-sans uppercase tracking-widest border-b border-border/40 pb-8">
+            <span>{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span>•</span>
+            <span>{siteMetadata.author}</span>
+          </div>
+
+          {/* Body */}
+          {renderable && (
+            <div dangerouslySetInnerHTML={{ __html: renderable }} />
+          )}
+        </article>
+
+        {/* Footer / Next */}
+        <div className="max-w-3xl mx-auto mt-24 pt-12 border-t border-border text-center">
+          <p className="text-muted-foreground italic font-brandSerif mb-8">
+            &quot;The story continues...&quot;
+          </p>
+          <Link href="/stories" className="inline-block">
+            <span className="text-primary hover:text-primary/80 font-bold uppercase tracking-widest text-sm border-b-2 border-primary pb-1 transition-colors">
+              Read Another Story
+            </span>
+          </Link>
+        </div>
+      </SectionContainer>
+    </div>
   );
 }

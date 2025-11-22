@@ -1,63 +1,47 @@
 import siteMetadata from '@/data/siteMetadata'
 import { MetadataRoute } from 'next'
-type Sitemap = Array<{
-    url: string
-    lastModified?: string | Date
-    changeFrequency?:
-    | 'always'
-    | 'hourly'
-    | 'daily'
-    | 'weekly'
-    | 'monthly'
-    | 'yearly'
-    | 'never'
-    priority?: number
-    // alternates?: {
-    //   languages?: Languages<string>
-    // }
-}>
+import { createReader } from '@keystatic/core/reader'
+import keystaticConfig from '@/keystatic.config'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    return [
-        {
-            url: 'https://pahariyatri.com/',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 1,
-        },
-        {
-            url: 'https://pahariyatri.com/package',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: 'https://pahariyatri.com/blog',
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.5,
-        },
-        {
-            url: 'https://pahariyatri.com/about',
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 0.5,
-        }
-    ]
+const reader = createReader(process.cwd(), keystaticConfig)
 
-    // const siteUrl = siteMetadata.siteUrl
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const siteUrl = siteMetadata.siteUrl
 
-    // const blogRoutes = allBlogs
-    //     .filter((post) => !post.draft)
-    //     .map((post) => ({
-    //         url: `${siteUrl}/${post.path}`,
-    //         lastModified: post.lastmod || post.date,
-    //     }))
+    // Static routes
+    const routes = [
+        '',
+        'books',
+        'stories',
+        'about',
+        'contact',
+        'apply',
+        'yatri-pass',
+        'why-pahari-yatri'
+    ].map((route) => ({
+        url: `${siteUrl}/${route}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'monthly' as const,
+        priority: route === '' ? 1 : 0.8,
+    }))
 
-    // const routes = ['', 'blog', 'projects', 'tags'].map((route) => ({
-    //     url: `${siteUrl}/${route}`,
-    //     lastModified: new Date().toISOString().split('T')[0],
-    // }))
+    // Dynamic routes: Books
+    const books = await reader.collections.books.list()
+    const bookRoutes = books.map((slug) => ({
+        url: `${siteUrl}/books/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
 
-    // return [...routes, ...blogRoutes]
+    // Dynamic routes: Stories
+    const stories = await reader.collections.stories.list()
+    const storyRoutes = stories.map((slug) => ({
+        url: `${siteUrl}/stories/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+    }))
+
+    return [...routes, ...bookRoutes, ...storyRoutes]
 }
