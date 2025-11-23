@@ -42,7 +42,7 @@ const HeroBanner = ({
       </div>
 
       {/* ✨ Content Overlay */}
-      <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl mx-auto">
+      {/* <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ const HeroBanner = ({
             </Link>
           </motion.div>
         )}
-      </div>
+      </div> */}
 
       {/* 👇 Scroll Indicator */}
       <motion.div
