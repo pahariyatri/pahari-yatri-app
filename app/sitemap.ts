@@ -43,5 +43,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }))
 
-    return [...routes, ...bookRoutes, ...storyRoutes]
+    // Dynamic routes: Chapters
+    const chapters = await reader.collections.chapters.list()
+    const chapterRoutes = chapters.map((slug) => ({
+        url: `${siteUrl}/chapters/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
+
+    return [...routes, ...bookRoutes, ...chapterRoutes, ...storyRoutes]
 }

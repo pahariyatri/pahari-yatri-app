@@ -29,7 +29,7 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
   }, [blog]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       {/* Reading Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
@@ -103,6 +103,6 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
           </Link>
         </div>
       </SectionContainer>
-    </div>
+    </main>
   );
 }

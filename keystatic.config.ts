@@ -175,6 +175,11 @@ export default config({
         author: fields.text({ label: "Author" }),
         description: fields.text({ label: "Description" }),
         keywords: fields.text({ label: "Keywords", multiline: true }),
+        ogImage: fields.image({
+          label: "Social Share Image",
+          directory: "public/static/images",
+          publicPath: "/static/images/",
+        }),
       },
     }),
 
