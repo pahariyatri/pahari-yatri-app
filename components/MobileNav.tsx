@@ -20,7 +20,7 @@ const MobileNav = () => {
         </button>
       </SheetTrigger>
       <SheetContent side="right" className="w-[85vw] sm:w-[360px] bg-background/98 backdrop-blur-xl border-l border-border/50 p-0">
-        <SheetHeader className="px-6 py-8 border-b border-border/10">
+        <SheetHeader className="px-6 py-8 border-b border-border/10 mb-2">
           <SheetTitle className="font-brandSerif text-3xl text-left text-primary">Index</SheetTitle>
         </SheetHeader>
         <nav className="px-6 py-6 space-y-6">

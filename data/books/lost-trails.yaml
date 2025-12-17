@@ -6,7 +6,7 @@ invitation: >-
 excerpt: >-
   The Lost Trails book gathers forgotten shrines, shepherd paths, and echoing
   caves. Chapters move like lanterns through the archive of stone.
-coverImage: /static/images/books/lost-trails/cover.jpg
+coverImage: /static/images/books/lost-trails/coverImage.avif
 relatedChapters:
   - forgotten-shrine
   - shepherds-path

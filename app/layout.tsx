@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import Footer from "@/components/Footer";
+import Analytics from "@/components/Analytics";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 
@@ -39,8 +40,10 @@ async function getMetadata() {
     seo?.description ??
     "Join Pahari Yatri to discover untouched Himalayan trails, sacred peaks, and authentic yatras. Not tourism. A movement of Yatri.";
   const keywords =
-    seo?.keywords ?? "Pahari Yatri, Himalaya, Yatri, journeys, treks";
+    seo?.keywords ??
+    "Pahari Yatri, Spiritual trekking India, Himalayan yatra packages, Silent meditation treks, Authentic Himalaya, Conscious travel, Inner journey";
   const socialBanner =
+    (seo as any)?.ogImage ||
     settings?.logo ||
     `${siteMetadata.siteUrl}/static/images/pahari-yatri-banner.png`;
 
@@ -263,6 +266,7 @@ export default async function RootLayout({
           <main className="mb-auto relative">{children}</main>
           <Footer />
         </ThemeProviders>
+        <Analytics />
       </body>
     </html>
   );

@@ -5,6 +5,26 @@ import BlogPageClient from "./client-page";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+export async function generateMetadata({ params }: any) {
+  const paramsData = await params;
+  const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
+  const slug = decodeURIComponent(slugArr.join("/"));
+
+  const story = await reader.collections.stories.read(slug);
+  if (!story) return {};
+
+  return {
+    title: story.title,
+    description: story.excerpt,
+    openGraph: {
+      title: story.title,
+      description: story.excerpt,
+      images: [story.image || "/static/images/placeholder.jpg"],
+      type: "article",
+    }
+  };
+}
+
 export default async function Page({ params }: any) {
   const paramsData = await params;
   const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
@@ -19,17 +39,38 @@ export default async function Page({ params }: any) {
       const contentData = await story.content();
       contentStr = typeof (contentData as any)?.toString === "function" ? (contentData as any).toString() : "";
     }
-  } catch {}
+  } catch { }
 
   const data = {
     title: story.title || "",
     excerpt: story.excerpt || "",
-    image: story.image || "/static/images/stories/placeholder.jpg",
+    image: story.image || "/static/images/placeholder.jpg",
     slug,
     contentHtml: contentStr,
   };
 
-  return <BlogPageClient blog={data} />;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: story.title,
+    image: story.image ? [story.image] : [],
+    datePublished: new Date().toISOString(), // ideally fetch from story date if available
+    author: {
+      '@type': 'Person',
+      name: 'Pahari Yatri Team' // or fetch from story.author
+    },
+    description: story.excerpt,
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BlogPageClient blog={data} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
