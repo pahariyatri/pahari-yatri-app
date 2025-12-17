@@ -5,6 +5,28 @@ import BookPageClient from "./client-page";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+export async function generateMetadata({ params }: any) {
+  const paramsData = await params;
+  const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
+  const slug = decodeURIComponent(slugArr.join("/"));
+
+  const allBooks = await reader.collections.books.all();
+  const bookEntry = allBooks.find((b) => b.slug === slug)?.entry;
+
+  if (!bookEntry) return {};
+
+  return {
+    title: bookEntry.title,
+    description: bookEntry.excerpt,
+    openGraph: {
+      title: bookEntry.title,
+      description: bookEntry.excerpt,
+      images: [bookEntry.coverImage || "/static/images/placeholder.jpg"],
+      type: "book",
+    },
+  };
+}
+
 export default async function Page({ params }: any) {
   const paramsData = await params;
   const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
@@ -31,11 +53,11 @@ export default async function Page({ params }: any) {
         const chapter = await reader.collections.chapters.read(slug);
         return chapter
           ? {
-              slug,
-              title: chapter.title,
-              description: chapter.excerpt,
-              coverImage: chapter.image,
-            }
+            slug,
+            title: chapter.title,
+            description: chapter.excerpt,
+            coverImage: chapter.image,
+          }
           : null;
       })
   );

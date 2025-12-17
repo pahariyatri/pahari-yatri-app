@@ -5,6 +5,26 @@ import BlogPageClient from "./client-page";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+export async function generateMetadata({ params }: any) {
+  const paramsData = await params;
+  const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
+  const slug = decodeURIComponent(slugArr.join("/"));
+
+  const story = await reader.collections.stories.read(slug);
+  if (!story) return {};
+
+  return {
+    title: story.title,
+    description: story.excerpt,
+    openGraph: {
+      title: story.title,
+      description: story.excerpt,
+      images: [story.image || "/static/images/placeholder.jpg"],
+      type: "article",
+    }
+  };
+}
+
 export default async function Page({ params }: any) {
   const paramsData = await params;
   const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
