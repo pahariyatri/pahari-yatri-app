@@ -71,11 +71,11 @@ export default function AboutClient() {
                             transition={{ duration: 0.8 }}
                         >
                             <p className="text-2xl sm:text-3xl font-brandSerif leading-relaxed text-foreground mb-12">
-                                "The mountains don't just challenge the body. They strip away the ego, layer by layer, until only the soul remains."
+                                &quot;The mountains don&apos;t just challenge the body. They strip away the ego, layer by layer, until only the soul remains.&quot;
                             </p>
 
                             <p>
-                                Pahari Yatri was born not in a boardroom, but on the rugged trails of the Shrikhand Mahadev Yatra. It was 2018. The air was thin, the path was treacherous, and the silence was deafening. In that silence, I found something I hadn't realized I was looking for: <strong>Connection.</strong>
+                                Pahari Yatri was born not in a boardroom, but on the rugged trails of the Shrikhand Mahadev Yatra. It was 2018. The air was thin, the path was treacherous, and the silence was deafening. In that silence, I found something I hadn&apos;t realized I was looking for: <strong>Connection.</strong>
                             </p>
                             <p>
                                 Not just with nature, but with the divine energy that permeates these peaks. I realized that the Himalayas are not merely a destination for adventure; they are ancient, living temples.

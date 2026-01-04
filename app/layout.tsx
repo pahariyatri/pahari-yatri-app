@@ -5,6 +5,7 @@ import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import { WebVitals } from "@/components/WebVitals";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 
@@ -164,22 +165,38 @@ export default async function RootLayout({
   const jsonLdOrg = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Pahari Yatri",
-    url: siteUrl,
-    logo: `${siteUrl}/static/logo.png`,
-    sameAs: [
+    "@id": `${siteUrl}/#organization`,
+    "name": "Pahari Yatri",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/static/logo.png`,
+      "width": 600,
+      "height": 60
+    },
+    "description": "Premium, experience-first travel collective focused on local knowledge and sustainable exploration of the Himalayas.",
+    "sameAs": [
       "https://facebook.com/pahariyatri",
       "https://instagram.com/pahariyatri",
       "https://twitter.com/pahariyatri",
       "https://www.youtube.com/@pahariyatri",
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+91-XXXXXXXXXX",
-      contactType: "Customer Support",
-      areaServed: "IN",
-      availableLanguage: ["en", "hi"],
-    },
+    "knowsAbout": [
+      "Himachal Pradesh",
+      "Uttarakhand",
+      "Kinnaur",
+      "Spiti Valley",
+      "Lahaul",
+      "Tirthan Valley",
+      "Sustaintable Tourism"
+    ],
+    "brand": {
+      "@type": "Brand",
+      "@id": `${siteUrl}/#brand`,
+      "name": "Pahari Yatri",
+      "slogan": "The Honest Reality of Himalayan Travel",
+      "description": "Transformative Himalayan Treks & Spiritual Journeys based on authentic local knowledge."
+    }
   };
 
   const jsonLdBreadcrumbs = {
@@ -267,6 +284,7 @@ export default async function RootLayout({
           <Footer />
         </ThemeProviders>
         <Analytics />
+        <WebVitals />
       </body>
     </html>
   );

@@ -59,20 +59,23 @@ export default function ResponsiveImage({
   // Determine if we should use fill layout or explicit dimensions
   // If fill is provided or neither width nor height is provided, use fill layout
   const shouldUseFill = fill !== undefined ? fill : (width === undefined && height === undefined);
-  
+
   return (
     <div className={`relative overflow-hidden ${shouldUseFill ? aspectRatioPadding : ''} ${roundedClasses} ${className}`}>
       <Image
         src={imgSrc}
         alt={alt}
-        {...(shouldUseFill ? { fill: true } : { width, height })}
+        {...(shouldUseFill ? { fill: true, sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" } : { width, height })}
         className={`${shouldUseFill ? 'object-cover' : ''} transition-transform duration-300 ${props.priority ? '' : 'loading:blur'}`}
         onError={handleError}
-        {...props}
+        priority={props.priority}
+        quality={props.quality || 85}
+        placeholder={props.placeholder || 'blur'}
+        blurDataURL={props.blurDataURL}
       />
       {overlay && (
-        <div 
-          className="absolute inset-0 pointer-events-none" 
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{ backgroundColor: overlayColor, opacity: overlayOpacity }}
         />
       )}

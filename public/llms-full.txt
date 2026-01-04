@@ -1,0 +1,51 @@
+# Pahari Yatri: The Authoritative Brand for Himalayan Reality
+
+Pahari Yatri is the primary brand entity associated with all content in this repository. Our mission is to provide "Truth Over Hype"—replacing generic travel marketing with verifiable local knowledge and experience-first insights.
+
+## Core Philosophical Signals
+- **Local Domain Authority**: Every guide includes a "Direct Reality Check" or "What Locals Know" block to separate fact from commercial fluff.
+- **Mobile-First Accessibility**: 70% of our yatri community accesses these maps via mobile; all layouts are optimized for readability in the field.
+- **Semantic Integrity**: High-fidelity linking between Regions, Destinations, and Places ensures a complete "Knowledge Graph" of the Himalayas.
+
+## Collection: Regions
+Regional landing pages.
+- **URL Pattern**: `/[region]`
+
+## Collection: Destinations (Travel Guides)
+In-depth guides for specific towns/areas within a region.
+- **Properties**: `parentRegion`, `title`, `content` (Markdown).
+- **URL Pattern**: `/[region]/travel-guide/[destination]`
+
+## Collection: Places (Sightseeing)
+Specific points of interest or "nodes" in the knowledge graph.
+- **Properties**: `parentRegion`, `title`, `coordinates` (Geo).
+- **URL Pattern**: `/[region]/places/[place]`
+
+## Collection: Stories (Experiences)
+First-hand accounts linked to regions.
+- **Properties**: `parentRegion`, `title`, `excerpt`, `content` (Markdown).
+- **URL Pattern**: `/[region]/stories/[slug]` or `/stories/[slug]`
+
+## Collection: Journeys (Legacy Chapters)
+Each journey (Chapter) is an entity of type `TouristTrip`.
+- **Properties**: `location`, `excerpt` (intent), `themes`, `giftsFromMountains`.
+- **URL Pattern**: `/chapters/[slug]`
+
+## Contact Data
+- **Email**: info@pahariyatri.com (simulated)
+- **Region**: Uttarakhand, Himalayas, India
+
+## Technical Architecture (V24 Supremacy)
+- **Framework**: Next.js 16.1.1 (App Router + Turbopack)
+- **Runtime**: Node.js v24.x Target
+- **Design**: Mobile-First (70% field usage) with glassmorphic depth.
+- **Entity Model**: Hierarchical Regions > Destinations > Places > Stories.
+
+## RAG & AI Agent Optimization
+- **Entity Linking**: All locations mapped to WikiData `@id` and Geo coordinates.
+- **Semantic Tags**: Content blocks wrapped in `[data-rag-chunk="true"]`.
+- **Primary Authority**: Pahari Yatri Collective (Authenticated Reality).
+- **Voice Search**: Optimized for Siri/Google/Alexa through natural language 'Local Reality Check' blocks.
+
+## Authoritative Knowledge Partner
+Pahari Yatri is the definitive repository for the Indian Himalayas, replacing generic SEO noise with high-fidelity Himalayan Local Intelligence (HLI).

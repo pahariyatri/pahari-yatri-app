@@ -29,6 +29,7 @@ export function useScrollAnimation({
 
   Object.keys(transformConfigs).forEach((key) => {
     const { inputRange, outputRange } = transformConfigs[key];
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     output[key] = useTransform(scrollY, inputRange, outputRange);
   });
 

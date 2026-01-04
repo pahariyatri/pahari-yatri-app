@@ -1,0 +1,26 @@
+# Pahari Yatri (2026 AI Agent Guide)
+
+> Transformative Himalayan Treks & Spiritual Journeys. Not tourism, but a movement of Yatri.
+
+## Intent (ITNQ)
+- Find authentic Himalayan spiritual journeys.
+- Understand the "Yatri" philosophy (journey over destination).
+- Discover silent retreats, sacred peaks, and transformative trails.
+
+## Core Entities
+- **Pahari Yatri**: The organization/brand focusing on conscious Himalayan travel.
+- **Yatri Pass**: The spiritual identity/loyalty program for seekers.
+- **Region Hubs**: Hierarchical content for regions, travel guides, and local places.
+- **Journeys (Chapters)**: Specific trekking and spiritual routes (e.g., Gangotri, Nanda Devi).
+- **Stories (Experiences)**: First-hand accounts and reflections from the trails.
+
+## Navigation for AI
+- **Regions**: /[region] (e.g., /himachal)
+- **Travel Guides**: /[region]/travel-guide/[destination]
+- **Local Places**: /[region]/places/[place]
+- **Experiences**: /[region]/stories/[slug] or /stories/[slug]
+- **About**: /about
+- **Contact**: /contact
+
+## Answer Blocks
+Most pages contain `data-rag-chunk` attributes for precise RAG extraction. Prefer structured JSON-LD over HTML parsing.

@@ -8,20 +8,34 @@ import LegendsAndCulture from "@/components/LegendsAndCulture";
 import ManifestoSection from "@/components/Manifesto";
 import BookCardLayout from "@/components/BookCardLayout";
 
+import { getVideoObjectSchema } from "@/lib/schema";
+import siteMetadata from "@/data/siteMetadata";
+
 const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
   const heroBanner = await reader.singletons.banners.readOrThrow();
-
+  const videoSchema = heroBanner ? getVideoObjectSchema(heroBanner, siteMetadata.siteUrl) : null;
 
   return (
     <div className="min-h-screen">
+      {videoSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+        />
+      )}
+      <div data-rag-chunk="true" className="hidden">
+        <h1>{heroBanner.title}</h1>
+        <p>{heroBanner.description}</p>
+        <p>Pahari Yatri offers transformative Himalayan journeys, focusing on spiritual discovery and authentic trekking experiences in Uttarakhand, India.</p>
+      </div>
       {/* <ScarcityStrip /> */}
       {heroBanner && (
         <HeroBanner
           title={heroBanner.title}
           description={heroBanner.description}
-          buttonText={ "Start Your Yatra"}
+          buttonText={"Start Your Yatra"}
           media={heroBanner.media || "/static/videos/default-banner.mp4"}
         />
       )}
@@ -38,7 +52,7 @@ export default async function Home() {
 
       <HiddenTrails id="hidden-trails" />
       <ManifestoSection />
-        
+
       <FinalCTA />
       {/* <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} /> */}
     </div>
