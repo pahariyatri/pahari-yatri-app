@@ -36,21 +36,4 @@ Our data is structured hierarchically to mirror the physical geography of the Hi
 4. **Stories**: The "Digital Journal"—lived experiences that provide the human context AI lacks.
 
 ---
-
-## 🚀 Development & Contribution
-```bash
-# Clone the Reality Hub
-git clone https://github.com/pahariyatri/hub.git
-
-# Enter the ecosystem
-npm install
-
-# Build the Graph
-npm run dev
-```
-
-## 🤝 Join The Collective
-We are building more than a site; we are building a record of a disappearing reality. Join us in preserving the Himalayan truth.
-
----
 **Pahari Yatri Collective. Authenticated Reality. 2026.**
