@@ -35,14 +35,23 @@ export default function Apply() {
     return text;
   };
 
-  const handleSubmit = async (data: FormData) => {
-    console.log("Form Data Submitted:", data);
+  const notifyDiscord = async (data: FormData) => {
+    await fetch("/api/discord", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "apply", ...data }),
+    });
+  };
 
+  const handleSubmit = async (data: FormData) => {
     setLoading(true);
 
     try {
-      // 1️⃣ Send email to admin (with all details)
-      const adminRes = await sendEmail(TEMPLATE_ID_ADMIN, {
+      // Notify Discord (free, instant)
+      await notifyDiscord(data);
+
+      // Send email to admin via EmailJS
+      await sendEmail(TEMPLATE_ID_ADMIN, {
         fullName: data.fullName,
         email: data.email,
         phone: data.phone,
@@ -51,31 +60,48 @@ export default function Apply() {
         companionship: data.companionship,
         energy: data.energy,
         pastExperiences: data.pastExperiences,
-        expectations: data.expectations
+        expectations: data.expectations,
       });
-      console.log("Admin email sent:", adminRes);
 
-      // 2️⃣ Auto-reply to user using the EmailJS template
-      // Only pass the variables that the template expects
-      // User auto-reply
-      const userRes = await sendEmail(TEMPLATE_ID_USER, {
+      // Auto-reply to applicant
+      await sendEmail(TEMPLATE_ID_USER, {
         fullName: data.fullName,
-        email: data.email
+        email: data.email,
       });
-      console.log("Auto-reply email sent:", userRes);
-      alert("Form submitted and emails sent successfully!");
     } catch (err) {
-      console.error("Email sending error:", err);
-      alert("Failed to send emails. Please try again.");
+      console.error("Submission error:", err);
+      // Discord may have succeeded even if email failed — don't surface error to user
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-0">
+    <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-6">
+      {/* Page header — context + trust for first-time visitors */}
+      <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
+        <span className="inline-block text-primary text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4">
+          Begin Your Yatra
+        </span>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-brandSerif font-medium mb-5 leading-tight">
+          Apply to Walk With Us
+        </h1>
+        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+          We don&apos;t sell seats — we welcome seekers. Tell us your intention,
+          and we&apos;ll match you to a journey that fits your spirit and your
+          fitness.
+        </p>
+        <p className="mt-4 text-sm text-muted-foreground/70">
+          ✦ We read every application personally and reply within 24 hours.
+        </p>
+      </div>
+
       <ApplicationForm onSubmit={handleSubmit} />
-      {loading && <p className="text-center mt-4 text-sm text-muted-foreground">Sending emails...</p>}
+      {loading && (
+        <p className="text-center mt-6 text-sm text-muted-foreground animate-pulse">
+          Sending your application…
+        </p>
+      )}
     </div>
   );
 }

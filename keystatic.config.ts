@@ -77,6 +77,80 @@ export default config({
           validation: { length: { min: 50, max: 250 } },
         }),
         location: fields.text({ label: "Region / Trailhead" }),
+
+        // ── Practical Trek Guide (for SEO + first-time visitors) ──────────
+        overview: fields.text({
+          label: "Trek Overview (SEO intro)",
+          multiline: true,
+          description:
+            "2–4 plain-language paragraphs for search engines and first-time visitors. Mention the trek name, region, distance, and what makes it special.",
+        }),
+        duration: fields.text({
+          label: "Duration",
+          description: "e.g. ‘2 Days / 1 Night’",
+        }),
+        distance: fields.text({
+          label: "Trek Distance",
+          description: "e.g. ‘~12 km round trip’",
+        }),
+        maxAltitude: fields.text({
+          label: "Maximum Altitude",
+          description: "e.g. ‘2,730 m / 8,960 ft’",
+        }),
+        difficulty: fields.text({
+          label: "Difficulty",
+          description: "Easy · Moderate · Difficult · Challenging",
+        }),
+        bestTime: fields.text({
+          label: "Best Time to Visit",
+          description: "e.g. ‘March–June, September–November’",
+        }),
+        gettingThere: fields.text({
+          label: "How to Reach",
+          multiline: true,
+          description:
+            "Nearest airport, railhead, road route, and trailhead access.",
+        }),
+        itinerary: fields.array(
+          fields.object({
+            day: fields.text({
+              label: "Day / Label",
+              description: "e.g. ‘Day 1’",
+            }),
+            title: fields.text({ label: "Title" }),
+            detail: fields.text({ label: "Details", multiline: true }),
+          }),
+          {
+            label: "Day-by-Day Itinerary",
+            itemLabel: (props) =>
+              props.fields.title.value ||
+              props.fields.day.value ||
+              "Day",
+          }
+        ),
+        included: fields.array(fields.text({ label: "Item" }), {
+          label: "What's Included",
+          itemLabel: (props) => props.value ?? "Item",
+        }),
+        excluded: fields.array(fields.text({ label: "Item" }), {
+          label: "What's Not Included",
+          itemLabel: (props) => props.value ?? "Item",
+        }),
+        packing: fields.array(fields.text({ label: "Item" }), {
+          label: "Packing Essentials",
+          itemLabel: (props) => props.value ?? "Item",
+        }),
+        faqs: fields.array(
+          fields.object({
+            question: fields.text({ label: "Question" }),
+            answer: fields.text({ label: "Answer", multiline: true }),
+          }),
+          {
+            label: "Frequently Asked Questions",
+            itemLabel: (props) => props.fields.question.value || "FAQ",
+          }
+        ),
+
         image: fields.image({
           label: "Featured Image",
           directory: "public/static/images/chapters",

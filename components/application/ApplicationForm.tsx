@@ -127,7 +127,7 @@ export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
   if (isSubmitted) return <ThankYouStep formData={formData} />;
 
   return (
-    <div className="overflow-hidden relative max-w-md mx-auto">
+    <div className="overflow-hidden relative max-w-lg mx-auto">
       {/* Your UI header, steps, quotes, and navigation buttons */}
 
 

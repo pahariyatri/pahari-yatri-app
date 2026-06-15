@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="text-center space-y-4">
           <Link href="/" className="inline-block">
             <div className="w-12 h-12 rounded-full bg-primary/5 mx-auto flex items-center justify-center">
-              <Image src="/static/logo.jpg" height={32} width={32} alt="Pahari Yatri" className="rounded-full opacity-80 hover:opacity-100 transition-opacity" />
+              <Image src="/static/images/logo.png" height={32} width={32} alt="Pahari Yatri" className="rounded-full opacity-80 hover:opacity-100 transition-opacity" />
             </div>
           </Link>
           <p className="text-lg font-brandSerif italic text-muted-foreground max-w-md mx-auto">

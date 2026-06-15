@@ -2,25 +2,35 @@ import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import JourneyPageClient from "./client-page";
+import { getChapterView, buildChapterMetadata } from "@/lib/keystatic/chapterView";
+import type { Metadata } from "next";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export default async function Page({ params }: any) {
-  const paramsData = await params;
+function slugFrom(paramsData: any): string {
   const slugArr = Array.isArray(paramsData) ? paramsData : paramsData.slug;
-  const slug = decodeURIComponent(slugArr.join("/"));
+  return decodeURIComponent(slugArr.join("/"));
+}
 
-  const chapter = await reader.collections.chapters.read(slug);
-  if (!chapter) notFound();
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const slug = slugFrom(await params);
+  return buildChapterMetadata(slug);
+}
 
-  const journeyData = {
-    title: chapter.title,
-    excerpt: chapter.excerpt,
-    image: chapter.image,
-    location: chapter.location,
-  };
+export default async function Page({ params }: any) {
+  const slug = slugFrom(await params);
+  const view = await getChapterView(slug);
+  if (!view) notFound();
 
-  return <JourneyPageClient journey={journeyData} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(view.ldArray) }}
+      />
+      <JourneyPageClient journey={view.journeyData} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {

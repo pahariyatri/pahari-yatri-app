@@ -1,5 +1,6 @@
 import keystaticConfig from "@/keystatic.config";
 import { createReader } from "@keystatic/core/reader";
+import { resolveImage } from "@/lib/images";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -16,7 +17,7 @@ export async function getAllBooks() {
         year: entry.year || null,
         excerpt: entry.excerpt || "",
         invitation: entry.invitation || "",
-        coverImage: entry.coverImage || "/static/images/placeholder.png",
+        coverImage: resolveImage(entry.coverImage),
         relatedChapters: entry.relatedChapters || [],
         link: `/books/${slug}`,
       };
@@ -46,7 +47,7 @@ export async function getAllChapters() {
         slug,
         title: entry.title || "Untitled Chapter",
         excerpt: entry.excerpt || "",
-        image: entry.image || "/static/images/placeholder.png",
+        image: resolveImage(entry.image),
         relatedStories: entry.relatedStories || [],
         link: `/chapters/${slug}`,
       };
@@ -74,7 +75,7 @@ export async function getAllStories() {
         slug,
         title: entry.title || "Untitled Story",
         excerpt: entry.excerpt || "",
-        image: entry.image || "/static/images/placeholder.png",
+        image: resolveImage(entry.image),
         quote: entry.quote || "",
         link: `/stories/${slug}`,
       };

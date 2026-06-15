@@ -6,43 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Image from "@/components/common/Image";
 import Link from "@/components/common/Link";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
-import Loading from "../loading";
+import { motion } from 'framer-motion';
 
 export default function WhyPahariYatri() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    // Simulate content loading for smooth transition
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      clearTimeout(timer);
-    };
-  }, []);
-  // Loading state with mountain-themed loader
-  if (isLoading) {
-    return (
-      <Loading message='Discovering the Pahari way...'></Loading>
-    );
-  }
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key="why-pahari-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
         <SectionContainer>
           {/* Reserved for brand story grid (server-rendered) */}
 
@@ -50,7 +18,7 @@ export default function WhyPahariYatri() {
             className="text-center mb-10 md:mb-14 relative"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: isMobile ? 0.4 : 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <motion.p
               className="text-xs md:text-sm font-medium uppercase tracking-[0.15em] text-primary mb-3 md:mb-4"
@@ -69,7 +37,7 @@ export default function WhyPahariYatri() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               whileHover={{ scale: 1.05, opacity: 0.08 }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? "120" : "180"} height={isMobile ? "120" : "180"} viewBox="0 0 24 24" fill="currentColor" className="text-himalayan-green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 24 24" fill="currentColor" className="text-himalayan-green">
                 <path d="M22.5 21h-21l9-18 12 18z" />
               </svg>
             </motion.div>
@@ -201,7 +169,7 @@ export default function WhyPahariYatri() {
 
             <div className="relative">
               <Image
-                src="/static/logo.jpg"
+                src="/static/images/mountains-bg.jpg"
                 alt="Pahari Yatri Story"
                 width={600}
                 height={400}
@@ -261,8 +229,7 @@ export default function WhyPahariYatri() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 px-4 sm:px-0">
             <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow duration-300">
               <CardHeader className="pb-2 md:pb-4">
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl flex items-center justify-center gap-2">
-                  <span className="text-xl md:text-2xl">🏔️</span>
+                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
                   Authenticity
                 </CardTitle>
               </CardHeader>
@@ -274,8 +241,7 @@ export default function WhyPahariYatri() {
             </Card>
             <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow">
               <CardHeader>
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl flex items-center justify-center gap-2">
-                  <span className="text-xl md:text-2xl">🌱</span>
+                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
                   Sustainability
                 </CardTitle>
               </CardHeader>
@@ -287,8 +253,7 @@ export default function WhyPahariYatri() {
             </Card>
             <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow">
               <CardHeader>
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl flex items-center justify-center gap-2">
-                  <span className="text-xl md:text-2xl">✨</span>
+                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
                   Transformation
                 </CardTitle>
               </CardHeader>
@@ -301,6 +266,5 @@ export default function WhyPahariYatri() {
           </div>
         </SectionContainer>
       </motion.div>
-    </AnimatePresence>
   );
 }

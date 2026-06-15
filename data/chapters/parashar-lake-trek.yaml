@@ -3,8 +3,91 @@ invitation: A temple by water; a day by reverence.
 excerpt: >-
   Cedar paths to a high lake that keeps a floating island. Simple, beautiful,
   remembered.
-location: Mandi
-image: /static/images/chapters/parashar-lake-trek/image.jpg
+location: Mandi, Himachal Pradesh
+overview: >-
+  Parashar Lake sits at roughly 2,730 m (8,960 ft) in the Mandi district of
+  Himachal Pradesh, cradled by alpine meadows and ringed by snow peaks. At its
+  edge stands a three-storey pagoda-style temple dedicated to the sage Parashar
+  Rishi, and on the deep blue water floats a small island of matted earth that
+  drifts slowly across the surface — a sight that has drawn pilgrims and
+  travellers for centuries.
+
+
+  This is one of the gentlest and most rewarding short treks in Himachal. The
+  classic walk climbs through oak and cedar forest above Baggi village to open
+  meadows, where shepherds graze flocks in summer. It suits first-time trekkers,
+  families, and anyone who wants high-mountain beauty without a demanding climb.
+  We walk it slowly, with time to sit by the water, visit the temple, and let
+  the quiet do its work.
+duration: 2 Days / 1 Night
+distance: ~9 km one way from Baggi village (round trip ~18 km)
+maxAltitude: 2,730 m / 8,960 ft
+difficulty: Easy
+bestTime: March–June and September–November
+gettingThere: >-
+  Nearest airport: Bhuntar (Kullu), about 60–70 km away. Nearest major railhead:
+  Chandigarh; the narrow-gauge line also reaches Joginder Nagar.
+
+
+  Most Yatris reach Mandi town first (well connected by road from Delhi,
+  Chandigarh, and Manali). From Mandi, it is roughly 49 km by road to the
+  lake via Baggi village. You can trek the final stretch from Baggi (about
+  9 km, 3–4 hours) or continue by vehicle on the motorable road to near the
+  lake when conditions allow. We confirm the exact pickup point and timing once
+  your application is accepted.
+itinerary:
+  - day: Day 1
+    title: Arrive Mandi · Drive to Baggi · Trek to the lake
+    detail: >-
+      Meet in Mandi and drive through terraced villages to Baggi. From here we
+      walk up through oak and cedar forest to the open meadows of Parashar.
+      Reach the lake by afternoon, visit the pagoda temple, and camp under the
+      stars near the water.
+  - day: Day 2
+    title: Sunrise by the water · Descend · Depart
+    detail: >-
+      Wake for first light on the peaks reflected in the lake. After breakfast
+      and unhurried time by the temple, we descend to Baggi and drive back to
+      Mandi by afternoon.
+included:
+  - Certified local trek guide
+  - Camping (tents and sleeping gear) or homestay where available
+  - All meals on the trail (Day 1 lunch to Day 2 breakfast)
+  - Mandi–Baggi–Mandi local transport
+  - First-aid support and permits
+excluded:
+  - Travel to and from Mandi
+  - Personal trekking gear and clothing
+  - Personal expenses and tips
+  - Anything not listed under "Included"
+packing:
+  - Warm layers and a windproof jacket
+  - Comfortable trekking shoes
+  - Refillable water bottle
+  - Sun protection (cap, sunglasses, sunscreen)
+  - Personal medication and toiletries
+  - Headlamp or torch
+faqs:
+  - question: Is the Parashar Lake trek suitable for beginners?
+    answer: >-
+      Yes. It is rated Easy and is one of the best first treks in Himachal. The
+      walk from Baggi is gradual and short, and a motorable road also reaches
+      close to the lake, so it suits families and first-time trekkers.
+  - question: What is the best time to visit Parashar Lake?
+    answer: >-
+      March to June and September to November offer the clearest weather and
+      open meadows. The lake partially freezes in deep winter (December–February),
+      which is beautiful but cold, while heavy monsoon (July–August) can bring
+      landslides on the approach roads.
+  - question: How high is Parashar Lake?
+    answer: >-
+      The lake sits at about 2,730 m (8,960 ft). The altitude is gentle and
+      acclimatisation is rarely an issue for a healthy walker.
+  - question: What is the floating island on Parashar Lake?
+    answer: >-
+      A small island of matted earth and vegetation drifts slowly across the
+      lake. Local belief holds that its movement is sacred; for visitors it is
+      simply one of the most quietly mesmerising sights in the region.
 relatedStories:
   - parashar-floating-island
 giftsFromMountains:
@@ -13,3 +96,4 @@ giftsFromMountains:
 themes:
   - Temple
   - Water
+image: /static/images/chapters/parashar-lake-trek/image.jpg

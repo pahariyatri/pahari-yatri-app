@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: bookEntry.title,
       description: bookEntry.excerpt,
-      images: [bookEntry.coverImage || "/static/images/placeholder.jpg"],
-      type: "book",
+      images: [{ url: `https://pahariyatri.com/api/og?type=book&title=${encodeURIComponent(bookEntry.title)}&sub=${encodeURIComponent(bookEntry.invitation || bookEntry.excerpt || '')}`, width: 1200, height: 630 }],
+      type: "website",
     },
   };
 }

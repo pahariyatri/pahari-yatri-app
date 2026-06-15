@@ -4,6 +4,7 @@ import Link from "./common/Link";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 interface HeroBannerProps {
   title: string;
@@ -20,26 +21,58 @@ const HeroBanner = ({
   buttonLink,
   media,
 }: HeroBannerProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    setIsMobile(mobile);
+    if (mobile) return;
+
+    // Defer video src assignment until after first paint to unblock LCP
+    const raf = requestAnimationFrame(() => {
+      const video = videoRef.current;
+      if (!video) return;
+      video.src = media;
+      video.load();
+      video.play().catch(() => {});
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [media]);
+
   return (
     <section
       id="hero-banner"
       className="relative w-full h-[90vh] sm:h-screen overflow-hidden bg-background"
     >
-      {/* 🎥 Background Video */}
+      {/* Background media */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <div className="absolute inset-0 bg-black/30 z-10" /> {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background z-10" /> {/* Gradient */}
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/static/images/hero-poster.webp" // Optimized WebP poster
-        >
-          <source src={media} type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background z-10" />
+
+        {/* Poster image — always visible, fades out once video is playing */}
+        <Image
+          src="/static/images/mountains-bg.jpg"
+          alt="Himalayan peaks"
+          fill
+          priority
+          className={`object-cover transition-opacity duration-1000 ${videoReady ? "opacity-0" : "opacity-100"}`}
+        />
+
+        {/* Video — hidden on mobile to save bandwidth */}
+        {!isMobile && (
+          <video
+            ref={videoRef}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            onCanPlay={() => setVideoReady(true)}
+          />
+        )}
       </div>
 
       {/* ✨ Content Overlay */}

@@ -2,10 +2,10 @@ import AboutClient from "./client-page";
 
 // SEO Metadata Generation
 export async function generateMetadata() {
-  const title = 'About Us - Pahari Yatri | Trekking and Spiritual Yatras in the Indian Himalayas';
+  const title = 'About Us — Trekking & Spiritual Yatras in the Himalayas';
   const description = 'Discover authentic, sustainable, and personalized trekking experiences across the Indian Himalayas with Pahari Yatri. Specializing in spiritual yatras to sacred peaks and destinations throughout the Himalayan belt.';
   const url = `https://pahariyatri.com/about`;
-  const image = `https://pahariyatri.com/static/images/pahari-yatri-banner.png`;
+  const image = `https://pahariyatri.com/api/og?title=About+Pahari+Yatri&sub=Not+Tourism.+A+Movement.`;
 
   return {
     title,

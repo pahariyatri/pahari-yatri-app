@@ -6,9 +6,9 @@ import Image from "./common/Image";
 type Props = { id?: string };
 
 const HIDDEN_LOCATIONS = [
-    { name: "The Silent Valley", image: "/static/images/hidden-1.jpg", description: "Where the wind carries ancient prayers." },
-    { name: "Monk's Cave", image: "/static/images/hidden-2.jpg", description: "A sanctuary carved by time and devotion." },
-    { name: "The Forbidden Lake", image: "/static/images/hidden-3.jpg", description: "Reflecting the stars of a thousand nights." },
+    { name: "The Silent Valley", image: "/static/images/mountains-bg.jpg", description: "Where the wind carries ancient prayers." },
+    { name: "Monk's Cave", image: "/static/images/journey-banner.jpg", description: "A sanctuary carved by time and devotion." },
+    { name: "The Forbidden Lake", image: "/static/images/hidden-trails-poster.jpg", description: "Reflecting the stars of a thousand nights." },
 ];
 
 export default function HiddenTrails({ id }: Props) {
@@ -57,7 +57,7 @@ export default function HiddenTrails({ id }: Props) {
                 </div>
 
                 <div className="mt-16 text-center">
-                    <Link href="/journeys">
+                    <Link href="/books">
                         <Button variant="outline" className="rounded-full px-8 py-6 border-primary/20 hover:bg-primary/5 text-foreground">
                             Explore All Hidden Trails
                         </Button>

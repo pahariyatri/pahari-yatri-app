@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
-import Image from "./common/Image";
+import Image from "next/image";
 
 export default function ManifestoSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,9 +17,10 @@ export default function ManifestoSection() {
       {/* Background Image / Video */}
       <div className="absolute inset-0 opacity-60">
         <Image
-          src="/static/images/mountains-bg.jpg" // replace with video if needed
-          alt="Mountains"
+          src="/static/images/mountains-bg.jpg"
+          alt=""
           fill
+          sizes="100vw"
           className="object-cover animate-scale-up duration-[30s]"
           priority
         />

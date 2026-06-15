@@ -2,35 +2,59 @@ import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import JourneyPageClient from "@/app/chapters/[...slug]/client-page";
+import {
+  getChapterView,
+  buildChapterMetadata,
+  chapterCanonical,
+} from "@/lib/keystatic/chapterView";
+import type { Metadata } from "next";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export default async function Page({ params }: any) {
-  const paramsData = await params;
-  const bookParam = Array.isArray(paramsData?.book) ? paramsData.book[0] : paramsData?.book;
-  const chapterParam = Array.isArray(paramsData?.chapter) ? paramsData.chapter[0] : paramsData?.chapter;
+async function resolve(paramsData: any) {
+  const bookParam = Array.isArray(paramsData?.book)
+    ? paramsData.book[0]
+    : paramsData?.book;
+  const chapterParam = Array.isArray(paramsData?.chapter)
+    ? paramsData.chapter[0]
+    : paramsData?.chapter;
   const bookSlug = decodeURIComponent(bookParam || "");
   const chapterSlug = decodeURIComponent(chapterParam || "");
-
-  if (!bookSlug || !chapterSlug) notFound();
+  if (!bookSlug || !chapterSlug) return null;
 
   const book = await reader.collections.books.read(bookSlug);
-  if (!book) notFound();
+  if (!book) return null;
 
+  // Only allow chapters that actually belong to this book.
   const allowed = (book.relatedChapters || []).includes(chapterSlug);
-  if (!allowed) notFound();
+  if (!allowed) return null;
 
-  const chapter = await reader.collections.chapters.read(chapterSlug);
-  if (!chapter) notFound();
+  return { bookSlug, chapterSlug };
+}
 
-  const journeyData = {
-    title: chapter.title,
-    excerpt: chapter.excerpt,
-    image: chapter.image,
-    location: chapter.location,
-  };
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const r = await resolve(await params);
+  if (!r) return {};
+  // Canonical points to the chapter's home URL to avoid duplicate content.
+  return buildChapterMetadata(r.chapterSlug, chapterCanonical(r.chapterSlug));
+}
 
-  return <JourneyPageClient journey={journeyData} />;
+export default async function Page({ params }: any) {
+  const r = await resolve(await params);
+  if (!r) notFound();
+
+  const view = await getChapterView(r.chapterSlug);
+  if (!view) notFound();
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(view.ldArray) }}
+      />
+      <JourneyPageClient journey={view.journeyData} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {

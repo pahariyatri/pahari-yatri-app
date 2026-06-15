@@ -1,48 +1,83 @@
 'use client'
 
 import { useState } from 'react'
-import Link from './common/Link'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import headerNavLinks from '@/data/headerNavLinks'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
+import { Button } from './ui/button'
+import { cn } from '@/lib/utils'
 
 const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false)
+  const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   return (
-    <Sheet open={navShow} onOpenChange={setNavShow}>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button aria-label="Toggle Menu" className="sm:hidden p-2 -mr-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-7 w-7 text-foreground">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+        <button aria-label="Toggle Menu" className="p-2 -mr-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-6 w-6 text-foreground"
+          >
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[85vw] sm:w-[360px] bg-background/98 backdrop-blur-xl border-l border-border/50 p-0">
-        <SheetHeader className="px-6 py-8 border-b border-border/10 mb-2">
-          <SheetTitle className="font-brandSerif text-3xl text-left text-primary">Index</SheetTitle>
+
+      <SheetContent
+        side="right"
+        className="w-[85vw] sm:w-[340px] bg-background border-l border-border/40 p-0 flex flex-col"
+      >
+        <SheetHeader className="px-6 pt-8 pb-6 border-b border-border/20">
+          <SheetTitle className="font-brandSerif text-2xl text-left text-foreground">
+            Pahari Yatri
+          </SheetTitle>
+          <p className="text-xs text-muted-foreground/60 font-brandSerif italic mt-1">
+            The mountains are calling
+          </p>
         </SheetHeader>
-        <nav className="px-6 py-6 space-y-6">
+
+        <nav className="flex-1 px-4 py-6 space-y-1">
           {headerNavLinks.map((link, i) => (
-            <div key={link.title} className="group">
-              <Link
-                href={link.href}
-                className="flex items-baseline justify-between py-2 text-xl font-medium text-foreground/80 transition-colors group-hover:text-primary"
-                onClick={() => setNavShow(false)}
-              >
-                <span>{link.title}</span>
-                <span className="text-sm text-muted-foreground/40 font-brandSerif italic group-hover:text-primary/60">
-                  0{i + 1}
-                </span>
-              </Link>
-              <div className="h-px w-full bg-border/30 mt-2 group-hover:bg-primary/20 transition-colors" />
-            </div>
+            <Link
+              key={link.title}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className={cn(
+                'flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-200',
+                isActive(link.href)
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground/80 hover:bg-muted/60 hover:text-foreground'
+              )}
+            >
+              <span>{link.title}</span>
+              <span className="text-xs text-muted-foreground/40 font-brandSerif italic">
+                0{i + 1}
+              </span>
+            </Link>
           ))}
         </nav>
-        <div className="absolute bottom-8 left-6 right-6">
-          <p className="text-xs text-muted-foreground text-center font-brandSerif italic">
-            &quot;The mountains are calling...&quot;
+
+        <div className="px-6 pb-10 pt-4 border-t border-border/20 space-y-3">
+          <Link href="/apply" onClick={() => setOpen(false)}>
+            <Button className="w-full rounded-full py-6 text-base font-medium">
+              Begin Your Journey
+            </Button>
+          </Link>
+          <p className="text-center text-xs text-muted-foreground/50 font-brandSerif italic">
+            Limited spots each season
           </p>
         </div>
       </SheetContent>

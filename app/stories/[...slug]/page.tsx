@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
+import { resolveImage } from "@/lib/images";
 import BlogPageClient from "./client-page";
 
 const reader = createReader(process.cwd(), keystaticConfig);
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: story.title,
       description: story.excerpt,
-      images: [story.image || "/static/images/placeholder.jpg"],
+      images: [{ url: `https://pahariyatri.com/api/og?type=story&title=${encodeURIComponent(story.title || '')}&sub=${encodeURIComponent(story.excerpt || '')}`, width: 1200, height: 630 }],
       type: "article",
     }
   };
@@ -44,22 +45,39 @@ export default async function Page({ params }: any) {
   const data = {
     title: story.title || "",
     excerpt: story.excerpt || "",
-    image: story.image || "/static/images/placeholder.jpg",
+    image: resolveImage(story.image),
     slug,
     contentHtml: contentStr,
   };
 
+  const storyUrl = `https://pahariyatri.com/stories/${slug}`;
+  const imageUrl = `https://pahariyatri.com/api/og?type=story&title=${encodeURIComponent(story.title)}&sub=${encodeURIComponent(story.excerpt || '')}`;
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': 'Article',
+    '@id': storyUrl,
     headline: story.title,
-    image: story.image ? [story.image] : [],
-    datePublished: new Date().toISOString(), // ideally fetch from story date if available
-    author: {
-      '@type': 'Person',
-      name: 'Pahari Yatri Team' // or fetch from story.author
-    },
     description: story.excerpt,
+    image: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 },
+    url: storyUrl,
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: 'Pahari Yatri',
+      url: 'https://pahariyatri.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Pahari Yatri',
+      url: 'https://pahariyatri.com',
+      logo: { '@type': 'ImageObject', url: 'https://pahariyatri.com/static/images/logo.png' },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': storyUrl },
+    articleSection: 'Himalayan Stories',
+    keywords: 'Himalayan trek, spiritual journey, Himachal Pradesh, Pahari Yatri, mountain story',
+    ...(story.quote ? { citation: story.quote } : {}),
   };
 
   return (

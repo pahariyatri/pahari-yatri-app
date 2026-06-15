@@ -1,8 +1,8 @@
 const headerNavLinks = [
-    { href: '/', title: 'Home' },
-    { href: '/books', title: 'Books' },
-    { href: '/stories', title: 'Stories' },
-    { href: '/about', title: 'About' },
-];
+  { href: '/books', title: 'Books' },
+  { href: '/stories', title: 'Stories' },
+  { href: '/yatri-pass', title: 'Yatri Pass' },
+  { href: '/about', title: 'About' },
+]
 
-export default headerNavLinks;
+export default headerNavLinks
