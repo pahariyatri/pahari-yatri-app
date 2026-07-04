@@ -7,9 +7,9 @@ import { Compass, PenLine, Leaf } from "lucide-react";
 
 export async function generateMetadata() {
   return genPageMetadata({
-    title: "The Community — Become a Pahari Yatri",
+    title: "The Community: Become a Pahari Yatri",
     description:
-      "Pahari Yatri is a slow, intentional community of people learning to travel the Himalayas with respect, awareness, and story. Join the movement — free to belong, deep to walk.",
+      "Pahari Yatri is a slow, intentional community of people learning to travel the Himalayas with respect, awareness, and story. Join the movement, free to belong and deep to walk.",
     alternates: { canonical: "/community" },
   });
 }
@@ -23,7 +23,7 @@ const WAYS = [
   {
     icon: PenLine,
     title: "Share what you know",
-    body: "A trail, a village kindness, a temple bell — your story becomes a chapter others learn from.",
+    body: "A trail, a village kindness, a temple bell. Your story becomes a chapter others learn from.",
   },
   {
     icon: Leaf,
@@ -38,7 +38,7 @@ export default function CommunityPage() {
       <PageHero
         kicker="The Movement"
         title="Not a trip. A way of walking."
-        subtitle="Pahari Yatri is a slow, intentional community — for people who want to understand the Himalayas, not just visit them."
+        subtitle="Pahari Yatri is a slow, intentional community for people who want to understand the Himalayas, not just visit them."
         image="/static/images/pages/community.jpg"
       />
 
@@ -50,7 +50,7 @@ export default function CommunityPage() {
           <p className="text-lg text-muted-foreground leading-relaxed font-light">
             A Yatri travels to learn, not to collect. To listen, not to consume.
             To belong to the mountains for a while, and to carry their lessons
-            back down. There is no fee to belong — only a way of moving through
+            back down. There is no fee to belong, only a way of moving through
             the world.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function CommunityPage() {
             Walk with us.
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Tell us your intention and become part of the circle — or add your
+            Tell us your intention and become part of the circle, or add your
             voice to the library by contributing a story.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
