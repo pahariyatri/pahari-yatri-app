@@ -5,6 +5,7 @@ import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import { WebVitals } from "@/components/WebVitals";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 
@@ -151,9 +152,17 @@ export default async function RootLayout({
   const jsonLdOrg = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: "Pahari Yatri",
     url: siteUrl,
-    logo: `${siteUrl}/static/images/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteUrl}/static/images/logo.png`,
+      width: 600,
+      height: 60,
+    },
+    description:
+      "A digital Himalayan library and community for people who want to experience the mountains with respect, awareness, culture, and inner purpose.",
     sameAs: [
       "https://facebook.com/pahariyatri",
       "https://instagram.com/pahariyatri",
@@ -166,6 +175,22 @@ export default async function RootLayout({
       contactType: "Customer Support",
       areaServed: "IN",
       availableLanguage: ["en", "hi"],
+    },
+    knowsAbout: [
+      "Himachal Pradesh",
+      "Uttarakhand",
+      "Kinnaur",
+      "Spiti Valley",
+      "Lahaul",
+      "Tirthan Valley",
+      "Responsible Himalayan travel",
+      "Himalayan temples and folklore",
+    ],
+    brand: {
+      "@type": "Brand",
+      "@id": `${siteUrl}/#brand`,
+      name: "Pahari Yatri",
+      slogan: "Learn the Himalayas before you walk them.",
     },
   };
 
@@ -337,6 +362,7 @@ export default async function RootLayout({
           <Footer />
         </ThemeProviders>
         <Analytics />
+        <WebVitals />
       </body>
     </html>
   );

@@ -7,12 +7,81 @@ export default config({
   ui: {
     brand: { name: "Yatri CMS" },
     navigation: {
-      Journeys: ["books", "chapters", "stories"],
+      "Region Hubs": ["regions", "destinations", "places", "stories"],
+      "Journeys (Legacy)": ["books", "chapters"],
       "Landing Page": ["banners"],
       "Site Meta data": ["settings", "seo", "contact"],
     },
   },
   collections: {
+    regions: collection({
+      label: "Regions",
+      slugField: "title",
+      path: "data/regions/*",
+      schema: {
+        title: fields.slug({
+          name: { label: "Region Name", validation: { isRequired: true } },
+        }),
+        description: fields.text({ label: "Description", multiline: true }),
+        heroImage: fields.image({
+          label: "Hero Image",
+          directory: "public/static/images/regions",
+          publicPath: "/static/images/regions/",
+        }),
+      },
+    }),
+
+    destinations: collection({
+      label: "Destinations (Travel Guides)",
+      slugField: "title",
+      path: "data/destinations/*",
+      format: { contentField: "content" },
+      entryLayout: "content",
+      schema: {
+        title: fields.slug({
+          name: { label: "Destination Name", validation: { isRequired: true } },
+        }),
+        parentRegion: fields.relationship({
+          label: "Parent Region",
+          collection: "regions",
+          validation: { isRequired: true },
+        }),
+        description: fields.text({ label: "Short Description", multiline: true }),
+        content: fields.mdx({
+          label: "Guide Content",
+          extension: "mdx",
+        }),
+        image: fields.image({
+          label: "Featured Image",
+          directory: "public/static/images/destinations",
+          publicPath: "/static/images/destinations/",
+        }),
+      },
+    }),
+
+    places: collection({
+      label: "Places (Sightseeing)",
+      slugField: "title",
+      path: "data/places/*",
+      schema: {
+        title: fields.slug({
+          name: { label: "Place Name", validation: { isRequired: true } },
+        }),
+        parentRegion: fields.relationship({
+          label: "Parent Region",
+          collection: "regions",
+          validation: { isRequired: true },
+        }),
+        description: fields.text({ label: "Description", multiline: true }),
+        image: fields.image({
+          label: "Featured Image",
+          directory: "public/static/images/places",
+          publicPath: "/static/images/places/",
+        }),
+        coordinates: fields.text({ label: "Coordinates (Lat, Long)" }),
+      },
+    }),
+
     books: collection({
       label: "Books (Editions)",
       slugField: "title",
@@ -192,6 +261,10 @@ export default config({
       schema: {
         title: fields.slug({
           name: { label: "Story Title", validation: { isRequired: true } },
+        }),
+        parentRegion: fields.relationship({
+          label: "Parent Region (New)",
+          collection: "regions",
         }),
         excerpt: fields.text({
           label: "Short Introduction",

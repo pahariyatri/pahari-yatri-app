@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '',
         'library',
         'books',
+        'himachal',
         'stories',
         'responsible-travel',
         'temples',
@@ -23,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         'about',
         'contact',
         'apply',
-        'why-pahari-yatri'
+        'why-pahari-yatri',
     ].map((route) => ({
         url: `${siteUrl}/${route}`,
         lastModified: new Date().toISOString().split('T')[0],
@@ -31,32 +32,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: route === '' ? 1 : 0.8,
     }))
 
-    // Dynamic routes: Books
-    const books = await reader.collections.books.list()
-    const bookRoutes = books.map((slug) => ({
-        url: `${siteUrl}/books/${slug}`,
+    // Dynamic routes: Regions
+    const regions = await reader.collections.regions.list()
+    const regionRoutes = regions.map((slug) => ({
+        url: `${siteUrl}/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'monthly' as const,
+        priority: 0.9,
+    }))
+
+    // Dynamic routes: Destinations
+    const destinations = (await reader.collections.destinations.all())
+    const destRoutes = destinations.map((d) => ({
+        url: `${siteUrl}/${d.entry.parentRegion}/travel-guide/${d.slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+    }))
+
+    // Dynamic routes: Places
+    const places = (await reader.collections.places.all())
+    const placeRoutes = places.map((p) => ({
+        url: `${siteUrl}/${p.entry.parentRegion}/places/${p.slug}`,
         lastModified: new Date().toISOString().split('T')[0],
         changeFrequency: 'monthly' as const,
         priority: 0.7,
     }))
 
     // Dynamic routes: Stories
-    const stories = await reader.collections.stories.list()
-    const storyRoutes = stories.map((slug) => ({
-        url: `${siteUrl}/stories/${slug}`,
+    const stories = (await reader.collections.stories.all())
+    const storyRoutes = stories.map((s) => ({
+        url: `${siteUrl}/${(s.entry as any).parentRegion || 'himachal'}/stories/${s.slug}`,
         lastModified: new Date().toISOString().split('T')[0],
         changeFrequency: 'weekly' as const,
-        priority: 0.6,
-    }))
-
-    // Dynamic routes: Chapters
-    const chapters = await reader.collections.chapters.list()
-    const chapterRoutes = chapters.map((slug) => ({
-        url: `${siteUrl}/chapters/${slug}`,
-        lastModified: new Date().toISOString().split('T')[0],
-        changeFrequency: 'monthly' as const,
         priority: 0.7,
     }))
 
-    return [...routes, ...bookRoutes, ...chapterRoutes, ...storyRoutes]
+    return [...routes, ...regionRoutes, ...destRoutes, ...placeRoutes, ...storyRoutes]
 }
