@@ -6,9 +6,30 @@ import Image from "./common/Image";
 type Props = { id?: string };
 
 const HIDDEN_LOCATIONS = [
-    { name: "The Silent Valley", image: "/static/images/mountains-bg.jpg", description: "Where the wind carries ancient prayers." },
-    { name: "Monk's Cave", image: "/static/images/journey-banner.jpg", description: "A sanctuary carved by time and devotion." },
-    { name: "The Forbidden Lake", image: "/static/images/hidden-trails-poster.jpg", description: "Reflecting the stars of a thousand nights." },
+    {
+        name: "The Forgotten Shrine",
+        image: "/static/images/himalaya-fallback.jpg",
+        region: "Mandi · Lost Trails",
+        season: "Monsoon",
+        description: "Where a small god still keeps the village's quiet grammar.",
+        href: "/chapters/forgotten-shrine",
+    },
+    {
+        name: "The Echoing Caves",
+        image: "/static/images/trail-night-peaks.jpg",
+        region: "Sirmaur · Lost Trails",
+        season: "Winter",
+        description: "Stone corridors that answer the voice you bring to them.",
+        href: "/chapters/echoing-caves",
+    },
+    {
+        name: "Mist Valleys",
+        image: "/static/images/trail-alpine-lake.jpg",
+        region: "Kullu · Lost Trails",
+        season: "Monsoon",
+        description: "Cloud forests where the path dissolves and the mind clears.",
+        href: "/chapters/mist-valleys",
+    },
 ];
 
 export default function HiddenTrails({ id }: Props) {
@@ -27,39 +48,50 @@ export default function HiddenTrails({ id }: Props) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {HIDDEN_LOCATIONS.map((location, index) => (
-                        <div key={index} className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
+                        <Link
+                            key={index}
+                            href={location.href}
+                            className="group relative h-[26rem] rounded-2xl overflow-hidden block"
+                        >
                             <Image
                                 src={location.image}
                                 alt={location.name}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                            {/* Blur Overlay */}
-                            <div className="absolute inset-0 bg-background/80 backdrop-blur-md group-hover:backdrop-blur-none group-hover:bg-black/40 transition-all duration-700 flex flex-col items-center justify-center p-6 text-center">
-                                <div className="transform transition-transform duration-500 group-hover:-translate-y-4">
-                                    <h3 className="text-2xl font-brandSerif font-bold text-foreground group-hover:text-white mb-2 transition-colors">
-                                        {location.name}
-                                    </h3>
-                                    <p className="text-muted-foreground group-hover:text-white/80 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                        {location.description}
-                                    </p>
-                                </div>
-                                <div className="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                                    <span className="text-white text-xs uppercase tracking-widest border-b border-white/50 pb-1">
-                                        Discover
+                            {/* Readable gradient scrim — content always legible, no blur-gate */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                            <div className="absolute inset-x-0 bottom-0 p-6 text-left">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="text-[10px] uppercase tracking-[0.15em] text-white/90 bg-white/15 backdrop-blur-sm rounded-full px-2.5 py-1">
+                                        {location.region}
+                                    </span>
+                                    <span className="text-[10px] uppercase tracking-[0.15em] text-white/80 border border-white/25 rounded-full px-2.5 py-1">
+                                        {location.season}
                                     </span>
                                 </div>
+                                <h3 className="text-2xl font-brandSerif font-medium text-white mb-2">
+                                    {location.name}
+                                </h3>
+                                <p className="text-white/75 text-sm font-light leading-relaxed mb-4">
+                                    {location.description}
+                                </p>
+                                <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-white/90 group-hover:text-white transition-colors">
+                                    Read the Chapter
+                                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                                </span>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
                 <div className="mt-16 text-center">
                     <Link href="/books">
                         <Button variant="outline" className="rounded-full px-8 py-6 border-primary/20 hover:bg-primary/5 text-foreground">
-                            Explore All Hidden Trails
+                            Open the full Library
                         </Button>
                     </Link>
                 </div>

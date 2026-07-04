@@ -78,21 +78,19 @@ export default function Apply() {
 
   return (
     <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-6">
-      {/* Page header — context + trust for first-time visitors */}
-      <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-        <span className="inline-block text-primary text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4">
-          Begin Your Yatra
+      {/* Page header — a quiet invitation, not a form */}
+      <div className="text-center max-w-xl mx-auto mb-8 md:mb-14">
+        <span className="inline-block text-primary text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4">
+          Become a Yatri
         </span>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-brandSerif font-medium mb-5 leading-tight">
-          Apply to Walk With Us
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-brandSerif font-medium mb-3 sm:mb-5 leading-tight">
+          A few quiet questions
         </h1>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          We don&apos;t sell seats — we welcome seekers. Tell us your intention,
-          and we&apos;ll match you to a journey that fits your spirit and your
-          fitness.
+        <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed">
+          Not a booking form — a short conversation, one step at a time.
         </p>
-        <p className="mt-4 text-sm text-muted-foreground/70">
-          ✦ We read every application personally and reply within 24 hours.
+        <p className="mt-3 text-xs sm:text-sm text-muted-foreground/70">
+          ✦ We read every reply personally and answer within 24 hours.
         </p>
       </div>
 

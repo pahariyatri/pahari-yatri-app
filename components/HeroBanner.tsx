@@ -11,6 +11,8 @@ interface HeroBannerProps {
   description: string;
   buttonText?: string;
   buttonLink?: string;
+  secondaryText?: string;
+  secondaryLink?: string;
   media: string; // MP4 video path
 }
 
@@ -19,6 +21,8 @@ const HeroBanner = ({
   description,
   buttonText,
   buttonLink,
+  secondaryText,
+  secondaryLink,
   media,
 }: HeroBannerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -48,8 +52,8 @@ const HeroBanner = ({
     >
       {/* Background media */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <div className="absolute inset-0 bg-black/30 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background z-10" />
+        <div className="absolute inset-0 bg-black/45 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-background z-10" />
 
         {/* Poster image — always visible, fades out once video is playing */}
         <Image
@@ -77,12 +81,21 @@ const HeroBanner = ({
 
       {/* ✨ Content Overlay */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl mx-auto">
+        <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          className="block text-[11px] sm:text-xs font-semibold uppercase tracking-[0.35em] text-white/70 mb-6"
+        >
+          Pahari Yatri
+        </motion.span>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
         >
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold font-brandSerif text-white mb-6 tracking-tight drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium font-brandSerif text-white mb-6 tracking-tight leading-[1.08] max-w-4xl mx-auto drop-shadow-lg">
             {title}
           </h1>
         </motion.div>
@@ -92,25 +105,39 @@ const HeroBanner = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
         >
-          <p className="text-lg sm:text-2xl text-white/90 font-light max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-base sm:text-xl text-white/85 font-light max-w-xl mx-auto mb-10 leading-relaxed drop-shadow-md">
             {description}
           </p>
         </motion.div>
 
-        {buttonText && (
+        {(buttonText || secondaryText) && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto"
           >
-            <Link href={buttonLink || "/yatri-pass"}>
-              <Button
-                size="lg"
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 rounded-full px-8 py-6 text-lg font-medium transition-all duration-300 hover:scale-105 hover:border-white/60"
-              >
-                {buttonText}
-              </Button>
-            </Link>
+            {buttonText && (
+              <Link href={buttonLink || "/books"} className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-zinc-900 hover:bg-white/90 rounded-full px-8 py-6 text-base font-medium transition-all duration-300 hover:scale-[1.03] shadow-xl"
+                >
+                  {buttonText}
+                </Button>
+              </Link>
+            )}
+            {secondaryText && (
+              <Link href={secondaryLink || "/apply"} className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto bg-white/5 hover:bg-white/15 backdrop-blur-md text-white border border-white/40 rounded-full px-8 py-6 text-base font-medium transition-all duration-300 hover:border-white/70"
+                >
+                  {secondaryText}
+                </Button>
+              </Link>
+            )}
           </motion.div>
         )}
       </div>

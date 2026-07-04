@@ -73,11 +73,11 @@ const MobileNav = () => {
         <div className="px-6 pb-10 pt-4 border-t border-border/20 space-y-3">
           <Link href="/apply" onClick={() => setOpen(false)}>
             <Button className="w-full rounded-full py-6 text-base font-medium">
-              Begin Your Journey
+              Become a Yatri
             </Button>
           </Link>
           <p className="text-center text-xs text-muted-foreground/50 font-brandSerif italic">
-            Limited spots each season
+            Learn the mountains before you walk them.
           </p>
         </div>
       </SheetContent>

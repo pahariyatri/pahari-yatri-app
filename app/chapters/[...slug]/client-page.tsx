@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
@@ -22,9 +22,9 @@ import {
   X,
   Backpack,
   ArrowRight,
+  ArrowLeft,
+  Leaf,
 } from "lucide-react";
-import { useRef } from "react";
-
 type Fact = { icon: any; label: string; value?: string };
 
 function paragraphs(text?: string) {
@@ -35,14 +35,12 @@ function paragraphs(text?: string) {
 }
 
 export default function JourneyPageClient({ journey }: any) {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
   });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
   const facts: Fact[] = [
     { icon: MapPin, label: "Region", value: journey.location },
@@ -68,55 +66,67 @@ export default function JourneyPageClient({ journey }: any) {
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
 
+  // Always give the reader an opening paragraph, even for sparse chapters.
+  const intro = overview.length > 0 ? overview : journey.excerpt ? [journey.excerpt] : [];
+
   return (
-    <div
-      ref={containerRef}
-      className="min-h-screen bg-background text-foreground font-sans"
-    >
-      {/* Sticky Hero / Chapter Title */}
-      <div className="relative h-screen w-full sticky top-0 z-0 overflow-hidden flex flex-col items-center justify-center">
-        <motion.div
-          style={{ opacity, scale }}
-          className="absolute inset-0 w-full h-full"
+    <div className="bg-background text-foreground font-sans">
+      {/* Reading progress */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
+        style={{ scaleX }}
+      />
+
+      {/* Back */}
+      <nav className="fixed top-4 left-4 sm:top-6 sm:left-6 z-40">
+        <Link
+          href="/books"
+          className="flex items-center gap-2 text-white/90 hover:text-white transition-colors bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
         >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">The Library</span>
+        </Link>
+      </nav>
+
+      {/* Static hero — solid, readable, no scroll-jacking. Image sits behind a
+          strong bottom gradient; the title lives at the base where contrast is
+          highest, so text is legible on every image and every screen size. */}
+      <header className="relative w-full h-[82svh] min-h-[480px] overflow-hidden flex items-end">
+        <div className="absolute inset-0">
           <ResponsiveImage
             src={journey.image}
             alt={journey.title}
             fill
             sizes="100vw"
             priority
-            fallbackSrc="/static/images/mountains-bg.jpg"
+            className="object-cover"
+            fallbackSrc="/static/images/himalaya-fallback.jpg"
           />
-          <div className="absolute inset-0 bg-black/40" />
-        </motion.div>
+          {/* Even wash + heavy bottom gradient for accessible text contrast */}
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-black/50 to-black/20" />
+        </div>
 
         <motion.div
-          style={{ opacity, scale }}
-          className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative z-10 w-full max-w-4xl mx-auto px-6 pb-14 sm:pb-20 text-white"
         >
-          <span className="block text-sm md:text-base font-bold tracking-[0.3em] uppercase mb-6 text-white/80">
-            {journey.location ? journey.location : "Chapter Selection"}
+          <span className="block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4 text-white/85">
+            {journey.location ? journey.location : "A Chapter"}
           </span>
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-brandSerif font-medium mb-8 leading-tight">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-brandSerif font-medium mb-5 leading-[1.05] drop-shadow-lg">
             {journey.title}
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl font-light text-white/90 max-w-2xl leading-relaxed drop-shadow">
             {journey.excerpt}
           </p>
         </motion.div>
+      </header>
 
-        <motion.div
-          style={{ opacity }}
-          className="absolute bottom-12 left-0 right-0 text-center text-white/60 animate-bounce"
-        >
-          <span className="text-xs uppercase tracking-widest">
-            Scroll to Read
-          </span>
-        </motion.div>
-      </div>
-
-      {/* Content Layer */}
-      <div className="relative z-10 bg-background min-h-screen rounded-t-[3rem] -mt-20 shadow-[0_-20px_40px_rgba(0,0,0,0.2)] border-t border-white/10">
+      {/* Content */}
+      <div className="relative bg-background">
         {/* Quick Facts */}
         {facts.length > 0 && (
           <SectionContainer className="pt-20 sm:pt-24">
@@ -155,16 +165,16 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
-        {/* Overview (practical, SEO) */}
-        {overview.length > 0 && (
+        {/* Overview (practical, SEO) — always shows at least the excerpt */}
+        {intro.length > 0 && (
           <SectionContainer className="py-12 sm:py-16">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-brandSerif mb-8 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary" />
-                About This Trek
+                About the Trail
               </h2>
-              <div className="space-y-6 text-lg leading-loose text-muted-foreground">
-                {overview.map((p, i) => (
+              <div className="space-y-6 text-lg leading-[1.85] text-muted-foreground">
+                {intro.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>
@@ -392,41 +402,80 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
-        {/* Offering + Final CTA */}
-        <section className="py-28 sm:py-32 text-center bg-zinc-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+        {/* Responsible Yatri note — shown on every chapter, reinforces the code */}
+        <section className="py-16 sm:py-20 bg-muted/30 border-y border-border/40">
+          <SectionContainer>
+            <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <Leaf className="w-6 h-6" strokeWidth={1.5} />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-brandSerif mb-4">
+                  Walk this chapter with awareness
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-5">
+                  {journey.location ? `${journey.location} is` : "This trail is"} a
+                  living landscape — of villages, shrines, forests, and weather that
+                  turns quickly. Move softly, ask before you photograph faces or
+                  temples, support local homes, and carry back everything you carry
+                  in. The mountain remembers a respectful guest.
+                </p>
+                <Link
+                  href="/responsible-travel"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline underline-offset-4"
+                >
+                  Read the Yatri Code
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </SectionContainer>
+        </section>
+
+        {/* Final CTA — a quiet invitation to walk this chapter */}
+        <section className="py-24 sm:py-32 text-center bg-zinc-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20">
             <ResponsiveImage
               src={journey.image}
               alt=""
               fill
               sizes="100vw"
-              className="grayscale"
+              className="object-cover grayscale"
               fallbackSrc="/static/images/mountains-bg.jpg"
             />
           </div>
+          {/* Dark scrim keeps the copy readable over any image */}
+          <div className="absolute inset-0 bg-zinc-900/80" />
 
           <div className="relative z-10 max-w-2xl mx-auto px-6">
-            {journey.offering && (
-              <p className="text-sm uppercase tracking-[0.2em] text-white/60 mb-4">
-                {journey.offering}
-              </p>
-            )}
-            <h2 className="text-4xl sm:text-5xl font-brandSerif mb-8">
-              The Mountain Calls
+            <span className="block text-xs uppercase tracking-[0.25em] text-white/60 mb-5">
+              Continue the journey
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-brandSerif mb-6 leading-tight">
+              The Himalayas are not asking to be visited.
+              <span className="block text-white/70">They ask to be understood.</span>
             </h2>
-            <p className="text-lg text-white/70 mb-12 font-light">
-              This chapter is waiting to be written. Will you be the one to write
-              it?
+            <p className="text-base sm:text-lg text-white/75 mb-10 font-light leading-relaxed">
+              Learn the trail, its people, and its silences before you set out —
+              then walk this chapter with awareness.
             </p>
-            <Link href="/apply">
-              <Button
-                size="lg"
-                className="rounded-full px-12 py-8 text-xl bg-white text-black hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-2xl"
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/apply">
+                <Button
+                  size="lg"
+                  className="rounded-full px-10 py-7 text-lg bg-white text-zinc-900 hover:bg-white/90 hover:scale-[1.03] transition-all duration-300 shadow-xl"
+                >
+                  Begin as a Yatri
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link
+                href="/books"
+                className="text-sm text-white/70 underline-offset-4 hover:text-white hover:underline transition-colors"
               >
-                Begin Your Yatra
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+                Explore more chapters
+              </Link>
+            </div>
           </div>
         </section>
       </div>

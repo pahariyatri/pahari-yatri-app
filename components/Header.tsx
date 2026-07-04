@@ -48,7 +48,7 @@ const Header = ({ title }: HeaderProps) => {
       </Link>
 
       {/* Desktop nav + CTA */}
-      <div className="hidden sm:flex items-center gap-2">
+      <div className="hidden lg:flex items-center gap-2">
         <DesktopNav />
         <div className="w-px h-4 bg-border/50 mx-2" />
         <Link href="/apply">
@@ -56,16 +56,16 @@ const Header = ({ title }: HeaderProps) => {
             size="sm"
             className="rounded-full px-5 text-sm font-medium shadow-none transition-all duration-300 hover:scale-105"
           >
-            Begin Your Journey
+            Become a Yatri
           </Button>
         </Link>
       </div>
 
-      {/* Mobile: Apply link + hamburger */}
-      <div className="flex items-center gap-3 sm:hidden">
+      {/* Mobile / tablet: primary CTA + hamburger */}
+      <div className="flex items-center gap-3 lg:hidden">
         <Link href="/apply">
           <Button size="sm" className="rounded-full px-4 text-xs font-medium h-8">
-            Apply
+            Become a Yatri
           </Button>
         </Link>
         <MobileNav />

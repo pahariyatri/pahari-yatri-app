@@ -36,7 +36,7 @@ export default function PersonalInfoStep({ formData, updateFormData }: Props) {
 
   return (
     <motion.div
-      className="space-y-8"
+      className="space-y-5"
       variants={container}
       initial="hidden"
       animate="show"

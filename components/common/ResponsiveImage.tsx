@@ -43,7 +43,7 @@ const ROUNDED: Record<NonNullable<ResponsiveImageProps['rounded']>, string> = {
 export default function ResponsiveImage({
   src,
   alt,
-  fallbackSrc = '/static/images/placeholder.jpg',
+  fallbackSrc = '/static/images/himalaya-fallback.jpg',
   aspectRatio = '16:9',
   rounded = 'md',
   overlay = false,

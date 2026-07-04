@@ -1,6 +1,5 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -15,97 +14,84 @@ type Props = {
   updateFormData: (field: keyof FormData, value: string) => void;
 };
 
+type Choice = { value: string; label: string; icon: string };
+
+const CALLING: Choice[] = [
+  { value: 'silence', label: 'Silence', icon: '🧘' },
+  { value: 'adventure', label: 'Adventure', icon: '🏔️' },
+  { value: 'spiritual', label: 'Spiritual', icon: '✨' },
+  { value: 'nature', label: 'Nature', icon: '🌿' },
+  { value: 'culture', label: 'Culture', icon: '🏮' },
+  { value: 'creative', label: 'Creative', icon: '📸' },
+];
+
+const SEASON: Choice[] = [
+  { value: 'spring', label: 'Spring', icon: '🌸' },
+  { value: 'summer', label: 'Summer', icon: '☀️' },
+  { value: 'monsoon', label: 'Monsoon', icon: '🌧️' },
+  { value: 'autumn', label: 'Autumn', icon: '🍂' },
+  { value: 'winter', label: 'Winter', icon: '❄️' },
+];
+
+const COMPANIONSHIP: Choice[] = [
+  { value: 'solo', label: 'Solo', icon: '🧭' },
+  { value: 'friends', label: 'Friends', icon: '👥' },
+  { value: 'guided-small', label: 'Small group', icon: '🧗' },
+  { value: 'guided-medium', label: 'Group', icon: '👨‍👩‍👧' },
+];
+
+/**
+ * Each question is a single horizontal, swipe-friendly chip row. Three short
+ * rows stack compactly so the whole step fits a phone screen without vertical
+ * scrolling — the visual icons double as the "guide" for each choice.
+ */
 export default function IntentionStep({ formData, updateFormData }: Props) {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: isMobile ? 0.05 : 0.1,
-        delayChildren: isMobile ? 0.1 : 0.2,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: isMobile ? 5 : 10 },
-    show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.4 } },
-  };
-
-  // ✨ Reusable option card with typed props
-  type OptionProps = {
+  const Row = ({
+    field,
+    label,
+    choices,
+  }: {
     field: keyof FormData;
-    value: string;
     label: string;
-    icon: string;
-    description?: string;
-  };
-
-  const Option = ({ field, value, label, icon, description }: OptionProps) => {
-    const selected = formData[field] === value;
-    return (
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.97 }}
-        className={cn(
-          'rounded-xl p-4 text-center cursor-pointer transition-all duration-300 flex flex-col items-center justify-center',
-          selected
-            ? 'bg-background text-primary-foreground border-2 border-primary shadow-md'
-            : 'bg-secondary text-secondary-foreground border border-border hover:bg-muted/70'
-        )}
-        onClick={() => updateFormData(field, value)}
-      >
-        <div className={cn("text-2xl", selected && "scale-110")}>{icon}</div>
-        <div className="mt-1 text-sm font-semibold">{label}</div>
-        {description && <div className="text-xs text-muted-foreground">{description}</div>}
-      </motion.div>
-    );
-  };
+    choices: Choice[];
+  }) => (
+    <div className="space-y-2.5">
+      <p className="text-sm font-medium text-foreground/90">{label}</p>
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {choices.map((c) => {
+          const selected = formData[field] === c.value;
+          return (
+            <motion.button
+              key={c.value}
+              type="button"
+              whileTap={{ scale: 0.96 }}
+              onClick={() => updateFormData(field, c.value)}
+              className={cn(
+                'shrink-0 snap-start inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm transition-colors duration-200',
+                selected
+                  ? 'bg-primary/10 text-foreground border-primary'
+                  : 'bg-secondary/50 text-foreground/80 border-border hover:border-primary/40'
+              )}
+            >
+              <span aria-hidden>{c.icon}</span>
+              <span className="whitespace-nowrap">{c.label}</span>
+            </motion.button>
+          );
+        })}
+      </div>
+    </div>
+  );
 
   return (
     <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
       className="space-y-6"
-      variants={container}
-      initial="hidden"
-      animate="show"
     >
-      {/* Q1 */}
-      <motion.div variants={item} className="space-y-3">
-        <Label className="font-medium">What draws you?</Label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <Option field="calling" value="silence" label="Silence" icon="🧘" />
-          <Option field="calling" value="adventure" label="Adventure" icon="🏔️" />
-          <Option field="calling" value="spiritual" label="Spiritual" icon="✨" />
-          <Option field="calling" value="nature" label="Nature" icon="🌿" />
-          <Option field="calling" value="culture" label="Culture" icon="🏮" />
-          <Option field="calling" value="creative" label="Creative" icon="📸" />
-        </div>
-      </motion.div>
-
-      {/* Q2 */}
-      <motion.div variants={item} className="space-y-3">
-        <Label className="font-medium">When do you journey?</Label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <Option field="season" value="spring" label="Spring" icon="🌸" />
-          <Option field="season" value="summer" label="Summer" icon="☀️" />
-          <Option field="season" value="monsoon" label="Monsoon" icon="🌧️" />
-          <Option field="season" value="autumn" label="Autumn" icon="🍂" />
-          <Option field="season" value="winter" label="Winter" icon="❄️" />
-        </div>
-      </motion.div>
-
-      {/* Q3 */}
-      <motion.div variants={item} className="space-y-3">
-        <Label className="font-medium">How do you travel?</Label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <Option field="companionship" value="solo" label="Solo" icon="🧭" />
-          <Option field="companionship" value="friends" label="Friends" icon="👥" />
-          <Option field="companionship" value="guided-small" label="Small Group" icon="🧗‍♀️" />
-          <Option field="companionship" value="guided-medium" label="Group" icon="👨‍👩‍👧‍👦" />
-        </div>
-      </motion.div>
+      <Row field="calling" label="What pulls you?" choices={CALLING} />
+      <Row field="season" label="Your season?" choices={SEASON} />
+      <Row field="companionship" label="How do you walk?" choices={COMPANIONSHIP} />
     </motion.div>
   );
 }

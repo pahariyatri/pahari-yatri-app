@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 const COLORS = {
   apply: 0x2DC653,
   contact: 0x5865F2,
-  'yatri-pass': 0xF1A00A,
   story: 0x9B59B6,
 }
 
@@ -40,22 +39,6 @@ function buildContactEmbed(data: Record<string, any>) {
       { name: 'Message', value: data.message || '—' },
     ],
     footer: { text: 'Pahari Yatri · /contact' },
-    timestamp: new Date().toISOString(),
-  }
-}
-
-function buildYatriPassEmbed(data: Record<string, any>) {
-  return {
-    title: '✨ New Yatri Pass Invitation Request',
-    color: COLORS['yatri-pass'],
-    fields: [
-      { name: 'Name', value: data.fullName || '—', inline: true },
-      { name: 'Email', value: data.email || '—', inline: true },
-      { name: 'Season', value: data.season || '—', inline: true },
-      { name: 'Prior Experience', value: data.priorExperience || '—', inline: true },
-      { name: 'What Calls Them to the Mountains', value: data.calling || '—' },
-    ],
-    footer: { text: 'Pahari Yatri · /yatri-pass' },
     timestamp: new Date().toISOString(),
   }
 }
@@ -100,9 +83,6 @@ export async function POST(req: NextRequest) {
       break
     case 'contact':
       embed = buildContactEmbed(data)
-      break
-    case 'yatri-pass':
-      embed = buildYatriPassEmbed(data)
       break
     case 'story':
       embed = buildStoryEmbed(data)

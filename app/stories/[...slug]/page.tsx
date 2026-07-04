@@ -42,12 +42,38 @@ export default async function Page({ params }: any) {
     }
   } catch { }
 
+  // Resolve the related chapter (for reading context + onward link)
+  let chapter: { slug: string; title: string } | null = null;
+  if (story.relatedChapter) {
+    try {
+      const ch = await reader.collections.chapters.read(story.relatedChapter);
+      if (ch) chapter = { slug: story.relatedChapter, title: ch.title || story.relatedChapter };
+    } catch { }
+  }
+
+  // Suggest another story to read next
+  const allSlugs = await reader.collections.stories.list();
+  const others = allSlugs.filter((s) => s !== slug);
+  let nextStory: { slug: string; title: string; excerpt: string; image: string } | null = null;
+  if (others.length) {
+    const pick = others[Math.floor(Math.random() * others.length)];
+    const ns = await reader.collections.stories.read(pick);
+    if (ns) nextStory = { slug: pick, title: ns.title || pick, excerpt: ns.excerpt || "", image: resolveImage(ns.image) };
+  }
+
+  const words = (contentStr.replace(/<[^>]+>/g, " ").match(/\S+/g) || []).length;
+  const minutes = Math.max(2, Math.round(words / 200));
+
   const data = {
     title: story.title || "",
     excerpt: story.excerpt || "",
     image: resolveImage(story.image),
     slug,
     contentHtml: contentStr,
+    quote: story.quote || "",
+    chapter,
+    nextStory,
+    minutes,
   };
 
   const storyUrl = `https://pahariyatri.com/stories/${slug}`;

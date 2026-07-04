@@ -16,9 +16,31 @@ export default function Footer() {
             </div>
           </Link>
           <p className="text-lg font-brandSerif italic text-muted-foreground max-w-md mx-auto">
-            "The mountains are calling and I must go."
+            A digital Himalayan library — walk softly, listen deeply.
           </p>
         </div>
+
+        {/* Ecosystem links */}
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+          {[
+            { href: "/library", label: "Library" },
+            { href: "/books", label: "Books" },
+            { href: "/stories", label: "Stories" },
+            { href: "/responsible-travel", label: "Responsible Travel" },
+            { href: "/temples", label: "Temples" },
+            { href: "/folklore", label: "Folklore" },
+            { href: "/community", label: "Community" },
+            { href: "/contribute", label: "Contribute" },
+          ].map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="hover:text-primary transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
 
         {/* Social Links */}
         <SocialLinks

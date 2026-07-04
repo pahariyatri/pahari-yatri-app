@@ -257,14 +257,6 @@ export default async function RootLayout({
       },
       {
         "@type": "Question",
-        name: "What is the Yatri Pass?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The Yatri Pass is an invitation-only seasonal membership for seekers who wish to walk with Pahari Yatri season after season. Members receive priority access to new trek Chapters, curated trek matching, and the Yatri Letters — seasonal dispatches from the trail.",
-        },
-      },
-      {
-        "@type": "Question",
         name: "How do I join a Pahari Yatri trek?",
         acceptedAnswer: {
           "@type": "Answer",
