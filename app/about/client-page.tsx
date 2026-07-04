@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import SectionContainer from "@/components/common/SectionContainer";
 import Link from "@/components/common/Link";
-import Image from "@/components/common/Image";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function AboutClient() {
@@ -14,9 +14,10 @@ export default function AboutClient() {
             <section className="relative min-h-[80vh] flex flex-col justify-center items-center text-center px-6 py-20 overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/static/images/pahari-yatri-banner.png"
+                        src="/static/images/mountains-bg.jpg"
                         alt="Himalayan Peaks"
                         fill
+                        sizes="100vw"
                         className="object-cover opacity-30 grayscale"
                         priority
                     />
@@ -137,9 +138,10 @@ export default function AboutClient() {
                 <div className="relative rounded-2xl overflow-hidden bg-zinc-900 text-white p-8 sm:p-16 md:p-24 text-center">
                     <div className="absolute inset-0 opacity-20">
                         <Image
-                            src="/static/images/pahari-yatri-banner.png"
-                            alt="Background"
+                            src="/static/images/mountains-bg.jpg"
+                            alt=""
                             fill
+                            sizes="(min-width:1024px) 60vw, 100vw"
                             className="object-cover"
                         />
                     </div>

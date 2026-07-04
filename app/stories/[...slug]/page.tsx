@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
+import { resolveImage } from "@/lib/images";
 import BlogPageClient from "./client-page";
 import { getBlogPostingSchema } from "@/lib/schema";
 import siteMetadata from "@/data/siteMetadata";
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: story.title,
       description: story.excerpt,
-      images: [story.image || "/static/images/placeholder.jpg"],
+      images: [{ url: `https://pahariyatri.com/api/og?type=story&title=${encodeURIComponent(story.title || '')}&sub=${encodeURIComponent(story.excerpt || '')}`, width: 1200, height: 630 }],
       type: "article",
     }
   };
@@ -43,16 +44,64 @@ export default async function Page({ params }: any) {
     }
   } catch { }
 
+  // Resolve the related chapter (for reading context + onward link)
+  let chapter: { slug: string; title: string } | null = null;
+  if (story.relatedChapter) {
+    try {
+      const ch = await reader.collections.chapters.read(story.relatedChapter);
+      if (ch) chapter = { slug: story.relatedChapter, title: ch.title || story.relatedChapter };
+    } catch { }
+  }
+
+  // Suggest another story to read next
+  const allSlugs = await reader.collections.stories.list();
+  const others = allSlugs.filter((s) => s !== slug);
+  let nextStory: { slug: string; title: string; excerpt: string; image: string } | null = null;
+  if (others.length) {
+    const pick = others[Math.floor(Math.random() * others.length)];
+    const ns = await reader.collections.stories.read(pick);
+    if (ns) nextStory = { slug: pick, title: ns.title || pick, excerpt: ns.excerpt || "", image: resolveImage(ns.image) };
+  }
+
+  const words = (contentStr.replace(/<[^>]+>/g, " ").match(/\S+/g) || []).length;
+  const minutes = Math.max(2, Math.round(words / 200));
+
   const data = {
     title: story.title || "",
     excerpt: story.excerpt || "",
-    image: story.image || "/static/images/placeholder.jpg",
+    image: resolveImage(story.image),
     slug,
     contentHtml: contentStr,
+    quote: story.quote || "",
+    chapter,
+    nextStory,
+    minutes,
   };
 
-  const chapter = story.relatedChapter ? await reader.collections.chapters.read(story.relatedChapter) : null;
-  const jsonLd = getBlogPostingSchema({ ...story, slug }, chapter, siteMetadata.siteUrl);
+  const storyUrl = `${siteMetadata.siteUrl}/stories/${slug}`;
+  const imageUrl = `${siteMetadata.siteUrl}/api/og?type=story&title=${encodeURIComponent(story.title)}&sub=${encodeURIComponent(story.excerpt || '')}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': storyUrl,
+    headline: story.title,
+    description: story.excerpt,
+    image: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 },
+    url: storyUrl,
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    author: { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Pahari Yatri',
+      url: siteMetadata.siteUrl,
+      logo: { '@type': 'ImageObject', url: `${siteMetadata.siteUrl}/static/images/logo.png` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': storyUrl },
+    articleSection: 'Himalayan Stories',
+    ...(story.quote ? { citation: story.quote } : {}),
+  };
 
   return (
     <>

@@ -45,8 +45,7 @@ async function getMetadata() {
     "Pahari Yatri, Spiritual trekking India, Himalayan yatra packages, Silent meditation treks, Authentic Himalaya, Conscious travel, Inner journey";
   const socialBanner =
     (seo as any)?.ogImage ||
-    settings?.logo ||
-    `${siteMetadata.siteUrl}/static/images/pahari-yatri-banner.png`;
+    `${siteMetadata.siteUrl}/api/og`;
 
   const siteUrl = settings?.domain ?? siteMetadata.siteUrl;
 
@@ -61,7 +60,7 @@ async function getMetadata() {
     metadataBase,
     title: {
       default: title,
-      template: `%s | ${title}`,
+      template: `%s | Pahari Yatri`,
     },
     description,
     keywords,
@@ -72,26 +71,14 @@ async function getMetadata() {
       siteName: "Pahari Yatri",
       images: [
         {
-          url: `${siteUrl}/static/images/pahari-yatri-banner.png`,
+          url: `${siteUrl}/api/og`,
           width: 1200,
           height: 630,
           alt: "Pahari Yatri - Himalayan Treks & Spiritual Journeys",
         },
-        {
-          url: `${siteUrl}/static/images/pahari-yatri-thumbnail.png`,
-          width: 600,
-          height: 315,
-          alt: "Pahari Yatri Logo",
-        },
       ],
       locale: settings?.locale || "en_US",
       type: "website",
-    },
-    alternates: {
-      canonical: siteUrl,
-      types: {
-        "application/rss+xml": `${siteUrl}/feed.xml`,
-      },
     },
     robots:
       "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
@@ -139,14 +126,14 @@ export default async function RootLayout({
       name: siteMetadata.title,
       logo: {
         "@type": "ImageObject",
-        url: `${siteMetadata.siteUrl}/static/logo.png`,
+        url: `${siteMetadata.siteUrl}/static/images/logo.png`,
         width: 600,
         height: 60,
       },
     },
     image: {
       "@type": "ImageObject",
-      url: `${siteMetadata.siteUrl}/static/images/pahari-yatri-banner.png`,
+      url: `${siteMetadata.siteUrl}/api/og`,
       width: 1200,
       height: 630,
     },
@@ -166,37 +153,45 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
-    "name": "Pahari Yatri",
-    "url": siteUrl,
-    "logo": {
+    name: "Pahari Yatri",
+    url: siteUrl,
+    logo: {
       "@type": "ImageObject",
-      "url": `${siteUrl}/static/logo.png`,
-      "width": 600,
-      "height": 60
+      url: `${siteUrl}/static/images/logo.png`,
+      width: 600,
+      height: 60,
     },
-    "description": "Premium, experience-first travel collective focused on local knowledge and sustainable exploration of the Himalayas.",
-    "sameAs": [
+    description:
+      "A digital Himalayan library and community for people who want to experience the mountains with respect, awareness, culture, and inner purpose.",
+    sameAs: [
       "https://facebook.com/pahariyatri",
       "https://instagram.com/pahariyatri",
       "https://twitter.com/pahariyatri",
       "https://www.youtube.com/@pahariyatri",
     ],
-    "knowsAbout": [
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "info@pahariyatri.com",
+      contactType: "Customer Support",
+      areaServed: "IN",
+      availableLanguage: ["en", "hi"],
+    },
+    knowsAbout: [
       "Himachal Pradesh",
       "Uttarakhand",
       "Kinnaur",
       "Spiti Valley",
       "Lahaul",
       "Tirthan Valley",
-      "Sustaintable Tourism"
+      "Responsible Himalayan travel",
+      "Himalayan temples and folklore",
     ],
-    "brand": {
+    brand: {
       "@type": "Brand",
       "@id": `${siteUrl}/#brand`,
-      "name": "Pahari Yatri",
-      "slogan": "The Honest Reality of Himalayan Travel",
-      "description": "Transformative Himalayan Treks & Spiritual Journeys based on authentic local knowledge."
-    }
+      name: "Pahari Yatri",
+      slogan: "Learn the Himalayas before you walk them.",
+    },
   };
 
   const jsonLdBreadcrumbs = {
@@ -212,8 +207,94 @@ export default async function RootLayout({
       {
         "@type": "ListItem",
         position: 2,
-        name: "Journeys",
-        item: `${siteUrl}/journeys`,
+        name: "Books",
+        item: `${siteUrl}/books`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Stories",
+        item: `${siteUrl}/stories`,
+      },
+    ],
+  };
+
+  const jsonLdLocalBusiness = {
+    "@context": "https://schema.org",
+    "@type": "TouristInformationCenter",
+    name: "Pahari Yatri",
+    description: seo?.description || "Transformative Himalayan treks and spiritual journeys in Himachal Pradesh, India.",
+    url: siteUrl,
+    logo: `${siteUrl}/static/images/logo.png`,
+    image: `${siteUrl}/api/og`,
+    email: "info@pahariyatri.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Manali",
+      addressRegion: "Himachal Pradesh",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 32.2396,
+      longitude: 77.1887,
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Himachal Pradesh, India",
+    },
+    openingHours: "Mo-Su 09:00-18:00",
+    priceRange: "₹₹",
+    sameAs: [
+      "https://instagram.com/pahariyatri",
+      "https://facebook.com/pahariyatri",
+      "https://www.youtube.com/@pahariyatri",
+    ],
+  };
+
+  const jsonLdFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is Pahari Yatri?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Pahari Yatri is a transformative trekking company based in Manali, Himachal Pradesh. We offer small-group Himalayan treks focused on spiritual growth, cultural immersion, and authentic mountain experiences. We call our journeys 'Chapters' — grouped into seasonal 'Books'.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are Pahari Yatri treks suitable for beginners?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. We have Chapters (journeys) for all experience levels, from first-time trekkers to experienced mountaineers. When you apply, we match you to a trek that fits both your spirit and your physical readiness.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the best season for trekking in Himachal Pradesh?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "All seasons have their character. Monsoon (July–September) brings lush green trails. Autumn (October–November) offers clear skies and golden light. Winter (December–February) is for those who seek silence and snow. Spring (March–May) is for renewal. Pahari Yatri runs curated treks year-round.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I join a Pahari Yatri trek?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Browse our Books (seasonal trek editions) at pahariyatri.com/books, read the Chapters to find your journey, then apply at pahariyatri.com/apply. We review every application and respond within 24 hours.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How many people are in a Pahari Yatri group?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "We keep groups intentionally small — typically 6 to 12 Yatris per Chapter. Intimacy and genuine connection are core to the Pahari Yatri experience.",
+        },
       },
     ],
   };
@@ -260,11 +341,6 @@ export default async function RootLayout({
           media="(prefers-color-scheme: dark)"
           content="#000000"
         />
-        {/* Canonical + alternate languages */}
-        <link rel="canonical" href={siteUrl} />
-        <link rel="alternate" hrefLang="en" href={siteUrl} />
-        <link rel="alternate" hrefLang="hi" href={`${siteUrl}/hi`} />
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className="bg-background text-foreground antialiased font-sans">
         {/* Schema JSON */}
@@ -275,6 +351,8 @@ export default async function RootLayout({
               jsonLdWebsite,
               jsonLdOrg,
               jsonLdBreadcrumbs,
+              jsonLdLocalBusiness,
+              jsonLdFAQ,
             ]),
           }}
         />

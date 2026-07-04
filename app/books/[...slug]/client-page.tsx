@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "@/components/common/Image";
+import Image from "next/image";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
@@ -20,10 +20,11 @@ export default function BookPageClient({ book, chapters }: any) {
             src={book.coverImage}
             alt={book.title}
             fill
+            sizes="(min-width:1024px) 50vw, 100vw"
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-black/20 lg:to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 lg:bg-gradient-to-r lg:from-black/10 lg:via-black/20 lg:to-background" />
 
           {/* Mobile Title Overlay */}
           <div className="absolute bottom-0 left-0 p-6 lg:hidden">

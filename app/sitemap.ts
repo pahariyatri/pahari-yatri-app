@@ -11,10 +11,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Static routes
     const routes = [
         '',
+        'library',
+        'books',
         'himachal',
         'stories',
+        'responsible-travel',
+        'temples',
+        'folklore',
+        'community',
+        'contribute',
+        'journal',
         'about',
         'contact',
+        'apply',
+        'why-pahari-yatri',
     ].map((route) => ({
         url: `${siteUrl}/${route}`,
         lastModified: new Date().toISOString().split('T')[0],

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image, { ImageProps } from 'next/image';
+import NextImage, { ImageProps } from 'next/image';
 
 interface ResponsiveImageProps extends Omit<ImageProps, 'onError'> {
   fallbackSrc?: string;
@@ -12,10 +12,38 @@ interface ResponsiveImageProps extends Omit<ImageProps, 'onError'> {
   overlayOpacity?: number;
 }
 
+const ASPECT_RATIO: Record<NonNullable<ResponsiveImageProps['aspectRatio']>, string> = {
+  '1:1': '1 / 1',
+  '4:3': '4 / 3',
+  '16:9': '16 / 9',
+  '3:2': '3 / 2',
+  '2:3': '2 / 3',
+};
+
+const ROUNDED: Record<NonNullable<ResponsiveImageProps['rounded']>, string> = {
+  none: 'rounded-none',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  full: 'rounded-full',
+};
+
+/**
+ * A resilient wrapper around next/image with three explicit modes:
+ *
+ *  1. `fill`            → fills its (positioned) parent. Caller owns sizing.
+ *  2. `width`/`height`  → intrinsic, fixed-dimension image.
+ *  3. neither           → component owns sizing via a `relative` box. The box
+ *     uses the CSS `aspect-ratio` property (not a padding hack), so an explicit
+ *     height in `className` (e.g. `h-40`) correctly takes precedence instead of
+ *     stacking on top of the ratio.
+ *
+ * In every mode a failed load falls back to `fallbackSrc`.
+ */
 export default function ResponsiveImage({
   src,
   alt,
-  fallbackSrc = '/static/images/testimonial-default.jpg',
+  fallbackSrc = '/static/images/himalaya-fallback.jpg',
   aspectRatio = '16:9',
   rounded = 'md',
   overlay = false,
@@ -25,12 +53,12 @@ export default function ResponsiveImage({
   width,
   height,
   fill,
+  sizes,
   ...props
 }: ResponsiveImageProps) {
   const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
 
-  // Handle image load error
   const handleError = () => {
     if (!hasError) {
       setImgSrc(fallbackSrc);
@@ -38,47 +66,67 @@ export default function ResponsiveImage({
     }
   };
 
-  // Calculate aspect ratio padding
-  const aspectRatioPadding = {
-    '1:1': 'pb-[100%]',
-    '4:3': 'pb-[75%]',
-    '16:9': 'pb-[56.25%]',
-    '3:2': 'pb-[66.66%]',
-    '2:3': 'pb-[150%]',
-  }[aspectRatio];
+  const overlayEl = overlay ? (
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{ backgroundColor: overlayColor, opacity: overlayOpacity }}
+    />
+  ) : null;
 
-  // Border radius classes
-  const roundedClasses = {
-    none: 'rounded-none',
-    sm: 'rounded-sm',
-    md: 'rounded-md',
-    lg: 'rounded-lg',
-    full: 'rounded-full',
-  }[rounded];
+  // Mode 1 — explicit fill: caller provides a positioned, sized parent.
+  if (fill) {
+    return (
+      <>
+        <NextImage
+          src={imgSrc}
+          alt={alt}
+          fill
+          sizes={sizes ?? '100vw'}
+          className={`object-cover ${className}`}
+          onError={handleError}
+          {...props}
+        />
+        {overlayEl}
+      </>
+    );
+  }
 
-  // Determine if we should use fill layout or explicit dimensions
-  // If fill is provided or neither width nor height is provided, use fill layout
-  const shouldUseFill = fill !== undefined ? fill : (width === undefined && height === undefined);
+  // Mode 2 — intrinsic dimensions.
+  if (width !== undefined || height !== undefined) {
+    return (
+      <span className={`relative inline-flex overflow-hidden ${ROUNDED[rounded]} ${className}`}>
+        <NextImage
+          src={imgSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={sizes}
+          className="object-cover"
+          onError={handleError}
+          {...props}
+        />
+        {overlayEl}
+      </span>
+    );
+  }
 
+  // Mode 3 — component-owned responsive box (aspect-ratio yields to any
+  // explicit height in `className`).
   return (
-    <div className={`relative overflow-hidden ${shouldUseFill ? aspectRatioPadding : ''} ${roundedClasses} ${className}`}>
-      <Image
+    <div
+      className={`relative overflow-hidden ${ROUNDED[rounded]} ${className}`}
+      style={{ aspectRatio: ASPECT_RATIO[aspectRatio] }}
+    >
+      <NextImage
         src={imgSrc}
         alt={alt}
-        {...(shouldUseFill ? { fill: true, sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" } : { width, height })}
-        className={`${shouldUseFill ? 'object-cover' : ''} transition-transform duration-300 ${props.priority ? '' : 'loading:blur'}`}
+        fill
+        sizes={sizes ?? '100vw'}
+        className="object-cover"
         onError={handleError}
-        priority={props.priority}
-        quality={props.quality || 85}
-        placeholder={props.placeholder || 'blur'}
-        blurDataURL={props.blurDataURL}
+        {...props}
       />
-      {overlay && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ backgroundColor: overlayColor, opacity: overlayOpacity }}
-        />
-      )}
+      {overlayEl}
     </div>
   );
 }

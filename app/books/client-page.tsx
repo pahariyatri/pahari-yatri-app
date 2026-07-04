@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import SectionContainer from "@/components/common/SectionContainer";
 import Link from "@/components/common/Link";
-import Image from "@/components/common/Image";
+import Image from "next/image";
 
 interface Book {
   title: string;
@@ -37,10 +37,11 @@ export default function BooksClientPage({ books }: BooksClientPageProps) {
       {/* Banner */}
       <div className="relative w-full h-[55vh] sm:h-[65vh] md:h-[75vh] overflow-hidden">
         <Image
-          src="/static/images/library-banner.jpg"
+          src="/static/images/journey-banner.jpg"
           alt="Himalayan Library Banner"
           fill
           priority
+          sizes="100vw"
           className="object-cover scale-105 transition-transform duration-[10000ms] hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
@@ -80,9 +81,11 @@ export default function BooksClientPage({ books }: BooksClientPageProps) {
               {/* Book Cover */}
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
-                  src={book.coverImage    }
+                  src={book.coverImage}
                   alt={book.title}
-                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                  fill
+                  sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">

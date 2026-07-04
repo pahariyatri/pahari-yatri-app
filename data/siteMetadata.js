@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-   title: 'Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys',
+   title: 'Pahari Yatri | A Digital Himalayan Library & Responsible Travel Community',
     author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
-    description: 'Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys',
+    description: 'Pahari Yatri is a digital Himalayan library and community — trails, temples, folklore, seasons, local stories, and the art of responsible mountain travel. Learn the Himalayas before you walk them.',
     keywords: 'Himalayan yatras, transformative treks, Himachal trekking, spiritual journeys, mindful adventure, cultural expeditions, eco-conscious trekking, authentic Himalayan experience, pilgrimage treks, high altitude journeys, outdoor seekers, spiritual adventure, conscious travel, nature immersion',
     language: 'en-us',
     theme: 'dark',

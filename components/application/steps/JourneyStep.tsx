@@ -1,6 +1,5 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -14,120 +13,77 @@ type Props = {
   updateFormData: (field: string, value: any) => void;
 };
 
-export default function JourneyStep({ formData, updateFormData }: Props) {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.15,
-      },
-    },
-  };
+const LEVELS = ['Beginner', 'Moderate', 'Active', 'Experienced', 'Advanced'];
 
+const LEVEL_NOTE: Record<number, string> = {
+  1: 'Just starting out — casual walks feel good.',
+  2: 'You move often and enjoy light hikes.',
+  3: 'Day treks are comfortable for you.',
+  4: 'Multi-day trails? You’re ready.',
+  5: 'You thrive on challenge — mountains call you.',
+};
+
+/**
+ * One compact question — fitness as a swipe-friendly chip row — plus a single
+ * optional note. Fits a phone screen without scrolling.
+ */
+export default function JourneyStep({ formData, updateFormData }: Props) {
   return (
     <motion.div
-      className="space-y-10"
-      variants={container}
-      initial="hidden"
-      animate="show"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-7"
     >
-      {/* Fitness Level */}
-      <motion.div className="space-y-6">
-        {/* Label & Current Selection */}
-        <div className="flex items-center justify-between">
-          <Label htmlFor="energy" className="text-base font-semibold text-foreground">
-            Fitness Level
-          </Label>
-          <span className="text-sm font-medium text-muted">
-            {formData.energy === 1 && "Beginner"}
-            {formData.energy === 2 && "Moderate"}
-            {formData.energy === 3 && "Active"}
-            {formData.energy === 4 && "Experienced"}
-            {formData.energy === 5 && "Advanced"}
-          </span>
-        </div>
-
-        {/* Segmented Buttons (2–3 per row) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {["Beginner", "Moderate", "Active", "Experienced", "Advanced"].map(
-            (level, i) => (
-              <button
+      <div className="space-y-3">
+        <p className="text-sm font-medium text-foreground/90">
+          How ready are your legs?
+        </p>
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {LEVELS.map((level, i) => {
+            const selected = formData.energy === i + 1;
+            return (
+              <motion.button
                 key={level}
-                onClick={() => updateFormData("energy", i + 1)}
+                type="button"
+                whileTap={{ scale: 0.96 }}
+                onClick={() => updateFormData('energy', i + 1)}
                 className={cn(
-                  "rounded-xl px-3 py-3 text-sm font-medium transition",
-                  "border border-border shadow-sm",
-                  formData.energy === i + 1
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-surface text-muted hover:bg-accent"
+                  'shrink-0 snap-start rounded-full border px-4 py-2.5 text-sm transition-colors duration-200 whitespace-nowrap',
+                  selected
+                    ? 'bg-primary/10 text-foreground border-primary'
+                    : 'bg-secondary/50 text-foreground/80 border-border hover:border-primary/40'
                 )}
               >
                 {level}
-              </button>
-            )
-          )}
+              </motion.button>
+            );
+          })}
         </div>
-
-        {/* Context Text */}
         <motion.p
           key={formData.energy}
-          className="text-sm text-muted leading-relaxed"
-          initial={{ opacity: 0, y: 4 }}
+          initial={{ opacity: 0, y: 3 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
+          className="text-sm text-muted-foreground"
         >
-          {formData.energy === 1 &&
-            "Just starting out — casual walks feel good."}
-          {formData.energy === 2 &&
-            "You move often and enjoy light hikes."}
-          {formData.energy === 3 &&
-            "Day treks are comfortable for you."}
-          {formData.energy === 4 &&
-            "Multi-day trails? You’re ready."}
-          {formData.energy === 5 &&
-            "You thrive on challenge — mountains call you."}
+          {LEVEL_NOTE[formData.energy]}
         </motion.p>
-      </motion.div>
+      </div>
 
-      {/* Past Experiences */}
-      <motion.div className="space-y-3">
-        <Label htmlFor="pastExperiences" className="text-base font-semibold">
-          Past Experiences
-        </Label>
-        <Textarea
-          id="pastExperiences"
-          placeholder="Any treks, hikes, or adventures so far?"
-          value={formData.pastExperiences}
-          onChange={(e) => updateFormData('pastExperiences', e.target.value)}
-          className={cn(
-            'min-h-[90px] rounded-2xl border transition-all',
-            formData.pastExperiences
-              ? 'border-black/40 dark:border-white/40'
-              : 'border-neutral-300 dark:border-neutral-700'
-          )}
-        />
-      </motion.div>
-
-      {/* Expectations */}
-      <motion.div className="space-y-3">
-        <Label htmlFor="expectations" className="text-base font-semibold">
-          Your Expectations
-        </Label>
+      <div className="space-y-2.5">
+        <p className="text-sm font-medium text-foreground/90">
+          Anything you&apos;d like us to know?{' '}
+          <span className="text-muted-foreground font-normal">(optional)</span>
+        </p>
         <Textarea
           id="expectations"
-          placeholder="What do you hope to find in the Himalayas?"
+          placeholder="A trail you loved, what you hope to find, or nothing at all."
           value={formData.expectations}
           onChange={(e) => updateFormData('expectations', e.target.value)}
-          className={cn(
-            'min-h-[90px] rounded-2xl border transition-all',
-            formData.expectations
-              ? 'border-black/40 dark:border-white/40'
-              : 'border-neutral-300 dark:border-neutral-700'
-          )}
+          className="min-h-[84px] rounded-2xl border-border"
         />
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

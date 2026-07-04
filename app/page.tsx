@@ -35,7 +35,10 @@ export default async function Home() {
         <HeroBanner
           title={heroBanner.title}
           description={heroBanner.description}
-          buttonText={"Start Your Yatra"}
+          buttonText={"Open the Library"}
+          buttonLink="/books"
+          secondaryText={"Become a Yatri"}
+          secondaryLink="/apply"
           media={heroBanner.media || "/static/videos/default-banner.mp4"}
         />
       )}
