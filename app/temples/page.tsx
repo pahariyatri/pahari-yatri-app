@@ -7,7 +7,7 @@ export async function generateMetadata() {
   return genPageMetadata({
     title: "Temples & Traditions of the Himalayas",
     description:
-      "A cultural archive of Himalayan temples, deities, fairs, and living beliefs — Kamrunag, Shikari Devi, Churdhar, Parashar and more. Understand the sacred grammar of the Pahari world before you travel.",
+      "A cultural archive of Himalayan temples, deities, fairs, and living beliefs like Kamrunag, Shikari Devi, Churdhar, and Parashar. Understand the sacred grammar of the Pahari world before you travel.",
     alternates: { canonical: "/temples" },
   });
 }
@@ -18,7 +18,7 @@ const TEMPLES = [
     region: "Mandi",
     deity: "Dev Kamrunag, the rain god",
     belief:
-      "Pilgrims offer gold and coins to the sacred lake, which are never taken back — an oath of the mountains kept for centuries.",
+      "Pilgrims offer gold and coins to the sacred lake, which are never taken back, an oath of the mountains kept for centuries.",
     etiquette: "Do not disturb the lake's offerings. Walk the last stretch in silence.",
     chapter: "/chapters/kamrunag-the-lake-of-oaths",
   },
@@ -27,7 +27,7 @@ const TEMPLES = [
     region: "Mandi",
     deity: "Shikari Devi, goddess of the hunt",
     belief:
-      "The shrine famously has no roof — legend says every attempt to build one has failed, for the goddess wishes to sit under open sky and snow.",
+      "The shrine famously has no roof. Legend says every attempt to build one has failed, for the goddess wishes to sit under open sky and snow.",
     etiquette: "Carry your waste back down. The summit is a temple, not a viewpoint.",
     chapter: "/chapters/devidarh-shikari-devi",
   },
@@ -54,7 +54,7 @@ const TEMPLES = [
     region: "Shimla",
     deity: "Local devtas of the Bashleo region",
     belief:
-      "Village deities travel in palanquins between temples during fairs, carried by those they choose — the mountains govern themselves through their gods.",
+      "Village deities travel in palanquins between temples during fairs, carried by those they choose. The mountains govern themselves through their gods.",
     etiquette: "Ask before joining a fair procession. Never photograph a deity without consent.",
     chapter: "/chapters/baga-sarahan-bashleo-pass",
   },
@@ -63,7 +63,7 @@ const TEMPLES = [
     region: "Across the Lost Trails",
     deity: "Small gods of cedar and stone",
     belief:
-      "Every village keeps a guardian at its edge — an orange flag, a bell, a stone under an old deodar. They keep the quiet grammar of the hills.",
+      "Every village keeps a guardian at its edge: an orange flag, a bell, a stone under an old deodar. They keep the quiet grammar of the hills.",
     etiquette: "Bow, don't barge. Leave the shrine's small offerings untouched.",
     chapter: "/chapters/forgotten-shrine",
   },

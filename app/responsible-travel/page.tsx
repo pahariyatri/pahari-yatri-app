@@ -6,7 +6,7 @@ import { genPageMetadata } from "@/app/seo";
 
 export async function generateMetadata() {
   return genPageMetadata({
-    title: "Responsible Travel — The Yatri Code",
+    title: "Responsible Travel: The Yatri Code",
     description:
       "How to travel the Himalayas responsibly: respect local people and temples, travel slowly, support homestays, carry back your waste, and understand mountain risk. The Pahari Yatri code for walking softly.",
     alternates: { canonical: "/responsible-travel" },
@@ -62,7 +62,7 @@ export default function ResponsibleTravelPage() {
       <PageHero
         kicker="Responsible Travel"
         title="How to walk as a Yatri."
-        subtitle="Eight quiet promises — to the mountains, the villages, the temples, and yourself."
+        subtitle="Eight quiet promises to the mountains, the villages, the temples, and yourself."
         image="/static/images/pages/responsible.jpg"
       />
 
@@ -71,7 +71,7 @@ export default function ResponsibleTravelPage() {
           <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-light">
             The Himalayas are not scenery to be consumed. They are living
             landscapes of memory, faith, weather, and people. To travel here well
-            is to listen first — and to leave the mountain as you found it, a
+            is to listen first, and to leave the mountain as you found it, a
             little more whole.
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function ResponsibleTravelPage() {
             Carry the code with you.
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            The Yatri Code is not a rulebook — it is a way of walking. Read the
+            The Yatri Code is not a rulebook. It is a way of walking. Read the
             trail journals to see it in practice, or become part of the movement.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

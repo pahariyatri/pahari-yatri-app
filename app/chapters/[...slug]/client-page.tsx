@@ -415,7 +415,7 @@ export default function JourneyPageClient({ journey }: any) {
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-5">
                   {journey.location ? `${journey.location} is` : "This trail is"} a
-                  living landscape — of villages, shrines, forests, and weather that
+                  living landscape of villages, shrines, forests, and weather that
                   turns quickly. Move softly, ask before you photograph faces or
                   temples, support local homes, and carry back everything you carry
                   in. The mountain remembers a respectful guest.
@@ -456,7 +456,7 @@ export default function JourneyPageClient({ journey }: any) {
               <span className="block text-white/70">They ask to be understood.</span>
             </h2>
             <p className="text-base sm:text-lg text-white/75 mb-10 font-light leading-relaxed">
-              Learn the trail, its people, and its silences before you set out —
+              Learn the trail, its people, and its silences before you set out,
               then walk this chapter with awareness.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

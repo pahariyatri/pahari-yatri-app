@@ -78,7 +78,7 @@ export default function LegendsAndCulture() {
               <p className="text-white text-xl md:text-2xl font-brandSerif italic leading-relaxed">
                 &quot;A silent guardian watches every step. Move with respect, move as a Yatri.&quot;
               </p>
-              <p className="text-primary-foreground/70 text-sm mt-4 font-medium tracking-widest uppercase">— Elder from Mandi District</p>
+              <p className="text-primary-foreground/70 text-sm mt-4 font-medium tracking-widest uppercase">Elder from Mandi District</p>
             </div>
           </div>
 

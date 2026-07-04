@@ -5,9 +5,9 @@ import { genPageMetadata } from "@/app/seo";
 
 export async function generateMetadata() {
   return genPageMetadata({
-    title: "Himalayan Folklore — Myths & Legends of the Pahari World",
+    title: "Himalayan Folklore: Myths and Legends of the Pahari World",
     description:
-      "The myths, legends, and village beliefs of the Himalayas — floating islands, roofless shrines, oaths kept by sacred lakes, and the small gods of cedar and stone. Folklore from Himachal, told with respect.",
+      "The myths, legends, and village beliefs of the Himalayas: floating islands, roofless shrines, oaths kept by sacred lakes, and the small gods of cedar and stone. Folklore from Himachal, told with respect.",
     alternates: { canonical: "/folklore" },
   });
 }
@@ -17,7 +17,7 @@ const TALES = [
     title: "The Lake That Keeps Oaths",
     region: "Kamrunag, Mandi",
     type: "Legend",
-    body: "For centuries, pilgrims have thrown gold and silver into the small lake at Kamrunag. No one takes it back. The mountain, they say, holds every promise ever made to it — and returns nothing but rain.",
+    body: "For centuries, pilgrims have thrown gold and silver into the small lake at Kamrunag. No one takes it back. The mountain, they say, holds every promise ever made to it, and returns nothing but rain.",
     chapter: "/chapters/kamrunag-the-lake-of-oaths",
   },
   {
@@ -38,21 +38,21 @@ const TALES = [
     title: "The Small God at the Village Edge",
     region: "Across the Lost Trails",
     type: "Village belief",
-    body: "An orange flag, a bell, a stone beneath an old deodar — every village keeps a guardian at its threshold. Bow as you pass, and the hill agrees to keep you.",
+    body: "An orange flag, a bell, a stone beneath an old deodar. Every village keeps a guardian at its threshold. Bow as you pass, and the hill agrees to keep you.",
     chapter: "/chapters/forgotten-shrine",
   },
   {
     title: "The Caves That Answer Back",
     region: "Sirmaur",
     type: "Folk tale",
-    body: "In the echoing caves, they say the stone returns the voice you bring to it — a whisper for a whisper, a shout for a shout. Speak kindly, and the mountain remembers you kindly.",
+    body: "In the echoing caves, they say the stone returns the voice you bring to it: a whisper for a whisper, a shout for a shout. Speak kindly, and the mountain remembers you kindly.",
     chapter: "/chapters/echoing-caves",
   },
   {
     title: "The Palanquin That Chooses Its Bearers",
     region: "Bashleo, Shimla",
     type: "Living tradition",
-    body: "During the fairs, village devtas travel in palanquins — and it is the deity, not the men, who decides who carries them and where they will go. The gods govern the valleys still.",
+    body: "During the fairs, village devtas travel in palanquins, and it is the deity, not the men, who decides who carries them and where they will go. The gods govern the valleys still.",
     chapter: "/chapters/baga-sarahan-bashleo-pass",
   },
 ];
@@ -63,7 +63,7 @@ export default function FolklorePage() {
       <PageHero
         kicker="Folklore"
         title="The stories the mountains tell about themselves."
-        subtitle="Passed down village to village, fire to fire — the myths that explain why a lake keeps oaths and a shrine refuses a roof."
+        subtitle="Passed down village to village, fire to fire, these are the myths that explain why a lake keeps oaths and a shrine refuses a roof."
         image="/static/images/pages/folklore.jpg"
       />
 
@@ -71,7 +71,7 @@ export default function FolklorePage() {
         <div className="max-w-3xl mx-auto mb-16 text-center">
           <p className="text-lg text-muted-foreground leading-relaxed font-light">
             Folklore is how the Himalayas remember. These tales are not
-            decoration — they are the operating instructions of the mountains,
+            decoration. They are the operating instructions of the mountains,
             told by the people who live inside them.
           </p>
         </div>

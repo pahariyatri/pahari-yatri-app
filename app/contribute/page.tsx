@@ -25,7 +25,7 @@ export default function ContributePage() {
       <SectionContainer className="py-16 sm:py-24">
         <div className="max-w-xl mx-auto mb-14 text-center">
           <p className="text-lg text-muted-foreground leading-relaxed font-light">
-            Write the way you&apos;d tell it by a fire — honestly, in your own
+            Write the way you&apos;d tell it by a fire, honestly, in your own
             voice. We read every contribution, and the ones that belong become
             part of the digital Himalayan library, credited to you.
           </p>

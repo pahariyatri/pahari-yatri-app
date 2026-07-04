@@ -3,9 +3,9 @@ import { getAllBooks } from "@/lib/keystatic/getLibraryData";
 import BooksClientPage from "./client-page";
 
 export const metadata: Metadata = {
-  title: "Himalayan Trek Editions by Season — Himachal Pradesh",
+  title: "Seasonal Trail Journals of the Himalayas | Himachal Pradesh",
   description:
-    "Browse Pahari Yatri's seasonal trek editions (Books) across the Himalayas — monsoon, summer, winter and lost-trail journeys in Himachal Pradesh. Find your next trek by season and theme.",
+    "Browse Pahari Yatri's seasonal editions across the Himalayas: monsoon, summer, winter, and lost-trail journeys in Himachal Pradesh. Find your next chapter by season and theme.",
   alternates: { canonical: "/books" },
 };
 

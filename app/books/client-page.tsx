@@ -60,7 +60,7 @@ export default function BooksClientPage({ books }: BooksClientPageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            Every edition is a book — each chapter, a journey through the
+            Every edition is a book, and each chapter a journey through the
             Himalayas. Choose the one that calls you.
           </motion.p>
         </div>

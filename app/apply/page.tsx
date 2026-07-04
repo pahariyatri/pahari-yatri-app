@@ -87,7 +87,7 @@ export default function Apply() {
           A few quiet questions
         </h1>
         <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed">
-          Not a booking form — a short conversation, one step at a time.
+          Not a booking form. Just a short conversation, one step at a time.
         </p>
         <p className="mt-3 text-xs sm:text-sm text-muted-foreground/70">
           ✦ We read every reply personally and answer within 24 hours.

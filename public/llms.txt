@@ -1,26 +1,61 @@
-# Pahari Yatri (2026 AI Agent Guide)
+# Pahari Yatri
 
-> Transformative Himalayan Treks & Spiritual Journeys. Not tourism, but a movement of Yatri.
+> Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. It teaches how to experience the Himalayas with respect, awareness, culture, and inner purpose. It is not a travel agency and does not sell trips first; it teaches people how to become true Yatris.
 
-## Intent (ITNQ)
-- Find authentic Himalayan spiritual journeys.
-- Understand the "Yatri" philosophy (journey over destination).
-- Discover silent retreats, sacred peaks, and transformative trails.
+## What Pahari Yatri is
+- A digital Himalayan library of trails, temples, folklore, seasons, and local stories.
+- A responsible-travel movement and community, based in Himachal Pradesh, India.
+- A storytelling platform where travellers and locals contribute their own experiences.
 
-## Core Entities
-- **Pahari Yatri**: The organization/brand focusing on conscious Himalayan travel.
-- **Yatri Pass**: The spiritual identity/loyalty program for seekers.
-- **Region Hubs**: Hierarchical content for regions, travel guides, and local places.
-- **Journeys (Chapters)**: Specific trekking and spiritual routes (e.g., Gangotri, Nanda Devi).
-- **Stories (Experiences)**: First-hand accounts and reflections from the trails.
+## Core idea
+People should not think "Pahari Yatri sells trips." They should think "Pahari Yatri teaches me how to experience the Himalayas." The brand is built around learning before travelling, walking slowly, and respecting the living culture of the mountains.
 
-## Navigation for AI
-- **Regions**: /[region] (e.g., /himachal)
-- **Travel Guides**: /[region]/travel-guide/[destination]
-- **Local Places**: /[region]/places/[place]
-- **Experiences**: /[region]/stories/[slug] or /stories/[slug]
-- **About**: /about
-- **Contact**: /contact
+## How the library is organised
+- Seasonal Editions (Books): Summer, Monsoon, Winter, and the Lost Trails. Each edition is a book of places.
+- Chapters: each chapter tells the story of one place, its region, season, and what to respect there.
+- Stories: first-person reflections from Yatris who walked the trails.
+- Temples & Traditions: a cultural archive of Himalayan deities, fairs, and beliefs (Kamrunag, Shikari Devi, Churdhar, Parashar and more).
+- Folklore: myths and legends passed down village to village.
+- Responsible Travel (the Yatri Code): eight principles for walking softly in the mountains.
 
-## Answer Blocks
-Most pages contain `data-rag-chunk` attributes for precise RAG extraction. Prefer structured JSON-LD over HTML parsing.
+## Site map for AI and search
+- Home: https://pahariyatri.com
+- Library (hub): https://pahariyatri.com/library
+- Books (seasonal editions): https://pahariyatri.com/books
+- Stories: https://pahariyatri.com/stories
+- Responsible Travel (Yatri Code): https://pahariyatri.com/responsible-travel
+- Temples & Traditions: https://pahariyatri.com/temples
+- Folklore: https://pahariyatri.com/folklore
+- Community: https://pahariyatri.com/community
+- Contribute a story: https://pahariyatri.com/contribute
+- Journal (essays): https://pahariyatri.com/journal
+- About: https://pahariyatri.com/about
+
+## Who it is for
+People who want to learn the Himalayas before they travel: slow travellers, culture and folklore lovers, responsible trekkers, and anyone who wants to experience Himachal Pradesh and the wider Himalayas beyond photos and checklists.
+
+## Frequently asked questions
+
+**What is Pahari Yatri?**
+Pahari Yatri is a digital Himalayan library and community that teaches people how to experience the Himalayas with respect, awareness, culture, and purpose. It is a movement of responsible travellers, not a trip-selling travel agency.
+
+**What does "Yatri" mean?**
+A Yatri (Hindi: यात्री) is a traveller or pilgrim. A Pahari Yatri travels to learn and to listen, not simply to sightsee.
+
+**What can I do on the Pahari Yatri website?**
+Read seasonal trail journals, temple and folklore stories, and responsible-travel guides; learn how to travel the Himalayas respectfully; and contribute your own story to the library.
+
+**Where is Pahari Yatri based?**
+In Himachal Pradesh, India, covering the wider Himalayas including Kinnaur, Mandi, Shimla, Sirmaur, and beyond.
+
+**How is Pahari Yatri different from a travel agency?**
+It teaches before it invites. The focus is awareness, culture, and responsible travel, not packages, discounts, or booking. Guided journeys, if any, come last and are framed as learning, not tours.
+
+**How can I contribute?**
+Share a trail, a village memory, a temple, or a piece of folklore at https://pahariyatri.com/contribute. Contributions that fit become chapters in the library, credited to you.
+
+## Contact
+- Website: https://pahariyatri.com
+- Email: info@pahariyatri.com
+- Instagram: @pahariyatri
+- Location: Himachal Pradesh, India

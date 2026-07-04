@@ -127,7 +127,7 @@ export default function ChaptersClientPage({ chapters }: ChaptersClientPageProps
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.5 }}
                     >
-                        Curated journeys through the Himalayas — where adventure meets transformation.
+                        Curated journeys through the Himalayas, where adventure meets transformation.
                     </motion.p>
                 </motion.div>
 

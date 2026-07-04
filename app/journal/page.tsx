@@ -5,7 +5,7 @@ import { genPageMetadata } from "@/app/seo";
 
 export async function generateMetadata() {
   return genPageMetadata({
-    title: "The Journal — Reflections on Slow Himalayan Travel",
+    title: "The Journal: Reflections on Slow Himalayan Travel",
     description:
       "Essays and reflections on slow travel, seasons, temples, and the philosophy of walking the Himalayas well. The thinking behind the Pahari Yatri movement.",
     alternates: { canonical: "/journal" },

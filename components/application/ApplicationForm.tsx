@@ -19,7 +19,7 @@ const TOTAL_STEPS = 4;
 // emotional prompt, and one line of guidance. No badges, no dashboards.
 const STEPS = [
   { icon: Footprints, kicker: 'First steps', prompt: 'Who is walking?', note: 'Just so we know who to write back to.' },
-  { icon: Compass, kicker: 'The calling', prompt: 'What pulls you to the mountains?', note: 'Tap what feels true — there are no wrong answers.' },
+  { icon: Compass, kicker: 'The calling', prompt: 'What pulls you to the mountains?', note: 'Tap what feels true. There are no wrong answers.' },
   { icon: Mountain, kicker: 'The path', prompt: 'How ready are your legs?', note: 'This simply helps us walk at your pace.' },
   { icon: Flag, kicker: 'The summit', prompt: 'One last look before we set out.', note: 'Read it over. Then we begin.' },
 ];
