@@ -10,6 +10,11 @@ const siteMetadata = {
     siteUrl: 'https://pahariyatri.com',
     siteLogo: '/static/images/logo.png',
     socialBanner: '/static/images/twitter-card.png',
+    email: 'info@pahariyatri.com',
+    instagram: 'https://www.instagram.com/pahariyatri/',
+    youtube: 'https://www.youtube.com/@pahariyatri',
+    facebook: 'https://www.facebook.com/pahariyatri',
+    threads: 'https://www.threads.net/@pahariyatri',
     locale: 'en-US',
     analytics: {
         // If you want to use an analytics provider you have to add it to the

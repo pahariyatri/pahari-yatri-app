@@ -102,7 +102,7 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
                 <span className="inline-flex items-center gap-2">
-                  <span>Explore Himalayan Adventures</span>
+                  <span>Stories from the Mountains</span>
                   <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -129,7 +129,7 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                Discover transformative journeys and insights from our Himalayan trekking and mountaineering experiences.
+                First-person journals from Yatris who walked the trails. Village memories, temple bells, and the quiet lessons of the mountains.
               </motion.p>
             </motion.div>
 

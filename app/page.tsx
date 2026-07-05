@@ -7,6 +7,7 @@ import HiddenTrails from "@/components/HiddenTrails";
 import LegendsAndCulture from "@/components/LegendsAndCulture";
 import ManifestoSection from "@/components/Manifesto";
 import BookCardLayout from "@/components/BookCardLayout";
+import FilmsSection from "@/components/FilmsSection";
 
 import { getVideoObjectSchema } from "@/lib/schema";
 import siteMetadata from "@/data/siteMetadata";
@@ -54,6 +55,7 @@ export default async function Home() {
       <LegendsAndCulture />
 
       <HiddenTrails id="hidden-trails" />
+      <FilmsSection />
       <ManifestoSection />
 
       <FinalCTA />

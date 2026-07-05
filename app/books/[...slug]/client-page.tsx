@@ -63,6 +63,16 @@ export default function BookPageClient({ book, chapters }: any) {
               >
                 {book.excerpt}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mt-6 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground/70"
+              >
+                {book.year && <span>Edition {book.year}</span>}
+                {book.year && chapters.length > 0 && <span className="text-primary/40">•</span>}
+                {chapters.length > 0 && <span>{chapters.length} chapters</span>}
+              </motion.div>
             </div>
 
             {/* Invitation */}
@@ -86,27 +96,48 @@ export default function BookPageClient({ book, chapters }: any) {
                 Table of Contents
               </h3>
 
-              <div className="space-y-8">
+              <div className="space-y-4">
                 {chapters.map((chapter: any, index: number) => (
                   <motion.div
                     key={chapter.slug || index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group border-b border-border/40 pb-8 last:border-0"
+                    transition={{ delay: index * 0.06 }}
                   >
-                    <Link href={`/chapters/${chapter.slug}`} className="block group-hover:pl-4 transition-all duration-300">
-                      <div className="flex items-baseline justify-between mb-2">
-                        <h4 className="text-xl sm:text-2xl font-brandSerif font-medium group-hover:text-primary transition-colors">
-                          <span className="mr-4 text-sm text-muted-foreground/50 font-sans uppercase tracking-widest">0{index + 1}</span>
+                    <Link
+                      href={`/chapters/${chapter.slug}`}
+                      className="group flex gap-4 sm:gap-5 items-center rounded-2xl border border-border/50 p-3 sm:p-4 hover:border-primary/40 hover:bg-muted/30 transition-all duration-300"
+                    >
+                      {/* Chapter thumbnail */}
+                      <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl">
+                        <Image
+                          src={chapter.coverImage}
+                          alt={chapter.title}
+                          fill
+                          sizes="112px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <span className="absolute top-1.5 left-1.5 text-[10px] font-bold font-sans text-white bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
+                          {`0${index + 1}`}
+                        </span>
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        {chapter.location && (
+                          <span className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 truncate">
+                            {chapter.location}
+                          </span>
+                        )}
+                        <h4 className="text-lg sm:text-xl font-brandSerif font-medium group-hover:text-primary transition-colors leading-tight mb-1">
                           {chapter.title}
                         </h4>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <p className="text-muted-foreground/80 text-sm line-clamp-2 font-light">
+                          {chapter.description}
+                        </p>
                       </div>
-                      <p className="text-muted-foreground/80 text-sm pl-10 line-clamp-2 font-light">
-                        {chapter.description}
-                      </p>
+
+                      <ArrowRight className="w-5 h-5 text-muted-foreground/50 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
                     </Link>
                   </motion.div>
                 ))}
@@ -116,13 +147,23 @@ export default function BookPageClient({ book, chapters }: any) {
             {/* CTA */}
             <div className="text-center lg:text-left pt-12 border-t border-border">
               <p className="text-muted-foreground mb-6 italic font-brandSerif">
-                &quot;Every journey begins with a single step.&quot;
+                &quot;Read the season slowly. The mountains keep their own time.&quot;
               </p>
-              <Link href="/apply">
-                <Button size="lg" className="rounded-full px-10 py-6 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                  Begin This Journey
-                </Button>
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4">
+                {chapters[0] && (
+                  <Link href={`/chapters/${chapters[0].slug}`}>
+                    <Button size="lg" className="rounded-full px-10 py-6 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all hover:scale-[1.03]">
+                      Read the first chapter
+                    </Button>
+                  </Link>
+                )}
+                <Link
+                  href="/books"
+                  className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                >
+                  Browse other editions
+                </Link>
+              </div>
             </div>
 
           </div>
