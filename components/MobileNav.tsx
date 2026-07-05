@@ -38,7 +38,9 @@ const MobileNav = () => {
 
       <SheetContent
         side="right"
-        className="w-[85vw] sm:w-[340px] bg-background border-l border-border/40 p-0 flex flex-col"
+        // Explicit solid colors on top of bg-background: this surface must
+        // never be transparent, even if a theme token breaks again.
+        className="w-[85vw] sm:w-[340px] bg-background bg-white dark:bg-zinc-950 border-l border-border/40 p-0 flex flex-col overflow-y-auto"
       >
         <SheetHeader className="px-6 pt-8 pb-6 border-b border-border/20">
           <SheetTitle className="font-brandSerif text-2xl text-left text-foreground">

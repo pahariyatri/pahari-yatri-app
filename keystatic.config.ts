@@ -327,6 +327,16 @@ export default config({
           publicPath: "/static/images/films/",
         }),
         region: fields.text({ label: "Region / Place (optional)" }),
+        relatedChapter: fields.relationship({
+          label: "Related Chapter (optional)",
+          description:
+            "Link the film to a chapter so viewers arriving from Instagram can read the full context here.",
+          collection: "chapters",
+        }),
+        relatedStory: fields.relationship({
+          label: "Related Story (optional)",
+          collection: "stories",
+        }),
         order: fields.integer({
           label: "Order",
           description: "Lower numbers appear first.",

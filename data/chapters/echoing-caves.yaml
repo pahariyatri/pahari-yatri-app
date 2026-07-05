@@ -12,3 +12,46 @@ giftsFromMountains:
 themes:
   - Mystery
   - Inquiry
+overview: >-
+  The Spiti gorge country holds hollows that remember sound: river-cut caves
+  near Tabo where monks once wintered, meditation cells above Dhankar's
+  crumbling fort-monastery, and wind-carved overhangs where a single syllable
+  comes back doubled. This chapter travels between Tabo, Dhankar and Lhalung
+  slowly, on foot where paths allow.
+
+  It is a high-desert listening trip at 3,300–3,900 m: short walks, long
+  acclimatised days, and evenings inside some of the oldest living Buddhist
+  rooms in the Himalaya. Go rested, go warm, and let the emptiness do the
+  speaking.
+duration: 3–4 days
+distance: 2–8 km per walk
+maxAltitude: ~3,900 m at Dhankar lake
+difficulty: Gentle walking at serious altitude
+bestTime: June–October; winter access is expedition-grade
+gettingThere: >-
+  Via Shimla–Kinnaur along the Sutlej and Spiti rivers to Tabo (2 days' drive,
+  acclimatising as you go), or over Kunzum from Manali in high summer. Base
+  nights in Tabo and Dhankar villages; the cave and cell walks start from each
+  monastery's lanes.
+itinerary:
+  - day: Day 1
+    title: Tabo and its caves
+    detail: >-
+      The mud-walled monastery's ancient halls, then the short climb to the
+      meditation caves in the cliff above the village at dusk.
+  - day: Day 2
+    title: Dhankar fort-gompa
+    detail: >-
+      Walk the old monastery perched on eroding towers, and up the trail to
+      Dhankar lake if your acclimatisation is honest.
+  - day: Day 3
+    title: Lhalung's golden room
+    detail: >-
+      The quiet side-valley temple of Lhalung, and the willow lanes of the
+      village after.
+faqs:
+  - question: Do I need to worry about altitude on 'easy' walks?
+    answer: >-
+      Yes. Everything here is above 3,300 m, and the lake walk touches 3,900
+      m. Sleep two nights low (Kalpa/Nako) on the way in, drink constantly,
+      and treat headaches as instructions, not inconveniences.

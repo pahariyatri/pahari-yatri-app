@@ -6,16 +6,18 @@ import { ArrowRight, BookOpen } from "lucide-react";
 export default function FinalCTA() {
   return (
     <section className="w-full py-20 sm:py-28 md:py-36 relative overflow-hidden">
-      {/* Layered backdrop: photo, dark scrim, brand glow */}
+      {/* Layered backdrop: photo softened + heavy scrim + vignette so the
+          text stays fully readable on any screen and any image crop */}
       <div className="absolute inset-0">
         <Image
           src="/static/images/mountains-bg.jpg"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-center scale-105 blur-[2px]"
         />
-        <div className="absolute inset-0 bg-zinc-950/80" />
+        <div className="absolute inset-0 bg-zinc-950/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-transparent to-zinc-950/80" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
       </div>
 
@@ -24,12 +26,12 @@ export default function FinalCTA() {
           The way of the Yatri
         </span>
 
-        <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium font-brandSerif mb-6 leading-[1.1] tracking-tight">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium font-brandSerif mb-6 leading-[1.1] tracking-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
           The Himalayas are not asking
-          <span className="block text-white/60">to be visited.</span>
+          <span className="block text-white/70">to be visited.</span>
         </h2>
 
-        <p className="text-base sm:text-xl text-white/75 font-light mb-10 sm:mb-12 max-w-xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl text-white/80 font-light mb-10 sm:mb-12 max-w-xl mx-auto leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
           They are asking to be understood. Learn the trails, the temples, and
           the silence, then walk with awareness.
         </p>
