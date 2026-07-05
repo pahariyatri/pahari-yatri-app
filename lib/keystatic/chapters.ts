@@ -15,7 +15,7 @@ export async function getAllChapters() {
         id: slug,
         title: data?.title || "",
         excerpt: data?.excerpt || "",
-        image: data?.image || "/static/images/placeholder.png",
+        image: data?.image || "/static/images/himalaya-fallback.jpg",
         location: data?.location || "",
         link: `/chapters/${slug}`,
         relatedStories: data?.relatedStories || [],

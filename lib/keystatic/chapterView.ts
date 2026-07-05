@@ -11,7 +11,13 @@ const reader = createReader(process.cwd(), keystaticConfig);
  *  avoid duplicate-content penalties. */
 export const chapterCanonical = (slug: string) => `/chapters/${slug}`;
 
+/** Prefer the chapter's real photograph for social previews; fall back to the
+ *  generated text card only when no photo exists. */
 export function chapterOgImage(chapter: any) {
+  const photo = resolveImage(chapter.image);
+  if (photo && !photo.includes("mountains-bg")) {
+    return `${siteMetadata.siteUrl}${photo}`;
+  }
   return `${siteMetadata.siteUrl}/api/og?type=chapter&title=${encodeURIComponent(
     chapter.title
   )}&sub=${encodeURIComponent(

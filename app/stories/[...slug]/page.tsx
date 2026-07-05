@@ -1,12 +1,53 @@
+import fs from "fs";
+import path from "path";
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
+import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "@/keystatic.config";
 import { resolveImage } from "@/lib/images";
 import BlogPageClient from "./client-page";
-import { getBlogPostingSchema } from "@/lib/schema";
 import siteMetadata from "@/data/siteMetadata";
 
 const reader = createReader(process.cwd(), keystaticConfig);
+
+/** Convert the raw MDX/markdown body into HTML at build time so paragraphs,
+ *  headings, and emphasis render properly and the full text ships in the
+ *  static HTML (readable without JS, indexable by crawlers). */
+function markdownToHtml(source: string): string {
+  const ast = Markdoc.parse(source);
+  const content = Markdoc.transform(ast);
+  return Markdoc.renderers.html(content);
+}
+
+/** Real publish/modified dates from the content file on disk (flat .mdx or
+ *  folder entry), instead of claiming "today" on every build. */
+function storyDates(slug: string): { published: string; modified: string } {
+  const candidates = [
+    path.join(process.cwd(), "data/stories", `${slug}.mdx`),
+    path.join(process.cwd(), "data/stories", slug, "index.yaml"),
+  ];
+  for (const p of candidates) {
+    try {
+      const st = fs.statSync(p);
+      return {
+        published: (st.birthtime ?? st.mtime).toISOString(),
+        modified: st.mtime.toISOString(),
+      };
+    } catch {}
+  }
+  const now = new Date().toISOString();
+  return { published: now, modified: now };
+}
+
+async function readStoryContent(story: any): Promise<string> {
+  try {
+    if (typeof story.content === "function") {
+      const raw = await story.content();
+      return typeof raw === "string" ? raw : String(raw ?? "");
+    }
+  } catch {}
+  return "";
+}
 
 export async function generateMetadata({ params }: any) {
   const paramsData = await params;
@@ -16,15 +57,20 @@ export async function generateMetadata({ params }: any) {
   const story = await reader.collections.stories.read(slug);
   if (!story) return {};
 
+  const image = resolveImage(story.image);
+
   return {
     title: story.title,
     description: story.excerpt,
+    alternates: { canonical: `/stories/${slug}` },
     openGraph: {
       title: story.title,
       description: story.excerpt,
-      images: [{ url: `https://pahariyatri.com/api/og?type=story&title=${encodeURIComponent(story.title || '')}&sub=${encodeURIComponent(story.excerpt || '')}`, width: 1200, height: 630 }],
+      images: [
+        { url: `${siteMetadata.siteUrl}${image}`, width: 1200, height: 630 },
+      ],
       type: "article",
-    }
+    },
   };
 }
 
@@ -36,13 +82,8 @@ export default async function Page({ params }: any) {
   const story = await reader.collections.stories.read(slug);
   if (!story) notFound();
 
-  let contentStr = "";
-  try {
-    if (typeof story.content === "function") {
-      const contentData = await story.content();
-      contentStr = typeof (contentData as any)?.toString === "function" ? (contentData as any).toString() : "";
-    }
-  } catch { }
+  const rawContent = await readStoryContent(story);
+  const contentHtml = rawContent ? markdownToHtml(rawContent) : "";
 
   // Resolve the related chapter (for reading context + onward link)
   let chapter: { slug: string; title: string } | null = null;
@@ -50,36 +91,39 @@ export default async function Page({ params }: any) {
     try {
       const ch = await reader.collections.chapters.read(story.relatedChapter);
       if (ch) chapter = { slug: story.relatedChapter, title: ch.title || story.relatedChapter };
-    } catch { }
+    } catch {}
   }
 
-  // Suggest another story to read next
-  const allSlugs = await reader.collections.stories.list();
-  const others = allSlugs.filter((s) => s !== slug);
+  // Suggest the next story deterministically (alphabetical neighbour), so the
+  // static build is stable and readers can walk the whole archive in order.
+  const allSlugs = (await reader.collections.stories.list()).sort();
+  const idx = allSlugs.indexOf(slug);
+  const nextSlug = allSlugs.length > 1 ? allSlugs[(idx + 1) % allSlugs.length] : null;
   let nextStory: { slug: string; title: string; excerpt: string; image: string } | null = null;
-  if (others.length) {
-    const pick = others[Math.floor(Math.random() * others.length)];
-    const ns = await reader.collections.stories.read(pick);
-    if (ns) nextStory = { slug: pick, title: ns.title || pick, excerpt: ns.excerpt || "", image: resolveImage(ns.image) };
+  if (nextSlug) {
+    const ns = await reader.collections.stories.read(nextSlug);
+    if (ns) nextStory = { slug: nextSlug, title: ns.title || nextSlug, excerpt: ns.excerpt || "", image: resolveImage(ns.image) };
   }
 
-  const words = (contentStr.replace(/<[^>]+>/g, " ").match(/\S+/g) || []).length;
+  const words = (contentHtml.replace(/<[^>]+>/g, " ").match(/\S+/g) || []).length;
   const minutes = Math.max(2, Math.round(words / 200));
+  const dates = storyDates(slug);
+  const image = resolveImage(story.image);
 
   const data = {
     title: story.title || "",
     excerpt: story.excerpt || "",
-    image: resolveImage(story.image),
+    image,
     slug,
-    contentHtml: contentStr,
+    contentHtml,
     quote: story.quote || "",
     chapter,
     nextStory,
     minutes,
+    publishedAt: dates.published,
   };
 
   const storyUrl = `${siteMetadata.siteUrl}/stories/${slug}`;
-  const imageUrl = `${siteMetadata.siteUrl}/api/og?type=story&title=${encodeURIComponent(story.title)}&sub=${encodeURIComponent(story.excerpt || '')}`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -87,10 +131,10 @@ export default async function Page({ params }: any) {
     '@id': storyUrl,
     headline: story.title,
     description: story.excerpt,
-    image: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 },
+    image: { '@type': 'ImageObject', url: `${siteMetadata.siteUrl}${image}` },
     url: storyUrl,
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
+    datePublished: dates.published,
+    dateModified: dates.modified,
     author: { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl },
     publisher: {
       '@type': 'Organization',
@@ -100,6 +144,7 @@ export default async function Page({ params }: any) {
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': storyUrl },
     articleSection: 'Himalayan Stories',
+    wordCount: words,
     ...(story.quote ? { citation: story.quote } : {}),
   };
 
@@ -109,28 +154,6 @@ export default async function Page({ params }: any) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div data-rag-chunk="true" className="hidden">
-        <article>
-          <h2>Definition: {story.title}</h2>
-          <p>
-            This story provides a first-hand account of a transformative experience during a Pahari Yatri expedition.
-            It highlights {story.excerpt}. It serves as a narrative evidence of the &quot;Inner Discovery&quot; philosophy
-            upheld by the movement.
-          </p>
-
-          <h3>Process: Reflection and Insight</h3>
-          <p>
-            The narrative follows the yatri&apos;s psychological and physical transition from a standard traveler to a conscious seeker.
-            It focuses on moments of silence, local interaction, and the realization that the mountain is a mirror for the self.
-          </p>
-
-          <h3>Example: First-hand Experience</h3>
-          <p>
-            Key moment: {story.excerpt}. This specific instance demonstrates the &quot;Experience&quot; signal (E-E-A-T) that
-            distinguishes authentic human journeying from generated travel content.
-          </p>
-        </article>
-      </div>
       <BlogPageClient blog={data} />
     </>
   );

@@ -292,6 +292,41 @@ export default config({
         }),
       },
     }),
+
+    films: collection({
+      label: "Films & Reels",
+      slugField: "title",
+      path: "data/films/*",
+      schema: {
+        title: fields.slug({
+          name: { label: "Title", validation: { isRequired: true } },
+        }),
+        platform: fields.select({
+          label: "Platform",
+          options: [
+            { label: "Instagram", value: "instagram" },
+            { label: "YouTube", value: "youtube" },
+          ],
+          defaultValue: "instagram",
+        }),
+        url: fields.url({
+          label: "Reel / Video URL",
+          description:
+            "Paste the full link, e.g. https://www.instagram.com/reel/XXXX/ or https://youtu.be/XXXX",
+        }),
+        description: fields.text({
+          label: "Caption",
+          multiline: true,
+          description: "One or two lines describing the film.",
+        }),
+        region: fields.text({ label: "Region / Place (optional)" }),
+        order: fields.integer({
+          label: "Order",
+          description: "Lower numbers appear first.",
+          defaultValue: 0,
+        }),
+      },
+    }),
   },
   singletons: {
     banners: singleton({

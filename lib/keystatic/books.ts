@@ -18,7 +18,7 @@ export async function getAllBooks() {
         year: entry.year || null,
         invitation: entry.invitation || "",
         excerpt: entry.excerpt || "",
-        coverImage: entry.coverImage || "/static/images/placeholder.png",
+        coverImage: entry.coverImage || "/static/images/himalaya-fallback.jpg",
         relatedChapters: entry.relatedChapters || [],
         link: `/books/${slug}`,
       };
@@ -49,7 +49,7 @@ export async function getAllChapters() {
         slug,
         title: entry.title || "Untitled Chapter",
         excerpt: entry.excerpt || "",
-        image: entry.image || "/static/images/placeholder.png",
+        image: entry.image || "/static/images/himalaya-fallback.jpg",
         relatedStories: entry.relatedStories || [],
         link: `/chapters/${slug}`,
       };

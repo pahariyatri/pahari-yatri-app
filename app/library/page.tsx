@@ -13,6 +13,7 @@ import {
   Users,
   PenLine,
   ScrollText,
+  Film,
   ArrowRight,
 } from "lucide-react";
 
@@ -76,6 +77,13 @@ export default async function LibraryPage() {
       title: "The Journal",
       count: "Essays & reflections",
       desc: "Longer writing on slow travel, seasons, and the philosophy of walking well.",
+    },
+    {
+      href: "/films",
+      icon: Film,
+      title: "Films & Reels",
+      count: "Watch the mountains",
+      desc: "Short films and reels of the light, weather, temples, and quiet of the Himalayas.",
     },
     {
       href: "/community",
