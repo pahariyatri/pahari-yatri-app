@@ -37,7 +37,7 @@ export default async function Home() {
           title={heroBanner.title}
           description={heroBanner.description}
           buttonText={"Open the Library"}
-          buttonLink="/books"
+          buttonLink="/library"
           secondaryText={"Become a Yatri"}
           secondaryLink="/apply"
           media={heroBanner.media || "/static/videos/default-banner.mp4"}
@@ -56,7 +56,7 @@ export default async function Home() {
 
       <HiddenTrails id="hidden-trails" />
       <FilmsSection />
-      <ManifestoSection />
+      {/* <ManifestoSection /> */}
 
       <FinalCTA />
       {/* <ProgressRail sections={['hero-banner', 'manifesto', 'legends-culture', 'yatri-way', 'insights']} /> */}
