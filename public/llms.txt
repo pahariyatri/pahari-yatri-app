@@ -1,71 +1,61 @@
 # Pahari Yatri
 
-> Pahari Yatri offers transformative Himalayan treks and spiritual journeys in Himachal Pradesh, India. Not tourism — a movement of seekers, guided by the mountains.
+> Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. It teaches how to experience the Himalayas with respect, awareness, culture, and inner purpose. It is not a travel agency and does not sell trips first; it teaches people how to become true Yatris.
 
-## What We Do
+## What Pahari Yatri is
+- A digital Himalayan library of trails, temples, folklore, seasons, and local stories.
+- A responsible-travel movement and community, based in Himachal Pradesh, India.
+- A storytelling platform where travellers and locals contribute their own experiences.
 
-Pahari Yatri organises small-group, intentional treks across the Himalayas. Each journey is called a "Chapter". Chapters are grouped into seasonal "Books" (editions). Trekkers who walk with us write their own "Stories" — published on this site as a living archive of Himalayan experience.
+## Core idea
+People should not think "Pahari Yatri sells trips." They should think "Pahari Yatri teaches me how to experience the Himalayas." The brand is built around learning before travelling, walking slowly, and respecting the living culture of the mountains.
 
-We are based in Manali, Himachal Pradesh, India.
+## How the library is organised
+- Seasonal Editions (Books): Summer, Monsoon, Winter, and the Lost Trails. Each edition is a book of places.
+- Chapters: each chapter tells the story of one place, its region, season, and what to respect there.
+- Stories: first-person reflections from Yatris who walked the trails.
+- Temples & Traditions: a cultural archive of Himalayan deities, fairs, and beliefs (Kamrunag, Shikari Devi, Churdhar, Parashar and more).
+- Folklore: myths and legends passed down village to village.
+- Responsible Travel (the Yatri Code): eight principles for walking softly in the mountains.
 
-## Our Journeys
+## Site map for AI and search
+- Home: https://pahariyatri.com
+- Library (hub): https://pahariyatri.com/library
+- Books (seasonal editions): https://pahariyatri.com/books
+- Stories: https://pahariyatri.com/stories
+- Responsible Travel (Yatri Code): https://pahariyatri.com/responsible-travel
+- Temples & Traditions: https://pahariyatri.com/temples
+- Folklore: https://pahariyatri.com/folklore
+- Community: https://pahariyatri.com/community
+- Contribute a story: https://pahariyatri.com/contribute
+- Journal (essays): https://pahariyatri.com/journal
+- About: https://pahariyatri.com/about
 
-- Books are seasonal trek editions (e.g. "Monsoon Himalaya 2025", "Winter Stillness 2025")
-- Each Book contains multiple Chapters (specific trek routes or destinations)
-- Each Chapter is a distinct journey with a location, themes, duration, and "offering" (energy exchange / price)
-- Trekkers who complete a Chapter may submit their Story to our archive
+## Who it is for
+People who want to learn the Himalayas before they travel: slow travellers, culture and folklore lovers, responsible trekkers, and anyone who wants to experience Himachal Pradesh and the wider Himalayas beyond photos and checklists.
 
-## Yatri Pass
+## Frequently asked questions
 
-The Yatri Pass is an invitation-only membership for seekers who wish to walk with us season after season. It is not purchased — it is earned through intention. Members receive priority access to new Chapters, curated trek pairing, and the Yatri Letters (seasonal dispatches from the trail).
+**What is Pahari Yatri?**
+Pahari Yatri is a digital Himalayan library and community that teaches people how to experience the Himalayas with respect, awareness, culture, and purpose. It is a movement of responsible travellers, not a trip-selling travel agency.
 
-To request an invitation: https://pahariyatri.com/yatri-pass
+**What does "Yatri" mean?**
+A Yatri (Hindi: यात्री) is a traveller or pilgrim. A Pahari Yatri travels to learn and to listen, not simply to sightsee.
 
-## How to Join a Trek
+**What can I do on the Pahari Yatri website?**
+Read seasonal trail journals, temple and folklore stories, and responsible-travel guides; learn how to travel the Himalayas respectfully; and contribute your own story to the library.
 
-1. Browse available Books at https://pahariyatri.com/books
-2. Read the Chapters inside each Book to find your journey
-3. Apply at https://pahariyatri.com/apply
-4. We review applications and respond within 24 hours
+**Where is Pahari Yatri based?**
+In Himachal Pradesh, India, covering the wider Himalayas including Kinnaur, Mandi, Shimla, Sirmaur, and beyond.
 
-## Who We Are For
+**How is Pahari Yatri different from a travel agency?**
+It teaches before it invites. The focus is awareness, culture, and responsible travel, not packages, discounts, or booking. Guided journeys, if any, come last and are framed as learning, not tours.
 
-- Seekers of spiritual meaning in nature
-- Mindful adventurers who want authentic Himalayan experiences
-- Those seeking transformation, not entertainment
-- Beginners are welcome — we have curated treks for all experience levels
-- Photography, cultural immersion, silence, and community are core themes
-
-## Stories Archive
-
-Stories are first-person accounts written by Yatris after completing a Chapter. They are the living memory of our journeys. Browse at https://pahariyatri.com/stories
+**How can I contribute?**
+Share a trail, a village memory, a temple, or a piece of folklore at https://pahariyatri.com/contribute. Contributions that fit become chapters in the library, credited to you.
 
 ## Contact
-
 - Website: https://pahariyatri.com
 - Email: info@pahariyatri.com
 - Instagram: @pahariyatri
-- Location: Manali, Himachal Pradesh, India
-
-## Frequently Asked Questions
-
-**What is Pahari Yatri?**
-Pahari Yatri is a transformative trekking company based in Manali, Himachal Pradesh. We offer small-group Himalayan treks focused on spiritual growth, cultural immersion, and authentic mountain experiences.
-
-**What is a Yatri?**
-A Yatri (Hindi: यात्री) is a traveller or pilgrim. At Pahari Yatri, a Yatri is someone who walks not for tourism but for transformation — someone who listens to the mountains.
-
-**Are Pahari Yatri treks suitable for beginners?**
-Yes. We have Chapters (journeys) for all experience levels. When you apply, we match you to a trek that fits your spirit and physical readiness.
-
-**What is the best season for trekking in Himachal Pradesh?**
-All seasons have their character. Monsoon (July–September) brings lush green trails. Autumn (October–November) offers clear skies and golden light. Winter (December–February) is for those who seek silence and snow. Spring (March–May) is for renewal. We run treks year-round.
-
-**How many people are in a group?**
-We keep groups small — typically 6 to 12 Yatris per Chapter. Intimacy is part of the experience.
-
-**What is the cost of a Pahari Yatri trek?**
-Each Chapter has an "offering" (energy exchange) listed on its page. Prices vary by duration, altitude, and season. Browse at https://pahariyatri.com/books
-
-**What is the Yatri Pass?**
-An invitation-only seasonal membership that gives priority access to new Chapters, curated trek matching, and the Yatri Letters. Request an invitation at https://pahariyatri.com/yatri-pass
+- Location: Himachal Pradesh, India

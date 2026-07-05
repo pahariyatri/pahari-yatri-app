@@ -16,11 +16,11 @@ type Props = {
 const LEVELS = ['Beginner', 'Moderate', 'Active', 'Experienced', 'Advanced'];
 
 const LEVEL_NOTE: Record<number, string> = {
-  1: 'Just starting out — casual walks feel good.',
+  1: 'Just starting out. Casual walks feel good.',
   2: 'You move often and enjoy light hikes.',
   3: 'Day treks are comfortable for you.',
   4: 'Multi-day trails? You’re ready.',
-  5: 'You thrive on challenge — mountains call you.',
+  5: 'You thrive on challenge. The mountains call you.',
 };
 
 /**

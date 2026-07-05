@@ -20,7 +20,7 @@ export default async function BookCardLayout() {
           The Book of Journeys
         </h2>
         <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed animate-fade-in-up [animation-delay:200ms]">
-          Each edition is a season of the soul — a curated yatra through the
+          Each edition is a season of the soul, a curated yatra through the
           Himalayas told in chapters, legends, and silence.
         </p>
       </div>

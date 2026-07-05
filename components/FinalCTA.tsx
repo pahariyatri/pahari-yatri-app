@@ -18,7 +18,7 @@ export default function FinalCTA() {
         </h2>
         <p className="text-lg sm:text-xl text-muted-foreground font-light mb-12 max-w-xl mx-auto">
           They are asking to be understood. Learn the trails, the temples, and
-          the silence — then walk with awareness.
+          the silence, then walk with awareness.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

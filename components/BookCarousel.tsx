@@ -82,15 +82,15 @@ export default function BookCarousel({ books }: BookCarouselProps) {
                                                 <h3 className="text-2xl sm:text-3xl font-brandSerif font-bold leading-tight mb-3 text-shadow-sm">
                                                     {book.title}
                                                 </h3>
-                                                <p className="text-white/80 text-sm line-clamp-3 font-light leading-relaxed opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 delay-100">
+                                                <p className="text-white/85 text-sm line-clamp-2 sm:line-clamp-3 font-light leading-relaxed">
                                                     {book.invitation || book.excerpt}
                                                 </p>
 
-                                                <div className="mt-4 flex items-center text-sm font-medium text-white/90 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 delay-200">
-                                                    Open Book
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
-                                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                <div className="mt-4 inline-flex items-center text-sm font-medium text-white group-hover/card:text-primary-foreground transition-colors">
+                                                    Open Edition
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 transition-transform duration-300 group-hover/card:translate-x-1">
+                                                        <path d="M5 12h14"></path>
+                                                        <path d="m12 5 7 7-7 7"></path>
                                                     </svg>
                                                 </div>
                                             </div>

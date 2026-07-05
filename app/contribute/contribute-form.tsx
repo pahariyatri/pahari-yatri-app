@@ -60,7 +60,7 @@ export default function ContributeForm() {
         </h2>
         <p className="text-muted-foreground leading-relaxed">
           We read every contribution with care. If it finds its place in the
-          library, we&apos;ll be in touch — your words may become a chapter others
+          library, we&apos;ll be in touch. Your words may become a chapter others
           learn from.
         </p>
       </motion.div>
@@ -140,7 +140,7 @@ export default function ContributeForm() {
         <label className="text-sm font-medium">Your story</label>
         <Textarea
           className="min-h-[180px] rounded-2xl border-border"
-          placeholder="Write freely — a trail, a village, a temple bell you still hear. Tell it the way you remember it."
+          placeholder="Write freely. A trail, a village, a temple bell you still hear. Tell it the way you remember it."
           value={form.content}
           onChange={set('content')}
           required

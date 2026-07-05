@@ -13,6 +13,7 @@ import {
   Users,
   PenLine,
   ScrollText,
+  Film,
   ArrowRight,
 } from "lucide-react";
 
@@ -22,7 +23,7 @@ export async function generateMetadata() {
   return genPageMetadata({
     title: "The Library",
     description:
-      "The digital Himalayan library — seasonal trail journals, stories, temples, folklore, and a code for responsible mountain travel. Learn the Himalayas before you walk them.",
+      "The digital Himalayan library of seasonal trail journals, stories, temples, folklore, and responsible mountain travel. Learn the Himalayas before you walk them.",
     alternates: { canonical: "/library" },
   });
 }
@@ -40,7 +41,7 @@ export default async function LibraryPage() {
       icon: BookOpen,
       title: "Seasonal Editions",
       count: `${books.length} books · ${chapters.length} chapters`,
-      desc: "Summer, Monsoon, Winter, and the Lost Trails — each a book of places, read as chapters.",
+      desc: "Summer, Monsoon, Winter, and the Lost Trails. Each is a book of places, read as chapters.",
     },
     {
       href: "/stories",
@@ -54,7 +55,7 @@ export default async function LibraryPage() {
       icon: Leaf,
       title: "Responsible Travel",
       count: "The Yatri Code",
-      desc: "How to walk softly — respecting people, temples, forests, and the weather of the mountains.",
+      desc: "How to walk softly, respecting people, temples, forests, and the weather of the mountains.",
     },
     {
       href: "/temples",
@@ -68,7 +69,7 @@ export default async function LibraryPage() {
       icon: Sparkles,
       title: "Folklore",
       count: "Myths & legends",
-      desc: "The stories the mountains tell about themselves — passed down village to village.",
+      desc: "The stories the mountains tell about themselves, passed down village to village.",
     },
     {
       href: "/journal",
@@ -76,6 +77,13 @@ export default async function LibraryPage() {
       title: "The Journal",
       count: "Essays & reflections",
       desc: "Longer writing on slow travel, seasons, and the philosophy of walking well.",
+    },
+    {
+      href: "/films",
+      icon: Film,
+      title: "Films & Reels",
+      count: "Watch the mountains",
+      desc: "Short films and reels of the light, weather, temples, and quiet of the Himalayas.",
     },
     {
       href: "/community",
@@ -98,7 +106,7 @@ export default async function LibraryPage() {
       <PageHero
         kicker="A digital Himalayan library"
         title="Everything the mountains have to teach, in one place."
-        subtitle="Read slowly. Every trail here is a chapter, every season a book. The mountains are in no hurry — and neither are we."
+        subtitle="Read slowly. Every trail here is a chapter, every season a book. The mountains are in no hurry, and neither are we."
         image="/static/images/pages/library.jpg"
       />
 

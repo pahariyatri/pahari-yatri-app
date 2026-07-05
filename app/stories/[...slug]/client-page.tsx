@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "@/components/common/Image";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 import SectionContainer from "@/components/common/SectionContainer";
@@ -20,12 +20,6 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
     damping: 30,
     restDelta: 0.001,
   });
-
-  const [renderable, setRenderable] = useState<string>("");
-
-  useEffect(() => {
-    if (typeof blog.contentHtml === "string") setRenderable(blog.contentHtml);
-  }, [blog]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -98,6 +92,18 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
           <span className="inline-flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5" /> {blog.minutes} min read
           </span>
+          {blog.publishedAt && (
+            <>
+              <span className="text-muted-foreground/40">·</span>
+              <time dateTime={blog.publishedAt}>
+                {new Date(blog.publishedAt).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+            </>
+          )}
         </div>
         <div className="w-10 h-px bg-primary/30 mx-auto mt-8" />
       </div>
@@ -120,8 +126,8 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
                      prose-p:first-of-type:first-letter:mt-1
                      prose-p:first-of-type:first-letter:text-primary"
         >
-          {renderable ? (
-            <div dangerouslySetInnerHTML={{ __html: renderable }} />
+          {blog.contentHtml ? (
+            <div dangerouslySetInnerHTML={{ __html: blog.contentHtml }} />
           ) : (
             <p className="text-muted-foreground italic">{blog.excerpt}</p>
           )}
