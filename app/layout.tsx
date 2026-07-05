@@ -36,13 +36,13 @@ async function getMetadata() {
 
   const title =
     seo?.title ??
-    "Pahari Yatri | Transformative Himalayan Treks & Spiritual Journeys";
+    "Pahari Yatri | A Digital Himalayan Library & Responsible Travel Community";
   const description =
     seo?.description ??
-    "Join Pahari Yatri to discover untouched Himalayan trails, sacred peaks, and authentic yatras. Not tourism. A movement of Yatri.";
+    "Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas.";
   const keywords =
     seo?.keywords ??
-    "Pahari Yatri, Spiritual trekking India, Himalayan yatra packages, Silent meditation treks, Authentic Himalaya, Conscious travel, Inner journey";
+    "Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture";
   const socialBanner =
     (seo as any)?.ogImage ||
     `${siteMetadata.siteUrl}/api/og`;
@@ -74,7 +74,7 @@ async function getMetadata() {
           url: `${siteUrl}/api/og`,
           width: 1200,
           height: 630,
-          alt: "Pahari Yatri - Himalayan Treks & Spiritual Journeys",
+          alt: "Pahari Yatri - A Digital Himalayan Library & Responsible Travel Community",
         },
       ],
       locale: settings?.locale || "en_US",
@@ -120,7 +120,7 @@ export default async function RootLayout({
     name: seo?.title || "Pahari Yatri",
     description:
       seo?.description ||
-      "Pahari Yatri offers transformative Himalayan journeys — not tourism, but a movement.",
+      "Pahari Yatri is a digital Himalayan library and community for responsible travellers, not a trip-selling travel agency.",
     publisher: {
       "@type": "Organization",
       name: siteMetadata.title,
@@ -223,7 +223,7 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "TouristInformationCenter",
     name: "Pahari Yatri",
-    description: seo?.description || "Transformative Himalayan treks and spiritual journeys in Himachal Pradesh, India.",
+    description: seo?.description || "A digital Himalayan library and community teaching responsible travel, culture, and folklore across Himachal Pradesh and the wider Himalayas.",
     url: siteUrl,
     logo: `${siteUrl}/static/images/logo.png`,
     image: `${siteUrl}/api/og`,
@@ -261,39 +261,39 @@ export default async function RootLayout({
         name: "What is Pahari Yatri?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Pahari Yatri is a transformative trekking company based in Manali, Himachal Pradesh. We offer small-group Himalayan treks focused on spiritual growth, cultural immersion, and authentic mountain experiences. We call our journeys 'Chapters' — grouped into seasonal 'Books'.",
+          text: "Pahari Yatri is a digital Himalayan library and community that teaches people how to experience the Himalayas with respect, awareness, culture, and inner purpose. It is a responsible-travel movement based in Himachal Pradesh, India, not a trip-selling travel agency.",
         },
       },
       {
         "@type": "Question",
-        name: "Are Pahari Yatri treks suitable for beginners?",
+        name: "What does 'Yatri' mean?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. We have Chapters (journeys) for all experience levels, from first-time trekkers to experienced mountaineers. When you apply, we match you to a trek that fits both your spirit and your physical readiness.",
+          text: "A Yatri (Hindi: यात्री) is a traveller or pilgrim. A Pahari Yatri travels to learn and to listen, not simply to sightsee. The idea is to understand the mountains before you travel them.",
         },
       },
       {
         "@type": "Question",
-        name: "What is the best season for trekking in Himachal Pradesh?",
+        name: "How is the Pahari Yatri library organised?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All seasons have their character. Monsoon (July–September) brings lush green trails. Autumn (October–November) offers clear skies and golden light. Winter (December–February) is for those who seek silence and snow. Spring (March–May) is for renewal. Pahari Yatri runs curated treks year-round.",
+          text: "Content is organised into seasonal Editions (Books): Summer, Monsoon, Winter, and the Lost Trails. Each Book holds Chapters, and each Chapter tells the story of one place, its region, season, and what to respect there. Travellers add first-person Stories to the archive.",
         },
       },
       {
         "@type": "Question",
-        name: "How do I join a Pahari Yatri trek?",
+        name: "What is the best season to travel in Himachal Pradesh?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Browse our Books (seasonal trek editions) at pahariyatri.com/books, read the Chapters to find your journey, then apply at pahariyatri.com/apply. We review every application and respond within 24 hours.",
+          text: "Every season has its character. Monsoon (July to September) brings lush green trails. Autumn (October to November) offers clear skies and golden light. Winter (December to February) is for silence and snow. Spring (March to May) is for renewal. The library has an edition for each.",
         },
       },
       {
         "@type": "Question",
-        name: "How many people are in a Pahari Yatri group?",
+        name: "How is Pahari Yatri different from a travel agency?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We keep groups intentionally small — typically 6 to 12 Yatris per Chapter. Intimacy and genuine connection are core to the Pahari Yatri experience.",
+          text: "It teaches before it invites. The focus is awareness, culture, folklore, and responsible travel, not packages, discounts, or booking. You learn how to walk the Himalayas respectfully, and you can contribute your own story to the library.",
         },
       },
     ],
