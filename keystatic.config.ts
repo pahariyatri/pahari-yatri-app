@@ -319,6 +319,13 @@ export default config({
           multiline: true,
           description: "One or two lines describing the film.",
         }),
+        thumbnail: fields.image({
+          label: "Thumbnail (optional)",
+          description:
+            "Poster shown before the film plays. YouTube films get one automatically; Instagram reels look best with one uploaded here.",
+          directory: "public/static/images/films",
+          publicPath: "/static/images/films/",
+        }),
         region: fields.text({ label: "Region / Place (optional)" }),
         order: fields.integer({
           label: "Order",

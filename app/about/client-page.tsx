@@ -57,7 +57,7 @@ export default function AboutClient() {
             {/* The Story */}
             <SectionContainer className="py-24 sm:py-32">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-                    <div className="lg:col-span-4 sticky top-32">
+                    <div className="lg:col-span-4 lg:sticky lg:top-32">
                         <h2 className="text-3xl font-brandSerif mb-6">The Awakening</h2>
                         <div className="w-12 h-px bg-primary mb-6" />
                         <p className="text-muted-foreground text-sm uppercase tracking-widest mb-2">Est. 2018</p>

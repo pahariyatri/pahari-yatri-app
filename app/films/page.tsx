@@ -2,6 +2,8 @@ import Link from "@/components/common/Link";
 import PageHero from "@/components/common/PageHero";
 import SectionContainer from "@/components/common/SectionContainer";
 import ReelCard, { type Film } from "@/components/ReelCard";
+import InstagramReelCard from "@/components/InstagramReelCard";
+import { getInstagramReels } from "@/lib/instagram";
 import { Button } from "@/components/ui/button";
 import { genPageMetadata } from "@/app/seo";
 import { createReader } from "@keystatic/core/reader";
@@ -21,6 +23,10 @@ export async function generateMetadata() {
 }
 
 export default async function FilmsPage() {
+  // Live reels pulled straight from the connected Instagram account
+  // (only when INSTAGRAM_ACCESS_TOKEN is configured — see docs/instagram-integration.md)
+  const instagramReels = await getInstagramReels(6);
+
   const slugs = await reader.collections.films.list();
   const films = (
     await Promise.all(
@@ -34,6 +40,7 @@ export default async function FilmsPage() {
           url: entry.url || "",
           description: entry.description || "",
           region: entry.region || "",
+          thumbnail: (entry as any).thumbnail || null,
           order: entry.order ?? 0,
         };
       })
@@ -74,16 +81,35 @@ export default async function FilmsPage() {
           </div>
         </div>
 
+        {/* Live from Instagram — auto-synced, no CMS entry needed */}
+        {instagramReels && instagramReels.length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-2xl sm:text-3xl font-brandSerif font-medium mb-8 flex items-center gap-3">
+              <Instagram className="h-6 w-6 text-primary" />
+              Latest from @pahariyatri
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {instagramReels.map((reel) => (
+                <InstagramReelCard key={reel.id} reel={reel} />
+              ))}
+            </div>
+          </div>
+        )}
+
         {films.length > 0 ? (
           <>
-
+            {instagramReels && instagramReels.length > 0 && (
+              <h2 className="text-2xl sm:text-3xl font-brandSerif font-medium mb-8">
+                Curated films
+              </h2>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {films.map((film) => (
                 <ReelCard key={film.slug} film={film} />
               ))}
             </div>
           </>
-        ) : (
+        ) : instagramReels && instagramReels.length > 0 ? null : (
           <div className="max-w-xl mx-auto text-center py-16">
             <h2 className="text-2xl font-brandSerif font-medium mb-4">
               The first films are being cut.

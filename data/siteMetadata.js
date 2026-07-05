@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-   title: 'Pahari Yatri | A Digital Himalayan Library & Responsible Travel Community',
+   title: 'Pahari Yatri — Learn the Himalayas Before You Walk Them',
     author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
-    description: 'Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas.',
+    description: 'A digital Himalayan library and community. Trail journals, temple stories, folklore, seasonal editions, and the art of responsible travel across Himachal and the wider Himalayas.',
     keywords: 'Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture',
     language: 'en-us',
     theme: 'dark',

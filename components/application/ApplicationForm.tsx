@@ -172,7 +172,8 @@ export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
       {/* Navigation — sticky at thumb reach on mobile, inline on desktop */}
       <div
         className={cn(
-          'fixed inset-x-0 bottom-0 z-30 border-t border-border/40 bg-background/85 px-4 py-4 backdrop-blur-md',
+          'fixed inset-x-0 bottom-0 z-30 border-t border-border/40 bg-background/95 px-4 pt-4 backdrop-blur-md',
+          'pb-[max(1rem,env(safe-area-inset-bottom))]',
           'sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none'
         )}
       >

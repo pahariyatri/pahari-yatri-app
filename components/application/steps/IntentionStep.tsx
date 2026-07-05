@@ -66,15 +66,19 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
               type="button"
               whileTap={{ scale: 0.96 }}
               onClick={() => updateFormData(field, c.value)}
+              aria-pressed={selected}
               className={cn(
-                'shrink-0 snap-start inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm transition-colors duration-200',
+                'shrink-0 snap-start inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200',
                 selected
-                  ? 'bg-primary/10 text-foreground border-primary'
-                  : 'bg-secondary/50 text-foreground/80 border-border hover:border-primary/40'
+                  ? 'bg-primary text-primary-foreground border-primary shadow-md ring-2 ring-primary/30 ring-offset-2 ring-offset-background'
+                  : 'bg-muted/60 text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
               )}
             >
               <span aria-hidden>{c.icon}</span>
               <span className="whitespace-nowrap">{c.label}</span>
+              {selected && (
+                <span aria-hidden className="ml-0.5 text-primary-foreground">✓</span>
+              )}
             </motion.button>
           );
         })}

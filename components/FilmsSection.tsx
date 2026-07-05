@@ -25,6 +25,7 @@ export default async function FilmsSection() {
           url: entry.url || "",
           description: entry.description || "",
           region: entry.region || "",
+          thumbnail: (entry as any).thumbnail || null,
           order: entry.order ?? 0,
         };
       })

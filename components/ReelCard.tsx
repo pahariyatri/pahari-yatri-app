@@ -12,6 +12,7 @@ export interface Film {
   url: string;
   description?: string;
   region?: string;
+  thumbnail?: string | null;
 }
 
 type Parsed = {
@@ -53,6 +54,9 @@ function parse(url: string, platform: string): Parsed {
 
 export default function ReelCard({ film }: { film: Film }) {
   const p = parse(film.url || "", film.platform);
+  // Prefer an editor-uploaded thumbnail; fall back to the platform's own
+  // poster (YouTube only — Instagram doesn't expose one without the API).
+  const poster = film.thumbnail || p.posterUrl;
   const PlatformIcon = p.type === "youtube" ? Youtube : Instagram;
   const platformName = p.type === "youtube" ? "YouTube" : "Instagram";
   // The heavy third-party player only loads after the reader presses play,
@@ -81,10 +85,10 @@ export default function ReelCard({ film }: { film: Film }) {
             aria-label={`Play ${film.title}`}
             className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 w-full"
           >
-            {p.posterUrl ? (
+            {poster ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={p.posterUrl}
+                src={poster}
                 alt=""
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"

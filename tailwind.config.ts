@@ -18,29 +18,43 @@ const config = {
     },
     extend: {
       colors: {
+        // Semantic tokens — these variables are defined (light + dark) in
+        // globals.css. Never point these at a variable that doesn't exist:
+        // hsl(var(--undefined)) is invalid CSS and silently renders as
+        // TRANSPARENT, which breaks every surface that relies on it.
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        surface: "hsl(var(--muted))",
         primary: {
-          DEFAULT: "hsl(var(--himalayan-green))", // pine green
-          foreground: "hsl(var(--himalayan-mist))", // text/icons on green
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--himalayan-saffron))", // premium saffron/gold
-          foreground: "hsl(var(--himalayan-slate))", // darker text for readability
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        background: "hsl(var(--himalayan-mist))", // clean misty white
-        foreground: "hsl(var(--himalayan-slate))", // main text
-        surface: "hsl(var(--himalayan-stone))",   // card/bg surfaces
-        accent: "hsl(var(--himalayan-saffron-light))", // hover highlights
-        muted: "hsl(var(--himalayan-stone))",
-        border: "hsl(var(--himalayan-slate) / 0.15)",
-
-        // Supporting tokens
         destructive: {
-          DEFAULT: "hsl(0, 65%, 45%)", // earthy red
-          foreground: "hsl(0, 0%, 98%)",
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          DEFAULT: "hsl(var(--himalayan-mist))",
-          foreground: "hsl(var(--himalayan-slate))",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
 
