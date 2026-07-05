@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
+import { resolveImage } from "@/lib/images";
 import BookPageClient from "./client-page";
 
 const reader = createReader(process.cwd(), keystaticConfig);
@@ -39,9 +40,10 @@ export default async function Page({ params }: any) {
 
   const bookData = {
     title: bookEntry.title,
+    year: bookEntry.year || null,
     excerpt: bookEntry.excerpt,
     invitation: bookEntry.invitation,
-    coverImage: bookEntry.coverImage,
+    coverImage: resolveImage(bookEntry.coverImage),
     relatedChapters: bookEntry.relatedChapters || [],
   };
 
@@ -56,7 +58,8 @@ export default async function Page({ params }: any) {
             slug,
             title: chapter.title,
             description: chapter.excerpt,
-            coverImage: chapter.image,
+            location: chapter.location || "",
+            coverImage: resolveImage(chapter.image),
           }
           : null;
       })

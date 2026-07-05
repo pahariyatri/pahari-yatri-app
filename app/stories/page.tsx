@@ -3,9 +3,9 @@ import { getAllStories } from '@/lib/keystatic/getLibraryData';
 import BlogClientPage from './client-page';
 
 export const metadata: Metadata = {
-  title: 'Himalayan Trek Stories & Trip Reports from Real Yatris',
+  title: 'Stories from the Himalayas | Real Yatri Journals',
   description:
-    'First-person stories and trip reports from Yatris who walked the Himalayan trails of Himachal Pradesh. Real experiences from Parashar, Kheerganga, Churdhar, Buran Ghati, and more.',
+    'First-person Himalayan stories from Yatris who walked the trails of Himachal Pradesh. Village memories, temple bells, and quiet moments from Parashar, Kheerganga, Churdhar, Buran Ghati, and more.',
   alternates: { canonical: '/stories' },
 };
 
