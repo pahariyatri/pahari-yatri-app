@@ -147,6 +147,18 @@ export default config({
         }),
         location: fields.text({ label: "Region / Trailhead" }),
 
+        // ── The Journey (first-person narrative) ──────────────────────────
+        narrative: fields.text({
+          label: "The Journey — first-person narrative",
+          multiline: true,
+          description:
+            "The lived story of this chapter, written as a Yatri walking it. Separate paragraphs with a blank line.",
+        }),
+        closingQuote: fields.text({
+          label: "Closing Quote",
+          description: "One memorable line to end the chapter.",
+        }),
+
         // ── Practical Trek Guide (for SEO + first-time visitors) ──────────
         overview: fields.text({
           label: "Trek Overview (SEO intro)",

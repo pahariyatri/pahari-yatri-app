@@ -51,6 +51,7 @@ export default function JourneyPageClient({ journey }: any) {
     { icon: CalendarDays, label: "Best Time", value: journey.bestTime },
   ].filter((f) => f.value);
 
+  const narrative = paragraphs(journey.narrative);
   const overview = paragraphs(journey.overview);
   const gettingThere = paragraphs(journey.gettingThere);
   const itinerary = (journey.itinerary || []).filter(
@@ -161,6 +162,31 @@ export default function JourneyPageClient({ journey }: any) {
               <p className="text-2xl sm:text-3xl font-brandSerif italic leading-relaxed text-foreground/90">
                 {journey.invitation}
               </p>
+            </div>
+          </SectionContainer>
+        )}
+
+        {/* The Journey — the chapter lived in first person, the heart of the page */}
+        {narrative.length > 0 && (
+          <SectionContainer className="py-12 sm:py-16">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary" />
+                The Journey
+              </h2>
+              <div
+                className="space-y-6 text-lg sm:text-xl leading-[1.9] font-brandSerif text-foreground/90
+                           [&>p:first-of-type]:first-letter:text-6xl
+                           [&>p:first-of-type]:first-letter:font-medium
+                           [&>p:first-of-type]:first-letter:float-left
+                           [&>p:first-of-type]:first-letter:mr-3
+                           [&>p:first-of-type]:first-letter:mt-1
+                           [&>p:first-of-type]:first-letter:text-primary"
+              >
+                {narrative.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
             </div>
           </SectionContainer>
         )}
@@ -399,6 +425,19 @@ export default function JourneyPageClient({ journey }: any) {
                 ))}
               </div>
             </div>
+          </SectionContainer>
+        )}
+
+        {/* Closing quote — one line to carry home */}
+        {journey.closingQuote && (
+          <SectionContainer className="py-16 sm:py-20">
+            <figure className="max-w-2xl mx-auto text-center">
+              <div className="w-8 h-px bg-primary/40 mx-auto mb-8" />
+              <blockquote className="text-2xl sm:text-3xl font-brandSerif italic leading-relaxed text-foreground/90">
+                “{journey.closingQuote}”
+              </blockquote>
+              <div className="w-8 h-px bg-primary/40 mx-auto mt-8" />
+            </figure>
           </SectionContainer>
         )}
 
