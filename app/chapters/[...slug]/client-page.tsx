@@ -29,7 +29,6 @@ export default function JourneyPageClient({ journey }: any) {
   });
 
   const narrative = paragraphs(journey.narrative);
-  const overview = paragraphs(journey.overview);
   const gettingThere = paragraphs(journey.gettingThere);
   const itinerary = (journey.itinerary || []).filter(
     (d: any) => d?.title || d?.detail || d?.day
@@ -41,8 +40,6 @@ export default function JourneyPageClient({ journey }: any) {
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
 
-  // Always give the reader an opening paragraph, even for sparse chapters.
-  const intro = overview.length > 0 ? overview : journey.excerpt ? [journey.excerpt] : [];
 
   return (
     <div className="bg-background text-foreground font-sans">
@@ -134,23 +131,6 @@ export default function JourneyPageClient({ journey }: any) {
                            [&>p:first-of-type]:first-letter:text-primary"
               >
                 {narrative.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-          </SectionContainer>
-        )}
-
-        {/* Overview (practical, SEO) — always shows at least the excerpt */}
-        {intro.length > 0 && (
-          <SectionContainer className="py-12 sm:py-16">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-8 flex items-center gap-4">
-                <span className="w-8 h-px bg-primary" />
-                About the Trail
-              </h2>
-              <div className="space-y-6 text-lg leading-[1.85] text-muted-foreground">
-                {intro.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>

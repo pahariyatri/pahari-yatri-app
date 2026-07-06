@@ -26,7 +26,7 @@ const Header = ({ title }: HeaderProps) => {
             aria-label="Pahari Yatri Global Navigation"
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
-                <div className="flex items-center justify-between py-3 px-6 backdrop-blur-2xl bg-background/60 border border-border/20 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.05)]">
+                <div className="flex items-center justify-between py-3 px-6 backdrop-blur-md bg-background/85 border border-border/20 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.05)]">
                     <div className="flex-shrink-0">
                         <Link
                             href="/"

@@ -40,7 +40,10 @@ export async function getChapterView(slug: string) {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: chapter.title,
-    description: chapter.excerpt || chapter.invitation || "",
+    // The overview no longer renders as a page section (chapters read as
+    // stories), so its descriptive text lives on here for search engines.
+    description:
+      (chapter as any).overview || chapter.excerpt || chapter.invitation || "",
     url: chapterUrl,
     image: imageUrl,
     touristType: [
