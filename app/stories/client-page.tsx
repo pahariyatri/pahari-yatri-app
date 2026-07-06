@@ -12,6 +12,7 @@ interface BlogClientPageProps {
   blogData: {
     title: string;
     description: string;
+    voice?: string;
     imageSrc: string;
     href: string;
     tags: string[];
@@ -191,6 +192,7 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
                   <BlogCard
                     title={blog.title}
                     description={blog.description}
+                    voice={blog.voice}
                     imageSrc={blog.imageSrc}
                     href={blog.href}
                     tags={blog.tags}

@@ -131,14 +131,31 @@ export async function getChapterView(slug: string) {
   ).filter(Boolean);
 
   // The book this chapter belongs to — a quiet backlink that keeps readers
-  // inside the library and strengthens internal linking.
+  // inside the library — plus the next chapter in reading order, the open
+  // loop that turns chapters into episodes rather than dead ends.
   let parentBook: { slug: string; title: string } | null = null;
+  let nextChapter: { slug: string; title: string; excerpt: string; image: string } | null = null;
   try {
     const books = await reader.collections.books.all();
     const owner = books.find((b) =>
       ((b.entry.relatedChapters as any[]) || []).includes(slug)
     );
-    if (owner) parentBook = { slug: owner.slug, title: owner.entry.title || owner.slug };
+    if (owner) {
+      parentBook = { slug: owner.slug, title: owner.entry.title || owner.slug };
+      const order = ((owner.entry.relatedChapters as any[]) || []).filter(Boolean);
+      const idx = order.indexOf(slug);
+      const nextSlug = idx >= 0 && order.length > 1 ? order[(idx + 1) % order.length] : null;
+      if (nextSlug) {
+        const nc = await reader.collections.chapters.read(nextSlug);
+        if (nc)
+          nextChapter = {
+            slug: nextSlug,
+            title: nc.title || nextSlug,
+            excerpt: nc.excerpt || "",
+            image: resolveImage(nc.image),
+          };
+      }
+    }
   } catch {}
 
   // Strip the raw `image` from the spread so only the resolved (verified)
@@ -149,6 +166,7 @@ export async function getChapterView(slug: string) {
     image: resolveImage(chapter.image),
     relatedStories,
     parentBook,
+    nextChapter,
   };
   const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
 

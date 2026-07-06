@@ -48,6 +48,8 @@ export async function getFilms(): Promise<Film[]> {
         thumbnail: entry.thumbnail || null,
         related,
         order: entry.order ?? 0,
+        directUrl: entry.directUrl || "",
+        directVideo: entry.directVideo || null,
       };
     })
   );

@@ -156,3 +156,106 @@
     text-shadow: none;
   }
 }
+
+/* Premium Story & Book Typography System */
+.prose,
+.story-article {
+  font-family: var(--font-serif), Playfair Display, Georgia, serif;
+}
+
+.prose p,
+.story-article p {
+  font-size: 1.125rem !important; /* 18px */
+  line-height: 1.85 !important;
+  color: hsl(var(--foreground) / 0.88) !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 1.75rem !important;
+  letter-spacing: -0.003em !important;
+}
+
+/* Elegant Drop Cap for the very first paragraph of the article */
+.prose p:first-of-type::first-letter,
+.story-article p:first-of-type::first-letter {
+  font-size: 4.25rem !important;
+  font-weight: 500 !important;
+  float: left !important;
+  line-height: 0.9 !important;
+  margin-top: 0.15rem !important;
+  margin-right: 0.65rem !important;
+  color: hsl(var(--primary)) !important;
+  font-family: var(--font-serif), Playfair Display, serif !important;
+}
+
+.prose h2,
+.story-article h2 {
+  font-size: 1.85rem !important;
+  font-weight: 500 !important;
+  color: hsl(var(--foreground)) !important;
+  margin-top: 2.75rem !important;
+  margin-bottom: 1.25rem !important;
+  line-height: 1.3 !important;
+}
+
+.prose h3,
+.story-article h3 {
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  color: hsl(var(--foreground)) !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.4 !important;
+}
+
+.prose blockquote,
+.story-article blockquote {
+  border-left: 3px solid hsl(var(--primary)) !important;
+  padding-left: 1.5rem !important;
+  font-style: italic !important;
+  color: hsl(var(--foreground) / 0.8) !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  font-size: 1.2rem !important;
+}
+
+.prose ul,
+.story-article ul {
+  list-style-type: disc !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  padding-left: 1.75rem !important;
+}
+
+.prose ol,
+.story-article ol {
+  list-style-type: decimal !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  padding-left: 1.75rem !important;
+}
+
+.prose li,
+.story-article li {
+  margin-top: 0.6rem !important;
+  margin-bottom: 0.6rem !important;
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+}
+
+.prose strong,
+.story-article strong {
+  font-weight: 600 !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.prose a,
+.story-article a {
+  color: hsl(var(--primary)) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  transition: color 0.2s !important;
+}
+
+.prose a:hover,
+.story-article a:hover {
+  color: hsl(var(--primary) / 0.8) !important;
+}

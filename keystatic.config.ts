@@ -283,6 +283,11 @@ export default config({
           multiline: true,
           validation: { length: { min: 80, max: 180 } },
         }),
+        voice: fields.text({
+          label: "Told by (voice)",
+          description:
+            "The narrator of this story, e.g. 'a product manager from Gurgaon, 34, first time past Chandigarh'. No real names needed — the archive speaks in voices.",
+        }),
         relatedChapter: fields.relationship({
           label: "Belongs to Chapter",
           collection: "chapters",
@@ -318,13 +323,24 @@ export default config({
           options: [
             { label: "Instagram", value: "instagram" },
             { label: "YouTube", value: "youtube" },
+            { label: "Direct Video", value: "direct" },
           ],
           defaultValue: "instagram",
         }),
         url: fields.url({
-          label: "Reel / Video URL",
+          label: "Reel / Video URL (Instagram or YouTube)",
           description:
             "Paste the full link, e.g. https://www.instagram.com/reel/XXXX/ or https://youtu.be/XXXX",
+        }),
+        directUrl: fields.text({
+          label: "Or Direct Video URL (optional)",
+          description: "Paste a direct .mp4 video link.",
+        }),
+        directVideo: fields.file({
+          label: "Or Direct Video File (optional)",
+          description: "Upload a short .mp4 file to play natively on the page.",
+          directory: "public/static/videos/films",
+          publicPath: "/static/videos/films/",
         }),
         description: fields.text({
           label: "Caption",

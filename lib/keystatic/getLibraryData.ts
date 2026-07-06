@@ -77,6 +77,7 @@ export async function getAllStories() {
         excerpt: entry.excerpt || "",
         image: resolveImage(entry.image),
         quote: entry.quote || "",
+        voice: (entry as any).voice || "",
         link: `/stories/${slug}`,
       };
     })
@@ -88,6 +89,7 @@ export async function getAllStories() {
     excerpt: string;
     image: string;
     quote: string;
+    voice: string;
     link: string;
   }[];
 }
