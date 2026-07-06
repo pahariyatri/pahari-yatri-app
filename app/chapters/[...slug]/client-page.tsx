@@ -243,6 +243,43 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
+        {/* The next chapter — an open loop, not a dead end */}
+        {journey.nextChapter && (
+          <SectionContainer className="py-8">
+            <div className="max-w-2xl mx-auto">
+              <span className="block text-center text-xs uppercase tracking-[0.2em] text-primary/80 mb-6">
+                The book continues
+              </span>
+              <Link
+                href={`/chapters/${journey.nextChapter.slug}`}
+                className="group grid sm:grid-cols-[180px_1fr] gap-5 items-center rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/40 transition-colors"
+              >
+                <div className="relative h-36 sm:h-full w-full min-h-[9rem]">
+                  <ResponsiveImage
+                    src={journey.nextChapter.image}
+                    alt={journey.nextChapter.title}
+                    fill
+                    sizes="180px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    fallbackSrc="/static/images/himalaya-fallback.jpg"
+                  />
+                </div>
+                <div className="p-5 sm:pr-8">
+                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                    Next chapter
+                  </span>
+                  <h3 className="text-xl font-brandSerif font-medium mt-1 mb-1.5 group-hover:text-primary transition-colors">
+                    {journey.nextChapter.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {journey.nextChapter.excerpt}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </SectionContainer>
+        )}
+
         {/* Closing quote — one line to carry home */}
         {journey.closingQuote && (
           <SectionContainer className="py-16 sm:py-20">

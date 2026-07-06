@@ -87,7 +87,7 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
       {/* Meta bar */}
       <div className="max-w-2xl mx-auto px-6 pt-10">
         <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-muted-foreground uppercase tracking-widest">
-          <span>{siteMetadata.author}</span>
+          <span>{blog.voice ? `Told by ${blog.voice}` : siteMetadata.author}</span>
           <span className="text-muted-foreground/40">·</span>
           <span className="inline-flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5" /> {blog.minutes} min read

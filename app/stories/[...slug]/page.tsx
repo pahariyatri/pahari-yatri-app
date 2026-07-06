@@ -117,6 +117,7 @@ export default async function Page({ params }: any) {
     slug,
     contentHtml,
     quote: story.quote || "",
+    voice: (story as any).voice || "",
     chapter,
     nextStory,
     minutes,
