@@ -11,21 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  MapPin,
-  Clock,
-  Footprints,
-  Mountain,
-  Gauge,
-  CalendarDays,
-  Check,
-  X,
-  Backpack,
-  ArrowRight,
-  ArrowLeft,
-  Leaf,
-} from "lucide-react";
-type Fact = { icon: any; label: string; value?: string };
+import { ArrowRight, ArrowLeft, Leaf } from "lucide-react";
 
 function paragraphs(text?: string) {
   return (text || "")
@@ -42,24 +28,12 @@ export default function JourneyPageClient({ journey }: any) {
     restDelta: 0.001,
   });
 
-  const facts: Fact[] = [
-    { icon: MapPin, label: "Region", value: journey.location },
-    { icon: Clock, label: "Duration", value: journey.duration },
-    { icon: Footprints, label: "Distance", value: journey.distance },
-    { icon: Mountain, label: "Max Altitude", value: journey.maxAltitude },
-    { icon: Gauge, label: "Difficulty", value: journey.difficulty },
-    { icon: CalendarDays, label: "Best Time", value: journey.bestTime },
-  ].filter((f) => f.value);
-
   const narrative = paragraphs(journey.narrative);
   const overview = paragraphs(journey.overview);
   const gettingThere = paragraphs(journey.gettingThere);
   const itinerary = (journey.itinerary || []).filter(
     (d: any) => d?.title || d?.detail || d?.day
   );
-  const included = (journey.included || []).filter(Boolean);
-  const excluded = (journey.excluded || []).filter(Boolean);
-  const packing = (journey.packing || []).filter(Boolean);
   const gifts = (journey.giftsFromMountains || []).filter(Boolean);
   const themes = (journey.themes || []).filter(Boolean);
   const faqs = (journey.faqs || []).filter(
@@ -128,30 +102,6 @@ export default function JourneyPageClient({ journey }: any) {
 
       {/* Content */}
       <div className="relative bg-background">
-        {/* Quick Facts */}
-        {facts.length > 0 && (
-          <SectionContainer className="pt-20 sm:pt-24">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-border/40 rounded-2xl overflow-hidden border border-border/40">
-                {facts.map((f) => (
-                  <div
-                    key={f.label}
-                    className="bg-background p-5 flex flex-col items-center text-center gap-2"
-                  >
-                    <f.icon className="w-5 h-5 text-primary" />
-                    <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
-                      {f.label}
-                    </span>
-                    <span className="text-sm font-medium leading-snug">
-                      {f.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </SectionContainer>
-        )}
-
         {/* The Invitation (poetic soul) */}
         {journey.invitation && (
           <SectionContainer className="py-20 sm:py-24">
@@ -202,128 +152,6 @@ export default function JourneyPageClient({ journey }: any) {
               <div className="space-y-6 text-lg leading-[1.85] text-muted-foreground">
                 {intro.map((p, i) => (
                   <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-          </SectionContainer>
-        )}
-
-        {/* How to Reach */}
-        {gettingThere.length > 0 && (
-          <section className="py-16 bg-muted/30 border-y border-border/40">
-            <SectionContainer>
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl font-brandSerif mb-8 flex items-center gap-4">
-                  <MapPin className="w-7 h-7 text-primary" />
-                  How to Reach
-                </h2>
-                <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
-                  {gettingThere.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-              </div>
-            </SectionContainer>
-          </section>
-        )}
-
-        {/* Day-by-Day Itinerary */}
-        {itinerary.length > 0 && (
-          <SectionContainer className="py-20 sm:py-24">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-12 flex items-center gap-4">
-                <span className="w-8 h-px bg-primary" />
-                Day-by-Day Itinerary
-              </h2>
-              <div className="space-y-8">
-                {itinerary.map((d: any, i: number) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="relative pl-10 border-l-2 border-primary/30 pb-2"
-                  >
-                    <span className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary" />
-                    {d.day && (
-                      <span className="text-xs uppercase tracking-widest text-primary font-bold">
-                        {d.day}
-                      </span>
-                    )}
-                    {d.title && (
-                      <h3 className="text-xl font-brandSerif font-medium mt-1 mb-2">
-                        {d.title}
-                      </h3>
-                    )}
-                    {d.detail && (
-                      <p className="text-muted-foreground leading-relaxed">
-                        {d.detail}
-                      </p>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </SectionContainer>
-        )}
-
-        {/* Included / Excluded */}
-        {(included.length > 0 || excluded.length > 0) && (
-          <section className="py-20 bg-muted/30 border-y border-border/40">
-            <SectionContainer>
-              <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                {included.length > 0 && (
-                  <div>
-                    <h3 className="text-2xl font-brandSerif mb-6">
-                      What&apos;s Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {included.map((item: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {excluded.length > 0 && (
-                  <div>
-                    <h3 className="text-2xl font-brandSerif mb-6">
-                      Not Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {excluded.map((item: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <X className="w-5 h-5 text-muted-foreground/50 shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </SectionContainer>
-          </section>
-        )}
-
-        {/* Packing Essentials */}
-        {packing.length > 0 && (
-          <SectionContainer className="py-20">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-8 flex items-center gap-4">
-                <Backpack className="w-7 h-7 text-primary" />
-                Packing Essentials
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {packing.map((item: string, i: number) => (
-                  <span
-                    key={i}
-                    className="px-4 py-2 rounded-full border border-border bg-muted/40 text-sm text-muted-foreground"
-                  >
-                    {item}
-                  </span>
                 ))}
               </div>
             </div>
@@ -424,6 +252,56 @@ export default function JourneyPageClient({ journey }: any) {
                   </Link>
                 ))}
               </div>
+            </div>
+          </SectionContainer>
+        )}
+
+        {/* Traveller's notes — the practical details, folded away so the
+            chapter stays a story. One quiet accordion, closed by default. */}
+        {(journey.bestTime || gettingThere.length > 0 || itinerary.length > 0) && (
+          <SectionContainer className="py-8">
+            <div className="max-w-2xl mx-auto">
+              <Accordion type="single" collapsible className="w-full border border-border/50 rounded-2xl px-6">
+                <AccordionItem value="notes" className="border-0">
+                  <AccordionTrigger className="text-base font-brandSerif italic text-muted-foreground hover:text-foreground hover:no-underline">
+                    Traveller&apos;s notes, for when you decide to walk this chapter
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed space-y-5 pb-6">
+                    {(journey.bestTime || journey.duration || journey.difficulty) && (
+                      <p className="text-sm">
+                        {[
+                          journey.bestTime && `Best walked ${journey.bestTime}`,
+                          journey.duration && `give it ${journey.duration}`,
+                          journey.distance && `about ${journey.distance}`,
+                          journey.maxAltitude && `highest point ${journey.maxAltitude}`,
+                          journey.difficulty && `the effort is ${journey.difficulty}`,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
+                        .
+                      </p>
+                    )}
+                    {gettingThere.map((p, i) => (
+                      <p key={i} className="text-sm">{p}</p>
+                    ))}
+                    {itinerary.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-foreground/80">
+                          The shape of the days:
+                        </p>
+                        {itinerary.map((d: any, i: number) => (
+                          <p key={i} className="text-sm">
+                            <span className="text-foreground/70">
+                              {[d.day, d.title].filter(Boolean).join(" — ")}.
+                            </span>{" "}
+                            {d.detail}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </SectionContainer>
         )}
