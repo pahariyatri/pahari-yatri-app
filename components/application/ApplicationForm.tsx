@@ -129,8 +129,8 @@ export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
         ))}
       </div>
 
-      {/* Step heading — icon guide + editorial prompt, compact on mobile */}
-      <div className="mt-6 mb-6 sm:mt-8 sm:mb-8">
+      {/* Step heading — simple and clean */}
+      <div className="mt-6 mb-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={`head-${currentStep}`}
@@ -139,16 +139,12 @@ export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
           >
-            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
-              <StepIcon className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <p className="text-[11px] uppercase tracking-[0.25em] text-primary/80 mb-2">
-              {step.kicker} · {currentStep} of {TOTAL_STEPS}
+            <p className="text-xs font-semibold tracking-wider text-primary mb-1">
+              Step {currentStep} of {TOTAL_STEPS}
             </p>
-            <h2 className="font-brandSerif text-xl sm:text-2xl md:text-3xl font-medium leading-tight text-foreground">
+            <h2 className="font-brandSerif text-xl sm:text-2xl font-medium leading-tight text-foreground">
               {step.prompt}
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">{step.note}</p>
           </motion.div>
         </AnimatePresence>
       </div>

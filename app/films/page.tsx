@@ -1,10 +1,9 @@
 import Link from "@/components/common/Link";
 import PageHero from "@/components/common/PageHero";
 import SectionContainer from "@/components/common/SectionContainer";
-import ReelCard from "@/components/ReelCard";
-import InstagramReelCard from "@/components/InstagramReelCard";
+import FilmsList from "@/components/FilmsList";
 import { getInstagramReels } from "@/lib/instagram";
-import { getFilms, splitByFormat } from "@/lib/keystatic/films";
+import { getFilms } from "@/lib/keystatic/films";
 import { Button } from "@/components/ui/button";
 import { genPageMetadata } from "@/app/seo";
 import siteMetadata from "@/data/siteMetadata";
@@ -23,9 +22,7 @@ export default async function FilmsPage() {
   // Live reels pulled straight from the connected Instagram account
   // (only when INSTAGRAM_ACCESS_TOKEN is configured — see docs/instagram-integration.md)
   const instagramReels = await getInstagramReels(6);
-
   const films = await getFilms();
-  const { reels, videos } = splitByFormat(films);
 
   return (
     <div>
@@ -59,70 +56,37 @@ export default async function FilmsPage() {
           </div>
         </div>
 
-        {/* Live from Instagram — auto-synced, no CMS entry needed */}
-        {instagramReels && instagramReels.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-2xl sm:text-3xl font-brandSerif font-medium mb-8 flex items-center gap-3">
-              <Instagram className="h-6 w-6 text-primary" />
-              Latest from @pahariyatri
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {instagramReels.map((reel) => (
-                <InstagramReelCard key={reel.id} reel={reel} />
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Dynamic Filterable Film List */}
+        <FilmsList initialFilms={films} instagramReels={instagramReels} />
 
-        {films.length > 0 ? (
-          <div className="space-y-16">
-            {reels.length > 0 && (
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-brandSerif font-medium mb-8">
-                  Reels from the trail
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-                  {reels.map((film) => (
-                    <ReelCard key={film.slug} film={film} />
-                  ))}
-                </div>
-              </div>
-            )}
-            {videos.length > 0 && (
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-brandSerif font-medium mb-8">
-                  Films &amp; mini-documentaries
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                  {videos.map((film) => (
-                    <ReelCard key={film.slug} film={film} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        ) : instagramReels && instagramReels.length > 0 ? null : (
-          <div className="max-w-xl mx-auto text-center py-16">
-            <h2 className="text-2xl font-brandSerif font-medium mb-4">
-              The first films are being cut.
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Reels from the trail arrive soon. In the meantime, follow the
-              journey on{" "}
-              <Link
-                href="https://www.instagram.com/pahariyatri/"
-                className="text-primary underline-offset-4 hover:underline"
-              >
-                Instagram
-              </Link>
-              .
+        {/* Instagram setup helper (only visible in development) */}
+        {process.env.NODE_ENV === "development" && !instagramReels && (
+          <div className="mt-16 p-6 rounded-2xl border border-dashed border-primary/30 bg-primary/5 max-w-2xl mx-auto">
+            <h3 className="font-brandSerif text-lg font-medium text-foreground mb-2 flex items-center gap-2">
+              <Instagram className="h-5 w-5 text-primary" />
+              Direct Instagram API Setup
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              To directly integrate with your @pahariyatri Instagram account and pull real-time reels (with direct play support), follow these steps:
+            </p>
+            <div className="bg-background/80 rounded-xl p-4 text-xs font-mono border border-border/40 space-y-2">
+              <p className="text-primary font-semibold"># Setup guide:</p>
+              <ol className="list-decimal list-inside space-y-1.5 text-muted-foreground">
+                <li>Convert @pahariyatri to a Professional/Creator account in Instagram settings.</li>
+                <li>Go to developers.facebook.com, create a Business app, and set up Instagram Login.</li>
+                <li>Generate a long-lived access token for the account.</li>
+                <li>Add it to your <code>.env.local</code>: <code>INSTAGRAM_ACCESS_TOKEN=your_token_here</code></li>
+              </ol>
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground/80">
+              * The system currently renders Keystatic fallback films since no token is defined. Direct video uploads are supported natively in Keystatic!
             </p>
           </div>
         )}
 
         <div className="mt-16 text-center">
           <Link
-            href="/contribute"
+            href="/contact"
             className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
           >
             Filmed something in the mountains? Share it with us →

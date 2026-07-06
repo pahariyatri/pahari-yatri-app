@@ -50,14 +50,16 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
     field,
     label,
     choices,
+    gridColsClass,
   }: {
     field: keyof FormData;
     label: string;
     choices: Choice[];
+    gridColsClass: string;
   }) => (
     <div className="space-y-2.5">
       <p className="text-sm font-medium text-foreground/90">{label}</p>
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className={cn("grid gap-2", gridColsClass)}>
         {choices.map((c) => {
           const selected = formData[field] === c.value;
           return (
@@ -68,16 +70,16 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
               onClick={() => updateFormData(field, c.value)}
               aria-pressed={selected}
               className={cn(
-                'shrink-0 snap-start inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200',
+                'flex items-center justify-center gap-1.5 rounded-xl border p-3 text-sm font-medium transition-all duration-200',
                 selected
-                  ? 'bg-primary text-primary-foreground border-primary shadow-md ring-2 ring-primary/30 ring-offset-2 ring-offset-background'
-                  : 'bg-muted/60 text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
+                  ? 'bg-primary text-primary-foreground border-primary shadow-sm ring-1 ring-primary'
+                  : 'bg-card text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
               )}
             >
               <span aria-hidden>{c.icon}</span>
-              <span className="whitespace-nowrap">{c.label}</span>
+              <span className="truncate">{c.label}</span>
               {selected && (
-                <span aria-hidden className="ml-0.5 text-primary-foreground">✓</span>
+                <span aria-hidden className="ml-1 text-primary-foreground">✓</span>
               )}
             </motion.button>
           );
@@ -93,9 +95,9 @@ export default function IntentionStep({ formData, updateFormData }: Props) {
       transition={{ duration: 0.3 }}
       className="space-y-6"
     >
-      <Row field="calling" label="What pulls you?" choices={CALLING} />
-      <Row field="season" label="Your season?" choices={SEASON} />
-      <Row field="companionship" label="How do you walk?" choices={COMPANIONSHIP} />
+      <Row field="calling" label="What pulls you?" choices={CALLING} gridColsClass="grid-cols-2 sm:grid-cols-3" />
+      <Row field="season" label="Your season?" choices={SEASON} gridColsClass="grid-cols-2 sm:grid-cols-5" />
+      <Row field="companionship" label="How do you walk?" choices={COMPANIONSHIP} gridColsClass="grid-cols-2" />
     </motion.div>
   );
 }

@@ -39,7 +39,7 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
         <p className="text-sm font-medium text-foreground/90">
           How ready are your legs?
         </p>
-        <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {LEVELS.map((level, i) => {
             const selected = formData.energy === i + 1;
             return (
@@ -50,10 +50,10 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
                 onClick={() => updateFormData('energy', i + 1)}
                 aria-pressed={selected}
                 className={cn(
-                  'shrink-0 snap-start rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap',
+                  'flex items-center justify-center rounded-xl border p-3 text-sm font-medium transition-all duration-200 whitespace-nowrap',
                   selected
-                    ? 'bg-primary text-primary-foreground border-primary shadow-md ring-2 ring-primary/30 ring-offset-2 ring-offset-background'
-                    : 'bg-muted/60 text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-sm ring-1 ring-primary'
+                    : 'bg-card text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
                 )}
               >
                 {level}
