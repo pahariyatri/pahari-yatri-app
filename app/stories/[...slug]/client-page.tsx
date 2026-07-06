@@ -138,16 +138,7 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: 0.6 }}
-          className="prose prose-lg dark:prose-invert mx-auto max-w-[68ch]
-                     font-brandSerif prose-p:leading-[1.9] prose-p:text-foreground/90
-                     prose-headings:font-brandSerif
-                     prose-p:first-of-type:first-letter:text-6xl
-                     prose-p:first-of-type:first-letter:font-brandSerif
-                     prose-p:first-of-type:first-letter:font-medium
-                     prose-p:first-of-type:first-letter:float-left
-                     prose-p:first-of-type:first-letter:mr-3
-                     prose-p:first-of-type:first-letter:mt-1
-                     prose-p:first-of-type:first-letter:text-primary"
+          className="story-article mx-auto max-w-[65ch]"
         >
           {blog.contentHtml ? (
             <div dangerouslySetInnerHTML={{ __html: blog.contentHtml }} />
