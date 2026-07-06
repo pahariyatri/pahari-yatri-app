@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import headerNavLinks from '@/data/headerNavLinks'
@@ -9,14 +10,20 @@ import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
 
 /**
- * Deliberately plain fullscreen menu — no portal, no backdrop-filter, no
- * shared z-index budget. It renders inside the header (already the top
- * stacking context) as a fixed, fully opaque layer, so page content can
- * never bleed through it and no theme token can make it transparent.
+ * Deliberately plain fullscreen menu: a fixed, fully opaque layer with its
+ * own z-index, portalled to <body>.
+ *
+ * The portal is load-bearing: the header pill uses backdrop-filter, and a
+ * backdrop-filter ancestor becomes the containing block for position:fixed
+ * descendants — rendered inline, this menu would be trapped inside the
+ * pill's box instead of covering the viewport.
  */
 const MobileNav = () => {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => setMounted(true), [])
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -38,28 +45,15 @@ const MobileNav = () => {
     setOpen(false)
   }, [pathname])
 
-  return (
-    <>
-      <button
-        aria-label="Open menu"
-        aria-expanded={open}
-        onClick={() => setOpen(true)}
-        className="p-2 -mr-2"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          className="h-6 w-6 text-foreground"
-        >
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
 
+  const menu = (
       <div
         className={cn(
           'fixed inset-0 z-[999] flex flex-col bg-white dark:bg-zinc-950 transition-transform duration-300 ease-out',
@@ -122,6 +116,33 @@ const MobileNav = () => {
           </p>
         </div>
       </div>
+  )
+
+  return (
+    <>
+      <button
+        aria-label="Open menu"
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+        className="p-2 -mr-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="h-6 w-6 text-foreground"
+        >
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+
+      {/* Portalled to <body>: escapes the header pill's backdrop-filter
+          containing block so inset-0 really means the whole viewport. */}
+      {mounted && createPortal(menu, document.body)}
     </>
   )
 }

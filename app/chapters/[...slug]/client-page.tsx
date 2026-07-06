@@ -29,10 +29,6 @@ export default function JourneyPageClient({ journey }: any) {
   });
 
   const narrative = paragraphs(journey.narrative);
-  const gettingThere = paragraphs(journey.gettingThere);
-  const itinerary = (journey.itinerary || []).filter(
-    (d: any) => d?.title || d?.detail || d?.day
-  );
   const gifts = (journey.giftsFromMountains || []).filter(Boolean);
   const themes = (journey.themes || []).filter(Boolean);
   const faqs = (journey.faqs || []).filter(
@@ -175,7 +171,7 @@ export default function JourneyPageClient({ journey }: any) {
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
                   <span className="w-8 h-px bg-primary" />
-                  Frequently Asked Questions
+                  Questions Yatris Ask
                 </h2>
                 <Accordion type="single" collapsible className="w-full">
                   {faqs.map((f: any, i: number) => (
@@ -200,7 +196,7 @@ export default function JourneyPageClient({ journey }: any) {
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary" />
-                Stories from This Trail
+                Stories from This Chapter
               </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedStories.map((s: any) => (
@@ -236,52 +232,24 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
-        {/* Traveller's notes — the practical details, folded away so the
-            chapter stays a story. One quiet accordion, closed by default. */}
-        {(journey.bestTime || gettingThere.length > 0 || itinerary.length > 0) && (
+        {/* This chapter's home in the library — quiet backlink to its book */}
+        {journey.parentBook && (
           <SectionContainer className="py-8">
             <div className="max-w-2xl mx-auto">
-              <Accordion type="single" collapsible className="w-full border border-border/50 rounded-2xl px-6">
-                <AccordionItem value="notes" className="border-0">
-                  <AccordionTrigger className="text-base font-brandSerif italic text-muted-foreground hover:text-foreground hover:no-underline">
-                    Traveller&apos;s notes, for when you decide to walk this chapter
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed space-y-5 pb-6">
-                    {(journey.bestTime || journey.duration || journey.difficulty) && (
-                      <p className="text-sm">
-                        {[
-                          journey.bestTime && `Best walked ${journey.bestTime}`,
-                          journey.duration && `give it ${journey.duration}`,
-                          journey.distance && `about ${journey.distance}`,
-                          journey.maxAltitude && `highest point ${journey.maxAltitude}`,
-                          journey.difficulty && `the effort is ${journey.difficulty}`,
-                        ]
-                          .filter(Boolean)
-                          .join(" · ")}
-                        .
-                      </p>
-                    )}
-                    {gettingThere.map((p, i) => (
-                      <p key={i} className="text-sm">{p}</p>
-                    ))}
-                    {itinerary.length > 0 && (
-                      <div className="space-y-2">
-                        <p className="text-sm font-medium text-foreground/80">
-                          The shape of the days:
-                        </p>
-                        {itinerary.map((d: any, i: number) => (
-                          <p key={i} className="text-sm">
-                            <span className="text-foreground/70">
-                              {[d.day, d.title].filter(Boolean).join(" — ")}.
-                            </span>{" "}
-                            {d.detail}
-                          </p>
-                        ))}
-                      </div>
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <Link
+                href={`/books/${journey.parentBook.slug}`}
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-border/50 bg-muted/20 p-6 hover:border-primary/40 transition-colors"
+              >
+                <div>
+                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                    This chapter belongs to
+                  </span>
+                  <p className="text-lg font-brandSerif font-medium group-hover:text-primary transition-colors">
+                    {journey.parentBook.title}
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-primary shrink-0 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </SectionContainer>
         )}
