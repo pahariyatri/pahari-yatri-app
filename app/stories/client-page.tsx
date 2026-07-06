@@ -74,7 +74,7 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div key="blog-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <SectionContainer>
+        <SectionContainer className="pt-24 md:pt-32">
           <div className="space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

@@ -75,7 +75,7 @@ export default function BookCarousel({ books }: BookCarouselProps) {
                                         <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-20">
                                             <div className="transform transition-transform duration-500 group-hover/card:translate-y-0 translate-y-2">
                                                 {book.year && (
-                                                    <p className="text-himalayan-saffron text-sm font-medium mb-2 tracking-widest uppercase">
+                                                    <p className="text-secondary text-sm font-medium mb-2 tracking-widest uppercase">
                                                         Edition {book.year}
                                                     </p>
                                                 )}

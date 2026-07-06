@@ -45,17 +45,6 @@ export default function JourneyPageClient({ journey }: any) {
         style={{ scaleX }}
       />
 
-      {/* Back */}
-      <nav className="fixed top-4 left-4 sm:top-6 sm:left-6 z-40">
-        <Link
-          href="/library"
-          className="flex items-center gap-2 text-white/90 hover:text-white transition-colors bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="text-sm font-medium">The Library</span>
-        </Link>
-      </nav>
-
       {/* Static hero — solid, readable, no scroll-jacking. Image sits behind a
           strong bottom gradient; the title lives at the base where contrast is
           highest, so text is legible on every image and every screen size. */}

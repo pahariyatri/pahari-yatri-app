@@ -2,10 +2,6 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    eslint: {
-        // Disable ESLint during production builds
-        ignoreDuringBuilds: true,
-    },
     // Hide the floating dev-mode indicator (the circular "N" badge shown only
     // during `next dev`). It never appears in production, but we hide it so it
     // doesn't distract during review.
