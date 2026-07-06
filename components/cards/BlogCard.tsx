@@ -9,9 +9,10 @@ export interface BlogCardProps {
     imageSrc: string;
     href: string;
     tags?: string[];
+    voice?: string;
 }
 
-const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardProps) => {
+const BlogCard = ({ title, description, imageSrc, href, tags = [], voice }: BlogCardProps) => {
     // Check for mobile viewport
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     
@@ -50,6 +51,11 @@ const BlogCard = ({ title, description, imageSrc, href, tags = [] }: BlogCardPro
                             <CustomBadge key={index} variant="secondary" className="text-xs sm:text-sm py-0.5 px-2">{tag}</CustomBadge>
                         ))}
                     </div>
+                )}
+                {voice && (
+                    <p className="text-xs font-brandSerif italic text-muted-foreground/80 line-clamp-1">
+                        Told by {voice}
+                    </p>
                 )}
                 <h3 className="text-lg sm:text-xl font-bold font-brandSerif text-foreground line-clamp-2">{title}</h3>
                 

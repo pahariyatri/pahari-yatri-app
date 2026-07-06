@@ -17,6 +17,7 @@ export default async function Blog() {
     imageSrc: `${story?.image}`,
     href: `/stories/${story?.slug}`,
     tags: [],
+    voice: story?.voice || "",
   }));
 
   return <BlogClientPage blogData={blogData} />;
