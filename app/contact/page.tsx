@@ -22,7 +22,7 @@ export default async function Contact() {
   const contact = await reader.singletons.contact.read()
 
   return (
-    <SectionContainer>
+    <SectionContainer className="pt-24 md:pt-32">
       <div className="text-center mb-16">
         <p className="text-base font-semibold uppercase tracking-widest text-primary mb-4">
           Get In Touch

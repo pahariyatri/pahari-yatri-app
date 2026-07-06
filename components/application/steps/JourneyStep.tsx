@@ -48,11 +48,12 @@ export default function JourneyStep({ formData, updateFormData }: Props) {
                 type="button"
                 whileTap={{ scale: 0.96 }}
                 onClick={() => updateFormData('energy', i + 1)}
+                aria-pressed={selected}
                 className={cn(
-                  'shrink-0 snap-start rounded-full border px-4 py-2.5 text-sm transition-colors duration-200 whitespace-nowrap',
+                  'shrink-0 snap-start rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap',
                   selected
-                    ? 'bg-primary/10 text-foreground border-primary'
-                    : 'bg-secondary/50 text-foreground/80 border-border hover:border-primary/40'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-md ring-2 ring-primary/30 ring-offset-2 ring-offset-background'
+                    : 'bg-muted/60 text-foreground/80 border-border hover:border-primary/40 hover:bg-muted'
                 )}
               >
                 {level}

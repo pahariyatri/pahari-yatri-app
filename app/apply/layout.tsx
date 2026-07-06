@@ -13,7 +13,7 @@ export default function ApplyLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen py-12 md:py-20">
+    <div className="min-h-screen pt-28 md:pt-36 pb-12 md:pb-20">
       {children}
     </div>
   );

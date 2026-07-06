@@ -5,6 +5,12 @@ import Link from "@/components/common/Link";
 import siteMetadata from "@/data/siteMetadata";
 import { Play, Instagram, Youtube, ExternalLink } from "lucide-react";
 
+export interface FilmContextLink {
+  href: string;
+  label: string;
+  kind: "chapter" | "story";
+}
+
 export interface Film {
   slug: string;
   title: string;
@@ -12,6 +18,8 @@ export interface Film {
   url: string;
   description?: string;
   region?: string;
+  thumbnail?: string | null;
+  related?: FilmContextLink[];
 }
 
 type Parsed = {
@@ -53,6 +61,9 @@ function parse(url: string, platform: string): Parsed {
 
 export default function ReelCard({ film }: { film: Film }) {
   const p = parse(film.url || "", film.platform);
+  // Prefer an editor-uploaded thumbnail; fall back to the platform's own
+  // poster (YouTube only — Instagram doesn't expose one without the API).
+  const poster = film.thumbnail || p.posterUrl;
   const PlatformIcon = p.type === "youtube" ? Youtube : Instagram;
   const platformName = p.type === "youtube" ? "YouTube" : "Instagram";
   // The heavy third-party player only loads after the reader presses play,
@@ -81,10 +92,10 @@ export default function ReelCard({ film }: { film: Film }) {
             aria-label={`Play ${film.title}`}
             className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 w-full"
           >
-            {p.posterUrl ? (
+            {poster ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={p.posterUrl}
+                src={poster}
                 alt=""
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
@@ -140,6 +151,29 @@ export default function ReelCard({ film }: { film: Film }) {
           Open on {platformName}
           <ExternalLink className="h-3 w-3" />
         </Link>
+
+        {/* The context bridge: someone arrives from a shared reel, and the
+            library gives them the full story behind those 30 seconds. */}
+        {film.related && film.related.length > 0 && (
+          <div className="mt-3 rounded-xl border border-border/50 bg-muted/30 p-3 space-y-1.5">
+            <span className="block text-[10px] uppercase tracking-widest text-muted-foreground/70">
+              The story behind this film
+            </span>
+            {film.related.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="flex items-center justify-between gap-2 text-sm font-medium text-foreground/90 hover:text-primary transition-colors"
+              >
+                <span className="truncate">
+                  {r.kind === "chapter" ? "Read the chapter: " : "Read the story: "}
+                  {r.label}
+                </span>
+                <span aria-hidden className="shrink-0 text-primary">→</span>
+              </Link>
+            ))}
+          </div>
+        )}
       </figcaption>
     </figure>
   );

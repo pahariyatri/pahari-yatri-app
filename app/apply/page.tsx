@@ -77,7 +77,7 @@ export default function Apply() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-6">
+    <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-6 pt-24 md:pt-32">
       {/* Page header — a quiet invitation, not a form */}
       <div className="text-center max-w-xl mx-auto mb-8 md:mb-14">
         <span className="inline-block text-primary text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4">

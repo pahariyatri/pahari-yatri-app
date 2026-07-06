@@ -40,7 +40,10 @@ export async function getChapterView(slug: string) {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: chapter.title,
-    description: chapter.excerpt || chapter.invitation || "",
+    // The overview no longer renders as a page section (chapters read as
+    // stories), so its descriptive text lives on here for search engines.
+    description:
+      (chapter as any).overview || chapter.excerpt || chapter.invitation || "",
     url: chapterUrl,
     image: imageUrl,
     touristType: [
@@ -127,6 +130,17 @@ export async function getChapterView(slug: string) {
     )
   ).filter(Boolean);
 
+  // The book this chapter belongs to — a quiet backlink that keeps readers
+  // inside the library and strengthens internal linking.
+  let parentBook: { slug: string; title: string } | null = null;
+  try {
+    const books = await reader.collections.books.all();
+    const owner = books.find((b) =>
+      ((b.entry.relatedChapters as any[]) || []).includes(slug)
+    );
+    if (owner) parentBook = { slug: owner.slug, title: owner.entry.title || owner.slug };
+  } catch {}
+
   // Strip the raw `image` from the spread so only the resolved (verified)
   // path is serialized to the client.
   const { image: _rawImage, ...chapterRest } = chapter;
@@ -134,6 +148,7 @@ export async function getChapterView(slug: string) {
     ...chapterRest,
     image: resolveImage(chapter.image),
     relatedStories,
+    parentBook,
   };
   const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
 

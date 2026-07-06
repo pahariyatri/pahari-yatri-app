@@ -1,42 +1,67 @@
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
+import Image from "next/image";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 export default function FinalCTA() {
-  const applyUrl = "/apply";
-
   return (
-    <section className="w-full py-32 md:py-48 relative overflow-hidden flex items-center justify-center bg-background">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+    <section className="w-full py-20 sm:py-28 md:py-36 relative overflow-hidden">
+      {/* Layered backdrop: photo softened + heavy scrim + vignette so the
+          text stays fully readable on any screen and any image crop */}
+      <div className="absolute inset-0">
+        <Image
+          src="/static/images/mountains-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center scale-105 blur-[2px]"
+        />
+        <div className="absolute inset-0 bg-zinc-950/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-transparent to-zinc-950/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 className="text-3xl sm:text-4xl md:text-6xl font-medium font-brandSerif text-foreground mb-6 leading-[1.12] tracking-tight">
+      <div className="max-w-3xl mx-auto px-6 text-center relative z-10 text-white">
+        <span className="inline-block text-[11px] sm:text-xs uppercase tracking-[0.3em] text-white/60 mb-6">
+          The way of the Yatri
+        </span>
+
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium font-brandSerif mb-6 leading-[1.1] tracking-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
           The Himalayas are not asking
-          <span className="block text-muted-foreground">to be visited.</span>
+          <span className="block text-white/70">to be visited.</span>
         </h2>
-        <p className="text-lg sm:text-xl text-muted-foreground font-light mb-12 max-w-xl mx-auto">
+
+        <p className="text-base sm:text-xl text-white/80 font-light mb-10 sm:mb-12 max-w-xl mx-auto leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
           They are asking to be understood. Learn the trails, the temples, and
           the silence, then walk with awareness.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href={applyUrl}>
+        {/* Primary + secondary actions — full-width at thumb reach on mobile */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+          <Link href="/apply" className="w-full sm:w-auto">
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-10 py-7 text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.03]"
+              className="w-full sm:w-auto rounded-full px-10 py-7 text-base sm:text-lg font-medium bg-white text-zinc-900 hover:bg-white/90 shadow-[0_8px_30px_rgba(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgba(255,255,255,0.25)] hover:scale-[1.02] transition-all duration-300"
             >
               Begin as a Yatri
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
-          <Link
-            href="/books"
-            className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline transition-colors"
-          >
-            Or open the Library
+          <Link href="/library" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto rounded-full px-10 py-7 text-base sm:text-lg font-medium bg-transparent border-white/30 text-white hover:bg-white/10 hover:border-white/60 hover:text-white transition-all duration-300"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Open the Library
+            </Button>
           </Link>
         </div>
+
+        <p className="mt-8 text-xs sm:text-sm text-white/40 font-brandSerif italic">
+          Walk softly, listen deeply.
+        </p>
       </div>
     </section>
   );

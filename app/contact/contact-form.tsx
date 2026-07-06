@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -22,6 +22,7 @@ type State = 'idle' | 'loading' | 'success' | 'error'
 
 export default function ContactForm() {
   const [state, setState] = useState<State>('idle')
+  const [mounted, setMounted] = useState(false)
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -31,6 +32,10 @@ export default function ContactForm() {
     interests: [] as string[],
     message: '',
   })
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const set = (field: string) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -135,20 +140,26 @@ export default function ContactForm() {
 
           <div className="space-y-2">
             <Label htmlFor="experience">Trekking Experience</Label>
-            <Select
-              value={form.experience}
-              onValueChange={(v) => setForm(prev => ({ ...prev, experience: v }))}
-            >
-              <SelectTrigger id="experience">
-                <SelectValue placeholder="Select your experience level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="beginner">Beginner — first time trekker</SelectItem>
-                <SelectItem value="intermediate">Intermediate — 2–5 treks completed</SelectItem>
-                <SelectItem value="advanced">Advanced — 5+ treks, high altitude</SelectItem>
-                <SelectItem value="expert">Expert — technical climbing, mountaineering</SelectItem>
-              </SelectContent>
-            </Select>
+            {mounted ? (
+              <Select
+                value={form.experience}
+                onValueChange={(v) => setForm(prev => ({ ...prev, experience: v }))}
+              >
+                <SelectTrigger id="experience">
+                  <SelectValue placeholder="Select your experience level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="beginner">Beginner — first time trekker</SelectItem>
+                  <SelectItem value="intermediate">Intermediate — 2–5 treks completed</SelectItem>
+                  <SelectItem value="advanced">Advanced — 5+ treks, high altitude</SelectItem>
+                  <SelectItem value="expert">Expert — technical climbing, mountaineering</SelectItem>
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground">
+                Select your experience level
+              </div>
+            )}
           </div>
 
           <div className="space-y-3">

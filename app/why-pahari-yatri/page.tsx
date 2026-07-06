@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 export default function WhyPahariYatri() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-        <SectionContainer>
+        <SectionContainer className="pt-24 md:pt-32">
           {/* Reserved for brand story grid (server-rendered) */}
 
           <motion.div
@@ -37,7 +37,7 @@ export default function WhyPahariYatri() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               whileHover={{ scale: 1.05, opacity: 0.08 }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 24 24" fill="currentColor" className="text-himalayan-green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 24 24" fill="currentColor" className="text-primary">
                 <path d="M22.5 21h-21l9-18 12 18z" />
               </svg>
             </motion.div>
@@ -177,7 +177,7 @@ export default function WhyPahariYatri() {
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-2xl md:text-3xl font-bold font-brandSerif text-himalayan-green relative inline-flex items-center">
+              <h2 className="text-2xl md:text-3xl font-bold font-brandSerif text-primary relative inline-flex items-center">
                 Not Just Treks. Transformations.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -185,19 +185,19 @@ export default function WhyPahariYatri() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-himalayan-saffron rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-muted-foreground">Certified mountain guides with deep spiritual and cultural knowledge</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-himalayan-saffron rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-muted-foreground">Exclusive access to sacred sites and hidden trails</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-himalayan-saffron rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-muted-foreground">Sustainable practices that preserve Himalayan culture and environment</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-himalayan-saffron rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-muted-foreground">Personalized experiences tailored to your spiritual and physical goals</p>
                 </div>
               </div>
@@ -205,16 +205,16 @@ export default function WhyPahariYatri() {
           </div>
 
           {/* Selective Guest Policy */}
-          <div className="bg-himalayan-mist rounded-2xl p-6 md:p-8 mb-16 md:mb-20 mx-4 sm:mx-0">
+          <div className="bg-muted rounded-2xl p-6 md:p-8 mb-16 md:mb-20 mx-4 sm:mx-0">
             <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-xl md:text-2xl font-bold font-brandSerif text-himalayan-green mb-3 md:mb-4">
+              <h3 className="text-xl md:text-2xl font-bold font-brandSerif text-primary mb-3 md:mb-4">
                 Selective Guest Policy
               </h3>
               <p className="text-base md:text-lg text-muted-foreground mb-5 md:mb-6 leading-relaxed">
                 We carefully select our guests to ensure meaningful connections and shared values. Our journeys are not mass tourism—they are intimate gatherings of like-minded souls seeking transformation.
               </p>
               <Link href="/contact">
-                <Button className="bg-himalayan-green hover:bg-himalayan-green-600 text-white px-6 md:px-8 py-2 md:py-3 text-sm md:text-base flex items-center gap-2 group">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 md:px-8 py-2 md:py-3 text-sm md:text-base flex items-center gap-2 group">
                   Apply to Join
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
                     <path d="M5 12h14"></path>
@@ -227,9 +227,9 @@ export default function WhyPahariYatri() {
 
           {/* Values Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 px-4 sm:px-0">
-            <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow duration-300">
+            <Card className="text-center border-border/60 hover:shadow-lg transition-shadow duration-300">
               <CardHeader className="pb-2 md:pb-4">
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
+                <CardTitle className="text-primary font-brandSerif text-lg md:text-xl">
                   Authenticity
                 </CardTitle>
               </CardHeader>
@@ -239,9 +239,9 @@ export default function WhyPahariYatri() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow">
+            <Card className="text-center border-border/60 hover:shadow-lg transition-shadow">
               <CardHeader>
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
+                <CardTitle className="text-primary font-brandSerif text-lg md:text-xl">
                   Sustainability
                 </CardTitle>
               </CardHeader>
@@ -251,9 +251,9 @@ export default function WhyPahariYatri() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="text-center border-himalayan-mist hover:shadow-lg transition-shadow">
+            <Card className="text-center border-border/60 hover:shadow-lg transition-shadow">
               <CardHeader>
-                <CardTitle className="text-himalayan-green font-brandSerif text-lg md:text-xl">
+                <CardTitle className="text-primary font-brandSerif text-lg md:text-xl">
                   Transformation
                 </CardTitle>
               </CardHeader>

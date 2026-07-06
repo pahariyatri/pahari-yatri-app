@@ -59,8 +59,8 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-6">
             <Link href="/" className="inline-block group" aria-label="Pahari Yatri Home">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center bg-muted/30 group-hover:border-primary/50 transition-colors">
-                  <Image src="/static/logo.jpg" height={36} width={36} alt="Pahari Yatri logo" className="rounded-full opacity-90" />
+                <div className="relative w-12 h-12 overflow-hidden rounded-full border border-primary/20 group-hover:border-primary/50 transition-colors shadow-inner">
+                  <Image src="/static/logo.jpg" fill sizes="48px" alt="Pahari Yatri logo" className="object-cover" />
                 </div>
                 <span className="text-2xl font-brandSerif font-bold tracking-tighter">Pahari Yatri</span>
               </div>

@@ -147,6 +147,18 @@ export default config({
         }),
         location: fields.text({ label: "Region / Trailhead" }),
 
+        // ── The Journey (first-person narrative) ──────────────────────────
+        narrative: fields.text({
+          label: "The Journey — first-person narrative",
+          multiline: true,
+          description:
+            "The lived story of this chapter, written as a Yatri walking it. Separate paragraphs with a blank line.",
+        }),
+        closingQuote: fields.text({
+          label: "Closing Quote",
+          description: "One memorable line to end the chapter.",
+        }),
+
         // ── Practical Trek Guide (for SEO + first-time visitors) ──────────
         overview: fields.text({
           label: "Trek Overview (SEO intro)",
@@ -319,7 +331,24 @@ export default config({
           multiline: true,
           description: "One or two lines describing the film.",
         }),
+        thumbnail: fields.image({
+          label: "Thumbnail (optional)",
+          description:
+            "Poster shown before the film plays. YouTube films get one automatically; Instagram reels look best with one uploaded here.",
+          directory: "public/static/images/films",
+          publicPath: "/static/images/films/",
+        }),
         region: fields.text({ label: "Region / Place (optional)" }),
+        relatedChapter: fields.relationship({
+          label: "Related Chapter (optional)",
+          description:
+            "Link the film to a chapter so viewers arriving from Instagram can read the full context here.",
+          collection: "chapters",
+        }),
+        relatedStory: fields.relationship({
+          label: "Related Story (optional)",
+          collection: "stories",
+        }),
         order: fields.integer({
           label: "Order",
           description: "Lower numbers appear first.",

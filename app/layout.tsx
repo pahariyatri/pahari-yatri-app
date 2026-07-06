@@ -36,7 +36,7 @@ async function getMetadata() {
 
   const title =
     seo?.title ??
-    "Pahari Yatri | A Digital Himalayan Library & Responsible Travel Community";
+    "Pahari Yatri — Learn the Himalayas Before You Walk Them";
   const description =
     seo?.description ??
     "Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas.";
@@ -74,7 +74,7 @@ async function getMetadata() {
           url: `${siteUrl}/api/og`,
           width: 1200,
           height: 630,
-          alt: "Pahari Yatri - A Digital Himalayan Library & Responsible Travel Community",
+          alt: "Pahari Yatri — a digital Himalayan library and responsible travel community",
         },
       ],
       locale: settings?.locale || "en_US",

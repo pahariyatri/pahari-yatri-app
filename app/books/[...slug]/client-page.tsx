@@ -11,11 +11,12 @@ export default function BookPageClient({ book, chapters }: any) {
   return (
     <div className="w-full min-h-screen bg-background text-foreground">
 
-      {/* Hero / Cover Section */}
-      <div className="relative w-full lg:h-screen flex flex-col lg:flex-row">
+      {/* Hero / Cover Section — sticky (not fixed) cover so the page ends
+          cleanly and the footer is never overlapped by scrolling content */}
+      <div className="relative w-full flex flex-col lg:flex-row lg:items-start">
 
         {/* Left: Sticky Cover (Desktop) / Top Cover (Mobile) */}
-        <div className="relative w-full lg:w-1/2 h-[60vh] lg:h-full lg:fixed lg:left-0 lg:top-0 z-10 overflow-hidden">
+        <div className="relative w-full lg:w-1/2 h-[60svh] lg:h-screen lg:sticky lg:top-0 z-10 overflow-hidden">
           <Image
             src={book.coverImage}
             alt={book.title}
@@ -34,7 +35,7 @@ export default function BookPageClient({ book, chapters }: any) {
         </div>
 
         {/* Right: Content Scroll */}
-        <div className="w-full lg:w-1/2 lg:ml-auto relative z-20 bg-background min-h-screen">
+        <div className="w-full lg:w-1/2 relative z-20 bg-background">
           <div className="px-6 py-16 sm:px-12 sm:py-24 lg:px-20 lg:py-32 max-w-2xl mx-auto">
 
             {/* Desktop Title */}

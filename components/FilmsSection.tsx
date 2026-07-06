@@ -1,38 +1,20 @@
 import Link from "@/components/common/Link";
 import SectionContainer from "@/components/common/SectionContainer";
-import ReelCard, { type Film } from "@/components/ReelCard";
+import ReelCard from "@/components/ReelCard";
 import { Button } from "@/components/ui/button";
-import { createReader } from "@keystatic/core/reader";
-import keystaticConfig from "@/keystatic.config";
+import { getFilms, splitByFormat } from "@/lib/keystatic/films";
 import siteMetadata from "@/data/siteMetadata";
 import { Instagram, Youtube } from "lucide-react";
 
-const reader = createReader(process.cwd(), keystaticConfig);
-
 export default async function FilmsSection() {
-  const slugs = await reader.collections.films.list();
-  if (!slugs.length) return null;
+  const all = await getFilms();
+  if (!all.length) return null;
 
-  const films = (
-    await Promise.all(
-      slugs.map(async (slug) => {
-        const entry = await reader.collections.films.read(slug);
-        if (!entry) return null;
-        return {
-          slug,
-          title: entry.title || slug,
-          platform: entry.platform || "instagram",
-          url: entry.url || "",
-          description: entry.description || "",
-          region: entry.region || "",
-          order: entry.order ?? 0,
-        };
-      })
-    )
-  )
-    .filter(Boolean)
-    .sort((a: any, b: any) => a.order - b.order)
-    .slice(0, 3) as (Film & { order: number })[];
+  // One consistent format per row keeps the grid from breaking: prefer a
+  // full row of reels; fall back to videos if that's all we have.
+  const { reels, videos } = splitByFormat(all);
+  const films = (reels.length >= 3 ? reels : reels.length ? reels : videos).slice(0, 3);
+  const isReelRow = reels.length > 0;
 
   return (
     <SectionContainer className="py-20 md:py-28">
@@ -53,7 +35,13 @@ export default async function FilmsSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          className={
+            isReelRow
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start"
+              : "grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
+          }
+        >
           {films.map((film) => (
             <ReelCard key={film.slug} film={film} />
           ))}
