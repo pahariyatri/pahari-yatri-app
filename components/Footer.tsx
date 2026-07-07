@@ -37,12 +37,16 @@ const columns = [
       { href: "/community", title: "Community" },
       { href: "/contribute", title: "Contribute a Story" },
       { href: "/apply", title: "Become a Yatri" },
-      { href: "/contact", title: "Contact" },
     ],
   },
 ];
 
+import { usePathname } from 'next/navigation';
+
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === '/apply') return null;
+
   return (
     <footer
       role="contentinfo"
@@ -113,7 +117,7 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Pahari Yatri. Walk softly, listen deeply.</p>
           <div className="flex gap-6">
             <Link href="/why-pahari-yatri" className="hover:text-primary transition-colors">Why Pahari Yatri</Link>
-            <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
+            <Link href="/apply" className="hover:text-primary transition-colors">Apply</Link>
           </div>
         </div>
       </div>

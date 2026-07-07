@@ -30,7 +30,6 @@ export default function Apply() {
       throw new Error(errorText || "Failed to send email");
     }
 
-    // ✅ EmailJS sends plain text "OK" on success
     const text = await res.text();
     return text;
   };
@@ -56,9 +55,11 @@ export default function Apply() {
         email: data.email,
         phone: data.phone,
         calling: data.calling,
-        season: data.season,
-        companionship: data.companionship,
-        energy: data.energy,
+        joinType: data.joinType,
+        destination: data.destination || 'N/A',
+        season: data.season || 'N/A',
+        companionship: data.companionship || 'N/A',
+        energy: data.energy || 0,
         pastExperiences: data.pastExperiences,
         expectations: data.expectations,
       });
@@ -77,17 +78,7 @@ export default function Apply() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mb-16 md:mb-20 px-4 sm:px-6 pt-24 md:pt-32">
-      {/* Page header — a quiet invitation, not a form */}
-      <div className="text-center max-w-xl mx-auto mb-8 md:mb-10">
-        <h1 className="text-3xl sm:text-4xl font-brandSerif font-medium mb-3 leading-tight">
-          Become a Yatri
-        </h1>
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          A short conversation, one step at a time. Personal response within 24 hours.
-        </p>
-      </div>
-
+    <div className="min-h-screen w-full flex flex-col justify-center items-center bg-background px-4 sm:px-6 py-6 md:py-12 overflow-x-hidden">
       <ApplicationForm onSubmit={handleSubmit} />
       {loading && (
         <p className="text-center mt-6 text-sm text-muted-foreground animate-pulse">

@@ -5,6 +5,8 @@ import { DesktopNav } from './DesktopNav';
 import Image from './common/Image';
 import dynamic from 'next/dynamic';
 
+import { usePathname } from 'next/navigation';
+
 // Lazy load MobileNav since it's only needed on mobile/tablet
 const MobileNav = dynamic(() => import('./MobileNav'), {
     loading: () => (
@@ -19,6 +21,9 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+    const pathname = usePathname();
+    if (pathname === '/apply') return null;
+
     return (
         <header
             role="banner"

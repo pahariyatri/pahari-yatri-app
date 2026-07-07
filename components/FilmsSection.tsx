@@ -5,20 +5,28 @@ import InstagramReelCard from "@/components/InstagramReelCard";
 import { Button } from "@/components/ui/button";
 import { getFilms, splitByFormat } from "@/lib/keystatic/films";
 import { getInstagramReels } from "@/lib/instagram";
+import { getYouTubeVideos } from "@/lib/youtube";
 import siteMetadata from "@/data/siteMetadata";
 import { Instagram, Youtube } from "lucide-react";
 
 export default async function FilmsSection() {
-  const [all, instagramReels] = await Promise.all([getFilms(), getInstagramReels(3)]);
+  const [all, instagramReels, youtubeVideos] = await Promise.all([
+    getFilms(),
+    getInstagramReels(3),
+    getYouTubeVideos(3),
+  ]);
   const liveReels = instagramReels || [];
-  if (!all.length && !liveReels.length) return null;
+  if (!all.length && !liveReels.length && !(youtubeVideos && youtubeVideos.length)) return null;
 
   // One consistent format per row keeps the grid from breaking: prefer a
   // full row of reels; fall back to videos if that's all we have. Live
-  // Instagram reels fill first, curated Keystatic films fill the rest.
+  // Instagram reels fill first, curated Keystatic films fill the rest. When
+  // there's no reel row, live YouTube uploads take priority over curated
+  // YouTube entries in the video fallback.
   const { reels, videos } = splitByFormat(all);
+  const combinedVideos = [...(youtubeVideos || []), ...videos];
   const isReelRow = liveReels.length > 0 || reels.length > 0;
-  const curatedFilms = (reels.length ? reels : videos).slice(
+  const curatedFilms = (reels.length ? reels : combinedVideos).slice(
     0,
     Math.max(0, 3 - liveReels.length)
   );

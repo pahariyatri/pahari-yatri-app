@@ -10,7 +10,7 @@ export default config({
       "Region Hubs": ["regions", "destinations", "places", "stories"],
       "Journeys (Legacy)": ["books", "chapters"],
       "Landing Page": ["banners"],
-      "Site Meta data": ["settings", "seo", "contact"],
+      "Site Meta data": ["settings", "seo"],
     },
   },
   collections: {
@@ -425,21 +425,6 @@ export default config({
         theme: fields.text({ label: "Theme" }),
         locale: fields.text({ label: "Locale" }),
         domain: fields.url({ label: "Domain" }),
-      },
-    }),
-
-    contact: singleton({
-      label: "Contact",
-      path: "data/contact/",
-      schema: {
-        email: fields.text({ label: "Email" }),
-        mobile: fields.text({ label: "Mobile" }),
-        whatsApp: fields.text({ label: "Whats App" }),
-        instagram: fields.text({ label: "Instagram" }),
-        threads: fields.text({ label: "Threads" }),
-        facebook: fields.text({ label: "Facebook" }),
-        youtube: fields.text({ label: "Youtube" }),
-        linkedin: fields.text({ label: "Linkedin" }),
       },
     }),
   },

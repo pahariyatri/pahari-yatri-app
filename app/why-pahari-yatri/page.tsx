@@ -213,7 +213,7 @@ export default function WhyPahariYatri() {
               <p className="text-base md:text-lg text-muted-foreground mb-5 md:mb-6 leading-relaxed">
                 We carefully select our guests to ensure meaningful connections and shared values. Our journeys are not mass tourism—they are intimate gatherings of like-minded souls seeking transformation.
               </p>
-              <Link href="/contact">
+              <Link href="/apply">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 md:px-8 py-2 md:py-3 text-sm md:text-base flex items-center gap-2 group">
                   Apply to Join
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">

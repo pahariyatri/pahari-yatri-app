@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const COLORS = {
   apply: 0x2DC653,
-  contact: 0x5865F2,
   story: 0x9B59B6,
 }
 
@@ -22,23 +21,6 @@ function buildApplyEmbed(data: Record<string, any>) {
       { name: 'Expectations', value: data.expectations || '—' },
     ],
     footer: { text: 'Pahari Yatri · /apply' },
-    timestamp: new Date().toISOString(),
-  }
-}
-
-function buildContactEmbed(data: Record<string, any>) {
-  return {
-    title: '📬 New Contact Message',
-    color: COLORS.contact,
-    fields: [
-      { name: 'Name', value: `${data.firstName || ''} ${data.lastName || ''}`.trim() || '—', inline: true },
-      { name: 'Email', value: data.email || '—', inline: true },
-      { name: 'Phone', value: data.phone || '—', inline: true },
-      { name: 'Experience', value: data.experience || '—', inline: true },
-      { name: 'Interests', value: (data.interests || []).join(', ') || '—', inline: true },
-      { name: 'Message', value: data.message || '—' },
-    ],
-    footer: { text: 'Pahari Yatri · /contact' },
     timestamp: new Date().toISOString(),
   }
 }
@@ -80,9 +62,6 @@ export async function POST(req: NextRequest) {
   switch (type) {
     case 'apply':
       embed = buildApplyEmbed(data)
-      break
-    case 'contact':
-      embed = buildContactEmbed(data)
       break
     case 'story':
       embed = buildStoryEmbed(data)

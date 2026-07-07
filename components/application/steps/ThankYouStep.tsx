@@ -5,11 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import type { FormData } from '../conversation';
 
 type Props = {
-  formData: {
-    fullName: string;
-  };
+  formData: FormData;
 };
 
 export default function ThankYouStep({ formData }: Props) {
@@ -28,22 +27,6 @@ export default function ThankYouStep({ formData }: Props) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // Confetti animation elements with premium colors - Reduced for mobile
-  const confettiElements = [
-    { id: 1, color: 'bg-primary', size: 'w-3 h-3', delay: 0 },
-    { id: 2, color: 'bg-secondary', size: 'w-2 h-2', delay: 0.1 },
-    { id: 3, color: 'bg-accent', size: 'w-4 h-4', delay: 0.2 },
-    { id: 4, color: 'bg-primary/80', size: 'w-3 h-3', delay: 0.3 },
-    { id: 5, color: 'bg-secondary/80', size: 'w-2 h-2', delay: 0.4 },
-    { id: 6, color: 'bg-accent/80', size: 'w-3 h-3', delay: 0.5 },
-    { id: 7, color: 'bg-primary/60', size: 'w-2 h-2', delay: 0.6 },
-    { id: 8, color: 'bg-secondary/60', size: 'w-4 h-4', delay: 0.7 },
-    { id: 9, color: 'bg-accent/60', size: 'w-3 h-3', delay: 0.8 },
-    { id: 10, color: 'bg-primary/40', size: 'w-2 h-2', delay: 0.9 },
-    { id: 11, color: 'bg-secondary/40', size: 'w-3 h-3', delay: 1.0 },
-    { id: 12, color: 'bg-accent/40', size: 'w-2 h-2', delay: 1.1 },
-  ];
-  
   // Hide confetti after 5 seconds on desktop, 3 seconds on mobile for better performance
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,40 +36,16 @@ export default function ThankYouStep({ formData }: Props) {
     return () => clearTimeout(timer);
   }, [isMobile]);
   
-  // Random position generator for confetti
-  const getRandomPosition = (i: number) => {
-    const positions = [
-      'top-1/4 left-1/4',
-      'top-1/3 left-1/2',
-      'top-1/4 right-1/4',
-      'top-1/2 left-1/3',
-      'top-1/2 right-1/3',
-      'top-2/3 left-1/4',
-      'top-2/3 right-1/4',
-      'top-3/4 left-1/2',
-      'top-1/3 left-1/4',
-      'top-1/3 right-1/4',
-      'top-2/3 left-1/2',
-      'top-1/2 left-1/4',
-    ];
-    return positions[i % positions.length];
-  };
-  
   // Animation variants - Enhanced for better mobile experience
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: isMobile ? 0.05 : 0.1, // Faster on mobile
-        delayChildren: isMobile ? 0.2 : 0.3 // Faster on mobile
+        staggerChildren: isMobile ? 0.05 : 0.1,
+        delayChildren: isMobile ? 0.2 : 0.3
       }
     }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.5, ease: "easeOut" } }
   };
   
   // Mobile-optimized tap animation
@@ -94,10 +53,20 @@ export default function ThankYouStep({ formData }: Props) {
     scale: 0.95,
     transition: { duration: 0.1 }
   };
+
+  const isTravel = formData.joinType === 'travel';
+  
+  // WhatsApp and Discord URLs
+  const prefilledText = encodeURIComponent(
+    `Hello! I just completed my Pahari Yatri application for a curated journey. My name is ${formData.fullName || 'there'}.`
+  );
+  const whatsappGuideUrl = `https://wa.me/916280888188?text=${prefilledText}`;
+  const whatsappGroupUrl = "https://chat.whatsapp.com/L12wU6JmfevEL1r8nZ9LhP";
+  const discordUrl = "https://discord.gg/pahariyatri";
   
   return (
     <motion.div 
-      className="space-y-6 text-center relative overflow-hidden"
+      className="space-y-8 text-center relative overflow-hidden px-4"
       variants={container}
       initial="hidden"
       animate="show"
@@ -106,14 +75,13 @@ export default function ThankYouStep({ formData }: Props) {
       <AnimatePresence>
         {showConfetti && (
           <motion.div 
-            className="absolute inset-0 z-0 overflow-hidden"
+            className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: isMobile ? 0.5 : 0.8 } }}
           >
-            {/* Confetti Pieces - Enhanced with premium colors */}
+            {/* Confetti Pieces */}
             {Array.from({ length: isMobile ? 20 : 40 }).map((_, i) => {
-              // Optimized confetti for mobile - smaller pieces, faster animation
               const size = isMobile ? (Math.random() * 5 + 2) : (Math.random() * 10 + 5);
               const xPos = Math.random() * 100;
               const fallDelay = Math.random() * (isMobile ? 1 : 2);
@@ -168,18 +136,12 @@ export default function ThankYouStep({ formData }: Props) {
                   d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,181.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
                 ></path>
               </svg>
-              
-              {/* Snow-capped peaks */}
-              <div className="absolute top-1/3 left-0 w-full h-2 bg-white/20 blur-sm"></div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
       
-      <motion.div
-        
-        className="mb-6 relative z-10"
-      >
+      <motion.div className="mb-6 relative z-10">
         <motion.div 
           className={cn(
             "mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-4",
@@ -210,108 +172,111 @@ export default function ThankYouStep({ formData }: Props) {
         </motion.div>
         
         <motion.h2 
-          className="text-2xl sm:text-h3 md:text-h2 font-brandSerif font-semibold mb-2 text-primary tracking-wide"
-          
+          className="text-2xl sm:text-3xl font-brandSerif font-semibold mb-2 text-primary tracking-wide"
         >
           Application Received
         </motion.h2>
         
         <motion.p 
-          className="text-muted-foreground text-sm sm:text-base md:text-lg px-2"
-          
+          className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-md mx-auto"
         >
-          Thank you, <span className="text-primary font-medium">{formData.fullName}</span>! Your Himalayan journey begins now.
+          Thank you, <span className="text-primary font-medium">{formData.fullName}</span>! Your Himalayan path is being plotted.
         </motion.p>
       </motion.div>
 
+      {/* Dynamic Instruction & Next Steps */}
       <motion.div 
-        
         className={cn(
-          "p-5 sm:p-8 max-w-md mx-auto relative z-10",
-          "bg-gradient-to-br from-background to-muted/30 border-2 border-primary/20",
-          "rounded-xl shadow-brand-md backdrop-blur-sm",
-          "touch-manipulation"
+          "p-6 sm:p-8 max-w-lg mx-auto relative z-10 space-y-6",
+          "bg-gradient-to-br from-background/90 to-muted/40 border border-primary/20",
+          "rounded-2xl shadow-brand-md backdrop-blur-sm"
         )}
       >
-        <motion.div
-          
-        >
-          <p className="mb-4 text-base leading-relaxed">
-            We&apos;ve received your application and will be in touch within 48 hours to discuss the next steps of your Himalayan journey.
+        <div className="space-y-3">
+          <h3 className="font-semibold text-lg text-foreground">
+            {isTravel ? "🔗 Connect with a Trail Guide" : "🏮 Join the Yatri Sanctuary"}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {isTravel 
+              ? "We've received your journey details. To bypass queue delays and coordinates immediately, talk directly to a guide or join our WhatsApp community updates group."
+              : "Welcome to the movement. Join our Discord Sanctuary to introduce yourself, participate in folklore discussions, or share your own travel diaries."
+            }
           </p>
-          <p className="text-muted-foreground text-base leading-relaxed">
-            In the meantime, explore our blog for stories from fellow travelers and preparation tips.
-          </p>
-        </motion.div>
-        
-        {/* Himalayan Mountain icon with snow cap */}
-        <motion.div 
-          className={cn(
-            "absolute -top-5 -right-5 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden",
-            "bg-gradient-to-br from-primary to-secondary text-white shadow-brand-sm"
+        </div>
+
+        {/* High-Conversion CTAs */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full">
+          {isTravel ? (
+            <>
+              <Button 
+                asChild
+                variant="premium"
+                size="lg"
+                className="w-full h-12 rounded-xl text-sm font-medium gap-2 justify-center"
+              >
+                <a href={whatsappGuideUrl} target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  Connect on WhatsApp
+                </a>
+              </Button>
+              <Button 
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full h-12 rounded-xl text-sm font-medium gap-2 border-primary/20 hover:bg-primary/5 justify-center"
+              >
+                <a href={whatsappGroupUrl} target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Join WhatsApp Hub
+                </a>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button 
+                asChild
+                variant="premium"
+                size="lg"
+                className="w-full h-12 rounded-xl text-sm font-medium gap-2 justify-center"
+              >
+                <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  Enter Discord Sanctuary
+                </a>
+              </Button>
+              <Button 
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full h-12 rounded-xl text-sm font-medium gap-2 border-primary/20 hover:bg-primary/5 justify-center"
+              >
+                <a href={whatsappGroupUrl} target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Join WhatsApp Hub
+                </a>
+              </Button>
+            </>
           )}
-          initial={{ scale: 0, rotate: -45 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ delay: 0.8, type: "spring" }}
-        >
-          {/* Snow cap */}
-          <div className="absolute top-0 left-0 w-full h-1/3 bg-white/30"></div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-          </svg>
-        </motion.div>
+        </div>
       </motion.div>
 
-      <motion.div
-        
-        className="pt-6 sm:pt-8 relative z-10"
-      >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md mx-auto px-4 sm:px-0">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={tapAnimation} className="w-full sm:w-auto">
-            <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="relative overflow-hidden group shadow-brand-sm border-2 border-primary/20 h-14 w-full touch-manipulation"
-              >
-              <Link href="/stories" className="flex items-center justify-center gap-3 px-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-                <span className="font-medium">Read Travel Stories</span>
-                <motion.span 
-                  className="absolute inset-0 bg-primary/10"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
-            </Button>
-          </motion.div>
-          
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={tapAnimation} className="w-full sm:w-auto">
-            <Button 
-                asChild 
-                variant="premium" 
-                size="lg"
-                className="relative overflow-hidden group h-14 w-full touch-manipulation"
-              >
-              <Link href="/" className="flex items-center justify-center gap-3 px-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-                <span className="font-medium">Return to Homepage</span>
-                <motion.span 
-                  className="absolute inset-0 bg-white/10"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
-            </Button>
-          </motion.div>
+      {/* Return options */}
+      <motion.div className="pt-4 relative z-10">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+          <Button 
+            asChild 
+            variant="ghost" 
+            className="w-full text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground"
+          >
+            <Link href="/stories">Read Travel Stories</Link>
+          </Button>
+          <Button 
+            asChild 
+            variant="ghost" 
+            className="w-full text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground"
+          >
+            <Link href="/">Back to Homepage</Link>
+          </Button>
         </div>
       </motion.div>
     </motion.div>
