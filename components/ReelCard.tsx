@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "@/components/common/Link";
 import siteMetadata from "@/data/siteMetadata";
-import { Play, Instagram, Youtube, ExternalLink, Film as FilmIcon } from "lucide-react";
+import { Play, Pause, Instagram, Youtube, ExternalLink, Film as FilmIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface FilmContextLink {
   href: string;
@@ -81,23 +82,64 @@ export default function ReelCard({ film }: { film: Film }) {
   const platformName = p.type === "youtube" ? "YouTube" : p.type === "direct" ? "Video" : "Instagram";
   // The heavy third-party player only loads after the reader presses play,
   // so listing pages stay fast even with many films.
-  const [playing, setPlaying] = useState(false);
+  const [started, setStarted] = useState(false);
+  // Only directly-hosted mp4s are scriptable — YouTube/Instagram iframes are
+  // cross-origin, so they keep their own native controls once embedded.
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) video.play();
+    else video.pause();
+  };
 
   return (
     <figure className="group flex flex-col">
       <div
         className={`relative w-full ${p.ratio} overflow-hidden rounded-2xl border border-border/40 bg-muted/20 shadow-md group-hover:shadow-lg group-hover:shadow-primary/5 transition-all duration-500`}
       >
-        {p.valid && p.embedUrl && playing ? (
+        {p.valid && p.embedUrl && started ? (
           p.type === "direct" ? (
-            <video
-              src={p.embedUrl}
-              poster={poster || undefined}
-              controls
-              autoPlay
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover animate-fade-in"
-            />
+            <button
+              type="button"
+              onClick={toggleVideo}
+              aria-label={videoPlaying ? `Pause ${film.title}` : `Play ${film.title}`}
+              className="absolute inset-0 w-full h-full"
+            >
+              <video
+                ref={videoRef}
+                src={p.embedUrl}
+                poster={poster || undefined}
+                autoPlay
+                loop
+                playsInline
+                onPlay={() => setVideoPlaying(true)}
+                onPause={() => setVideoPlaying(false)}
+                className="absolute inset-0 h-full w-full object-cover animate-fade-in"
+              />
+              <span
+                className={cn(
+                  "absolute inset-0 transition-colors duration-300",
+                  videoPlaying ? "bg-black/0 group-hover:bg-black/25" : "bg-black/30 group-hover:bg-black/40"
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute inset-0 flex items-center justify-center transition-opacity duration-300",
+                  videoPlaying && "opacity-0 group-hover:opacity-100"
+                )}
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-zinc-950 shadow-2xl transition-transform duration-300 group-hover:scale-110">
+                  {videoPlaying ? (
+                    <Pause className="h-6 w-6" fill="currentColor" />
+                  ) : (
+                    <Play className="h-6 w-6 translate-x-0.5" fill="currentColor" />
+                  )}
+                </span>
+              </span>
+            </button>
           ) : (
             <iframe
               src={p.embedUrl}
@@ -112,7 +154,7 @@ export default function ReelCard({ film }: { film: Film }) {
           /* Poster facade — tap to play right here on the page */
           <button
             type="button"
-            onClick={() => setPlaying(true)}
+            onClick={() => setStarted(true)}
             aria-label={`Play ${film.title}`}
             className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 w-full"
           >

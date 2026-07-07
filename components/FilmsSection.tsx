@@ -1,20 +1,27 @@
 import Link from "@/components/common/Link";
 import SectionContainer from "@/components/common/SectionContainer";
 import ReelCard from "@/components/ReelCard";
+import InstagramReelCard from "@/components/InstagramReelCard";
 import { Button } from "@/components/ui/button";
 import { getFilms, splitByFormat } from "@/lib/keystatic/films";
+import { getInstagramReels } from "@/lib/instagram";
 import siteMetadata from "@/data/siteMetadata";
 import { Instagram, Youtube } from "lucide-react";
 
 export default async function FilmsSection() {
-  const all = await getFilms();
-  if (!all.length) return null;
+  const [all, instagramReels] = await Promise.all([getFilms(), getInstagramReels(3)]);
+  const liveReels = instagramReels || [];
+  if (!all.length && !liveReels.length) return null;
 
   // One consistent format per row keeps the grid from breaking: prefer a
-  // full row of reels; fall back to videos if that's all we have.
+  // full row of reels; fall back to videos if that's all we have. Live
+  // Instagram reels fill first, curated Keystatic films fill the rest.
   const { reels, videos } = splitByFormat(all);
-  const films = (reels.length >= 3 ? reels : reels.length ? reels : videos).slice(0, 3);
-  const isReelRow = reels.length > 0;
+  const isReelRow = liveReels.length > 0 || reels.length > 0;
+  const curatedFilms = (reels.length ? reels : videos).slice(
+    0,
+    Math.max(0, 3 - liveReels.length)
+  );
 
   return (
     <SectionContainer className="py-20 md:py-28">
@@ -42,7 +49,10 @@ export default async function FilmsSection() {
               : "grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
           }
         >
-          {films.map((film) => (
+          {liveReels.map((reel) => (
+            <InstagramReelCard key={`live-${reel.id}`} reel={reel} />
+          ))}
+          {curatedFilms.map((film) => (
             <ReelCard key={film.slug} film={film} />
           ))}
         </div>
