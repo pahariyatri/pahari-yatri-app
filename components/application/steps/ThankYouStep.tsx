@@ -61,8 +61,8 @@ export default function ThankYouStep({ formData }: Props) {
     `Hello! I just completed my Pahari Yatri application for a curated journey. My name is ${formData.fullName || 'there'}.`
   );
   const whatsappGuideUrl = `https://wa.me/916280888188?text=${prefilledText}`;
-  const whatsappGroupUrl = "https://chat.whatsapp.com/L12wU6JmfevEL1r8nZ9LhP";
-  const discordUrl = "https://discord.gg/pahariyatri";
+  const whatsappGroupUrl = "https://whatsapp.com/channel/0029VbBQ3PLElagxCgWywv1S";
+  const discordUrl = "https://discord.gg/Uq8RWU7yA";
   
   return (
     <motion.div 
