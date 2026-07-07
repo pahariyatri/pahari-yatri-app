@@ -23,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         'journal',
         'films',
         'about',
-        'contact',
         'apply',
         'why-pahari-yatri',
     ].map((route) => ({

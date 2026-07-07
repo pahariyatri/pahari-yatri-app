@@ -3,6 +3,7 @@ import PageHero from "@/components/common/PageHero";
 import SectionContainer from "@/components/common/SectionContainer";
 import FilmsList from "@/components/FilmsList";
 import { getInstagramReels } from "@/lib/instagram";
+import { getYouTubeVideos } from "@/lib/youtube";
 import { getFilms } from "@/lib/keystatic/films";
 import { Button } from "@/components/ui/button";
 import { genPageMetadata } from "@/app/seo";
@@ -21,8 +22,14 @@ export async function generateMetadata() {
 export default async function FilmsPage() {
   // Live reels pulled straight from the connected Instagram account
   // (only when INSTAGRAM_ACCESS_TOKEN is configured — see docs/instagram-integration.md)
-  const instagramReels = await getInstagramReels(6);
-  const films = await getFilms();
+  const [instagramReels, youtubeVideos, curatedFilms] = await Promise.all([
+    getInstagramReels(6),
+    getYouTubeVideos(6),
+    getFilms(),
+  ]);
+  // Live YouTube uploads (see docs/youtube-integration.md) slot in as regular
+  // films — ReelCard already fully supports the "youtube" platform.
+  const films = [...(youtubeVideos || []), ...curatedFilms];
 
   return (
     <div>
@@ -61,7 +68,7 @@ export default async function FilmsPage() {
 
         <div className="mt-16 text-center">
           <Link
-            href="/contact"
+            href={`mailto:${siteMetadata.email}`}
             className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
           >
             Filmed something in the mountains? Share it with us →
