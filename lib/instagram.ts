@@ -1,10 +1,13 @@
 /**
  * Direct Instagram integration (optional).
  *
- * When INSTAGRAM_ACCESS_TOKEN is set, the site pulls the latest reels from
- * the connected @pahariyatri account at build/revalidate time via the
- * Instagram Graph API — no manual CMS entry needed. Without the token,
- * everything falls back to the Keystatic `films` collection.
+ * When INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_BUSINESS_ACCOUNT_ID are set, the
+ * site pulls the latest reels from the connected @pahariyatri account at
+ * build/revalidate time via the Instagram Graph API (accessed through
+ * graph.facebook.com, since the token comes from the Facebook Login for
+ * Business flow, not a standalone Instagram-scoped token) — no manual CMS
+ * entry needed. Without them, everything falls back to the Keystatic
+ * `films` collection.
  *
  * Setup guide: docs/instagram-integration.md
  */
@@ -23,11 +26,12 @@ const FIELDS =
 
 export async function getInstagramReels(limit = 6): Promise<InstagramReel[] | null> {
   const token = process.env.INSTAGRAM_ACCESS_TOKEN;
-  if (!token) return null;
+  const igUserId = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
+  if (!token || !igUserId) return null;
 
   try {
     const res = await fetch(
-      `https://graph.instagram.com/me/media?fields=${FIELDS}&limit=${limit * 2}&access_token=${token}`,
+      `https://graph.facebook.com/v21.0/${igUserId}/media?fields=${FIELDS}&limit=${limit * 2}&access_token=${token}`,
       // Refresh once an hour so new reels appear without a redeploy
       { next: { revalidate: 3600 } }
     );

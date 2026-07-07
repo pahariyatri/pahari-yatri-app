@@ -59,31 +59,6 @@ export default async function FilmsPage() {
         {/* Dynamic Filterable Film List */}
         <FilmsList initialFilms={films} instagramReels={instagramReels} />
 
-        {/* Instagram setup helper (only visible in development) */}
-        {process.env.NODE_ENV === "development" && !instagramReels && (
-          <div className="mt-16 p-6 rounded-2xl border border-dashed border-primary/30 bg-primary/5 max-w-2xl mx-auto">
-            <h3 className="font-brandSerif text-lg font-medium text-foreground mb-2 flex items-center gap-2">
-              <Instagram className="h-5 w-5 text-primary" />
-              Direct Instagram API Setup
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              To directly integrate with your @pahariyatri Instagram account and pull real-time reels (with direct play support), follow these steps:
-            </p>
-            <div className="bg-background/80 rounded-xl p-4 text-xs font-mono border border-border/40 space-y-2">
-              <p className="text-primary font-semibold"># Setup guide:</p>
-              <ol className="list-decimal list-inside space-y-1.5 text-muted-foreground">
-                <li>Convert @pahariyatri to a Professional/Creator account in Instagram settings.</li>
-                <li>Go to developers.facebook.com, create a Business app, and set up Instagram Login.</li>
-                <li>Generate a long-lived access token for the account.</li>
-                <li>Add it to your <code>.env.local</code>: <code>INSTAGRAM_ACCESS_TOKEN=your_token_here</code></li>
-              </ol>
-            </div>
-            <p className="mt-4 text-xs text-muted-foreground/80">
-              * The system currently renders Keystatic fallback films since no token is defined. Direct video uploads are supported natively in Keystatic!
-            </p>
-          </div>
-        )}
-
         <div className="mt-16 text-center">
           <Link
             href="/contact"
