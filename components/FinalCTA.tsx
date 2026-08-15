@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
+import YatriCircleLink from "@/components/common/YatriCircleLink";
 import Image from "next/image";
 import { ArrowRight, BookOpen } from "lucide-react";
 
@@ -38,7 +39,7 @@ export default function FinalCTA() {
 
         {/* Primary + secondary actions — full-width at thumb reach on mobile */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
-          <Link href="/apply" className="w-full sm:w-auto">
+          <YatriCircleLink location="final_cta" label="Begin as a Yatri" className="w-full sm:w-auto">
             <Button
               size="lg"
               className="w-full sm:w-auto rounded-full px-10 py-7 text-base sm:text-lg font-medium bg-white text-zinc-900 hover:bg-white/90 shadow-[0_8px_30px_rgba(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgba(255,255,255,0.25)] hover:scale-[1.02] transition-all duration-300"
@@ -46,7 +47,7 @@ export default function FinalCTA() {
               Begin as a Yatri
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-          </Link>
+          </YatriCircleLink>
           <Link href="/library" className="w-full sm:w-auto">
             <Button
               size="lg"

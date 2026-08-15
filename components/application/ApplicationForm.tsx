@@ -9,6 +9,7 @@ import {
   type FormData,
 } from './conversation';
 import ThankYouStep from './steps/ThankYouStep';
+import { track, trackOnce } from '@/lib/analytics';
 
 export type { FormData };
 
@@ -53,6 +54,9 @@ export default function ApplicationForm({ onSubmit }: Props) {
   const advance = () => { setIdx(i => i + 1); setError(null); };
 
   const submit = (field: keyof FormData, val: string) => {
+    // Counted on the first real answer rather than on page load, so people who
+    // land on /apply and bounce don't inflate the top of the funnel.
+    if (idx === 0) trackOnce('apply_start', 'apply_start', { location: 'other' });
     setData(prev => ({ ...prev, [field]: val }));
     advance();
   };
@@ -86,6 +90,13 @@ export default function ApplicationForm({ onSubmit }: Props) {
     setSubmitError(false);
     try {
       await onSubmit(data);
+      // Only after the submission actually succeeded — this is what GTM maps
+      // to the Meta `Lead` event, so a failed attempt must not count.
+      track('apply_submit', {
+        intent:           data.intent || undefined,
+        preferred_region: data.preferredRegion || undefined,
+        join_path:        data.joinPath || undefined,
+      });
       setDone(true);
     } catch {
       setSubmitError(true);

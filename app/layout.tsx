@@ -9,6 +9,7 @@ import {
   GoogleTagManagerNoScript,
 } from "@/components/GoogleTagManager";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import AnalyticsEvents from "@/components/AnalyticsEvents";
 import { WebVitals } from "@/components/WebVitals";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
@@ -375,6 +376,7 @@ export default async function RootLayout({
           <Footer />
         </ThemeProviders>
         <GoogleTagManagerScript />
+        <AnalyticsEvents />
         <VercelAnalytics />
         <WebVitals />
       </body>

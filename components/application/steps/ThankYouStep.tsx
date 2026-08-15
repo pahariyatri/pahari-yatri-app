@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import type { FormData } from '../conversation';
 import { MessageSquare, Volume2, BookOpen } from 'lucide-react';
+import { track } from '@/lib/analytics';
 
 type Props = {
   formData: FormData;
@@ -173,7 +174,17 @@ export default function ThankYouStep({ formData }: Props) {
             size="lg"
             className="w-full h-13 rounded-xl text-sm font-semibold gap-3 justify-center shadow-lg"
           >
-            <a href={whatsappChannelUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={whatsappChannelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                track('whatsapp_join_click', {
+                  location: 'thank_you',
+                  url: whatsappChannelUrl,
+                })
+              }
+            >
               <Volume2 className="h-4.5 w-4.5 shrink-0" />
               Join WhatsApp Channel
             </a>
@@ -186,7 +197,17 @@ export default function ThankYouStep({ formData }: Props) {
             size="lg"
             className="w-full h-13 rounded-xl text-sm font-semibold gap-3 border-primary/20 hover:bg-primary/5 hover:border-primary/40 justify-center"
           >
-            <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                track('discord_join_click', {
+                  location: 'thank_you',
+                  url: discordUrl,
+                })
+              }
+            >
               <MessageSquare className="h-4.5 w-4.5 shrink-0 text-primary" />
               Enter Discord Circle
             </a>

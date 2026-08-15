@@ -1,4 +1,5 @@
 import Link from "@/components/common/Link";
+import YatriCircleLink from "@/components/common/YatriCircleLink";
 import PageHero from "@/components/common/PageHero";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
@@ -78,11 +79,11 @@ export default function CommunityPage() {
             voice to the library by contributing a story.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/apply">
+            <YatriCircleLink location="community" label="Become a Yatri">
               <Button size="lg" className="rounded-full px-8 py-6">
                 Become a Yatri
               </Button>
-            </Link>
+            </YatriCircleLink>
             <Link href="/contribute">
               <Button
                 size="lg"

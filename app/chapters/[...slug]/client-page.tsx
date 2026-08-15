@@ -12,6 +12,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft, Leaf } from "lucide-react";
+import { useEffect } from "react";
+import { track, trackOnce } from "@/lib/analytics";
 
 function paragraphs(text?: string) {
   return (text || "")
@@ -20,7 +22,18 @@ function paragraphs(text?: string) {
     .filter(Boolean);
 }
 
-export default function JourneyPageClient({ journey }: any) {
+export default function JourneyPageClient({ journey, slug }: any) {
+  // The core funnel metric: a Reel sent someone here and the chapter opened.
+  useEffect(() => {
+    if (!slug) return;
+    trackOnce(`chapter_view:${slug}`, "chapter_view", {
+      chapter_slug: slug,
+      chapter_title: journey?.title,
+      book: journey?.parentBook?.title ?? journey?.parentBook,
+      region: journey?.location,
+    });
+  }, [slug, journey?.title]);
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -351,7 +364,15 @@ export default function JourneyPageClient({ journey }: any) {
               then walk this chapter with awareness.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/apply">
+              <Link
+                href="/apply"
+                onClick={() =>
+                  track("join_yatri_circle_click", {
+                    location: "chapter",
+                    label: "Begin as a Yatri",
+                  })
+                }
+              >
                 <Button
                   size="lg"
                   className="rounded-full px-10 py-7 text-lg bg-white text-zinc-900 hover:bg-white/90 hover:scale-[1.03] transition-all duration-300 shadow-xl"

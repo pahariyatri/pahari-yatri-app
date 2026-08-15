@@ -52,6 +52,24 @@ const nextConfig = {
             },
         ];
     },
+    // Every story used to be reachable at both /stories/{slug} and
+    // /{region}/stories/{slug}, and each copy self-canonicalised — which is
+    // what Search Console was reporting as "Duplicate without user-selected
+    // canonical". /stories/{slug} is now the single canonical form and the
+    // regional path permanently redirects to it, so existing links and any
+    // already-indexed URLs keep working.
+    async redirects() {
+        return [
+            {
+                source: '/:region/stories/:slug',
+                destination: '/stories/:slug',
+                // 301 rather than Next's default 308 for `permanent: true`.
+                // Both are permanent and Google treats them the same, but 301
+                // is the more universally understood status for page moves.
+                statusCode: 301,
+            },
+        ];
+    },
     // Keystatic configuration
     async rewrites() {
         return [

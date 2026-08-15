@@ -357,7 +357,6 @@ export async function generateStaticParams() {
     const regions = await reader.collections.regions.list();
     const destinations = await reader.collections.destinations.all();
     const places = await reader.collections.places.all();
-    const stories = await reader.collections.stories.all();
 
     const paths: { slug: string[] }[] = [];
 
@@ -373,11 +372,9 @@ export async function generateStaticParams() {
         paths.push({ slug: [p.entry.parentRegion, "places", p.slug] });
     });
 
-    stories.forEach(s => {
-        if ((s.entry as any).parentRegion) {
-            paths.push({ slug: [(s.entry as any).parentRegion, "stories", s.slug] });
-        }
-    });
+    // Stories are deliberately not prerendered here. /{region}/stories/{slug}
+    // now 301s to the canonical /stories/{slug} (see next.config.mjs), so
+    // building these would only produce pages nothing can reach.
 
     return paths;
 }

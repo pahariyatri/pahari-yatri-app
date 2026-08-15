@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import headerNavLinks from '@/data/headerNavLinks'
 import { Button } from './ui/button'
+import YatriCircleLink from './common/YatriCircleLink'
 import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -134,11 +135,16 @@ const MobileNav = () => {
 
               {/* Foot */}
               <div className="px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-4 border-t border-border/20 space-y-3">
-                <Link href="/apply" onClick={() => setOpen(false)} className="block">
+                <YatriCircleLink
+                  location="mobile_nav"
+                  label="Become a Yatri"
+                  onClick={() => setOpen(false)}
+                  className="block"
+                >
                   <Button className="w-full rounded-full py-6 text-base font-medium">
                     Become a Yatri
                   </Button>
-                </Link>
+                </YatriCircleLink>
                 <p className="text-center text-xs text-muted-foreground/60 font-brandSerif italic">
                   Learn the mountains before you walk them.
                 </p>

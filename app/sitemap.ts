@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '',
         'library',
         'books',
+        'chapters',
         'himachal',
         'stories',
         'responsible-travel',
@@ -59,14 +60,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }))
 
-    // Dynamic routes: Stories
+    // Dynamic routes: Books (seasonal editions)
+    const books = await reader.collections.books.list()
+    const bookRoutes = books.map((slug) => ({
+        url: `${siteUrl}/books/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+    }))
+
+    // Dynamic routes: Chapters — the landing pages Reels point at, so they
+    // matter more for discovery than anything else in the library.
+    const chapters = await reader.collections.chapters.list()
+    const chapterRoutes = chapters.map((slug) => ({
+        url: `${siteUrl}/chapters/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+    }))
+
+    // Dynamic routes: Stories.
+    // Canonical form is /stories/{slug}. The older /{region}/stories/{slug}
+    // form 301s here (see `redirects()` in next.config.mjs), so only the
+    // canonical URL is listed.
     const stories = (await reader.collections.stories.all())
     const storyRoutes = stories.map((s) => ({
-        url: `${siteUrl}/${(s.entry as any).parentRegion || 'himachal'}/stories/${s.slug}`,
+        url: `${siteUrl}/stories/${s.slug}`,
         lastModified: new Date().toISOString().split('T')[0],
         changeFrequency: 'weekly' as const,
         priority: 0.7,
     }))
 
-    return [...routes, ...regionRoutes, ...destRoutes, ...placeRoutes, ...storyRoutes]
+    return [
+        ...routes,
+        ...regionRoutes,
+        ...destRoutes,
+        ...placeRoutes,
+        ...bookRoutes,
+        ...chapterRoutes,
+        ...storyRoutes,
+    ]
 }

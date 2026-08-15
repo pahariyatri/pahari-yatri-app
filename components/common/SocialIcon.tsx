@@ -1,10 +1,14 @@
 'use client';
 
+import { track, type ClickLocation } from '@/lib/analytics';
+
 interface SocialIconProps {
   platform: 'facebook' | 'instagram' | 'twitter' | 'youtube' | 'linkedin' | 'threads';
   href: string;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  /** Where on the site this icon sits, so footer vs page clicks can be split. */
+  location?: ClickLocation;
 }
 
 const iconPaths: Record<string, string> = {
@@ -22,16 +26,17 @@ const sizeClasses = {
   lg: "h-6 w-6"
 };
 
-export default function SocialIcon({ platform, href, size = 'md', className = '' }: SocialIconProps) {
+export default function SocialIcon({ platform, href, size = 'md', className = '', location = 'footer' }: SocialIconProps) {
   const iconPath = iconPaths[platform] || '';
   const sizeClass = sizeClasses[size] || sizeClasses.md;
-  
+
   return (
-    <a 
-      href={href} 
+    <a
+      href={href}
       className={`bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors duration-300 ${className}`}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => track('social_click', { platform, location, url: href })}
     >
       <svg 
         xmlns="http://www.w3.org/2000/svg" 
