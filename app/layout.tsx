@@ -4,7 +4,11 @@ import Header from "@/components/Header";
 import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import Footer from "@/components/Footer";
-import Analytics from "@/components/Analytics";
+import {
+  GoogleTagManagerScript,
+  GoogleTagManagerNoScript,
+} from "@/components/GoogleTagManager";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { WebVitals } from "@/components/WebVitals";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
@@ -64,6 +68,11 @@ async function getMetadata() {
     },
     description,
     keywords,
+    // "./" resolves against metadataBase + the current route, so every page gets
+    // its own canonical rather than all of them pointing at the homepage.
+    alternates: {
+      canonical: "./",
+    },
     openGraph: {
       title,
       description,
@@ -94,6 +103,9 @@ async function getMetadata() {
       author: siteMetadata.author,
       publisher: siteMetadata.title,
       copyright: `© ${new Date().getFullYear()} Pahari Yatri`,
+      // Meta Business domain verification for pahariyatri.com. Public token —
+      // Meta re-scrapes the homepage <head> to confirm domain ownership.
+      "facebook-domain-verification": "gh95ztf6xe7jx5k1mrb19aepkk8zfy",
     },
   };
 }
@@ -343,6 +355,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-background text-foreground antialiased font-sans">
+        <GoogleTagManagerNoScript />
         {/* Schema JSON */}
         <script
           type="application/ld+json"
@@ -361,7 +374,8 @@ export default async function RootLayout({
           <main className="mb-auto relative">{children}</main>
           <Footer />
         </ThemeProviders>
-        <Analytics />
+        <GoogleTagManagerScript />
+        <VercelAnalytics />
         <WebVitals />
       </body>
     </html>
