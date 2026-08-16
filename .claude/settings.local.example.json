@@ -1,0 +1,80 @@
+{
+  "_comment": "EXAMPLE ONLY — not active. Copy blocks into .claude/settings.local.json to enable. Each hook is optional; none are installed by default because a badly-scoped hook blocks normal development.",
+
+  "_hook_1_typecheck_after_edit": {
+    "_why": "Catches type errors at edit time instead of at build time. Cheap and safe.",
+    "hooks": {
+      "PostToolUse": [
+        {
+          "matcher": "Edit|Write",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "if echo \"$CLAUDE_FILE_PATHS\" | grep -qE '\\.(ts|tsx)$'; then npx tsc --noEmit 2>&1 | head -20; fi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "_hook_2_secret_scan_before_commit": {
+    "_why": "The highest-value hook here. Blocks .env files and live credentials from being committed. Public IDs (GTM-, G-, Meta Pixel, facebook-domain-verification) are deliberately NOT matched — they belong in code.",
+    "hooks": {
+      "PreToolUse": [
+        {
+          "matcher": "Bash",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'git commit'; then git diff --cached --name-only | grep -qE '^\\.env' && echo 'BLOCKED: .env staged' && exit 2; git diff --cached | grep -qEi 'webhook\\.discord|api[_-]?key\\s*[:=]\\s*.{15,}|IGQ[A-Za-z0-9]|AIza[0-9A-Za-z_-]{30,}|gho_|ghp_' && echo 'BLOCKED: possible secret in diff' && exit 2; fi; exit 0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "_hook_3_sitemap_check_after_content_change": {
+    "_why": "The soft-404 bug produced clean builds while 16 pages were invisible. This surfaces a collection silently contributing zero URLs.",
+    "hooks": {
+      "PostToolUse": [
+        {
+          "matcher": "Edit|Write",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "if echo \"$CLAUDE_FILE_PATHS\" | grep -qE '^(data/|app/sitemap\\.ts|keystatic\\.config\\.ts)'; then echo 'Content or schema changed — rebuild and verify sitemap count before pushing.'; fi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "_hook_4_analytics_guard": {
+    "_why": "Prevents a second GA4 loader or a direct gtag/fbq call sneaking in, which would double-count every event.",
+    "hooks": {
+      "PostToolUse": [
+        {
+          "matcher": "Edit|Write",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "grep -rn --include='*.tsx' --include='*.ts' -E '(^|[^.a-zA-Z])(gtag|fbq)\\(' app components 2>/dev/null | grep -v 'lib/analytics' && echo 'WARNING: direct gtag/fbq call — all events must go through lib/analytics.ts' || exit 0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "_permissions_note": "The active .claude/settings.local.json already allows tsc and next build. Consider adding read-only helpers you use constantly, e.g. Bash(git status *), Bash(git diff *), Bash(curl -s https://pahariyatri.com/*).",
+
+  "_do_not_add": [
+    "Any hook that auto-commits or auto-pushes.",
+    "Any hook that deletes files.",
+    "Any hook that posts to Discord, Instagram or LinkedIn.",
+    "Any hook that runs a full production build on every edit — too slow to work with."
+  ]
+}

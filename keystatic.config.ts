@@ -97,6 +97,63 @@ export default config({
           description:
             "1–2 poetic lines that introduce the energy of this season.",
         }),
+        // ── Book architecture (added 2026-08) ──────────────────────────────
+        // A Book is a region, theme or circuit. It holds Chapters; each
+        // Chapter holds many Stories from different people.
+        thesis: fields.text({
+          label: "Thesis",
+          multiline: true,
+          description:
+            'The one-line argument this book makes, e.g. "These lakes are not picnic spots." Shown on the mobile book circuit. Optional for now — `invitation` still works.',
+        }),
+        region: fields.relationship({
+          label: "Region",
+          collection: "regions",
+          description: "Which region this book covers.",
+        }),
+        description: fields.text({
+          label: "Description",
+          multiline: true,
+          description:
+            "Longer explanation of what this book contains. Distinct from the short Edition Summary.",
+        }),
+        priority: fields.select({
+          label: "Editorial Priority",
+          options: [
+            { label: "P0 — ship first", value: "p0" },
+            { label: "P1", value: "p1" },
+            { label: "P2", value: "p2" },
+            { label: "P3 — later", value: "p3" },
+          ],
+          defaultValue: "p2",
+        }),
+        bookType: fields.select({
+          label: "Book Type",
+          description:
+            "Primary books are the main navigation. Seasonal books are kept as secondary filters.",
+          options: [
+            { label: "Primary (region / theme / circuit)", value: "primary" },
+            { label: "Seasonal (secondary filter)", value: "seasonal" },
+          ],
+          defaultValue: "seasonal",
+        }),
+        seoTitle: fields.text({
+          label: "SEO Title",
+          description:
+            "Title tag. Keep this literal and searchable even when the on-page heading is literary.",
+        }),
+        metaDescription: fields.text({
+          label: "Meta Description",
+          multiline: true,
+        }),
+        cta: fields.select({
+          label: "Primary CTA",
+          options: [
+            { label: "WhatsApp Channel", value: "whatsapp" },
+            { label: "Yatri Circle", value: "yatri-circle" },
+          ],
+          defaultValue: "whatsapp",
+        }),
         excerpt: fields.text({
           label: "Edition Summary",
           multiline: true,
@@ -140,6 +197,122 @@ export default config({
           description:
             "Emotional hook. Example: ‘A walk into silence, where the mountain teaches you who you are.’",
         }),
+        // ── Chapter architecture & SEO (added 2026-08) ─────────────────────
+        // A Chapter is ONE searchable place, route, temple, lake, village or
+        // cultural topic. If a piece has no real searchable place, it is a
+        // Story, not a Chapter. Never invent a place name to make it rank.
+        parentBook: fields.relationship({
+          label: "Parent Book",
+          collection: "books",
+          description: "Which book this chapter belongs to.",
+        }),
+        place: fields.text({
+          label: "Place",
+          description:
+            "The real, nameable place this chapter is about. Leave blank if there isn't one — that usually means this should be a Story.",
+        }),
+        region: fields.relationship({
+          label: "Region",
+          collection: "regions",
+        }),
+        trackType: fields.select({
+          label: "Type",
+          options: [
+            { label: "Lake", value: "lake" },
+            { label: "Temple", value: "temple" },
+            { label: "Village", value: "village" },
+            { label: "Trail", value: "trail" },
+            { label: "Pass", value: "pass" },
+            { label: "Town", value: "town" },
+            { label: "Cultural topic", value: "cultural" },
+          ],
+          defaultValue: "trail",
+        }),
+        targetKeyword: fields.text({
+          label: "Target Keyword",
+          description:
+            "The one query this chapter should rank for, e.g. 'kamrunag lake'. Literal, not literary.",
+        }),
+        secondaryKeywords: fields.array(fields.text({ label: "Keyword" }), {
+          label: "Secondary Keywords",
+          itemLabel: (props) => props.value || "Keyword",
+        }),
+        seoTitle: fields.text({
+          label: "SEO Title",
+          description:
+            "Title tag. The H1 can stay literary; this one must be searchable.",
+        }),
+        metaDescription: fields.text({
+          label: "Meta Description",
+          multiline: true,
+        }),
+        localTruth: fields.text({
+          label: "Local Truth",
+          multiline: true,
+          description:
+            "The thing a tourist would not know. The core of the brand — not scenery, not history anyone can look up.",
+        }),
+        verificationStatus: fields.select({
+          label: "Verification Status",
+          description:
+            "Cultural claims (devta, temple, mythology, ritual) must not be stated as fact until a named local source confirms them.",
+          options: [
+            { label: "Unverified", value: "unverified" },
+            { label: "Needs local source", value: "needs-local-source" },
+            { label: "Local source confirmed", value: "local-source" },
+            { label: "Published & verified", value: "published" },
+          ],
+          defaultValue: "unverified",
+        }),
+        sourcesToVerify: fields.array(fields.text({ label: "Source" }), {
+          label: "Sources To Verify",
+          description:
+            "Who still needs to confirm this — a named elder, temple committee, or district source. Travel blogs are not sources.",
+          itemLabel: (props) => props.value || "Source",
+        }),
+        migrationStatus: fields.select({
+          label: "Migration Status",
+          description:
+            "Set to 'needs founder review' when it is unclear whether this piece is a real place (Chapter) or an atmosphere piece (Story).",
+          options: [
+            { label: "Settled", value: "settled" },
+            { label: "Needs founder review", value: "needs-founder-review" },
+            { label: "Should become a Story", value: "should-be-story" },
+          ],
+          defaultValue: "settled",
+        }),
+        reelHook: fields.text({
+          label: "Reel Hook",
+          multiline: true,
+          description:
+            "The 0–3s hook for this chapter's Reel. Hinglish welcome. No 'hidden gem' / 'must visit'.",
+        }),
+        cta: fields.select({
+          label: "Primary CTA",
+          description: "One CTA per chapter. Two is the same as none.",
+          options: [
+            { label: "WhatsApp Channel", value: "whatsapp" },
+            { label: "Yatri Circle", value: "yatri-circle" },
+          ],
+          defaultValue: "whatsapp",
+        }),
+        relatedChapters: fields.array(
+          fields.relationship({
+            label: "Related Chapter",
+            collection: "chapters",
+          }),
+          {
+            label: "Related Chapters",
+            description:
+              "2–4 sideways links to genuinely related places. Builds the cluster.",
+            itemLabel: (props) => {
+              const v = props.value;
+              if (v && typeof v === "object") return (v as any).title ?? "Select a Chapter";
+              if (typeof v === "string") return v;
+              return "Select a Chapter";
+            },
+          }
+        ),
         excerpt: fields.text({
           label: "Chapter Summary",
           multiline: true,
@@ -166,9 +339,10 @@ export default config({
           description:
             "2–4 plain-language paragraphs for search engines and first-time visitors. Mention the trek name, region, distance, and what makes it special.",
         }),
+        // LEGACY (2026-08): package-tour field. Kept for backward compatibility.
         duration: fields.text({
-          label: "Duration",
-          description: "e.g. ‘2 Days / 1 Night’",
+          label: "Duration (legacy)",
+          description: "LEGACY — not used in new Pahari Yatri content. Package-tour field kept for backward compatibility only. Do not fill for new chapters." ,
         }),
         distance: fields.text({
           label: "Trek Distance",
@@ -178,9 +352,10 @@ export default config({
           label: "Maximum Altitude",
           description: "e.g. ‘2,730 m / 8,960 ft’",
         }),
+        // LEGACY (2026-08)
         difficulty: fields.text({
-          label: "Difficulty",
-          description: "Easy · Moderate · Difficult · Challenging",
+          label: "Difficulty (legacy)",
+          description: "LEGACY — not used in new Pahari Yatri content. Package-tour field kept for backward compatibility only. Do not fill for new chapters.",
         }),
         bestTime: fields.text({
           label: "Best Time to Visit",
@@ -192,6 +367,7 @@ export default config({
           description:
             "Nearest airport, railhead, road route, and trailhead access.",
         }),
+        // LEGACY (2026-08): itinerary-first structure is off-brand.
         itinerary: fields.array(
           fields.object({
             day: fields.text({
@@ -209,16 +385,22 @@ export default config({
               "Day",
           }
         ),
+        // LEGACY (2026-08)
         included: fields.array(fields.text({ label: "Item" }), {
-          label: "What's Included",
+          label: "What's Included (legacy)",
+          description: "LEGACY — not used in new Pahari Yatri content. Package-tour field kept for backward compatibility only. Do not fill for new chapters.",
           itemLabel: (props) => props.value ?? "Item",
         }),
+        // LEGACY (2026-08)
         excluded: fields.array(fields.text({ label: "Item" }), {
-          label: "What's Not Included",
+          label: "What's Not Included (legacy)",
+          description: "LEGACY — not used in new Pahari Yatri content. Package-tour field kept for backward compatibility only. Do not fill for new chapters.",
           itemLabel: (props) => props.value ?? "Item",
         }),
+        // LEGACY (2026-08)
         packing: fields.array(fields.text({ label: "Item" }), {
-          label: "Packing Essentials",
+          label: "Packing Essentials (legacy)",
+          description: "LEGACY — not used in new Pahari Yatri content. Package-tour field kept for backward compatibility only. Do not fill for new chapters.",
           itemLabel: (props) => props.value ?? "Item",
         }),
         faqs: fields.array(
@@ -287,6 +469,70 @@ export default config({
           label: "Told by (voice)",
           description:
             "The narrator of this story, e.g. 'a product manager from Gurgaon, 34, first time past Chandigarh'. No real names needed — the archive speaks in voices.",
+        }),
+        // ── Story authorship (added 2026-08) ───────────────────────────────
+        // One Chapter holds MANY Stories from DIFFERENT people. Three stories
+        // on one chapter only work if they carry three different names —
+        // otherwise it reads as one writer repeating themselves.
+        // All optional for now; existing stories may stay blank.
+        authorName: fields.text({
+          label: "Author Name",
+          description:
+            "Who is speaking. Real name only with their permission — otherwise use 'Pahari Yatri Editorial'. Distinct from 'voice', which is a descriptor, not a person.",
+        }),
+        authorType: fields.select({
+          label: "Author Type",
+          options: [
+            { label: "Local", value: "local" },
+            { label: "Yatri (traveller)", value: "yatri" },
+            { label: "Creator", value: "creator" },
+            { label: "Elder", value: "elder" },
+            { label: "Pahari Yatri Editorial", value: "editorial" },
+          ],
+          defaultValue: "editorial",
+        }),
+        storyType: fields.select({
+          label: "Story Type",
+          options: [
+            { label: "Experience", value: "experience" },
+            { label: "Testimony", value: "testimony" },
+            { label: "Tradition", value: "tradition" },
+            { label: "Reflection", value: "reflection" },
+          ],
+          defaultValue: "reflection",
+        }),
+        place: fields.text({
+          label: "Place",
+          description: "Where this happened, if it names a real place.",
+        }),
+        verificationStatus: fields.select({
+          label: "Verification Status",
+          description:
+            "Applies to any cultural or local-belief claim inside the story, not to the person's own experience.",
+          options: [
+            { label: "Unverified", value: "unverified" },
+            { label: "Needs local source", value: "needs-local-source" },
+            { label: "Local source confirmed", value: "local-source" },
+            { label: "Published & verified", value: "published" },
+          ],
+          defaultValue: "unverified",
+        }),
+        migrationStatus: fields.select({
+          label: "Migration Status",
+          options: [
+            { label: "Settled", value: "settled" },
+            { label: "Needs founder review", value: "needs-founder-review" },
+            { label: "Reclassified from Chapter", value: "was-chapter" },
+          ],
+          defaultValue: "settled",
+        }),
+        cta: fields.select({
+          label: "Primary CTA",
+          options: [
+            { label: "WhatsApp Channel", value: "whatsapp" },
+            { label: "Yatri Circle", value: "yatri-circle" },
+          ],
+          defaultValue: "whatsapp",
         }),
         relatedChapter: fields.relationship({
           label: "Belongs to Chapter",
