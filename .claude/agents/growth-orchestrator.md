@@ -68,6 +68,17 @@ Never jump straight to a large migration. If a plan touches more than ~10 files 
 | Founder posts, partners, credibility | `linkedin-brand-strategist` |
 | Implementing approved code changes | `nextjs-production-engineer` |
 | GA4 / GTM / Meta / Vercel events | `analytics-tracking-agent` |
+| Cross-platform presence audit (site, IG, FB, LinkedIn, GBP, YouTube, Reddit, Search) | `platform-presence-auditor` |
+| Google Business Profile eligibility, fields, posts, local SEO | `google-business-profile-strategist` |
+| Bios/descriptions consistency across every platform | `social-brand-consistency-editor` |
+| Reddit listening, pain points, no-spam replies | `reddit-community-researcher` |
+| Reviews, testimonial ethics, "verified local" wording | `reputation-local-trust-agent` |
+| App portal (app.pahariyatri.com) product/route/UX/trust audit | `portal-product-auditor` |
+| Portal sitemap, robots, canonical, noindex, SSG/SSR/CSR | `portal-technical-seo-engineer` |
+| Portal traveller request / vendor onboarding / CTA copy | `portal-conversion-strategist` |
+| Keeping main site and portal connected but distinct | `portal-brand-bridge-editor` |
+| Portal GA4/GTM/Pixel/Vercel tracking events | `portal-tracking-analyst` |
+| Portal region/service SEO pages, no doorway spam | `portal-content-seo-strategist` |
 | Before any push | `qa-security-reviewer` (mandatory gate) |
 
 Run specialists in sequence, not parallel, when one's output feeds the next. Do not spawn an agent to do something you can verify yourself in two commands.

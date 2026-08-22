@@ -35,8 +35,21 @@ Location: `.claude/agents/`
 | `nextjs-production-engineer` | Implementing approved code changes | opus |
 | `analytics-tracking-agent` | GA4 / GTM / Meta / Vercel measurement | opus |
 | `qa-security-reviewer` | Final gate before any push — **blocking** | opus |
+| `platform-presence-auditor` | Cross-platform audit — site, IG, FB, LinkedIn, GBP, YouTube, Reddit, Search | opus |
+| `google-business-profile-strategist` | GBP eligibility, fields, posts, local SEO — drafts only | opus |
+| `social-brand-consistency-editor` | Bio/description consistency across every platform | sonnet |
+| `reddit-community-researcher` | Reddit listening, content gaps, no-spam replies | opus |
+| `reputation-local-trust-agent` | Reviews, testimonial ethics, "verified local" wording | opus |
+| `portal-product-auditor` | App portal (app.pahariyatri.com) live + code audit | opus |
+| `portal-technical-seo-engineer` | Portal sitemap, robots, canonical, noindex, rendering | opus |
+| `portal-conversion-strategist` | Portal traveller request / vendor onboarding / CTAs | opus |
+| `portal-brand-bridge-editor` | Main site ↔ portal cross-linking, tone separation | sonnet |
+| `portal-tracking-analyst` | Portal tracking events (GA4/GTM/Pixel/Vercel) | opus |
+| `portal-content-seo-strategist` | Portal region/service SEO pages, no doorway spam | opus |
 
-Two of these are **gates, not advisors**. `local-verification-editor` must clear any cultural claim before it is written as fact. `qa-security-reviewer` must pass before anything is pushed. Neither can be skipped to hit a deadline.
+See `CLAUDE.md` at the repo root for the full Platform Marketing & Local Trust System these five agents implement, and for the Main Site + App Portal Operating System the six portal agents implement — GBP rules, LinkedIn/Reddit/Meta/Instagram/YouTube strategy, review ethics, local SEO rules, and the weekly/monthly platform audit process.
+
+Two of the original ten are **gates, not advisors**. `local-verification-editor` must clear any cultural claim before it is written as fact. `qa-security-reviewer` must pass before anything is pushed. Neither can be skipped to hit a deadline.
 
 ---
 
@@ -58,6 +71,30 @@ Turns a Reel idea into a tracked campaign pointing at a chapter. Checks the dest
 
 ### `/weekly-growth-review`
 Read-only. What worked, what didn't, next four Reels, next chapter, next SEO action. Run it the same day each week.
+
+### `/platform-presence-audit`
+Full cross-platform audit — website, Instagram, Facebook, LinkedIn, Google Business Profile, YouTube, Reddit, Google Search. Scorecard plus an update pack. Never publishes.
+
+### `/google-business-profile-review`
+Eligibility check, field audit, and a draft improvement pack for Google Business Profile. Nothing is published without founder approval.
+
+### `/social-copy-pack`
+One consistent bio/description/CTA pack across every platform, banned phrases stripped, drafts only.
+
+### `/reddit-market-listening`
+Reddit research pass — real questions, pain points, content gaps, no-spam reply drafts.
+
+### `/portal-audit`
+Full app portal audit — live app.pahariyatri.com + local codebase + route inventory + SEO/conversion/brand/tracking/security issues. Audit only.
+
+### `/portal-seo-plan`
+Keyword and page plan for the portal — traveller/vendor keywords, region/service page plan, index/noindex plan, sitemap plan.
+
+### `/portal-implementation-plan`
+Exact-files implementation plan for approved portal fixes, staged and gated behind founder approval. Runs after `/portal-audit`.
+
+### `/brand-bridge-plan`
+Main-site ↔ portal cross-linking plan — CTA map, trust links, copy examples.
 
 ---
 
