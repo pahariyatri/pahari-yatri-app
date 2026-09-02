@@ -72,6 +72,11 @@ export default config({
           collection: "regions",
           validation: { isRequired: true },
         }),
+        district: fields.relationship({
+          label: "District",
+          collection: "destinations",
+          description: "Which district hub this place belongs to — powers that hub's place link block.",
+        }),
         description: fields.text({ label: "Description", multiline: true }),
         image: fields.image({
           label: "Featured Image",
@@ -214,6 +219,12 @@ export default config({
         region: fields.relationship({
           label: "Region",
           collection: "regions",
+        }),
+        district: fields.relationship({
+          label: "District",
+          collection: "destinations",
+          description:
+            "Which district hub (Destinations collection) this chapter belongs to — powers that hub's chapter link block. Leave blank if the chapter genuinely spans multiple districts/states with no single home.",
         }),
         trackType: fields.select({
           label: "Type",

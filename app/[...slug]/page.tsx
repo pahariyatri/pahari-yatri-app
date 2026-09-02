@@ -12,6 +12,46 @@ import {
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+/** Everything real that lives in one district — the "real link block" a
+ *  district hub is actually for, instead of the fabricated boilerplate it
+ *  carried before. Chapters and places declare their district explicitly
+ *  (see keystatic.config.ts); stories are pulled in transitively through
+ *  whichever chapter they belong to, since a story has no district of its
+ *  own. */
+async function getDistrictLinks(districtSlug: string) {
+    const [allChapters, allPlaces, allStories] = await Promise.all([
+        reader.collections.chapters.all(),
+        reader.collections.places.all(),
+        reader.collections.stories.all(),
+    ]);
+
+    const chapters = allChapters
+        .filter((c) => c.entry.district === districtSlug)
+        .map((c) => ({
+            slug: c.slug,
+            title: c.entry.title as string,
+            excerpt: (c.entry.excerpt as string) || (c.entry.invitation as string) || "",
+            location: (c.entry.location as string) || "",
+        }));
+
+    const places = allPlaces
+        .filter((p) => p.entry.district === districtSlug)
+        .map((p) => ({
+            slug: p.slug,
+            title: p.entry.title as string,
+        }));
+
+    const chapterSlugs = new Set(chapters.map((c) => c.slug));
+    const stories = allStories
+        .filter((s) => s.entry.relatedChapter && chapterSlugs.has(s.entry.relatedChapter as string))
+        .map((s) => ({
+            slug: s.slug,
+            title: s.entry.title as string,
+        }));
+
+    return { chapters, places, stories };
+}
+
 export async function generateMetadata({ params }: any) {
     const { slug } = await params;
     if (!slug || slug.length === 0) return {};
@@ -30,6 +70,22 @@ export async function generateMetadata({ params }: any) {
                 images: [region.heroImage || ""],
             }
         };
+    }
+
+    if (slug.length === 2) {
+        const type = slug[1];
+        if (type === "travel-guide") {
+            return {
+                title: `Travel Guides | ${region.title}`,
+                description: `Every district travel guide Pahari Yatri has published for ${region.title} — where to go and what it's actually like.`,
+            };
+        }
+        if (type === "places") {
+            return {
+                title: `Places | ${region.title}`,
+                description: `Every place Pahari Yatri has published for ${region.title}.`,
+            };
+        }
     }
 
     if (slug.length === 3) {
@@ -181,14 +237,68 @@ export default async function Page({ params }: any) {
         );
     }
 
-    // 2. Hierarchical Pages (Travel Guide / Places / Stories)
+    // 2. District-index pages: /{region}/travel-guide and /{region}/places.
+    // These used to fall through to notFound() while still being linked
+    // from every destination/place page's breadcrumb — a real dead end.
+    // Building the actual index is cheaper than making the crumb text-only
+    // everywhere, and it's a genuinely useful page: an index of every
+    // published district guide / place in the region.
+    if (slug.length === 2) {
+        const type = slug[1];
+        if (type !== "travel-guide" && type !== "places") notFound();
+
+        const items = type === "travel-guide"
+            ? (await reader.collections.destinations.all()).filter((d) => d.entry.parentRegion === regionSlug)
+            : (await reader.collections.places.all()).filter((p) => p.entry.parentRegion === regionSlug);
+
+        const heading = type === "travel-guide" ? "Travel Guides" : "Places";
+        const indexBreadcrumbs = [
+            { label: "Home", href: "/" },
+            { label: region.title, href: `/${regionSlug}` },
+            { label: heading, href: null },
+        ];
+
+        return (
+            <main className="min-h-screen">
+                <SectionContainer className="py-20 md:py-32 max-w-4xl">
+                    <Breadcrumbs items={indexBreadcrumbs} />
+                    <h1 className="text-[clamp(2.5rem,7vw,5rem)] font-brandSerif mb-10 tracking-tighter leading-[0.9]">
+                        {heading} — {region.title}
+                    </h1>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        {items.map((item) => (
+                            <Link
+                                key={item.slug}
+                                href={type === "travel-guide" ? `/${regionSlug}/travel-guide/${item.slug}` : `/${regionSlug}/places/${item.slug}`}
+                                className="block rounded-2xl border border-border/40 p-5 hover:border-primary/40 transition-colors"
+                            >
+                                <span className="font-brandSerif text-xl">{(item.entry as any).title}</span>
+                                {(item.entry as any).description && (
+                                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{(item.entry as any).description}</p>
+                                )}
+                            </Link>
+                        ))}
+                    </div>
+                </SectionContainer>
+            </main>
+        );
+    }
+
+    // 3. Hierarchical Pages (Travel Guide / Places / Stories)
     if (slug.length === 3) {
         const type = slug[1];
         const itemSlug = slug[2];
         const breadcrumbItems = [
             { label: "Home", href: "/" },
             { label: region.title, href: `/${regionSlug}` },
-            { label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories", href: null }
+            {
+                label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories",
+                // Stories has no /{region}/stories index page (canonical
+                // story URLs are /stories/{slug}; the region-prefixed form
+                // 301s away — see next.config.mjs), so that one crumb stays
+                // plain text. travel-guide/places now have real index pages.
+                href: type === "stories" ? null : `/${regionSlug}/${type}`,
+            }
         ];
 
         if (type === "travel-guide") {
@@ -204,6 +314,8 @@ export default async function Page({ params }: any) {
                 }
             } catch (e) { }
 
+            const { chapters: districtChapters, places: districtPlaces, stories: districtStories } = await getDistrictLinks(itemSlug);
+
             const jsonLd = getDestinationSchema({ ...dest, slug: itemSlug }, region, siteUrl);
             return (
                 <main className="min-h-screen">
@@ -218,10 +330,6 @@ export default async function Page({ params }: any) {
                             <h1 className="text-[clamp(3rem,9vw,6.5rem)] font-brandSerif mb-6 tracking-tighter leading-[0.9] max-w-4xl">
                                 {dest.title}
                             </h1>
-                            <div className="flex items-center gap-4 text-[10px] md:text-xs uppercase tracking-[0.3em] font-black text-primary bg-primary/5 w-fit px-4 py-2 rounded-full border border-primary/10">
-                                <Sparkles className="w-4 h-4 animate-pulse" />
-                                <span>Official Guide Hub</span>
-                            </div>
                         </SectionContainer>
                     </div>
 
@@ -233,6 +341,57 @@ export default async function Page({ params }: any) {
                         <div className="prose prose-lg md:prose-xl dark:prose-invert font-sans mt-12">
                             {contentHtml && <div dangerouslySetInnerHTML={{ __html: contentHtml }} />}
                         </div>
+
+                        {(districtChapters.length > 0 || districtPlaces.length > 0 || districtStories.length > 0) && (
+                            <div className="mt-20 pt-12 border-t border-border/50">
+                                <h2 className="text-2xl md:text-3xl font-brandSerif mb-8">
+                                    {dest.title} in the library
+                                </h2>
+                                {districtChapters.length > 0 && (
+                                    <div className="mb-10">
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Chapters</h3>
+                                        <ul className="grid sm:grid-cols-2 gap-3">
+                                            {districtChapters.map((c) => (
+                                                <li key={c.slug}>
+                                                    <Link href={`/chapters/${c.slug}`} className="block rounded-xl border border-border/40 p-4 hover:border-primary/40 transition-colors">
+                                                        <span className="font-brandSerif text-lg">{c.title}</span>
+                                                        {c.excerpt && <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{c.excerpt}</p>}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {districtPlaces.length > 0 && (
+                                    <div className="mb-10">
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Places</h3>
+                                        <ul className="flex flex-wrap gap-3">
+                                            {districtPlaces.map((p) => (
+                                                <li key={p.slug}>
+                                                    <Link href={`/${regionSlug}/places/${p.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                        {p.title}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {districtStories.length > 0 && (
+                                    <div>
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Stories</h3>
+                                        <ul className="flex flex-wrap gap-3">
+                                            {districtStories.map((s) => (
+                                                <li key={s.slug}>
+                                                    <Link href={`/stories/${s.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                        {s.title}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </SectionContainer>
                 </main>
             );
@@ -313,6 +472,8 @@ export async function generateStaticParams() {
 
     regions.forEach(r => {
         paths.push({ slug: [r] });
+        paths.push({ slug: [r, "travel-guide"] });
+        paths.push({ slug: [r, "places"] });
     });
 
     destinations.forEach(d => {

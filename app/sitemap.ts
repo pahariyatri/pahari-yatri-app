@@ -43,6 +43,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }))
 
+    // Dynamic routes: per-region Travel Guides / Places index pages —
+    // real pages now (see app/[...slug]/page.tsx), not the soft-404s they
+    // used to be, so they belong in the sitemap.
+    const regionIndexRoutes = regions.flatMap((slug) => [
+        {
+            url: `${siteUrl}/${slug}/travel-guide`,
+            lastModified: new Date().toISOString().split('T')[0],
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
+        },
+        {
+            url: `${siteUrl}/${slug}/places`,
+            lastModified: new Date().toISOString().split('T')[0],
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
+        },
+    ])
+
     // Dynamic routes: Destinations
     const destinations = (await reader.collections.destinations.all())
     const destRoutes = destinations.map((d) => ({
@@ -95,6 +113,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [
         ...routes,
         ...regionRoutes,
+        ...regionIndexRoutes,
         ...destRoutes,
         ...placeRoutes,
         ...bookRoutes,
