@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
+import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "@/keystatic.config";
 import siteMetadata from "@/data/siteMetadata";
 import {
@@ -10,6 +11,15 @@ import {
 } from "@/lib/schema";
 
 const reader = createReader(process.cwd(), keystaticConfig);
+
+/** Same approach as app/stories/[...slug]/page.tsx: convert the raw MDX
+ *  source into real HTML so headings/paragraphs/emphasis render as markup
+ *  (not literal `## `/`**` text) and are indexable/readable without JS. */
+function markdownToHtml(source: string): string {
+    const ast = Markdoc.parse(source);
+    const content = Markdoc.transform(ast);
+    return Markdoc.renderers.html(content);
+}
 
 export async function generateMetadata({ params }: any) {
     const { slug } = await params;
@@ -220,11 +230,12 @@ export default async function Page({ params }: any) {
             const dest = await reader.collections.destinations.read(itemSlug);
             if (!dest || dest.parentRegion !== regionSlug) notFound();
 
-            let contentStr = "";
+            let contentHtml = "";
             try {
                 if (typeof dest.content === "function") {
-                    const contentData = await dest.content();
-                    contentStr = typeof (contentData as any)?.toString === "function" ? (contentData as any).toString() : "";
+                    const raw = await dest.content();
+                    const rawStr = typeof raw === "string" ? raw : "";
+                    contentHtml = rawStr ? markdownToHtml(rawStr) : "";
                 }
             } catch (e) { }
 
@@ -254,20 +265,8 @@ export default async function Page({ params }: any) {
                             <p className="leading-relaxed text-muted-foreground">{dest.description}</p>
                         </div>
 
-                        <LocalKnowledgeCard title="Direct Reality Check">
-                            <div className="space-y-6 font-sans text-lg">
-                                <p>To reach {dest.title} without the tourist fatigue, take the early morning local HRTC bus or a shared taxi. Avoid the main square hubs and head to the outskirts where the traditional architecture still breathes.</p>
-                                <div className="p-6 bg-primary/5 rounded-3xl border border-primary/10 shadow-sm overflow-hidden relative">
-                                    <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 blur-2xl" />
-                                    <p className="relative z-10 italic text-muted-foreground font-brandSerif text-xl md:text-2xl">
-                                        &quot;Locals avoid the overpriced cafes in the town center and instead shop at the local mandis (markets) on Tuesdays for the freshest produce and authentic woolens.&quot;
-                                    </p>
-                                </div>
-                            </div>
-                        </LocalKnowledgeCard>
-
-                        <div className="prose prose-lg md:prose-xl dark:prose-invert font-sans mt-24">
-                            {contentStr && <div dangerouslySetInnerHTML={{ __html: contentStr }} />}
+                        <div className="prose prose-lg md:prose-xl dark:prose-invert font-sans mt-12">
+                            {contentHtml && <div dangerouslySetInnerHTML={{ __html: contentHtml }} />}
                         </div>
                     </SectionContainer>
                 </main>
@@ -306,15 +305,6 @@ export default async function Page({ params }: any) {
                                     </div>
                                 )}
                             </div>
-
-                            <LocalKnowledgeCard title="Access & Atmosphere">
-                                <div className="space-y-6">
-                                    <p>Visit {place.title} at dawn when the light hits the peaks. This is the &quot;blue hour&quot; locals use for prayer and reflection. The best vantage point is not the ticketed viewpoint, but the ridge trail 200 meters behind the temple.</p>
-                                    <p className="font-brandSerif text-xl md:text-2xl text-primary/80 border-b border-primary/20 pb-4">
-                                        Silence is louder than any guide book description.
-                                    </p>
-                                </div>
-                            </LocalKnowledgeCard>
                         </div>
                     </SectionContainer>
                 </main>

@@ -1,4 +1,5 @@
 title: Parashar Lake Trek
+trackType: lake
 parentBook: monsoon
 invitation: A temple by water; a day by reverence.
 excerpt: >-
@@ -91,6 +92,9 @@ faqs:
       simply one of the most quietly mesmerising sights in the region.
 relatedStories:
   - parashar-floating-island
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - chandernahan-lake-trek
 giftsFromMountains:
   - Reverence
   - Calm

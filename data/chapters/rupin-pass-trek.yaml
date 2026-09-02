@@ -1,4 +1,5 @@
 title: Rupin Pass Trek
+trackType: pass
 parentBook: summer
 invitation: Follow the river’s grammar to the high sentence of stone.
 excerpt: >-
@@ -8,6 +9,7 @@ location: Uttarakhand to Kinnaur (Sangla)
 image: /static/images/chapters/rupin-pass-trek/image.jpg
 relatedStories:
   - rupin-waterfall-days
+  - kinnaur-beyond-the-pass-reality
 giftsFromMountains:
   - Tenacity
   - Clarity

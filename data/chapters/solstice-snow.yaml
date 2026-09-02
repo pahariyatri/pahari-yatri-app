@@ -1,4 +1,5 @@
 title: Solstice Snow
+trackType: cultural
 parentBook: winter
 invitation: Fire speaks softly in long nights. Walk by its answer.
 excerpt: >-
@@ -8,6 +9,7 @@ location: Above Manali
 image: /static/images/chapters/solstice-snow/image.jpg
 relatedStories:
   - solstice-fire
+  - why-locals-avoid-manali-in-peak-season
 giftsFromMountains:
   - Clarity
   - Courage

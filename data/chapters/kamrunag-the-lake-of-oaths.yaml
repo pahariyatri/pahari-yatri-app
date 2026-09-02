@@ -1,4 +1,5 @@
 title: Kamrunag – The Lake of Oaths
+trackType: lake
 parentBook: winter
 invitation: Promise gently; water remembers more than we do.
 excerpt: >-
@@ -8,6 +9,10 @@ location: Kamrunag, Mandi
 image: /static/images/chapters/kamrunag-the-lake-of-oaths/image.jpg
 relatedStories:
   - mirror-of-stillness
+relatedChapters:
+  - saroa-to-kamrunag
+  - parashar-lake-trek
+  - chandernahan-lake-trek
 giftsFromMountains:
   - Stillness
   - Integrity

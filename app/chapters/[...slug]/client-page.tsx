@@ -48,6 +48,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
     (f: any) => f?.question && f?.answer
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
+  const relatedChapters = (journey.relatedChapters || []).filter(Boolean);
 
 
   return (
@@ -190,6 +191,53 @@ export default function JourneyPageClient({ journey, slug }: any) {
               </div>
             </SectionContainer>
           </section>
+        )}
+
+        {/* Related Chapters — sideways links that build the topical cluster */}
+        {relatedChapters.length > 0 && (
+          <SectionContainer className="py-20">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary" />
+                Related Chapters
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedChapters.map((c: any) => (
+                  <Link
+                    key={c.slug}
+                    href={c.link}
+                    className="group block rounded-2xl overflow-hidden border border-border/40 hover:border-primary/40 transition-colors"
+                  >
+                    {c.image && (
+                      <div className="relative h-44 w-full overflow-hidden">
+                        <ResponsiveImage
+                          src={c.image}
+                          alt={c.title}
+                          fill
+                          sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                          className="group-hover:scale-105 transition-transform duration-500"
+                          fallbackSrc="/static/images/mountains-bg.jpg"
+                        />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      {c.location && (
+                        <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                          {c.location}
+                        </span>
+                      )}
+                      <h3 className="font-brandSerif text-lg mb-2 group-hover:text-primary transition-colors">
+                        {c.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {c.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </SectionContainer>
         )}
 
         {/* Related Stories */}

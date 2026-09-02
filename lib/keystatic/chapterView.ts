@@ -130,6 +130,30 @@ export async function getChapterView(slug: string) {
     )
   ).filter(Boolean);
 
+  // Resolve sideways cross-links to other genuinely related chapters (the
+  // "2–4 sideways links" the schema already promises via relatedChapters —
+  // this is what actually builds a topical cluster instead of leaving
+  // chapters as book-order-only dead ends).
+  const relatedChapters = (
+    await Promise.all(
+      (chapter.relatedChapters || []).map(async (c: any) => {
+        const chapterSlug = typeof c === "string" ? c : null;
+        if (!chapterSlug || chapterSlug === slug) return null;
+        const rc = await reader.collections.chapters.read(chapterSlug);
+        return rc
+          ? {
+              slug: chapterSlug,
+              title: rc.title,
+              excerpt: rc.excerpt || rc.invitation || "",
+              location: rc.location || "",
+              image: resolveImage(rc.image),
+              link: `/chapters/${chapterSlug}`,
+            }
+          : null;
+      })
+    )
+  ).filter(Boolean);
+
   // The book this chapter belongs to — a quiet backlink that keeps readers
   // inside the library — plus the next chapter in reading order, the open
   // loop that turns chapters into episodes rather than dead ends.
@@ -165,6 +189,7 @@ export async function getChapterView(slug: string) {
     ...chapterRest,
     image: resolveImage(chapter.image),
     relatedStories,
+    relatedChapters,
     parentBook,
     nextChapter,
   };
@@ -173,8 +198,25 @@ export async function getChapterView(slug: string) {
   return { chapter, journeyData, ldArray };
 }
 
+/** First paragraph of a multi-paragraph field, trimmed to a word boundary
+ *  near `max` chars — used to turn the literal `overview` field into a real
+ *  SERP-shaped meta description instead of the poetic `excerpt`. */
+function firstParagraphTruncated(text: string, max: number): string {
+  const first = (text || "").split(/\n{2,}/)[0].replace(/\s+/g, " ").trim();
+  if (!first || first.length <= max) return first;
+  const cut = first.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${cut.slice(0, lastSpace > 0 ? lastSpace : max)}…`;
+}
+
 /** Metadata for a chapter detail page. `canonicalPath` lets the books route
- *  point back to the canonical `/chapters/[slug]` URL. */
+ *  point back to the canonical `/chapters/[slug]` URL.
+ *
+ *  Prefers the per-chapter `seoTitle`/`metaDescription` overrides when a
+ *  chapter sets them. Otherwise falls back to a `trackType`-aware template:
+ *  temple chapters get pilgrimage framing, reflection ("cultural") chapters
+ *  don't falsely claim to be a trek, and any title that already contains
+ *  "Trek" isn't doubled up ("... Trek — Himalayan Trek in ..."). */
 export async function buildChapterMetadata(
   slug: string,
   canonicalPath: string = chapterCanonical(slug)
@@ -182,10 +224,51 @@ export async function buildChapterMetadata(
   const chapter = await reader.collections.chapters.read(slug);
   if (!chapter) return {};
 
-  const title = chapter.location
-    ? `${chapter.title} — Himalayan Trek in ${chapter.location}`
-    : `${chapter.title} — Himalayan Trek`;
-  const description = chapter.excerpt || chapter.invitation || "";
+  const location = chapter.location || "";
+  const locationNamesHimachal = /himachal/i.test(location);
+  const rawTitle = chapter.title || "";
+  const seoTitleOverride = ((chapter as any).seoTitle || "").trim();
+
+  // Note: the root layout's metadata already applies `%s | Pahari Yatri` to
+  // whatever string `title` resolves to here, so this builds the page-name
+  // half only — appending the brand again would double it.
+  let title: string;
+  if (seoTitleOverride) {
+    title = seoTitleOverride;
+  } else {
+    const trackType = (chapter as any).trackType || "trail";
+    const alreadyNamesTrek = /trek/i.test(rawTitle);
+    if (trackType === "temple") {
+      title = location
+        ? `${rawTitle} — Temple & Pilgrimage in ${location}${locationNamesHimachal ? "" : ", Himachal"}`
+        : `${rawTitle} — Temple & Pilgrimage, Himachal`;
+    } else if (
+      (trackType === "trail" || trackType === "pass") &&
+      !alreadyNamesTrek
+    ) {
+      title = location
+        ? `${rawTitle} — Himalayan Trek in ${location}`
+        : `${rawTitle} — Himalayan Trek`;
+    } else {
+      // lake / village / town / cultural (reflection pieces), or a title
+      // that already names itself a Trek — don't repeat "Trek" or assert
+      // one where no trek is described.
+      title =
+        location && !locationNamesHimachal
+          ? `${rawTitle} — ${location}, Himachal Pradesh`
+          : location
+            ? `${rawTitle} — ${location}`
+            : rawTitle;
+    }
+  }
+
+  const metaDescriptionOverride = ((chapter as any).metaDescription || "").trim();
+  const description =
+    metaDescriptionOverride ||
+    firstParagraphTruncated((chapter as any).overview || "", 155) ||
+    chapter.excerpt ||
+    chapter.invitation ||
+    "";
   const ogImage = chapterOgImage(chapter);
 
   return {

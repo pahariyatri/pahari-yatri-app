@@ -1,4 +1,5 @@
 title: Chandernahan Lake Trek
+trackType: lake
 parentBook: winter
 invitation: A lake that keeps winter’s precise memory.
 excerpt: >-
@@ -6,6 +7,9 @@ excerpt: >-
   kindness.
 location: Rohru region
 image: /static/images/chapters/chandernahan-lake-trek/image.avif
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - parashar-lake-trek
 giftsFromMountains:
   - Stillness
   - Precision
