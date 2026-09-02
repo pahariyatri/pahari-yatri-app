@@ -156,17 +156,42 @@ This checkpoint was committed as `ca4e8b9`.
 
 ### 11.2 Checkpoint 2 (commit `d6ca5fc`) — Batches 0–5
 
-QA was launched against this commit and is in progress as of this writing. This section will be updated in place with the verdict once it returns, rather than duplicated.
+**Verdict: PASS WITH NOTES. No blocking issues.**
+
+QA independently proved the headline fix (§3.0) with a controlled counterfactual: built with the fix, tested 5 fake + 2 real URLs, restored `app/loading.tsx`, rebuilt, re-tested the same URLs — every fake URL flipped 404→200 and back, confirming causation rather than correlation. Also verified: build/typecheck clean, all 24 chapter titles across every `trackType` (no doubled brand/`"Trek"`/`"Himachal Pradesh"`), the Sacred Lakes cluster and all 3 orphan-story links render on live HTML, canonicals correct, sitemap complete, no secrets, no banned brand language, no redesign, clean rollback.
+
+Seven notes, none blocking, all addressed in a follow-up commit (`a9a75ce`):
+
+- **N1**: `rupin-pass-trek`'s title labeled its Uttarakhand start point as Himachal Pradesh (the guard only checked for "himachal" in the location string, and this is the one cross-state chapter). Fixed via a `seoTitle` override.
+- **N2**: meta-description truncation could cut mid-sentence, landing a couple of chapters' SERP snippets on an unhedged devta/temple claim right before the source's own hedge ("local belief holds..."). Fixed to prefer a sentence-boundary cut.
+- **N3**: the "Guides"/"Places"/"Stories" breadcrumb crumb links to `/{region}/{type}`, which isn't a real route — this was already true before Batch 0, but invisible (soft-200); now that 404s are honest, it's a visible dead link on 21 live pages until Batch 7 lands. Mitigated by rendering that one crumb as plain text instead of a link.
+- **N4**: two more fabricated-claim blocks in the same file Batch 1 touched, missed the first pass — a "Verified Region Hub / By Pahari Yatri Collective" badge with no verification process behind it (the exact pattern `CLAUDE.md` calls out by name), an "As a team deeply rooted in {region}..." claim, and generic "Locals Know signal" filler on story pages. Removed, same treatment as Batch 1.
+- **N5**: destination and story pages each render their own real `<h1>` from the entry title, and the rendered MDX/markdown body can also open with its own `# Title` — Batch 2's rendering fix (correctly) turned that into a second, duplicate `<h1>`. Fixed with a shared `lib/markdown.ts` (also resolves the prior duplication between the destination and story renderers) plus a `demoteHeadings()` step, applied to both pages — not just the one this session's diff touched.
+- **N6 (partial)**: `app/sitemap.ts` listed `himachal` once as a static route and again via the dynamic region loop — deduped. The other half of N6, 13 destination + 8 place hero images missing from disk (`public/static/images/destinations/` doesn't exist), is a pre-existing asset gap, not a code bug — flagged in §14, not fixed here.
+- **N7**: aligned a minor string-coercion divergence between the two content readers, moot now that both share `lib/markdown.ts`.
+
+All seven verified fixed with fresh curl checks against a rebuilt production server (see commit `a9a75ce`).
 
 ## 12. Rollback
 
 - Checkpoint 1 (7-file dead-reference cleanup): `git revert ca4e8b9`
-- Checkpoint 2 (Batches 0–5, including the critical loading.tsx / 404-status fix): `git revert d6ca5fc`
-- Both are ordinary commits on `main`; nothing has been pushed to any remote.
+- Checkpoint 2 (Batches 0–5, including the critical loading.tsx / 404-status fix): `git revert d6ca5fc` — **note this restores `app/loading.tsx` and re-breaks the sitewide 404 status back to 200.** If you only want to undo Batches 1–5 and keep the 404 fix, revert the commit and then re-delete/re-move that one file rather than reverting wholesale.
+- Checkpoint 2 fix-up (QA notes N1–N7): `git revert a9a75ce`
+- All are ordinary commits on `main`; nothing has been pushed to any remote, nothing deployed.
 
-## 13. What to do next
+## 14. Known pre-existing issues found but not fixed in this pass
 
-1. Founder approved all 9 batches. Batches 0–5 are implemented and committed; QA is in progress on checkpoint 2.
-2. Once QA on checkpoint 2 returns, Batches 6–9 continue: district hub rewrite (6), real index pages for the two former soft-404s (7), the new temple/etiquette chapter through `local-verification-editor` (8), then the larger content-expansion pass (9), run as its own loop per this project's standing process rather than bundled into this SEO batch.
+Surfaced during QA on checkpoint 2, not caused by any change in this report, not fixed here — flagged for a separate pass:
+
+- **13 destination + 8 place hero images are missing from disk.** `public/static/images/destinations/` doesn't exist at all; every destination and place page's hero image 400s from `/_next/image` locally. All 24 chapter images are present and correct — this is isolated to destinations/places. Needs real photo assets, not a code fix; out of scope for this report to fabricate placeholders.
+- **`lib/schema.ts:85-86` (`getTouristTripSchema`)** reads `relatedStories` raw and unfiltered — if ever wired up (it has zero callers today), it would emit broken JSON-LD `TouristTrip` URLs for any dangling slug, the same bug class Batch 3 fixed in the view layer. One-line fix if that function is ever activated.
+- **`lib/keystatic/chapters.ts`** is an entirely unimported module duplicating logic that lives for real in `chapterView.ts`. Candidate for deletion — flagged, not acted on (founder call, not blocking any SEO work).
+- **`app/layout.tsx:161-162`** sets JSON-LD `datePublished`/`dateModified` to build time, so every page reports as "modified" on every deploy regardless of whether content actually changed.
+
+## 15. What to do next
+
+1. Founder approved all 9 batches. Batches 0–5 are implemented, committed, and QA-gated (two rounds, both PASS WITH NOTES, all notes addressed).
+2. Batches 6–9 continue: district hub rewrite (6), real index pages for the two former soft-404s (7), the new temple/etiquette chapter through `local-verification-editor` (8), then the larger content-expansion pass (9), run as its own loop per this project's standing process rather than bundled into this SEO batch.
 3. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop, since they don't depend on the code changes above.
-4. Nothing in this report has been pushed to a remote or deployed. All work so far is local commits on `main`.
+4. §14's pre-existing issues are worth a founder decision on priority, especially the missing destination/place images — those pages will look broken to any visitor until real photos are sourced, independent of anything in this report.
+5. Nothing in this report has been pushed to a remote or deployed. All work so far is local commits on `main`.
