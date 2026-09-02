@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
-import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "@/keystatic.config";
 import siteMetadata from "@/data/siteMetadata";
+import { markdownToHtml, demoteHeadings } from "@/lib/markdown";
 import {
     getRegionSchema,
     getDestinationSchema,
@@ -11,15 +11,6 @@ import {
 } from "@/lib/schema";
 
 const reader = createReader(process.cwd(), keystaticConfig);
-
-/** Same approach as app/stories/[...slug]/page.tsx: convert the raw MDX
- *  source into real HTML so headings/paragraphs/emphasis render as markup
- *  (not literal `## `/`**` text) and are indexable/readable without JS. */
-function markdownToHtml(source: string): string {
-    const ast = Markdoc.parse(source);
-    const content = Markdoc.transform(ast);
-    return Markdoc.renderers.html(content);
-}
 
 export async function generateMetadata({ params }: any) {
     const { slug } = await params;
@@ -65,41 +56,27 @@ export async function generateMetadata({ params }: any) {
 import Image from "@/components/common/Image";
 import Link from "next/link";
 import SectionContainer from "@/components/common/SectionContainer";
-import { ArrowLeft, ChevronRight, Info, MapPin, Sparkles } from "lucide-react";
+import { ChevronRight, MapPin, Sparkles } from "lucide-react";
 
-// Helper for Breadcrumbs
-function Breadcrumbs({ items }: { items: { label: string, href: string }[] }) {
+// Helper for Breadcrumbs. `href: null` renders a plain, non-clickable crumb —
+// used for the "Guides"/"Places"/"Stories" middle crumb, which has no real
+// page behind it yet (see Batch 7 in PAHARI_YATRI_SEO_REFACTOR_REPORT.md).
+function Breadcrumbs({ items }: { items: { label: string, href: string | null }[] }) {
     return (
         <nav className="flex items-center space-x-2 text-sm text-muted-foreground/60 mb-8 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
             {items.map((item, i) => (
-                <div key={item.href} className="flex items-center">
+                <div key={item.label} className="flex items-center">
                     {i > 0 && <ChevronRight className="w-3 h-3 mx-2 opacity-30" />}
-                    <Link href={item.href} className="hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4">
-                        {item.label}
-                    </Link>
+                    {item.href ? (
+                        <Link href={item.href} className="hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4">
+                            {item.label}
+                        </Link>
+                    ) : (
+                        <span>{item.label}</span>
+                    )}
                 </div>
             ))}
         </nav>
-    );
-}
-
-// Helper for Local Knowledge Card
-function LocalKnowledgeCard({ title, children }: { title: string, children: React.ReactNode }) {
-    return (
-        <div className="relative group overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-transparent p-8 my-12 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Sparkles className="w-12 h-12 text-primary" />
-            </div>
-            <h3 className="text-2xl font-brandSerif mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Info className="w-4 h-4 text-primary" />
-                </span>
-                {title}
-            </h3>
-            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
-                {children}
-            </div>
-        </div>
     );
 }
 
@@ -143,15 +120,10 @@ export default async function Page({ params }: any) {
                         <h1 className="text-[clamp(2.5rem,10vw,7rem)] font-brandSerif tracking-tighter leading-[0.9] mb-8 max-w-[90%]">
                             {region.title}
                         </h1>
-                        <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 border-l border-primary/30 pl-8 py-3">
+                        <div className="border-l border-primary/30 pl-8 py-3">
                             <p className="text-lg md:text-xl font-light text-muted-foreground/90 max-w-2xl leading-relaxed">
                                 {region.description}
                             </p>
-                            <div className="hidden xl:block w-px h-16 bg-border/50" />
-                            <div className="flex flex-col gap-1">
-                                <span className="text-[10px] uppercase tracking-[0.3em] font-black text-primary/40">Verified Region Hub</span>
-                                <span className="text-foreground text-sm font-brandSerif font-bold italic">By Pahari Yatri Collective</span>
-                            </div>
                         </div>
                     </SectionContainer>
                 </div>
@@ -164,13 +136,6 @@ export default async function Page({ params }: any) {
                                     <p>{region.description}</p>
                                 </div>
                             </div>
-
-                            <LocalKnowledgeCard title="The Local View">
-                                <div className="space-y-6">
-                                    <p>As a team deeply rooted in {region.title}, we see what standard guides miss. The essence of this region is found in its <strong>shoulder seasons</strong>—March to April and September to October—when the trails are quiet and the local culture is most transparent.</p>
-                                    <p>Pahari Yatri prioritizes slow, sustainable movement through these valleys, focusing on reciprocity with village hosts rather than just tourism transit.</p>
-                                </div>
-                            </LocalKnowledgeCard>
                         </div>
 
                         {/* Sidebar Bridge - Responsive Layout */}
@@ -223,7 +188,7 @@ export default async function Page({ params }: any) {
         const breadcrumbItems = [
             { label: "Home", href: "/" },
             { label: region.title, href: `/${regionSlug}` },
-            { label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories", href: `/${regionSlug}/${type}` }
+            { label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories", href: null }
         ];
 
         if (type === "travel-guide") {
@@ -234,8 +199,8 @@ export default async function Page({ params }: any) {
             try {
                 if (typeof dest.content === "function") {
                     const raw = await dest.content();
-                    const rawStr = typeof raw === "string" ? raw : "";
-                    contentHtml = rawStr ? markdownToHtml(rawStr) : "";
+                    const rawStr = typeof raw === "string" ? raw : String(raw ?? "");
+                    contentHtml = rawStr ? demoteHeadings(markdownToHtml(rawStr)) : "";
                 }
             } catch (e) { }
 
@@ -330,10 +295,6 @@ export default async function Page({ params }: any) {
                         <div className="prose prose-xl md:prose-2xl dark:prose-invert font-brandSerif mb-16 opacity-80 border-l-2 border-primary/30 pl-8">
                             <p className="italic leading-relaxed">&quot;{story.excerpt}&quot;</p>
                         </div>
-
-                        <LocalKnowledgeCard title="The Connection">
-                            <p className="text-lg">This experience reflects the true <strong>Locals Know</strong> signal of {region.title}. By sharing these intimate moments, Pahari Yatri ensures the future of travel remains human-centered and honest.</p>
-                        </LocalKnowledgeCard>
                     </SectionContainer>
                 </main>
             );

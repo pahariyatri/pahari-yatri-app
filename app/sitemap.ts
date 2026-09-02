@@ -8,13 +8,14 @@ const reader = createReader(process.cwd(), keystaticConfig)
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const siteUrl = siteMetadata.siteUrl
 
-    // Static routes
+    // Static routes. 'himachal' is deliberately not listed here — it's a
+    // region slug and already produced (correctly, with region priority)
+    // by regionRoutes below; listing it twice duplicated the sitemap entry.
     const routes = [
         '',
         'library',
         'books',
         'chapters',
-        'himachal',
         'stories',
         'responsible-travel',
         'temples',

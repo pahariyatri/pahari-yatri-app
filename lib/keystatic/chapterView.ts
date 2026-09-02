@@ -198,12 +198,21 @@ export async function getChapterView(slug: string) {
   return { chapter, journeyData, ldArray };
 }
 
-/** First paragraph of a multi-paragraph field, trimmed to a word boundary
- *  near `max` chars — used to turn the literal `overview` field into a real
- *  SERP-shaped meta description instead of the poetic `excerpt`. */
+/** First paragraph of a multi-paragraph field, trimmed near `max` chars for
+ *  a SERP-shaped meta description instead of the poetic `excerpt`. Prefers
+ *  cutting at the end of a whole sentence — several `overview` fields hedge
+ *  a devta/temple claim ("local belief holds...") in the sentence right
+ *  after the fact that fits the char budget, and a raw word-boundary cut
+ *  was landing mid-claim, before the hedge, which reads as an unqualified
+ *  assertion in the search snippet. */
 function firstParagraphTruncated(text: string, max: number): string {
   const first = (text || "").split(/\n{2,}/)[0].replace(/\s+/g, " ").trim();
   if (!first || first.length <= max) return first;
+  const window = first.slice(0, max + 40); // allow a bit of overrun to find a sentence end
+  const sentenceEnd = window.slice(0, max).match(/^.*[.!?](?=\s|$)/);
+  if (sentenceEnd && sentenceEnd[0].length > max * 0.5) {
+    return sentenceEnd[0].trim();
+  }
   const cut = first.slice(0, max);
   const lastSpace = cut.lastIndexOf(" ");
   return `${cut.slice(0, lastSpace > 0 ? lastSpace : max)}…`;
