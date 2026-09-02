@@ -18,7 +18,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
  *  (see keystatic.config.ts); stories are pulled in transitively through
  *  whichever chapter they belong to, since a story has no district of its
  *  own. */
-async function getDistrictLinks(districtSlug: string) {
+async function getDistrictLinks(districtSlug: string, regionSlug: string) {
     const [allChapters, allPlaces, allStories] = await Promise.all([
         reader.collections.chapters.all(),
         reader.collections.places.all(),
@@ -34,8 +34,12 @@ async function getDistrictLinks(districtSlug: string) {
             location: (c.entry.location as string) || "",
         }));
 
+    // Guard against a place whose district sits in a different region than
+    // its own parentRegion — today there's only one region so this can't
+    // actually happen, but the link below is built from regionSlug, and
+    // without this check a future second region could silently 404.
     const places = allPlaces
-        .filter((p) => p.entry.district === districtSlug)
+        .filter((p) => p.entry.district === districtSlug && p.entry.parentRegion === regionSlug)
         .map((p) => ({
             slug: p.slug,
             title: p.entry.title as string,
@@ -74,16 +78,21 @@ export async function generateMetadata({ params }: any) {
 
     if (slug.length === 2) {
         const type = slug[1];
-        if (type === "travel-guide") {
+        if (type === "travel-guide" || type === "places") {
+            const title = type === "travel-guide" ? `Travel Guides | ${region.title}` : `Places | ${region.title}`;
+            const description = type === "travel-guide"
+                ? `Every district travel guide Pahari Yatri has published for ${region.title} — where to go and what it's actually like.`
+                : `Every place Pahari Yatri has published for ${region.title}.`;
             return {
-                title: `Travel Guides | ${region.title}`,
-                description: `Every district travel guide Pahari Yatri has published for ${region.title} — where to go and what it's actually like.`,
-            };
-        }
-        if (type === "places") {
-            return {
-                title: `Places | ${region.title}`,
-                description: `Every place Pahari Yatri has published for ${region.title}.`,
+                title,
+                description,
+                alternates: { canonical: `/${regionSlug}/${type}` },
+                openGraph: {
+                    title,
+                    description,
+                    images: [region.heroImage || ""],
+                    type: "website",
+                },
             };
         }
     }
@@ -112,7 +121,7 @@ export async function generateMetadata({ params }: any) {
 import Image from "@/components/common/Image";
 import Link from "next/link";
 import SectionContainer from "@/components/common/SectionContainer";
-import { ChevronRight, MapPin, Sparkles } from "lucide-react";
+import { ChevronRight, MapPin } from "lucide-react";
 
 // Helper for Breadcrumbs. `href: null` renders a plain, non-clickable crumb —
 // used for the "Guides"/"Places"/"Stories" middle crumb, which has no real
@@ -314,9 +323,9 @@ export default async function Page({ params }: any) {
                 }
             } catch (e) { }
 
-            const { chapters: districtChapters, places: districtPlaces, stories: districtStories } = await getDistrictLinks(itemSlug);
+            const { chapters: districtChapters, places: districtPlaces, stories: districtStories } = await getDistrictLinks(itemSlug, regionSlug);
 
-            const jsonLd = getDestinationSchema({ ...dest, slug: itemSlug }, region, siteUrl);
+            const jsonLd = getDestinationSchema({ ...dest, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -401,7 +410,7 @@ export default async function Page({ params }: any) {
             const place = await reader.collections.places.read(itemSlug);
             if (!place || place.parentRegion !== regionSlug) notFound();
 
-            const jsonLd = getPlaceSchema({ ...place, slug: itemSlug }, region, siteUrl);
+            const jsonLd = getPlaceSchema({ ...place, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -439,7 +448,7 @@ export default async function Page({ params }: any) {
             const story = await reader.collections.stories.read(itemSlug);
             if (!story || (story as any).parentRegion !== regionSlug) notFound();
 
-            const jsonLd = getBlogPostingSchema({ ...story, slug: itemSlug }, region, siteUrl);
+            const jsonLd = getBlogPostingSchema({ ...story, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
