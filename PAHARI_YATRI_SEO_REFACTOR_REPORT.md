@@ -1,6 +1,6 @@
 # Pahari Yatri — SEO, Content & Authority Refactor Report
 
-Status: **Phase 1 (audit) complete. One zero-risk data fix applied. Everything else is a staged plan awaiting founder approval.**
+Status: **Batches 0–5 implemented and build/typecheck-verified (commit `d6ca5fc`), QA gate in progress. Batches 6–9 (content-heavy, need editorial/verification work) still staged, approved by founder ("yes do all") but not yet started.**
 Last updated: 2026-09-02
 
 ---
@@ -42,15 +42,32 @@ See the full specialist findings below (Part A). Headline items, live-verified:
 - **llms.txt**: already exists at `/llms.txt`, well-formed, but links only hub pages — no chapters. Low-cost, low-but-real value; not a ranking mechanism.
 - **Redirects, canonicals, JSON-LD FAQPage on chapters, AI-crawler robots access**: all already correct — explicitly confirmed as "don't touch, don't redo."
 
-## 3. What was actually changed this session
+## 3. What has actually been changed (commits `ca4e8b9`, `d6ca5fc`)
 
-| Change | Files | Live effect | Risk |
+### 3.0 Critical, unplanned finding — sitewide 404s returned HTTP 200
+
+While verifying Batch 7 (the two soft-404 hub pages), a much bigger bug turned up: **every dead, mistyped, or removed URL on the entire live site returned HTTP 200, not 404** — verified directly against `https://pahariyatri.com` with curl, not just the local build. Root cause: `app/loading.tsx` existed at the app root. A root-level `loading.tsx` implicitly wraps the whole route tree in `<Suspense>`, and per Next.js's own documented behavior, that starts streaming the response immediately — which locks the HTTP status to 200 before any nested `notFound()` call later in the tree can change it. This is documented Next.js behavior (confirmed via the framework's own `not-found` and streaming docs, and matches a long-standing, well-known class of Next.js App Router reports), not a version-specific bug.
+
+Fix: moved the file to `components/common/Loading.tsx` (it's also directly imported as a component by two client pages, so it couldn't simply be deleted) — removing it from Next's route-file-convention scanning without losing the reusable spinner. Verified before/after with curl against a production build: nonexistent paths now return 404, real pages still return 200.
+
+This is a bigger deal than anything else in this report. It means the sitewide indexation numbers cited elsewhere in this document (~19/~70 indexed) were measured against a site where Google could never distinguish a real page from a dead one by status code — every crawl signal about broken/removed URLs was silently wrong until this fix.
+
+### 3.1 Batches 0–5 — implemented, build/typecheck-verified
+
+| Batch | What changed | Files | Verification |
 |---|---|---|---|
-| Removed 7 dead `relatedStories: [nonexistent-slug]` entries | `data/chapters/{saroa-to-kamrunag, devidarh-shikari-devi, baga-sarahan-bashleo-pass, chandernahan-lake-trek, mural-danda-trek, echoing-caves, shepherds-path}.yaml` | **None** — these already rendered zero story links (the null result was silently filtered), so removing the dead reference changes no user-visible output. It only removes invalid data that could cause wasted resolution attempts. | None |
+| 0 | Sitewide 404-status bug (above) | `app/loading.tsx` → `components/common/Loading.tsx`, 2 import updates | curl before/after on real build; fake paths 404, real pages 200 |
+| 1 | Removed fabricated "local knowledge" boilerplate (Tuesday-market claim, "200m behind the temple" claim) from destination + place templates | `app/[...slug]/page.tsx` | grep confirms the strings are gone from rendered output on sample pages |
+| 2 | Fixed raw-markdown-as-text rendering bug on destination pages; reused the existing Markdoc renderer pattern from `app/stories/[...slug]/page.tsx` instead of adding a dependency | `app/[...slug]/page.tsx` | `/himachal/travel-guide/manali` now renders 5 real `<h2>` tags, zero literal `##`/`**` in output |
+| 3 | Wired the 3 orphan stories to their chapter via `relatedChapter` + a second `relatedStories` entry | 3 story `.mdx` files, 3 chapter `.yaml` files | curl confirms `href` to each orphan story now present on its chapter page |
+| 4 | Wired the dormant `relatedChapters` schema field into `chapterView.ts` + the chapter detail page; populated the Sacred Lakes cluster (Kamrunag ↔ Saroa bidirectional, Kamrunag/Parashar/Chandernahan cross-links) | `lib/keystatic/chapterView.ts`, `app/chapters/[...slug]/client-page.tsx`, 4 chapter `.yaml` files | curl confirms all cross-links render with correct `href`s |
+| 5 | `trackType`-aware title/meta template with `seoTitle`/`metaDescription` override support; classified all 24 chapters by `trackType` (temple/lake/pass/cultural/default-trail) | `lib/keystatic/chapterView.ts`, 22 chapter `.yaml` files | Spot-checked titles across every `trackType`: no doubled brand suffix, no "Trek — ... Trek", no doubled "Himachal Pradesh" |
 
-Verified: `git diff --stat` shows only these 7 files, 2 lines removed each, no other changes. `npm run build` completed clean — 116 pages, same route list as before (`/chapters/*` all 24 present, `/stories/*` all 20 present, `/books/*` all present, sitemap/robots/manifest all generated).
+`npm run build` and `npx tsc --noEmit` both clean after every step above. `qa-security-reviewer` is running against this checkpoint as of this writing — see §11 for the verdict once it lands.
 
-**Nothing else was implemented.** Every other finding below is a proposal awaiting approval.
+### 3.2 Not yet implemented
+
+Batches 6–9 (district hub rewrite, real index pages for the two former soft-404s, the new temple/etiquette chapter, and the 8-chapter/3-story content expansion) are approved by the founder ("yes do all") but not yet started — they're the content-heavy batches that need `chapter-editor`/`local-verification-editor` involvement for anything touching cultural claims, per this project's standing rule.
 
 ## 4. Content authority audit
 
@@ -92,33 +109,35 @@ Not audited in depth this session (scope ran out of budget before `portal-brand-
 
 **Not run in depth this session.** The one relevant data point gathered: production build is clean, 116 static pages, no build-time errors or warnings surfaced in the output reviewed.
 
-## 10. Staged implementation plan — everything below needs founder approval
+## 10. Staged implementation plan
 
-Per this repo's approval policy (`CLAUDE.md`) and the explicit guardrail on this loop ("stop after the plan if it touches more than ~10 files or any live URL"), nothing past §3 has been implemented. Batches are ordered by impact-to-risk ratio, each sized to stay implementable and reviewable independently.
+Founder approved all 9 batches ("yes do all"). Batches 0–5 are implemented (§3.1); this section is kept as the record of what each batch was and tracks 6–9 as not-yet-started.
 
-**Batch 1 — Remove the fabricated local-knowledge boilerplate.** Highest urgency, lowest risk. Touches the destination/place page template (`app/[...slug]/page.tsx`) — one shared component, 21 live pages affected. This is a trust/brand-standard fix, not just SEO.
+**Batch 0 — done.** Sitewide 404-status bug. See §3.0.
 
-**Batch 2 — Fix the MDX rendering bug.** `app/[...slug]/page.tsx`, destination + place rendering path. Repairs 21 live pages from literal-markdown-as-text to actual HTML. No content changes — same words, correctly rendered. Should ship together with or immediately after Batch 1.
+**Batch 1 — done.** Remove the fabricated local-knowledge boilerplate.
 
-**Batch 3 — Wire the 3 orphan stories in.** Set `relatedChapter` on `why-locals-avoid-manali-in-peak-season` → `solstice-snow`, `tirthan-the-slow-valley-reflections` → `river-sutra`, `kinnaur-beyond-the-pass-reality` → `rupin-pass-trek` (best geographic fit — Sangla/Kinner Kailash), and add each as a second `relatedStories` entry on that chapter. 6 files. Adds new visible links to 3 live chapter pages — flagged as public-facing even though it's a correctness fix, not a copy change.
+**Batch 2 — done.** Fix the MDX rendering bug.
 
-**Batch 4 — Wire the existing `relatedChapters` schema field into `chapterView.ts` and populate it for the highest-priority cluster.** Makes real the "2–4 sideways links" the schema already promises. First use: bidirectional Kamrunag ↔ Saroa link, then the Sacred Lakes triangle (Kamrunag / Parashar / Chandernahan). Code change (`chapterView.ts` + the chapter page template) plus data on ~6 chapter files.
+**Batch 3 — done.** Wire the 3 orphan stories in.
 
-**Batch 5 — Fix the chapter title/meta-description template.** Use the existing (already-in-schema, currently-unused) `seoTitle`/`metaDescription`/`trackType` fields with sensible fallbacks (de-dupe "Trek Trek," prefer `overview` over `excerpt` for meta description). Code change in `chapterView.ts`, populate `seoTitle` by hand only for the ~8 priority chapters. Changes the `<title>`/meta of 24 indexed URLs — expect 4–8 weeks of noisy CTR data. **Needs explicit sign-off given the live-SERP impact.**
+**Batch 4 — done.** Wire the existing `relatedChapters` schema field into `chapterView.ts` and populate it for the Sacred Lakes cluster.
 
-**Batch 6 — District hub reclassification.** Rewrite the 13 destination pages down from "attempted guide" to "honest orientation + real link block," starting with Mandi/Kullu/Manali. Removes boilerplate (covered by Batch 1), adds internal links to chapters. Public copy change on 13 live URLs — needs approval and ideally `chapter-editor`/`local-verification-editor` involvement for the orientation paragraphs.
+**Batch 5 — done.** Fix the chapter title/meta-description template. Live-SERP impact expected — 4–8 weeks of noisy CTR data on 24 indexed URLs while Google recrawls.
 
-**Batch 7 — Build `/himachal/travel-guide` and `/himachal/places` as real index pages**, converting the two soft-404s. New route content, not new URLs.
+**Batch 6 — not started. District hub reclassification.** Rewrite the 13 destination pages down from "attempted guide" to "honest orientation + real link block," starting with Mandi/Kullu/Manali. Removes boilerplate (covered by Batch 1), adds internal links to chapters. Public copy change on 13 live URLs — needs approval and ideally `chapter-editor`/`local-verification-editor` involvement for the orientation paragraphs.
 
-**Batch 8 — Write the temple/etiquette chapter.** One new URL. Needs `local-verification-editor` before publishing (cultural/ritual claims).
+**Batch 7 — not started. Build `/himachal/travel-guide` and `/himachal/places` as real index pages**, converting the two former soft-404s (now real, correct 404s since Batch 0 — still dead ends reached from 21 live breadcrumbs until this batch lands).
 
-**Batch 9 — Content expansion.** The ~8 chapters and 3 stories identified as best keyword-fit/lowest-competition (Kamrunag pillar, Parashar, Shikari Devi, Churdhar, Chandernahan, Kheerganga hot spring angle, the 3 orphan stories, the new Parvati-villages-beyond-Kasol chapter). Owned by `chapter-editor` + `local-verification-editor`, run as its own loop per existing project process (`chapter-upgrade-loop`), not bundled into this SEO batch.
+**Batch 8 — not started. Write the temple/etiquette chapter.** One new URL. Needs `local-verification-editor` before publishing (cultural/ritual claims).
+
+**Batch 9 — not started. Content expansion.** The ~8 chapters and 3 stories identified as best keyword-fit/lowest-competition (Kamrunag pillar, Parashar, Shikari Devi, Churdhar, Chandernahan, Kheerganga hot spring angle, the 3 orphan stories, the new Parvati-villages-beyond-Kasol chapter). Owned by `chapter-editor` + `local-verification-editor`, run as its own loop per existing project process (`chapter-upgrade-loop`), not bundled into this SEO batch.
 
 **Not recommended, flagged explicitly so it isn't attempted by accident:** merging the two Kamrunag chapters, redirecting/deleting any of the 13 destination or 8 place pages, any programmatic page generation, renaming `manali`'s URL to fit under `kullu` more "correctly."
 
-## 11. QA verdict
+## 11. QA verdicts
 
-`qa-security-reviewer` ran against the only change actually made this session (§3, the 7-file dead-reference cleanup).
+### 11.1 Checkpoint 1 (commit `ca4e8b9`) — the 7-file dead-reference cleanup
 
 **Verdict: PASS WITH NOTES. No blocking issues.**
 
@@ -131,18 +150,23 @@ Non-blocking notes surfaced, worth acting on:
 3. **A latent repeat of this exact bug class exists in dead code**: `lib/schema.ts:85-86` (`getTouristTripSchema`) reads the raw, unfiltered `relatedStories` array and would build JSON-LD `TouristTrip` URLs straight from it — no resolution, no null-filtering. It has zero callers today, which is the only reason it never shipped broken structured data. If anyone wires this function up later, the same dangling-slug bug returns in JSON-LD. Worth a one-line filter fix if that code is ever activated.
 4. **`lib/keystatic/chapters.ts` is an entirely unimported module** duplicating logic that lives for real in `chapterView.ts`. Its own `relatedStories` handling can silently drift from the live path. Candidate for deletion — flagged, not acted on (founder call).
 5. Pre-existing and unrelated to this change: `app/layout.tsx:161-162` sets JSON-LD `datePublished`/`dateModified` to build time, so every page reports as "modified" on every deploy. Noted only because it's what produced the byte-diff noise QA had to normalize past.
-6. **Open question, not yet resolved**: were the 7 dangling story slugs (`ridge-to-vows`, `shikari-bells-in-wind`, etc.) meant to eventually become real stories, rather than being dead typos? Deleting the reference is correct either way for the *data*, but it does drop the only remaining record of those intended slugs. If they were planned content, note it before this gets forgotten — Batch 3/9 story-writing work should account for it if so.
+6. **Open question, not yet resolved**: were the 7 dangling story slugs (`ridge-to-vows`, `shikari-bells-in-wind`, etc.) meant to eventually become real stories, rather than being dead typos? Deleting the reference is correct either way for the *data*, but it does drop the only remaining record of those intended slugs. If they were planned content, note it before this gets forgotten — Batch 9 story-writing work should account for it if so.
+
+This checkpoint was committed as `ca4e8b9`.
+
+### 11.2 Checkpoint 2 (commit `d6ca5fc`) — Batches 0–5
+
+QA was launched against this commit and is in progress as of this writing. This section will be updated in place with the verdict once it returns, rather than duplicated.
 
 ## 12. Rollback
 
-Nothing is committed — the 7-file change is an unstaged working-tree edit. To discard it entirely:
-```bash
-git restore data/chapters/
-```
-This is exact — only those 7 files are modified under `data/chapters/`. No commit exists yet to revert.
+- Checkpoint 1 (7-file dead-reference cleanup): `git revert ca4e8b9`
+- Checkpoint 2 (Batches 0–5, including the critical loading.tsx / 404-status fix): `git revert d6ca5fc`
+- Both are ordinary commits on `main`; nothing has been pushed to any remote.
 
 ## 13. What to do next
 
-1. Review Batches 1–9 above and tell me which to approve, in what order. My recommendation: **1 → 2 → 3 → 4** first (all low-risk correctness fixes, no new copy to write), then decide on 5 (title/meta — has SERP-visible risk) and 6 (needs editorial time) separately, 7–9 after.
-2. Once approved, implementation resumes through `nextjs-production-engineer`, gated by `qa-security-reviewer` again before anything is pushed, per the standard loop.
-3. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop even before the implementation batches land, since they don't depend on the code changes above.
+1. Founder approved all 9 batches. Batches 0–5 are implemented and committed; QA is in progress on checkpoint 2.
+2. Once QA on checkpoint 2 returns, Batches 6–9 continue: district hub rewrite (6), real index pages for the two former soft-404s (7), the new temple/etiquette chapter through `local-verification-editor` (8), then the larger content-expansion pass (9), run as its own loop per this project's standing process rather than bundled into this SEO batch.
+3. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop, since they don't depend on the code changes above.
+4. Nothing in this report has been pushed to a remote or deployed. All work so far is local commits on `main`.
