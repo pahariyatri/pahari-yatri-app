@@ -1,6 +1,6 @@
 # Pahari Yatri — SEO, Content & Authority Refactor Report
 
-Status: **Batches 0–5 implemented and build/typecheck-verified (commit `d6ca5fc`), QA gate in progress. Batches 6–9 (content-heavy, need editorial/verification work) still staged, approved by founder ("yes do all") but not yet started.**
+Status: **Batches 0–7 implemented, build/typecheck-verified, and QA-gated (three checkpoints, all PASS WITH NOTES, all notes addressed). Batch 8 (temple etiquette chapter) drafted, cultural-verified, and edited — awaiting a founder publish decision, deliberately uncommitted. Batch 9 (larger content expansion) not yet started.**
 Last updated: 2026-09-02
 
 ---
@@ -42,7 +42,7 @@ See the full specialist findings below (Part A). Headline items, live-verified:
 - **llms.txt**: already exists at `/llms.txt`, well-formed, but links only hub pages — no chapters. Low-cost, low-but-real value; not a ranking mechanism.
 - **Redirects, canonicals, JSON-LD FAQPage on chapters, AI-crawler robots access**: all already correct — explicitly confirmed as "don't touch, don't redo."
 
-## 3. What has actually been changed (commits `ca4e8b9`, `d6ca5fc`)
+## 3. What has actually been changed (commits `ca4e8b9` through `8b9acbb`)
 
 ### 3.0 Critical, unplanned finding — sitewide 404s returned HTTP 200
 
@@ -65,9 +65,44 @@ This is a bigger deal than anything else in this report. It means the sitewide i
 
 `npm run build` and `npx tsc --noEmit` both clean after every step above. `qa-security-reviewer` is running against this checkpoint as of this writing — see §11 for the verdict once it lands.
 
-### 3.2 Not yet implemented
+### 3.2 Batches 6–7 — implemented (commits `16a99fd`, `8b9acbb`)
 
-Batches 6–9 (district hub rewrite, real index pages for the two former soft-404s, the new temple/etiquette chapter, and the 8-chapter/3-story content expansion) are approved by the founder ("yes do all") but not yet started — they're the content-heavy batches that need `chapter-editor`/`local-verification-editor` involvement for anything touching cultural claims, per this project's standing rule.
+**Batch 6, structural half only** — added a `district` relationship field to both the `chapters` and `places` schemas (pointing at the `destinations` collection, which represents the 13 real districts), populated it on all 24 chapters and 8 places, and built a real link block on every destination page (`getDistrictLinks()` in `app/[...slug]/page.tsx`) so a district hub actually links to every chapter/place/story that belongs there. Mandi's hub now links to its 4 chapters and 2 stories — the single highest-impact internal-linking gap the original audit found.
+
+**Deliberately not done**: rewriting destination-page prose into 150–250 word "honest orientation" copy for Mandi/Kullu/Manali. New factual/cultural claims about a place belong through the `chapter-editor`/`local-verification-editor` gate like any other content, not freehanded inside a code batch — the link block is the structural fix; prose expansion is deferred to a future content pass (see §14, N5-equivalent: `bilaspur`/`solan`/`hamirpur` are still genuine dead ends with nothing to link to, since no chapter/place is assigned to them).
+
+**District mapping** — best-effort geographic classification from each chapter/place's existing `location` field and narrative content, not derived from any authoritative source. Most are unambiguous; three are judgment calls QA flagged and are recorded here rather than silently decided:
+
+| Chapter | Assigned district | Note |
+|---|---|---|
+| `baga-sarahan-bashleo-pass` | `kullu` | Genuinely two-district — Baga/Sarahan (the chapter's own place names) are on the Shimla side (Rampur); Bashleo Pass is the Kullu/Shimla boundary itself. Least defensible of the 32 assignments; a local reader should confirm. |
+| `solstice-snow` | `manali` | `manali` is a *destination hub entry*, not an actual Himachal district (Manali is a town within Kullu district) — `keystatic.config.ts` labels the field "District" but it really means "destination hub." Internally consistent, but the label overclaims precision. Splits this chapter and 2 stories off Kullu's cluster onto the Manali hub as a deliberate product choice, not a geography claim. |
+| `rupin-pass-trek` | `kinnaur` | Correct — the trek ends in Sangla, Kinnaur, which is where its content and search intent live — but the original commit's stated rationale ("trailhead/majority district") was backwards: the trailhead is Dhaula, **Uttarakhand**; Kinnaur is the endpoint. Value is right, reasoning as originally written was not. |
+
+Full 32-item mapping lives in the `district:` field of each `data/chapters/*.yaml` and `data/places/*.yaml` file — not duplicated here.
+
+**Batch 7** — built `/{region}/travel-guide` and `/{region}/places` as real, statically-generated index pages (previously `slug.length === 2`, which fell through to `notFound()` after the Batch 0 fix, or silently 200'd empty before it — either way, a dead end reached from every destination/place page's breadcrumb). Added to `generateStaticParams`, `app/sitemap.ts`, and given real `openGraph`/canonical metadata. Breadcrumbs on destination/place pages now link to these real pages again.
+
+### 3.3 Batch 8 — drafted, verified, edited. Still not committed.
+
+New chapter `data/chapters/himachal-temple-etiquette.yaml` (slug `himachal-temple-etiquette`) drafted by `chapter-editor`, then reviewed claim-by-claim by `local-verification-editor`. Targets "himachal temple etiquette" (near-zero competition per the original audit); ~2,000 on-page words across narrative + an 8-question FAQ block (down from 10 — two were removed, see below); `seoTitle`/`metaDescription` explicit overrides; `verificationStatus: needs-local-source` throughout, nothing marked verified or local-source-confirmed.
+
+**Verification verdict: NOT PUBLISHABLE AS DRAFTED. Now edited to PUBLISHABLE AT `needs-local-source`.** Two blocks were removed entirely, not hedged, per this project's rule that women's-access/community-custom claims need a named source or omission:
+
+- **Menstruation-related temple access** (a narrative paragraph + one FAQ) — removed. Hedging doesn't satisfy the rule here; the paragraph as drafted also editorialised about the custom while claiming not to ("we are not going to pretend the rule doesn't exist..."), which is a second, independent violation. Returns only with a named woman from a temple-owning village describing her own valley's practice.
+- **Entry restrictions by community/section** (one FAQ) — removed and labeled **unsafe**, a step beyond `needs-local-source`. As drafted it described what reads as caste-shaped exclusion as a normal, unquestionable posted rule — which is also unlawful (Article 17, Protection of Civil Rights Act 1955; HP High Court precedent against barring communities from worship at their own devta's temple). Returns only as a fact about one specific, named temple, told by that temple's own committee on the record — never as general etiquette.
+
+Roughly a dozen further claims were rewritten to properly attribute unsourced statements ("local accounts describe...", "ethnographic work describes...") rather than stating them as established fact, including the chapter's central claim — that village disputes are still brought to the deity first — which the verification pass found has **no precedent elsewhere on this site** (the drafting brief incorrectly assumed `kamrunag-the-lake-of-oaths.yaml` and `devidarh-shikari-devi.yaml` already asserted this; they don't). A regulatory claim about drone airspace was corrected to avoid an easily-checked-wrong overstatement, and office-holder terminology (kardar, gur, pujari, bajantri, mohra, rath) was confirmed **verified** against `kulludussehra.hp.gov.in`, an official HP government source.
+
+**A more important, sitewide finding surfaced during this pass, unrelated to this one chapter's content**: `verificationStatus` is a documentation field only — **nothing in the codebase enforces it.** `lib/keystatic/chapters.ts` and `app/sitemap.ts` both list every chapter unfiltered; a "DO NOT PUBLISH" comment in a YAML file's header is not a technical gate, and any chapter — this one or a future one — publishes and gets indexed the moment it's committed, regardless of its `verificationStatus` value. **This is not something to silently code-fix**: every one of the 24 existing, currently-live chapters has *no* `verificationStatus` set at all (confirmed: `grep -L "^verificationStatus:" data/chapters/*.yaml` returns all 24), meaning they default to `unverified`. A hard filter on that field would immediately deindex the entire existing chapter library — a large, destructive, unplanned action, not a safe cleanup. Flagged for a founder decision (§14), not acted on here. The practical safeguard in place right now is procedural: this file stays uncommitted and unpushed, so it cannot reach production through this repo's normal (git-based) path.
+
+**The file remains uncommitted and unwired** — not staged, not cross-linked from the sacred chapters it's meant to serve — pending a founder decision on whether `needs-local-source` content should publish now (honest about its own limits) or wait for the sourcing conversations listed in its `sourcesToVerify` field (five, prioritized — one conversation with a Kamrunag kardar would clear most of the remaining unsourced claims).
+
+One structural finding from drafting this, worth fixing before Batch 9: `overview` is not rendered anywhere on the live chapter page (`app/chapters/[...slug]/client-page.tsx` never reads it — it only feeds JSON-LD description). Every chapter's real body has to live in `narrative`, which renders as plain, unstructured paragraphs with no heading support. This is a ceiling Batch 9's content-expansion pass will hit on every chapter it touches, not just this new one.
+
+### 3.4 Not yet implemented
+
+Batch 9 (the larger 8-chapter/3-story content expansion) is approved by the founder ("yes do all") but not yet started — by design, per its own entry below, it's meant to run as its own loop through `chapter-editor`/`local-verification-editor`/`chapter-upgrade-loop`, not be bundled into this SEO-focused session.
 
 ## 4. Content authority audit
 
@@ -125,11 +160,11 @@ Founder approved all 9 batches ("yes do all"). Batches 0–5 are implemented (§
 
 **Batch 5 — done.** Fix the chapter title/meta-description template. Live-SERP impact expected — 4–8 weeks of noisy CTR data on 24 indexed URLs while Google recrawls.
 
-**Batch 6 — not started. District hub reclassification.** Rewrite the 13 destination pages down from "attempted guide" to "honest orientation + real link block," starting with Mandi/Kullu/Manali. Removes boilerplate (covered by Batch 1), adds internal links to chapters. Public copy change on 13 live URLs — needs approval and ideally `chapter-editor`/`local-verification-editor` involvement for the orientation paragraphs.
+**Batch 6 — done (structural half; prose-expansion half deferred, see §3.2). District hub reclassification.** Rewrite the 13 destination pages down from "attempted guide" to "honest orientation + real link block," starting with Mandi/Kullu/Manali. Removes boilerplate (covered by Batch 1), adds internal links to chapters. Public copy change on 13 live URLs — needs approval and ideally `chapter-editor`/`local-verification-editor` involvement for the orientation paragraphs.
 
-**Batch 7 — not started. Build `/himachal/travel-guide` and `/himachal/places` as real index pages**, converting the two former soft-404s (now real, correct 404s since Batch 0 — still dead ends reached from 21 live breadcrumbs until this batch lands).
+**Batch 7 — done. Build `/himachal/travel-guide` and `/himachal/places` as real index pages.**
 
-**Batch 8 — not started. Write the temple/etiquette chapter.** One new URL. Needs `local-verification-editor` before publishing (cultural/ritual claims).
+**Batch 8 — drafted, verified, edited; awaiting a founder publish decision. Write the temple/etiquette chapter.** One new URL. Went through `local-verification-editor`; two blocks removed, ~12 claims corrected — see §3.3.
 
 **Batch 9 — not started. Content expansion.** The ~8 chapters and 3 stories identified as best keyword-fit/lowest-competition (Kamrunag pillar, Parashar, Shikari Devi, Churdhar, Chandernahan, Kheerganga hot spring angle, the 3 orphan stories, the new Parvati-villages-beyond-Kasol chapter). Owned by `chapter-editor` + `local-verification-editor`, run as its own loop per existing project process (`chapter-upgrade-loop`), not bundled into this SEO batch.
 
@@ -172,14 +207,38 @@ Seven notes, none blocking, all addressed in a follow-up commit (`a9a75ce`):
 
 All seven verified fixed with fresh curl checks against a rebuilt production server (see commit `a9a75ce`).
 
+### 11.3 Checkpoint 3 (commit `16a99fd`) — Batches 6–7
+
+**Verdict: PASS WITH NOTES.** QA independently crawled every internal href on all 13 district hubs, both new index pages, and the 2 place pages against a running production build — confirmed every content link resolves 200, the empty-district guard (Bilaspur/Solan/Hamirpur) renders no section rather than an empty one, real static generation (not just intent) for the two new index pages, correct canonicals/`index,follow`, no prose changes snuck into any destination/place file (mechanically verified via diff), and no 404 regression across 8 different fake-URL shapes. Also validated all 32 `district` assignments resolve to a real destination slug — zero silent-zero-match typos, including the `sirmour`-vs-`Sirmaur` spelling trap.
+
+One item QA called "blocking" was the untracked Batch 8 draft chapter appearing mid-review — correctly caught (an accidental `git add -A` would have shipped unverified cultural claims), but expected: that file was mid-flight to `local-verification-editor`, exactly as it should be, and was never staged. Six non-blocking notes, five addressed in commit `8b9acbb`:
+
+- **N1**: `getDestinationSchema`/`getPlaceSchema`/`getBlogPostingSchema` were called with the raw region entry (no `.slug` — Keystatic's reader doesn't return one), producing a literal `"undefined"` in every destination and place page's JSON-LD `@id`/`url`. Pre-existing, not introduced by this batch, but sitting on the exact pages it touches. Fixed.
+- **N2**: dead `Sparkles` import left over from the "Official Guide Hub" badge removal. Fixed.
+- **N3**: this report hadn't been updated with the district-mapping rationale the commit message referenced — see §3.2 above, now current.
+- **N4**: `getDistrictLinks()` filtered places by district only, then built a region-prefixed link using the destination's region — harmless with one region, latent 404 risk with two. Fixed with a `parentRegion` guard.
+- **N5**: Bilaspur/Solan/Hamirpur are still genuine dead ends (no chapter/place assigned) — not a regression, the deferred prose/content pass is what would address it, noted in §3.2.
+- **N6**: the two new index pages had no explicit OpenGraph tags, so shares fell back to the homepage's `og:title`/`og:url`. Fixed.
+- **N7/N8** (pre-existing, not from this batch, not fixed here): missing destination/place hero images (already tracked in §14), and `npm run lint` doesn't work at all on Next 16 (`next lint` was removed) — added to §14.
+
+All five code fixes verified with curl against a rebuilt production server (commit `8b9acbb`).
+
+### 11.4 Batch 8 verification — complete
+
+**Verdict: NOT PUBLISHABLE AS DRAFTED → edited to PUBLISHABLE AT `needs-local-source`.** Full detail in §3.3. Two blocks removed (one flagged `unsafe`, not just unsourced), ~12 claims rewritten for honest attribution, office-holder terminology confirmed against an official HP government source, banned-language sweep independently re-confirmed clean. The verification pass also surfaced the sitewide `verificationStatus`-isn't-enforced finding in §3.3/§14 — bigger than this one chapter.
+
+Edits applied directly to the file per the verification agent's line-by-line instructions (not re-authored — this was mechanical execution of specific, sourced editorial decisions, not new judgment calls). File remains uncommitted.
+
 ## 12. Rollback
 
 - Checkpoint 1 (7-file dead-reference cleanup): `git revert ca4e8b9`
 - Checkpoint 2 (Batches 0–5, including the critical loading.tsx / 404-status fix): `git revert d6ca5fc` — **note this restores `app/loading.tsx` and re-breaks the sitewide 404 status back to 200.** If you only want to undo Batches 1–5 and keep the 404 fix, revert the commit and then re-delete/re-move that one file rather than reverting wholesale.
 - Checkpoint 2 fix-up (QA notes N1–N7): `git revert a9a75ce`
-- All are ordinary commits on `main`; nothing has been pushed to any remote, nothing deployed.
+- Checkpoint 3 (Batches 6–7, district hubs + real index pages): `git revert 16a99fd`
+- Checkpoint 3 fix-up (QA notes N1/N2/N4/N6): `git revert 8b9acbb`
+- All are ordinary commits on `main`; nothing has been pushed to any remote, nothing deployed. `data/chapters/himachal-temple-etiquette.yaml` (Batch 8) is untracked/uncommitted — `rm` it to discard, no git command needed.
 
-## 14. Known pre-existing issues found but not fixed in this pass
+## 13. Known pre-existing issues found but not fixed in this pass
 
 Surfaced during QA on checkpoint 2, not caused by any change in this report, not fixed here — flagged for a separate pass:
 
@@ -187,11 +246,16 @@ Surfaced during QA on checkpoint 2, not caused by any change in this report, not
 - **`lib/schema.ts:85-86` (`getTouristTripSchema`)** reads `relatedStories` raw and unfiltered — if ever wired up (it has zero callers today), it would emit broken JSON-LD `TouristTrip` URLs for any dangling slug, the same bug class Batch 3 fixed in the view layer. One-line fix if that function is ever activated.
 - **`lib/keystatic/chapters.ts`** is an entirely unimported module duplicating logic that lives for real in `chapterView.ts`. Candidate for deletion — flagged, not acted on (founder call, not blocking any SEO work).
 - **`app/layout.tsx:161-162`** sets JSON-LD `datePublished`/`dateModified` to build time, so every page reports as "modified" on every deploy regardless of whether content actually changed.
+- **`npm run lint` doesn't work on Next 16.** It shells out to `next lint`, which Next.js 16 removed; running it errors with "Invalid project directory provided" rather than linting anything. Surfaced during checkpoint 3 QA — a working lint config would have caught the dead `Sparkles` import (N2) automatically. Needs a real ESLint flat-config setup, which is its own small project, not something to improvise inside this report.
+- **`chapterView.ts`'s chapter detail page never renders the `overview` field** — it only feeds JSON-LD description. A chapter's entire visible body has to live in `narrative`, which renders as unstructured plain paragraphs with no heading support at all. Found while drafting Batch 8 (§3.3); will affect every chapter Batch 9 touches, not just the new one.
+- **`verificationStatus` is a documentation field only — nothing enforces it.** Neither `lib/keystatic/chapters.ts` nor `app/sitemap.ts` filter on it; any chapter publishes and gets indexed on commit regardless of its value. Found while verifying Batch 8 (§3.3). **Not a simple fix**: all 24 existing chapters have no `verificationStatus` set (default `unverified`), so a hard filter would deindex the entire current library. Needs a founder decision — likely either (a) a retroactive audit that sets a real status on all 24 existing chapters before any enforcement is added, or (b) a narrower gate that only applies to chapters created after a cutoff date. Flagged, not solved here.
 
-## 15. What to do next
+## 14. What to do next
 
-1. Founder approved all 9 batches. Batches 0–5 are implemented, committed, and QA-gated (two rounds, both PASS WITH NOTES, all notes addressed).
-2. Batches 6–9 continue: district hub rewrite (6), real index pages for the two former soft-404s (7), the new temple/etiquette chapter through `local-verification-editor` (8), then the larger content-expansion pass (9), run as its own loop per this project's standing process rather than bundled into this SEO batch.
-3. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop, since they don't depend on the code changes above.
+1. Founder approved all 9 batches. Batches 0–7 are implemented, committed, and QA-gated (three rounds, all PASS WITH NOTES, all notes addressed).
+2. Batch 8 (temple etiquette chapter) is drafted, verified, and edited (§3.3, §11.4) — publishable at `needs-local-source` if the founder wants it live now, or held for the sourcing conversations in its `sourcesToVerify` field first. Either way it needs an explicit founder decision to commit and wire it into the sacred chapters' `relatedChapters`; that hasn't happened.
+3. The `verificationStatus`-isn't-enforced finding (§13) is worth resolving before any more chapters accumulate an unaudited status — a founder call on retroactive-audit vs. cutoff-date gating, not something to decide unilaterally here.
+4. Batch 9 (the larger 8-chapter/3-story content expansion) has not started — by design, it's meant to run as its own loop through `chapter-editor`/`local-verification-editor`, not be bundled into this session. Before it starts, fix the `overview`-doesn't-render issue above so expanded chapters have somewhere to put real heading structure.
+5. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop, since they don't depend on the code changes above.
 4. §14's pre-existing issues are worth a founder decision on priority, especially the missing destination/place images — those pages will look broken to any visitor until real photos are sourced, independent of anything in this report.
 5. Nothing in this report has been pushed to a remote or deployed. All work so far is local commits on `main`.
