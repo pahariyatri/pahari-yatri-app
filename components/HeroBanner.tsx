@@ -61,6 +61,7 @@ const HeroBanner = ({
           alt="Himalayan peaks"
           fill
           priority
+          fetchPriority="high"
           className={`object-cover transition-opacity duration-1000 ${videoReady ? "opacity-0" : "opacity-100"}`}
         />
 
