@@ -14,21 +14,26 @@ interface PageSEOProps {
 export async function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Promise<Metadata> {
     const seo = await reader.singletons.seo.read();
     const settings = await reader.singletons.settings.read();
+    // Every hub page that doesn't pass its own `image` used to fall back to a
+    // hotlinked, likely-unlicensed Pinterest image. /api/og generates a real
+    // branded card from the page's own title instead.
+    const fallbackImage = `/api/og?title=${encodeURIComponent(title)}`;
     return {
         title,
+        description: description || seo?.description,
         openGraph: {
             title: `${title} | ${seo?.title}`,
             description: description || seo?.description,
             url: './',
             siteName: seo?.title,
-            images: image ? [image] : ['https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg' ],
+            images: [image || fallbackImage],
             locale: settings?.locale,
             type: 'website',
         },
         twitter: {
             title: `${title} | ${seo?.title}`,
             card: 'summary_large_image',
-            images: image ? [image] : ['https://i.pinimg.com/736x/63/27/9d/63279d93bdd63862256bb4c7e500e10b.jpg'],
+            images: [image || fallbackImage],
         },
         ...rest,
     }

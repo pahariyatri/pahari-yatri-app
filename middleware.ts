@@ -2,14 +2,13 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 // 1. List of known bad bot User-Agents (Extensible)
+// Note: AI/AEO crawlers (GPTBot, Google-Extended, anthropic-ai) and FacebookBot
+// (used for link-preview unfurling) are intentionally NOT blocked here — they're
+// allowed in robots.ts and blocking them at the middleware layer contradicted that.
 const BLOCKED_USER_AGENTS = [
-    'GPTBot',
     'CCBot',
     'ChatGPT-User',
-    'Google-Extended',
-    'anthropic-ai',
     'Omgilibot',
-    'FacebookBot',
     'Bytespider',
 ]
 

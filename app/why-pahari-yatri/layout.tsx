@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Why Pahari Yatri — Conscious, Invitation-Only Himalayan Treks",
+  title: "Why Pahari Yatri — Yatri, Not Tourist",
   description:
-    "Pahari Yatri is not a tour operator — it's a movement of seekers. Discover why we walk small-group, intentional Himalayan treks in Himachal Pradesh, and what makes the Yatri way different.",
+    "Pahari Yatri is not a tour operator — it's a Himalayan storytelling and responsible-travel community. Understand why we exist, and what makes travelling as a Yatri different from a package tour.",
   alternates: { canonical: "/why-pahari-yatri" },
 };
 

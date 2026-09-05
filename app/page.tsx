@@ -26,11 +26,6 @@ export default async function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
         />
       )}
-      <div data-rag-chunk="true" className="hidden">
-        <h1>{heroBanner.title}</h1>
-        <p>{heroBanner.description}</p>
-        <p>Pahari Yatri offers transformative Himalayan journeys, focusing on spiritual discovery and authentic trekking experiences in Uttarakhand, India.</p>
-      </div>
       {/* <ScarcityStrip /> */}
       {heroBanner && (
         <HeroBanner

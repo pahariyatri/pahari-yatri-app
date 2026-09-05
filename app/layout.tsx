@@ -207,111 +207,6 @@ export default async function RootLayout({
     },
   };
 
-  const jsonLdBreadcrumbs = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Books",
-        item: `${siteUrl}/books`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Stories",
-        item: `${siteUrl}/stories`,
-      },
-    ],
-  };
-
-  const jsonLdLocalBusiness = {
-    "@context": "https://schema.org",
-    "@type": "TouristInformationCenter",
-    name: "Pahari Yatri",
-    description: seo?.description || "A digital Himalayan library and community teaching responsible travel, culture, and folklore across Himachal Pradesh and the wider Himalayas.",
-    url: siteUrl,
-    logo: `${siteUrl}/static/images/logo.png`,
-    image: `${siteUrl}/api/og`,
-    email: "info@pahariyatri.com",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Manali",
-      addressRegion: "Himachal Pradesh",
-      addressCountry: "IN",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 32.2396,
-      longitude: 77.1887,
-    },
-    areaServed: {
-      "@type": "Place",
-      name: "Himachal Pradesh, India",
-    },
-    openingHours: "Mo-Su 09:00-18:00",
-    priceRange: "₹₹",
-    sameAs: [
-      "https://instagram.com/pahariyatri",
-      "https://facebook.com/pahariyatri",
-      "https://www.youtube.com/@pahariyatri",
-    ],
-  };
-
-  const jsonLdFAQ = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What is Pahari Yatri?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Pahari Yatri is a digital Himalayan library and community that teaches people how to experience the Himalayas with respect, awareness, culture, and inner purpose. It is a responsible-travel movement based in Himachal Pradesh, India, not a trip-selling travel agency.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What does 'Yatri' mean?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "A Yatri (Hindi: यात्री) is a traveller or pilgrim. A Pahari Yatri travels to learn and to listen, not simply to sightsee. The idea is to understand the mountains before you travel them.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How is the Pahari Yatri library organised?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Content is organised into seasonal Editions (Books): Summer, Monsoon, Winter, and the Lost Trails. Each Book holds Chapters, and each Chapter tells the story of one place, its region, season, and what to respect there. Travellers add first-person Stories to the archive.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the best season to travel in Himachal Pradesh?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Every season has its character. Monsoon (July to September) brings lush green trails. Autumn (October to November) offers clear skies and golden light. Winter (December to February) is for silence and snow. Spring (March to May) is for renewal. The library has an edition for each.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How is Pahari Yatri different from a travel agency?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "It teaches before it invites. The focus is awareness, culture, folklore, and responsible travel, not packages, discounts, or booking. You learn how to walk the Himalayas respectfully, and you can contribute your own story to the library.",
-        },
-      },
-    ],
-  };
-
   return (
     <html
       lang={"en"}
@@ -364,9 +259,6 @@ export default async function RootLayout({
             __html: JSON.stringify([
               jsonLdWebsite,
               jsonLdOrg,
-              jsonLdBreadcrumbs,
-              jsonLdLocalBusiness,
-              jsonLdFAQ,
             ]),
           }}
         />

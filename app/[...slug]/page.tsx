@@ -3,12 +3,37 @@ import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import siteMetadata from "@/data/siteMetadata";
 import { markdownToHtml, demoteHeadings } from "@/lib/markdown";
+import { resolveImage } from "@/lib/images";
 import {
     getRegionSchema,
     getDestinationSchema,
     getPlaceSchema,
     getBlogPostingSchema
 } from "@/lib/schema";
+
+/** Real per-page OG image + canonical, instead of silently falling through to
+ *  the root layout's homepage card (wrong URL, wrong image) — the bug that
+ *  hit every destination and place page before this. */
+function ogFor(pathname: string, title: string, description: string, image?: string | null) {
+    const resolved = resolveImage(image);
+    const absoluteImage = resolved.startsWith("http") ? resolved : `${siteMetadata.siteUrl}${resolved}`;
+    return {
+        alternates: { canonical: pathname },
+        openGraph: {
+            title,
+            description,
+            url: pathname,
+            images: [{ url: absoluteImage, width: 1200, height: 630, alt: title }],
+            type: "website" as const,
+        },
+        twitter: {
+            card: "summary_large_image" as const,
+            title,
+            description,
+            images: [absoluteImage],
+        },
+    };
+}
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -68,11 +93,7 @@ export async function generateMetadata({ params }: any) {
         return {
             title: region.title,
             description: region.description,
-            openGraph: {
-                title: region.title,
-                description: region.description,
-                images: [region.heroImage || ""],
-            }
+            ...ogFor(`/${regionSlug}`, region.title, region.description || "", region.heroImage),
         };
     }
 
@@ -86,13 +107,7 @@ export async function generateMetadata({ params }: any) {
             return {
                 title,
                 description,
-                alternates: { canonical: `/${regionSlug}/${type}` },
-                openGraph: {
-                    title,
-                    description,
-                    images: [region.heroImage || ""],
-                    type: "website",
-                },
+                ...ogFor(`/${regionSlug}/${type}`, title, description, region.heroImage),
             };
         }
     }
@@ -100,18 +115,25 @@ export async function generateMetadata({ params }: any) {
     if (slug.length === 3) {
         const type = slug[1];
         const itemSlug = slug[2];
+        const pathname = `/${regionSlug}/${type}/${itemSlug}`;
 
         if (type === "travel-guide") {
             const dest = await reader.collections.destinations.read(itemSlug);
-            if (dest) return { title: `${dest.title} Travel Guide | ${region.title}`, description: dest.description };
+            if (dest) {
+                const title = `${dest.title} Travel Guide | ${region.title}`;
+                return { title, description: dest.description, ...ogFor(pathname, title, dest.description || "", dest.image) };
+            }
         }
         if (type === "places") {
             const place = await reader.collections.places.read(itemSlug);
-            if (place) return { title: `${place.title} | Places in ${region.title}`, description: place.description };
+            if (place) {
+                const title = `${place.title} | Places in ${region.title}`;
+                return { title, description: place.description, ...ogFor(pathname, title, place.description || "", place.image) };
+            }
         }
         if (type === "stories") {
             const story = await reader.collections.stories.read(itemSlug);
-            if (story) return { title: story.title, description: story.excerpt };
+            if (story) return { title: story.title, description: story.excerpt, ...ogFor(pathname, story.title, story.excerpt || "", (story as any).image) };
         }
     }
 
@@ -171,7 +193,7 @@ export default async function Page({ params }: any) {
                 {/* Hero - Mobile First Optimized */}
                 <div className="relative h-[65vh] md:h-[85vh] flex items-end overflow-hidden pt-40 md:pt-32">
                     <Image
-                        src={region.heroImage || "/static/images/placeholder.jpg"}
+                        src={resolveImage(region.heroImage)}
                         alt={region.title}
                         fill
                         className="object-cover scale-105"
@@ -330,7 +352,7 @@ export default async function Page({ params }: any) {
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[55vh] md:h-[75vh] flex items-end overflow-hidden pt-40 md:pt-32">
-                        <Image src={dest.image || "/static/images/placeholder.jpg"} alt={dest.title} fill className="object-cover scale-105" />
+                        <Image src={resolveImage(dest.image)} alt={dest.title} fill className="object-cover scale-105" />
                         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/40 to-transparent" />
                         <SectionContainer className="relative pb-16">
                             <div className="mb-10">
@@ -415,7 +437,7 @@ export default async function Page({ params }: any) {
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[50vh] md:h-[60vh] bg-muted/30 border-b border-border/50 overflow-hidden pt-40 md:pt-32">
-                        {place.image && <Image src={place.image} alt={place.title} fill className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />}
+                        <Image src={resolveImage(place.image)} alt={place.title} fill className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />
                         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/60 to-transparent" />
                         <SectionContainer className="relative h-full flex flex-col justify-end pb-16">
                             <div className="mb-10">
