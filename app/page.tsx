@@ -14,6 +14,23 @@ import siteMetadata from "@/data/siteMetadata";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+// The homepage is the only route with no page-level metadata, so it fell
+// through to the root layout's `alternates.canonical: "./"` default —
+// which resolves to /index for this specific route instead of /, a real,
+// live self-canonical bug (every other page sets its own canonical
+// explicitly and is unaffected). Set it explicitly here instead, matching
+// every other page's pattern.
+export async function generateMetadata() {
+  return {
+    // Explicit absolute URL — Next's own metadata serializer normalizes
+    // away a bare trailing slash on the origin regardless of how this is
+    // written, so the exact form here doesn't matter; what matters is that
+    // it's siteUrl itself, not the "./" relative resolution that produced
+    // /index.
+    alternates: { canonical: siteMetadata.siteUrl },
+  };
+}
+
 export default async function Home() {
   const heroBanner = await reader.singletons.banners.readOrThrow();
   const videoSchema = heroBanner ? getVideoObjectSchema(heroBanner, siteMetadata.siteUrl) : null;
