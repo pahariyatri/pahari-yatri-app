@@ -12,10 +12,10 @@ export default function NotFound() {
         404
       </p>
       <h1 className="text-3xl sm:text-4xl font-bold font-brandSerif mb-4">
-        This trail doesn't exist
+        This trail doesn&apos;t exist
       </h1>
       <p className="text-muted-foreground max-w-md mb-8">
-        The page you're looking for isn't in the library — it may have moved,
+        The page you&apos;re looking for isn&apos;t in the library — it may have moved,
         or the route was mistyped. Try the library instead.
       </p>
       <Link

@@ -6,9 +6,9 @@
     "dev": "next dev --webpack",
     "build": "npm run clean && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "clean": "rimraf .next node_modules/.cache",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build --webpack"
   },
   "engines": {
     "node": ">=24.0.0"

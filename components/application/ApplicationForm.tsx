@@ -122,7 +122,7 @@ export default function ApplicationForm({ onSubmit }: Props) {
             <Mountain className="h-10 w-10 text-primary mx-auto" />
           </motion.div>
           <p className="font-brandSerif italic text-lg text-foreground/80 leading-relaxed">
-            "Let the mountains teach you who you are."
+            &quot;Let the mountains teach you who you are.&quot;
           </p>
           <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/50">
             Pahari Yatri · Yatri Circle
