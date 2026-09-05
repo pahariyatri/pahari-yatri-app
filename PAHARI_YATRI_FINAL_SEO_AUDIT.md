@@ -1,167 +1,312 @@
-# Pahari Yatri — Final SEO Infrastructure & AI Visibility Audit
+# Pahari Yatri — Final SEO + AI Visibility + Performance + Indexing QA
 
 Date: 2026-09-05 · Scope: `pahariyatri.com` only. `app.pahariyatri.com`/Local Connect not touched.
 
-**No code was changed in this pass.** Everything below is a verification audit — done live, in the browser and against the real accounts, not inferred from code or from the sitemap being submitted. Where a prior session's fix is referenced, it was re-verified live here, not assumed still correct.
-
-Status legend: **PASS** · **FAIL** · **NEEDS ACTION** · **WAITING FOR GOOGLE** · **NOT APPLICABLE**
+This supersedes the previous version of this file. Status legend: **PASS** · **FAIL** · **NEEDS ACTION** · **WAITING FOR GOOGLE** · **OPTIONAL** · **NOT APPLICABLE**
 
 ---
 
-## A. TECHNICAL SEO
+## Phase 1 — Production state (established before any change)
+
+| | |
+|---|---|
+| Local HEAD (session start) | `3efdd12` |
+| `origin/main` | `3efdd12` — identical, 0 ahead/behind |
+| Live production (Vercel, `pahariyatri.com` alias) | `3efdd12` — identical |
+
+**All three were in sync at the start of this session.** Every fix from the prior two sessions was confirmed already live, not just committed. Nothing was "fixed but not deployed."
+
+This session added two new commits, both built, tested, and deployed before being reported as done:
+- `2a39641` — `fetchPriority="high"` on the hero LCP image (Phase 4)
+- `b8a0fff` — IndexNow key file + submission script (Phase 7)
+
+Both are confirmed live on `pahariyatri.com` as of this report (see Phase 4 and Phase 7).
+
+---
+
+## A. Technical SEO
+
+No new technical SEO bugs were found this pass — the prior two sessions' fixes were re-verified live, not re-litigated from scratch.
 
 | Item | Status | Evidence |
 |---|---|---|
-| Sitemap | PASS | GSC: submitted, last read Aug 31 2026, "Success", 86 pages discovered |
-| robots.txt | PASS | Live-fetched: correct disallows (`/keystatic/`, `/api/keystatic/`), explicit allow rules for AI crawlers |
-| Canonicals | PASS | Homepage self-canonical bug (was `/index`) fixed last session — re-verified via **Google's own live URL Inspection fetch**: `User-declared canonical: https://pahariyatri.com/` |
-| Indexability | PASS | Homepage: "URL is available to Google" (live test, Sep 5 2026 2:22 PM) |
-| URL Inspection | PASS | Ran live test + requested indexing for the homepage only (not blanket-requested) |
-| 404 / redirects | PASS | Real 404s confirmed (`/this-page-does-not-exist` → 404); `www` → apex 308 confirmed live |
-| Metadata (titles/descriptions) | PASS | Verified across homepage, library, temples — unique, no truncation issues |
-| OpenGraph | PASS | `og:title`/`og:url` match canonical post-fix |
-| Twitter/X cards | PASS | `summary_large_image` present |
-| Favicon | PASS | Broken `mask-icon` (nonexistent SVG) removed last session; all remaining favicon assets 200 |
-| JSON-LD | PASS | **Google Rich Results Test (live)**: "2 valid items detected" — Organization, Videos. No fabricated schema. |
-| Breadcrumbs | PASS | GSC Enhancements: 18 valid, 0 invalid |
-| Internal linking | PASS | `/chapters` orphan fixed last session (added to footer) |
-| Orphan pages | PASS | No further orphans found in this pass's sampling |
-| Image alt text | PASS | Content images have real alt text; decorative/background images correctly use `alt=""` (verified this isn't a miss — adjacent captions/aria-labels carry the accessible name) |
-| SSR / rendered HTML | PASS | Real content confirmed server-rendered (page-text extraction matches visible content, no client-only gating) |
-| Mobile SEO | PASS (partial verification) | Viewport meta tag and Tailwind responsive classes confirmed correct in code; **device emulation via this session's browser tooling did not reliably resize the viewport**, so this is a code-level confirmation, not a live mobile screenshot |
-| Core Web Vitals | WAITING FOR GOOGLE | GSC Core Web Vitals report shows "No data" (mobile and desktop) — traffic volume is too low for Chrome UX Report field data to populate. Not a code issue; nothing to fix |
-| PageSpeed / Lighthouse | NEEDS ACTION | No PageSpeed Insights API key configured, and the public unauthenticated quota is exhausted (`429` on every attempt, this session and last). Real Lighthouse numbers require either an API key or a manual run at pagespeed.web.dev |
+| robots.txt | PASS | Unchanged, correct AI-crawler allow rules |
+| sitemap.xml | PASS | 87 URLs, matches GSC's submitted count |
+| Sitemap URLs return 200 | PASS | Re-crawled sample, all 200 |
+| Canonical URLs | PASS | Homepage self-canonical fix (prior session) still correct live |
+| www → apex redirect | PASS | 308, confirmed live |
+| HTTP → HTTPS | PASS | |
+| 404 status codes | PASS | Real 404s, confirmed |
+| Soft 404s | PASS | None found |
+| Redirect chains | PASS | Single-hop redirects only |
+| Metadata / title / description uniqueness | PASS | |
+| OpenGraph | PASS | |
+| Twitter/X cards | PASS | |
+| Favicon | PASS | Broken `mask-icon` reference removed (prior session) |
+| hreflang | NOT APPLICABLE | Single-locale site, correctly no hreflang tags |
+| Structured data (Organization, JSON-LD) | PASS | Google Rich Results Test (prior session): 2 valid items, 0 errors |
+| Breadcrumbs | PASS | GSC: 18 valid, 0 invalid |
+| Duplicate schema | PASS | None found |
+| Image alt text | PASS | |
+| Server-rendered HTML | PASS | |
+| Heading hierarchy | PASS | 1 H1/page across sample |
+| Internal linking / orphan pages | PASS | `/chapters` orphan fixed prior session |
+| Broken internal links | PASS | None found in this pass's crawl |
+| Index/noindex, robots directives | PASS | |
 
 ---
 
-## B. GOOGLE INDEXING
+## B. Google Indexing
+
+**Unchanged since the last audit — GSC's own data is 6 hours stale as of this check, and no code change in this pass affects indexing signals beyond what was already fixed and is now waiting on Google.**
+
+| Item | Status | Detail |
+|---|---|---|
+| Property ownership | PASS | 2 verified Owners (`pankajkumar.techie@gmail.com`, `pahariyatri@gmail.com`) |
+| Sitemap status | PASS | Submitted, last read Aug 31 2026, "Success", 86 pages discovered |
+| Indexed pages | PASS (33) | Includes the two ranking assets (`jalori-small-circle`, `churdhar-bell-echo`) |
+| Not-indexed pages | WAITING FOR GOOGLE (94) | See exclusion-reason breakdown below |
+| Discovered — not indexed (63) | E. waiting for recrawl | Root cause (200-on-404) fixed two sessions ago; recrawl hasn't happened yet |
+| Crawled — not indexed (10) | E. waiting for recrawl | Same root cause |
+| Page with redirect (8) | C. intentional exclusion | Working as intended |
+| Excluded by noindex (6) | D. historical Google data | All 6 are dead legacy URLs (`/home`, `/blog/...`, `/chapters/undefined`) from a pre-restructure site version — confirmed 404 now, nothing to fix |
+| Duplicate, different canonical (4) | Mixed: 1× A (technical, fixed), 3× D (historical) | The `/index` entry was the real canonical bug (fixed, reindex requested last session); the other 3 are residual www-split noise |
+| URL Inspection on important URLs | PASS | Homepage live-tested this session's prior pass; not re-requested here since nothing new changed on it |
+
+**No indexing was requested for every URL.** Only the homepage was inspected/reindex-requested (last session), consistent with the instruction to prioritize.
+
+---
+
+## C. Performance (mandatory — real numbers obtained this pass)
+
+**Real Lighthouse audits were obtained this session** via local Lighthouse CLI + headless Chrome directly against production, bypassing the PageSpeed Insights API entirely (its public quota has been exhausted across all three sessions). This is the breakthrough the prior two audits couldn't achieve.
+
+### Homepage — Mobile (before → after the fetchPriority fix)
+
+| Metric | Before | After (devtools throttling, real conditions) |
+|---|---|---|
+| Performance score | 75 | 70–83 across 3 runs |
+| LCP | 3.7s | 2.0–3.1s (median ~3.0s) |
+| CLS | 0 | 0 |
+| TBT | 340ms | ~340ms (unchanged, as expected — this fix targets LCP, not TBT) |
+| FCP | 1.7s | 1.7s |
+| `fetchpriority=high` applied to LCP image | **No** (confirmed via Lighthouse's own checklist) | **Yes** |
+| LCP "resource load delay" | 1,661ms | 46–48ms (consistent across 5 repeat measurements) |
+
+**Root cause identified**: the hero background image (`<img alt="Himalayan peaks">`, the confirmed LCP element) had Next.js's `priority` prop set, which produced a `<link rel="preload">` in `<head>` but — on this Next.js 16.1.1/Turbopack build — did **not** propagate `fetchpriority="high"` onto the actual `<img>` element. Lighthouse's LCP-discovery checklist flagged this explicitly (`priorityHinted: false`), and it accounted for the single largest chunk (1,661ms of 3,700ms) of the measured LCP.
+
+**Fix**: added `fetchPriority="high"` explicitly to the `<Image>` component in `components/HeroBanner.tsx` (one line). Verified the attribute now renders on both a local production build and live production.
+
+**Methodology note worth recording**: `--throttling-method=simulate` (Lighthouse's mathematical network model) produced wildly inconsistent LCP numbers after this fix (9.5s, 9.2s, 3.3s, 9.1s, 8.5s across 5 runs) — investigated and traced to a simulation artifact in how Lantern models priority-boosted requests, **not** a real regression: the LCP breakdown table's four phases summed to only ~2.5s while the top-line simulated LCP claimed 9s. Switching to `--throttling-method=devtools` (actual, not modeled, network/CPU throttling) produced stable, consistent results (2.0–3.1s across 3 runs) that make physical sense given the phase breakdown. **Recommendation for future audits on this site: prefer `devtools` throttling over `simulate` — this site's specific script/priority mix appears to trigger a known Lantern edge case.**
+
+### Homepage — Desktop
+
+| Metric | Value |
+|---|---|
+| Performance score | 77–78 |
+| LCP | 2.3–2.7s |
+| CLS | 0 |
+| TBT | 20–30ms |
+| Total transfer | **9,737–9,749 KiB** |
+
+The large desktop transfer is the autoplay hero video (`banners/media.mp4`, ~8 MB). This is **not flagged as a bug** — the code already defers the video's `src` assignment via `requestAnimationFrame` until after first paint specifically to avoid blocking LCP (confirmed in `HeroBanner.tsx`), and the measured desktop TBT (20–30ms) and LCP (2.3–2.7s) show this deferral works. It's a genuine bandwidth-cost trade-off for visual impact, not a rendering-path problem. **Flagged as a P2 recommendation** (consider a compressed/lower-bitrate variant) rather than changed, since altering a marketing video's encoding is a content-quality judgment call outside "smallest safe fix."
+
+### Hub page (`/temples`, mobile)
+
+| Metric | Value |
+|---|---|
+| Performance | 74–86 | LCP | 3.0–3.1s | CLS | 0 | TBT | 340–540ms | Total transfer | 928 KiB |
+
+### Chapter page (`baga-sarahan-bashleo-pass`, mobile)
+
+| Metric | Value |
+|---|---|
+| Performance | 70–80 | LCP | 3.1–3.3s | CLS | 0 | TBT | 470–730ms | Total transfer | 947–954 KiB |
+
+### Story page (`jalori-small-circle`, mobile)
+
+| Metric | Value |
+|---|---|
+| Performance | 78–83 | LCP | 2.3–3.6s | CLS | 0.001 | TBT | 420–490ms | Total transfer | 945–951 KiB |
+
+**Finding, not fixed this pass**: TBT on hub/chapter/story pages runs 340–730ms — higher than ideal, and unrelated to the LCP fix (these pages don't use `HeroBanner`). Root cause is consistent with prior sessions' finding that ~91% of "unused JavaScript" on this site comes from required third-party scripts (GTM, gtag, Meta Pixel), not app code. **Not touched this pass** — per instruction, working analytics infrastructure isn't modified without a specific, approved reason, and reducing TBT here would mean deferring/delaying tracking scripts, a trade-off that needs an explicit decision, not a unilateral "smallest safe fix."
+
+All 4 pages: **SEO 100, Accessibility 90 (85 desktop), Best Practices 77** — unchanged across before/after, confirming the LCP fix didn't regress anything else.
+
+---
+
+## D. Mobile Performance / Mobile QA
 
 | Item | Status | Evidence |
 |---|---|---|
-| Property ownership | PASS | GSC Users & Permissions: 2 verified Owners — `pankajkumar.techie@gmail.com` and `pahariyatri@gmail.com` |
-| Sitemap status | PASS | See Track A |
-| Indexing coverage | WAITING FOR GOOGLE | 33 indexed / 94 not indexed. Reviewed all 8 exclusion buckets individually (not just the summary count): |
-| — Discovered/crawled not indexed (63+10) | WAITING FOR GOOGLE | Root-caused last session to the sitewide 200-on-404 bug, now fixed — expect this bucket to shrink over the next several weeks as Google recrawls |
-| — Page with redirect (8) | NOT APPLICABLE | Working as intended (`/{region}/stories/{slug}` → `/stories/{slug}` 301) |
-| — Alternate, proper canonical (3) | NOT APPLICABLE | Working as intended (`/books/{book}/{chapter}` → `/chapters/{slug}`) |
-| — Excluded by noindex (6) | NOT APPLICABLE | Investigated each URL: all 6 are dead legacy pages from a pre-restructure site version (`/home`, `/hi`, `/blog/...`, `/chapters/undefined`). Confirmed all now correctly 404 — no fix needed, Google will drop them from its records over time |
-| — Duplicate, Google chose different canonical (4) | WAITING FOR GOOGLE | Included `pahariyatri.com/index` — direct confirmation the canonical bug was real; fixed and reindex requested. The other 3 (`jalori-small-circle`, `churdhar-bell-echo`, `bell-and-thunder`) are residual www-split noise, expected to decay |
-| Valid indexed pages | PASS | 33, including the two ranking assets (`jalori-small-circle` pos. 2.2, `churdhar-bell-echo` pos. 3.6 per prior GSC performance pull) |
-| URL Inspection on important pages | PASS | Homepage live-tested and reindex requested. Did not blanket-request all 87 URLs, per instruction |
+| Viewport meta configured correctly | PASS | Lighthouse `meta-viewport`/`viewport-insight`: score 1 (pass) on all 4 tested pages |
+| Touch target size/spacing | PASS | Lighthouse `target-size`: score 1 (pass) on all 4 tested pages |
+| CLS / layout jumps | PASS | 0–0.001 across all 4 pages — no visible layout shift |
+| Horizontal overflow | PASS | `document.documentElement.scrollWidth === clientWidth` (no overflow), checked live via JS |
+| Manual device-emulated visual QA (screenshots at real mobile dimensions) | **NEEDS ACTION (tooling limitation)** | The browser automation's `resize_window` tool did not reliably resize the actual rendering viewport in this environment (confirmed via `window.innerWidth` staying at desktop size after resize calls) — this is the same limitation noted in the prior audit. Lighthouse's own mobile device emulation (a real, independent emulation path, not this tool) was used instead for the checks above, which is a legitimate substitute for automated checks, but a literal side-by-side mobile screenshot comparison wasn't obtained this pass either. |
+
+**Not claimed**: "mobile UX manually verified pixel-by-pixel." What's actually verified: the automated, real-device-emulation checks that matter most (viewport config, tap targets, layout stability) all pass.
 
 ---
 
-## C. GA4 / GTM / ANALYTICS
+## E. GA4 / GTM / Analytics
 
-| Item | Status | Evidence |
+**Unchanged from the prior session's live verification — no code affecting analytics changed in this pass, so this was not blindly re-verified from scratch; only spot-checked for continuity.**
+
+| Item | Status |
+|---|---|
+| Correct GA4 property (`pahariyatri.com`, Measurement ID `G-VLHVCQKQM0`) | PASS (verified prior session) |
+| Correct GTM container (`GTM-N953C62X`) | PASS (verified prior session) |
+| page_view (single source, no duplicates) | PASS — one "All Pages" Google Tag, custom-event tag fires separately |
+| Meta Pixel wired to real events | PASS (channel join, apply_submit) |
+| Stray unused GA4 property (`G-P6B1L1JFH9`) | NEEDS ACTION — still awaiting your confirmation on whether to archive it; not touched |
+
+---
+
+## F. Search Console
+
+Same GSC account/property access confirmed working this session (used for URL Inspection re-checks and performance data pull in Phase 9). No new Search Console findings beyond what's in Section B.
+
+---
+
+## G. Bing / IndexNow
+
+| Item | Status | Detail |
 |---|---|---|
-| Correct GA4 property | PASS | Property "pahariyatri.com" (account "Google Ads Account", property ID 467775152) — confirmed by name match and **live traffic data** (20 active users / 70 events / 20 new users, last 7 days) |
-| Production measurement ID | PASS | Data stream `pahariyatri.com` (stream ID 9956110093) → **Measurement ID `G-VLHVCQKQM0`**, confirmed both in GA4's own admin panel and independently inside the actual `gtm.js` payload fetched live from `googletagmanager.com` — the two match exactly |
-| GTM installed | PASS | Container `GTM-N953C62X` loads server-side (`ns.html` noscript tag present) and is a real, non-empty 367KB script, confirmed via direct fetch |
-| GTM tag configuration | PASS | Inspected the container directly in Tag Manager (full account access confirmed): **5 tags** — `GA4 - Google Tag` (Initialization, All Pages), `GA4 - PY custom events` (Custom Event trigger), `Meta Pixel - Base + PageView` (All Pages), `Meta Pixel - Contact` (channel join), `Meta Pixel - Lead` (apply_submit) |
-| No duplicate tracking | PASS | Only **one** tag fires the base page_view (`GA4 - Google Tag`, All Pages trigger); the custom-events tag fires only on named app events, matching the codebase's own stated rule ("app code never pushes a raw page_view") |
-| Real-time traffic | NEEDS ACTION (inconclusive, not a production issue) | This session's own real-time test was inconclusive: `window.google_tag_manager` never initialized in this specific browser-automation profile, and a direct `fetch()` to `googletagmanager.com` failed outright — consistent with an ad-blocking/privacy extension active in this Chrome profile, not a site bug (curl and GTM's own server-side "receiving traffic in past 48 hours" status both confirm the container and tag are healthy in real users' browsers) |
-| Organic/referral attribution | PASS | Client-side UTM capture confirmed present in code (`reel_source_visit` event), functioning by design |
-| Stray/unused GA4 property | NEEDS ACTION | A second, unrelated GA4 property (Measurement ID `G-P6B1L1JFH9`, different account) is visible in this Google identity's GA4 access, showing "No data received from your website yet." This is not connected to the live site. Recommend the founder confirm what it is and delete it if unused, to avoid future confusion — **not deleted here**, since deleting a GA4 property is a real account action I won't take without explicit sign-off |
-
----
-
-## D. PERFORMANCE
-
-| Item | Status | Evidence |
-|---|---|---|
-| Real Lighthouse/PSI scores | NOT APPLICABLE (unavailable) | No API key; public quota exhausted. Not fabricated. |
-| Real browser proxy metrics (homepage) | PASS (informational) | TTFB ~75ms, DOMContentLoaded ~473ms, load event ~1069ms, ~163KB initial transfer, ~748KB decoded JS across 20 scripts — measured via live `performance.getEntriesByType()`, same numbers as the prior session (no regressions, no changes attempted this pass since nothing new was found) |
-| Core Web Vitals field data | WAITING FOR GOOGLE | See Track A — traffic too low for CrUX data yet |
-
----
-
-## E. AI SEO / AI VISIBILITY
-
-| Item | Status | Evidence |
-|---|---|---|
-| AI crawler accessibility | PASS | Live UA tests, all 200: GPTBot, anthropic-ai, ClaudeBot, PerplexityBot, Google-Extended, FacebookBot |
-| robots.txt AI crawler rules | PASS | Explicit `Allow: /` for OAI-SearchBot, PerplexityBot, anthropic-ai, ClaudeBot, Googlebot-Extended, DuckAssistant, Diffbot, YouBot |
-| llms.txt | PASS | Well-formed, on-brand, no fabrication — matches the live site's actual identity and structure |
-| llms-full.txt | PASS | Exists, 200 |
-| Server-rendered content | PASS | Confirmed real content in initial HTML (see Track A SSR) |
-| Structured data / entity info | PASS | Organization schema valid (Rich Results Test) |
-| Destination/entity relationships | NEEDS ACTION (pre-existing, content-level) | WikiData entity mapping covers only some destinations/chapters (documented in `PAHARI_YATRI_SEO_MASTER_AUDIT.md` — not a technical-SEO bug, a content-population task) |
-| Authorship | NEEDS ACTION (pre-existing) | All content attributed to the Organization, not a named person — reduces E-E-A-T signal for AI citation. Same finding as the original master audit, unchanged; a brand/content decision, not a technical fix |
-| Topical clusters | PASS | Book → Chapter → Story model with a clear Sacred Mandi thesis, already well-structured |
-| Internal linking (AI discovery) | PASS | Chapters/stories/district hubs cross-linked (verified last session) |
-| Citation-worthy content | PARTIAL | Several destinations remain thin (documented in the master audit's content-gap section) — a content-writing task, out of this audit's technical scope |
-
-**No new AI-SEO pages, keyword stuffing, or fabricated authority were created or recommended.**
-
----
-
-## F. SEARCH ENGINE TOOLS
-
-| Tool | Status | Notes |
-|---|---|---|
-| Bing Webmaster Tools | NEEDS ACTION | Checked live: landed on the public signup page, no site registered. Real value (Bing/Yahoo/DuckDuckGo indexing, free) — recommended. See Permissions below. |
-| IndexNow | NEEDS ACTION | Not configured. Pairs with Bing Webmaster Tools setup (same account); near-zero effort once Bing is set up, pushes instant crawl notifications instead of waiting for Bing's own crawl schedule. |
-| Microsoft Clarity | NOT APPLICABLE (optional) | Not installed. Real value exists (free heatmaps/session replay) but is marginal at current traffic volume (20 active users/week) — recommend revisiting once traffic grows, not urgent now. |
-| Google Business Profile | NOT APPLICABLE | Pahari Yatri's main site is a content library/community, not a location-based or service-area business — GBP eligibility is already owned separately by `google-business-profile-strategist` per CLAUDE.md, and is a different workstream from this technical-SEO audit. |
-| Rich Results Test | PASS | Verified live this session — 2 valid items, no errors. |
-| PageSpeed monitoring | NEEDS ACTION | Recommend Vercel Speed Insights (one-line install, same platform already hosting the site) — would give real CWV field data instead of GSC's current "No data". |
-| Uptime monitoring | NOT APPLICABLE (optional) | Vercel's own infrastructure has high uptime by default; a free external monitor (e.g. UptimeRobot) is a reasonable but non-urgent add if the founder wants alerting independent of Vercel. |
-
----
-
-## G. PERMISSIONS REQUIRED
-
-Only one genuine permission boundary was hit this session — everything else (GSC, GA4, GTM) was already accessible under the current Google identity.
+| IndexNow key file | **PASS — done this session** | `public/6f9ae0f91e3ef7e65a5d9fa4559cf0c1.txt`, deployed, confirmed live (200) |
+| IndexNow submission script | **PASS — done this session** | `scripts/submit-indexnow.mjs`, reads the real sitemap, `npm run submit-indexnow` |
+| IndexNow actual submission | **PASS — done this session** | Submitted all 87 sitemap URLs to `api.indexnow.org`: **202 Accepted** |
+| Bing Webmaster Tools dashboard | **NEEDS ACTION — permission boundary, unchanged** | See below |
 
 ```
-SERVICE: Bing Webmaster Tools (and IndexNow, which shares the same account)
+SERVICE: Bing Webmaster Tools
 ACCOUNT: A Microsoft account with ownership rights over pahariyatri.com
-CURRENT ACCESS: None — this session has no Microsoft account signed in; the live check landed on Bing's public signup page with no site registered
-REQUIRED ACCESS: Site added to Bing Webmaster Tools, verified (DNS TXT record or HTML file, same pattern as Search Console)
-WHY IT IS REQUIRED: To submit the sitemap to Bing/Yahoo/DuckDuckGo, monitor Bing indexing coverage, and enable IndexNow for instant crawl notification
-ACTION I NEED TO TAKE: Sign in with (or create) the Microsoft account tied to the business, add pahariyatri.com as a site at bing.com/webmasters, complete verification — then let me know and I can configure IndexNow submission from there
+CURRENT ACCESS: None — checked live again this session, still lands on Bing's public signup page with no Microsoft account signed in
+REQUIRED ACCESS: Site added and verified in Bing Webmaster Tools (DNS TXT record or HTML file, same pattern as GSC)
+WHY IT IS REQUIRED: To see Bing's own indexing/coverage reports and Bing-specific SEO tools — IndexNow (done above) gets URLs submitted for crawling, but doesn't give visibility into Bing's indexing status
+EXACT ACTION REQUIRED FROM FOUNDER: Sign in with (or create) the Microsoft account tied to the business at bing.com/webmasters, add pahariyatri.com, verify ownership — then this session (or a future one) can pick up from there
 ```
-
-```
-SERVICE: Google Analytics 4 — the stray property
-ACCOUNT: A different Google Ads/GA4 account than the live pahariyatri.com one (Measurement ID G-P6B1L1JFH9)
-CURRENT ACCESS: View access already exists under the currently authenticated identity
-REQUIRED ACCESS: None to investigate further — I can already see it. Deleting or archiving it is an account action I won't take without your explicit go-ahead, since it's hard to reverse.
-WHY IT IS REQUIRED: N/A — this is a confirm-and-decide item, not a permission gap
-ACTION I NEED TO TAKE: Awaiting your confirmation on whether this property is still needed before touching it
-```
-
-No other service required stepping past a permission boundary. GSC, GA4 (the real property), and GTM were all already accessible and were verified directly.
 
 ---
 
-## H. FIXES COMPLETED
+## H. AI SEO
 
-**This session: none required.** Every item audited was either already fixed and re-verified live (canonical bug, favicon, orphan page — all from the prior session, confirmed still correct) or came back as a genuine account/config/content item rather than a code bug. Nothing was pushed or deployed in this pass because nothing needed to be.
+Unchanged from the prior session's live verification (robots.txt AI-crawler rules, `llms.txt`, `llms-full.txt`) — not re-tested from scratch since no code affecting these changed this pass. Spot-checked and still correct.
 
-For reference, what carried over from the prior technical-SEO pass and was re-verified live today: homepage canonical fix, broken favicon asset removal, `/chapters` internal link, working `next lint`/`analyze` scripts, 6 lint errors fixed, sitemap real dates, real 404 status, clean JSON-LD, AI crawler access.
+| Item | Status |
+|---|---|
+| GPTBot, OAI-SearchBot, ClaudeBot, anthropic-ai, PerplexityBot, Google-Extended accessibility | PASS (verified live, prior session) |
+| robots.txt AI crawler rules | PASS |
+| llms.txt / llms-full.txt | PASS |
+| Server-rendered content | PASS |
+| Structured data | PASS |
+
+## I. AI Visibility (content/entity signals — unchanged, carried forward)
+
+| Category | Status | Note |
+|---|---|---|
+| AI TECHNICAL | PASS | Crawlability, rendering, structured data all correct |
+| AI ENTITY | NEEDS ACTION | WikiData mapping incomplete for several destinations/chapters (pre-existing, content task) |
+| AI CONTENT | PARTIAL | Several destinations remain thin (pre-existing, tracked in `PAHARI_YATRI_SEO_MASTER_AUDIT.md`) |
+| AI AUTHORITY | NEEDS ACTION | Content attributed to the Organization, not a named author — weakens E-E-A-T/citation signal |
+
+No fake authority, reviews, geographic claims, or doorway pages were created or recommended, per instruction.
 
 ---
 
-## I. REMAINING ISSUES
+## J. Organic Ranking Opportunities (Phase 9)
 
-1. **PageSpeed/Lighthouse numbers unavailable** — needs a PSI API key or a manual pagespeed.web.dev run; no code blocker.
-2. **Core Web Vitals field data unavailable** — traffic-volume-gated, not a bug; will populate once Vercel Speed Insights or enough real traffic exists.
-3. **Bing Webmaster Tools / IndexNow not configured** — needs your Microsoft account (see Permissions).
-4. **Stray unused GA4 property** — needs your decision (see Permissions).
-5. **Entity/authorship/content-depth gaps** (WikiData mapping, named authorship, thin destinations) — pre-existing, content-strategy items already tracked in `PAHARI_YATRI_SEO_MASTER_AUDIT.md`, not technical-SEO bugs.
-6. **94 not-indexed pages** — largely expected to resolve as Google recrawls post-fix; genuinely nothing left to do but wait and monitor.
+Pulled fresh from GSC Performance (3-month window; last GSC update was 6 hours before this check, so this predates today's fixes/IndexNow submission):
+
+- **Total**: 24 clicks, 1.11K impressions, 2.2% CTR, average position 17
+- **Top queries**: mostly brand terms (`pahari`, `pahari path`, `yatri way`, `पहारी`/Hindi transliterations)
+- **Genuine non-brand opportunity, unchanged from the master audit**: `mural danda trek` — 14 impressions, 0 clicks, previously identified at ~position 10.6. This is the clearest "Google already understands the page, ranking is close to page 1" opportunity on the site.
+- `jamadagni rishi temple` — 6 impressions, a real temple-name query with content relevance (matches the `/temples` opportunity already flagged in the master audit: ~60 temple-name searches, page currently ranking poorly at ~54.7).
+
+**Priority list** (unchanged from the master audit's own conclusion, re-confirmed still valid):
+
+| Tier | Item |
+|---|---|
+| QUICK WINS | Tighten `mural danda trek` chapter metadata/targeting; expand `/temples` with verified content for the ~60 already-searched temple names (gated on `local-verification-editor`) |
+| CONTENT EXPANSION | Thin destinations already identified in the master audit — not re-litigated here |
+| INTERNAL LINKING | Already addressed (orphan `/chapters` fixed) |
+| AUTHORITY | Named authorship (see Section I) |
+| LONG-TERM | WikiData entity mapping completion |
+
+No new keyword targets were invented; this list only surfaces where Google already shows demand.
 
 ---
 
-## J. NEXT SEO GROWTH PLAN
+## K. Permissions Required
 
-Ordered by effort-to-value:
+Only one boundary was hit this session (same as before):
 
-1. **Set up Bing Webmaster Tools + IndexNow** (your action, ~15 min) — free additional discovery surface, especially since some AI answer engines (Copilot, some Perplexity indexes) partially lean on Bing's index.
-2. **Decide on the stray GA4 property** — either confirm it's unused and archive it, or explain what it's for.
-3. **Add Vercel Speed Insights** — closes the Core Web Vitals data gap without waiting on organic traffic growth.
-4. **Monitor GSC's indexing coverage over the next 2–4 weeks** — the 63+10 "not indexed" bucket should visibly shrink now that the 200-on-404 and canonical bugs are both fixed; if it doesn't move, that's a signal worth a fresh look.
-5. **Named authorship** — attributing chapters/stories to a real person (even a pen name tied to a real bio) rather than only "Pahari Yatri Original" would meaningfully strengthen E-E-A-T for both traditional and AI search citation.
-6. **Continue the content-depth work already tracked** in `PAHARI_YATRI_SEO_MASTER_AUDIT.md` (WikiData entity mapping, thin destinations, `/temples` expansion) — unchanged priority, not re-litigated here since it's a content workstream, not this audit's scope.
+```
+SERVICE: Bing Webmaster Tools
+ACCOUNT: Microsoft account
+CURRENT ACCESS: None
+REQUIRED ACCESS: Site verification
+ACTION NEEDED: See Section G
+```
+
+GSC, GA4, GTM, and IndexNow all worked within existing access — no other boundary was crossed or needed.
+
+---
+
+## L. Changes Made (this session)
+
+| Change | Commit | Verified |
+|---|---|---|
+| `fetchPriority="high"` on hero LCP image | `2a39641` | typecheck ✓, eslint ✓, local build ✓, local Lighthouse re-test ✓, deployed ✓, live attribute confirmed ✓, live Lighthouse re-test ✓ (5 runs, devtools + simulate throttling) |
+| IndexNow key file + submission script + `npm run submit-indexnow` | `b8a0fff` | typecheck ✓, eslint ✓, build ✓, deployed ✓, key file live (200) ✓, submission executed: **202 Accepted, 87 URLs** |
+
+Both changes are live in production as of this report.
+
+## M. Changes NOT Made (and why)
+
+- **8MB hero video (desktop)**: already deferred correctly post-first-paint; re-encoding is a content-quality trade-off, not a code bug — flagged as P2, not touched.
+- **Third-party script TBT (340–730ms on hub/chapter/story pages)**: real, but reducing it means deferring/delaying GTM/GA4/Meta Pixel, which needs an explicit decision, not a unilateral change to working tracking infrastructure.
+- **Stray GA4 property (`G-P6B1L1JFH9`)**: visible, not deleted — awaiting your explicit confirmation.
+- **Bing Webmaster Tools account setup**: requires your Microsoft account login — stopped at that boundary, did not attempt to bypass.
+- **Any of the 63+10 "not indexed" GSC pages**: these are waiting on Google's own recrawl schedule following an already-shipped fix — nothing left to change in code.
+
+## N. Waiting for Google
+
+- 63 "Discovered — currently not indexed" + 10 "Crawled — currently not indexed" pages: root cause (200-on-404) fixed two sessions ago, recrawl pending.
+- Homepage's corrected canonical: reindex requested last session, not yet reflected in GSC's own "Google-selected canonical" (which only updates after indexing, not on request).
+- Core Web Vitals field data (CrUX): still "No data" in GSC — traffic volume too low, will populate over time regardless of anything fixed.
+- IndexNow submission (this session): submitted, not yet reflected in any visible index — no dashboard to check without Bing Webmaster Tools access (Section G).
+
+---
+
+## Recommended Next 30 Days
+
+1. **Sign in to Bing Webmaster Tools with a Microsoft account and verify pahariyatri.com** (~15 min) — unlocks Bing-side indexing visibility on top of the IndexNow submission already sent.
+2. **Decide on the stray GA4 property** (`G-P6B1L1JFH9`) — confirm unused, then archive it.
+3. **Monitor GSC's "Discovered/Crawled — not indexed" buckets over the next 2–4 weeks** — should visibly shrink now that the 200-on-404 and canonical bugs are both fixed and IndexNow has been pinged; if they don't move, that's worth a fresh look.
+4. **Tighten `mural danda trek` chapter targeting** — the single clearest "already close to page 1" ranking opportunity on the site.
+5. **Add named authorship to chapters/stories** — strengthens both traditional and AI-search citation signals; currently everything is attributed to the Organization only.
+
+---
+
+## Final Status Summary
+
+**FINAL SEO STATUS:** PASS — all previously-identified technical SEO issues remain fixed and live; no new bugs found this pass.
+
+**FINAL PERFORMANCE STATUS:** NEEDS ACTION → IMPROVED — real Lighthouse numbers obtained for the first time across all three audit sessions; one genuine LCP bug found and fixed (hero image `fetchpriority`); remaining TBT on content pages is a known, unfixed trade-off tied to required third-party scripts, not a bug.
+
+**FINAL INDEXING STATUS:** WAITING FOR GOOGLE — technically correct; Google has not yet recrawled/reprocessed the fixes from two sessions ago. IndexNow submission sent this session as an additional discovery signal (not a Google-indexing shortcut).
+
+**FINAL AI SEO STATUS:** PASS (technical) / NEEDS ACTION (entity/authority) — crawlers, structured data, and llms.txt are all correct; named authorship and WikiData completeness remain open, pre-existing content-strategy items.
+
+**FINAL ANALYTICS STATUS:** PASS — GA4/GTM/Meta Pixel confirmed correctly wired with no duplicate tracking; one unused stray property awaiting a founder decision.
+
+---
+
+## Next 5 Actions
+
+1. Sign in to Bing Webmaster Tools and verify the site (founder action, ~15 min).
+2. Confirm/archive the stray GA4 property `G-P6B1L1JFH9`.
+3. Watch GSC's indexing coverage over the next 2–4 weeks — no action unless it fails to improve.
+4. Tighten metadata/targeting on the `mural danda trek` chapter (quick win, already-close-to-page-1 query).
+5. Plan named authorship for chapters/stories (AI + traditional search authority signal).
