@@ -1,0 +1,329 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Reviewed by local-verification-editor on 2026-09-02. Two blocks were REMOVED
+# (not hedged) per .claude/agents/local-verification-editor.md's rule on
+# women's access / community customs ("state facts from a named source and do
+# not editorialise. If no source, omit"):
+#   1. Menstruation-related temple access (narrative + FAQ). Returns only with
+#      a named woman from a temple-owning village describing her own valley's
+#      practice.
+#   2. Entry restrictions by community/section (FAQ). Removed as unsafe, not
+#      just unsourced — as drafted it described caste-shaped exclusion as a
+#      normal posted rule, which is also unlawful (Article 17, Protection of
+#      Civil Rights Act 1955; HP High Court has held barring communities from
+#      worship at their own deity's temple unconstitutional). Returns only as
+#      a named specific about one named temple, from that temple's own
+#      committee — never as general Himachal etiquette.
+#
+# Devta office-holder terms (kardar, gur, pujari, bajantri, mohra, rath) and
+# the fact that deities travel to fairs are backed by kulludussehra.hp.gov.in
+# (an official HP government source) — treated as verified where used below.
+# The chapter's central claim — that village disputes are still brought to
+# the deity first — is attributed to ethnographic sources (Berti; Halperin),
+# not verified by a named local. It is NOT precedented elsewhere on this site:
+# kamrunag-the-lake-of-oaths.yaml and devidarh-shikari-devi.yaml do not assert
+# devta judicial authority as fact, contrary to what this chapter originally
+# assumed. verificationStatus stays needs-local-source until that changes.
+#
+# IMPORTANT — this comment is documentation, not a technical gate. Neither
+# lib/keystatic/chapters.ts nor app/sitemap.ts filter on verificationStatus:
+# any file in data/chapters/ publishes and gets indexed the moment it's
+# committed to main, regardless of what this header says. Do not treat a
+# comment as a publish hold on this or any future draft chapter.
+#
+# Also pending: no hero image exists at the referenced path — falls back to
+# mountains-bg.jpg (lib/images.ts) until a real photo is added. migrationStatus
+# is needs-founder-review because of the two removed blocks and the missing
+# image, not because the remaining content is in doubt.
+# ─────────────────────────────────────────────────────────────────────────────
+title: Himachal Temple Etiquette
+parentBook: temples-traditions
+trackType: cultural
+location: Himachal Pradesh
+invitation: Some doors open for you. It is still someone else's house.
+excerpt: >-
+  Footwear, photography, dress, and what to do when a devta's palki meets you
+  on the trail. How to enter a Himachali temple as a guest, not an audience.
+image: /static/images/chapters/himachal-temple-etiquette/image.jpg
+targetKeyword: himachal temple etiquette
+secondaryKeywords:
+  - temple rules himachal
+  - devta culture himachal
+  - can i touch the deity
+  - photography in himachal temples
+  - what to wear to a temple in himachal
+seoTitle: "Himachal Temple Etiquette: Devta Rules for Visitors"
+metaDescription: >-
+  Footwear, photography, dress, and what to do when a devta's palki passes on
+  the trail. Practical Himachal temple etiquette, and why rules vary by valley.
+localTruth: >-
+  In many Himachali valleys the devta is not a symbol but an institution — with
+  named office-holders a village can point you to, and, local accounts and
+  ethnographic work describe, a standing in village matters that people still
+  accept. That is why temple etiquette here feels heavier than at a city
+  temple. You are not being asked to respect a belief. You are standing in
+  front of an institution the village still answers to.
+verificationStatus: needs-local-source
+sourcesToVerify:
+  - >-
+    Kardar or temple committee member, Dev Kamrunag temple (Mandi) — confirm
+    photography, footwear boundary and inner-precinct rules as actually
+    enforced, and whether disputes still come to the devta first. This one
+    conversation would clear most of the chapter's unsourced claims.
+  - >-
+    Pujari, Shikari Devi temple (Mandi) — confirm what visitors may and may not
+    photograph at an open, roofless shrine
+  - >-
+    Temple committee, Shirgul Maharaj / Churdhar (Sirmaur) — confirm summit
+    shrine restrictions and barefoot-vow context
+  - >-
+    REMOVED, does not return without this: a named woman from a temple-owning
+    village (Kullu or Seraj), on menstruation access — how it is actually
+    stated, where it applies, how visitors are expected to handle it. The
+    menstruation paragraph and FAQ were deleted from this chapter by
+    local-verification-editor, not hedged. They return only with this source,
+    in her own words.
+  - >-
+    A kardar or bajantri in Kullu/Seraj — palki right-of-way on trails and
+    roads, what is expected of a bystander when a procession passes, and
+    whether nati at a fair has a fixed order or an invitation norm
+  - >-
+    Devta office-holder terminology (gur, kardar, pujari, bajantri, mohra,
+    rath, devsthan) — confirm usage and spelling per valley; terms differ
+    between Kullu, Mandi, Sirmaur and Chamba
+  - >-
+    Confirm the leather / alcohol / non-vegetarian food prohibitions described
+    here are generally applicable rather than temple-specific
+  - >-
+    REMOVED, returns only as a named specific: entry restrictions by community
+    or section of a precinct. The FAQ describing this was deleted as unsafe —
+    as drafted it read as caste-shaped exclusion presented as a normal posted
+    rule. It can only return as a fact about one named temple, told by that
+    temple's own committee, on the record — never as general Himachal
+    etiquette.
+  - >-
+    Confirm the "shoes off at the outer gate, not the sanctum door" boundary is
+    common practice across valleys rather than a Mandi/Seraj-specific habit
+  - >-
+    Whether a temple is genuinely considered "closed" while its devta is away
+    at a fair or visiting another deity, or whether that's an overreading of
+    the palanquin travelling
+  - >-
+    DGCA Drone Rules 2021 airspace classification for rural Himachal — confirm
+    the actual regulatory picture before restating it as fact
+migrationStatus: needs-founder-review
+reelHook: >-
+  Himachal ke mandir mein camera se pehle ek aur rule hai — kuch bhi chhoo mat.
+cta: yatri-circle
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - devidarh-shikari-devi
+  - churdhar-sacred-ascent
+  - parashar-lake-trek
+relatedStories:
+  - small-god
+  - bell-and-thunder
+giftsFromMountains:
+  - Restraint
+  - Attention
+themes:
+  - Devta Culture
+  - Respect
+overview: >-
+  Himachal temple etiquette is not one rulebook. Rules are set per deity, per
+  temple committee and per valley, and a rule that holds at one shrine can be
+  irrelevant at the next ridge. What travels everywhere is the method: watch
+  before you act, ask before you assume, and treat the temple as a house you
+  have been let into rather than a monument you have arrived at.
+
+  This chapter covers what a first-time visitor actually needs — where footwear
+  comes off, what not to touch, when photography is refused, what to wear, and
+  what to do if a devta's palanquin meets you on a trail. Specific claims are
+  hedged where they vary, and nothing here overrides what someone at the
+  temple tells you.
+faqs:
+  - question: What should I wear to a temple in Himachal?
+    answer: >-
+      Shoulders and knees covered, for men and women. Skip shorts, very short
+      dresses and sleeveless tops on a temple day. A plain shawl or large
+      scarf is the most useful thing you can carry: it covers shoulders, it
+      covers a head where head covering is expected, and it is warmth at
+      3,000 metres. Some shrines have further requests — a covered head, no
+      leather, occasionally more. If one applies, you will usually be told at
+      the door. Being told is normal, not a telling-off.
+  - question: Can I take photos inside a Himachal temple?
+    answer: >-
+      Assume no until someone says yes. Local accounts describe photography of
+      the deity, the mohras (the metal faces mounted on the palanquin) and the
+      inner sanctum being restricted at many devta temples; some restrict the
+      whole precinct, some only the ritual. Signs exist in some places and not
+      others, and the absence of a sign is not permission. Ask the pujari or
+      the kardar in words, once. If a ritual is underway, put the phone away
+      without waiting to be asked.
+  - question: Can I touch the deity or the idol?
+    answer: >-
+      No, and the safer habit is to assume you may not touch anything at all —
+      not the deity, not the palanquin, not the mohras, not the drums, not the
+      offerings left by someone else. At many devta temples these are handled
+      only by the pujari and the deity's office-holders — local accounts
+      describe devotees not touching them either. Most visitors are also not
+      expected to enter the sanctum; darshan is taken from the door.
+  - question: What is a devta in Himachal?
+    answer: >-
+      A devta (or devi) is a local deity with a seat and a temple. The deity
+      is represented at fairs and processions by a rath or palki, a palanquin
+      carried by bearers. Around the deity are named roles: a pujari for
+      ritual, a kardar who manages the deity's affairs, bajantris who play the
+      deity's music, and in many places a gur, understood as the medium
+      through whom the deity speaks. Local accounts describe many valleys
+      where the devta also holds land and a working role in village life.
+      These are held positions, not folklore staged for visitors. Terms and
+      spellings differ by valley — Kullu, Mandi, Sirmaur and Chamba do not all
+      use the same words.
+  - question: What should I do if a devta's palanquin passes me on the trail?
+    answer: >-
+      Stop, step off the path, stand still, and let it go by. Do not walk
+      through the procession, do not cut in front of the palki for a better
+      photograph, do not try to overtake it on a narrow trail. Where the trail
+      allows it, step to the hill side rather than the drop side — that is
+      trail safety on a narrow path, not ritual. In a vehicle, pull over and
+      wait. Standing quietly with your hands at your sides is generally
+      understood; you are not expected to perform anything.
+  - question: Do I have to remove my shoes, and where?
+    answer: >-
+      Yes, and usually further out than visitors expect. At some shrines the
+      line is the outer gate, the courtyard edge or a marked stone rather than
+      the sanctum door. The reliable signal is the shoes already there — stop
+      where they stop. Socks are generally accepted on cold stone, but glance
+      at what everyone else is doing.
+  - question: What should I offer, and is there an entry fee?
+    answer: >-
+      Most village temples have no entry ticket. If you want to give
+      something, use the donation box rather than putting money into anyone's
+      hand, and keep the amount unremarkable. Do not use money to buy access
+      to a place or a ritual you have been kept out of. If prasad is offered
+      to you, accept it with your right hand and eat it; refusing outright
+      reads badly — if you can't eat it, take it and say so.
+  - question: Can I fly a drone over a temple or a fair?
+    answer: >-
+      Don't. Over a temple, a procession or a fair crowd it is intrusive in a
+      way that is obvious to everyone below, and it turns a private moment
+      into footage nobody agreed to. Separately, India's Drone Rules require
+      registration and compliance with the DGCA airspace map, and a fair is
+      exactly the kind of gathering where a drone gets you stopped.
+narrative: >-
+  In much of Himachal, the local deity is not a symbol. Local accounts
+  describe villages consulting their devta before weddings, harvests and
+  building work, and in some valleys before going to court. So when you step
+  into a temple courtyard here, you are not entering a monument. You are
+  entering somebody's house, during working hours, unannounced.
+
+  This is the etiquette page that sits under our sacred chapters — Kamrunag,
+  Shikari Devi, Churdhar, Parashar. It is general guidance for temples and
+  devsthans, the seats of local deities, across Himachal. It cannot be a
+  rulebook, and any page claiming to be one is overselling itself. Rules here
+  are set per deity, per temple committee, per valley, and a rule that holds
+  absolutely at one shrine may not exist at the next ridge. What travels
+  everywhere is the method: watch, ask, wait. Nothing on this page overrides
+  what a person at the temple tells you.
+
+  Learn one word first: devta, or devi. Around the deity sit named roles — a
+  pujari for ritual, a kardar who manages the deity's affairs and property,
+  bajantris who play the deity's music, and in many places a gur, understood
+  locally as the medium through whom the deity speaks. At fairs and
+  processions the deity travels on a rath or palki, a palanquin carried on
+  shoulders, often carrying mohras, metal faces of the deity. These are
+  working positions held by real people. If you need permission for anything
+  — a photograph, entry to an inner courtyard, attending a ritual — one of
+  them is who you ask. Not the nearest shopkeeper, not your driver.
+
+  Ethnographic work on Kullu and the western Himalaya describes disputes that
+  could go to a court being brought to the deity first, with the answer
+  carrying real social weight — land, debts, marriages, quarrels between
+  families. Local accounts say the same. That is the local truth under all
+  the etiquette below: you are not being asked to respect a belief you may
+  not share. You are standing in front of an institution the village still
+  answers to, and behaving accordingly costs you nothing.
+
+  Start with your feet. Shoes come off earlier than most visitors expect. The
+  reliable signal is the pile of chappals already there: stop where they
+  stop. At some shrines that line is the outer gate or a marked stone rather
+  than the sanctum door. Leather is refused at some shrines altogether, which
+  catches people out at the belt, the wallet and the camera strap, so on a
+  temple day a cloth belt and leaving the leather in the car saves an awkward
+  conversation at the door.
+
+  Then keep your hands to yourself. The safest assumption in a devta temple
+  is that you may not touch anything: not the deity, not the palanquin, not
+  the mohras, not the drums, not somebody else's offering. At many temples
+  these are handled only by the pujari and the deity's office-holders — local
+  accounts describe devotees not touching them either. Visitors take darshan
+  from the door. Photography is the rule visitors worry about. Touching is
+  the one we would be more careful with.
+
+  On photography, the working assumption is no until someone says yes. Local
+  accounts describe photography of the deity, the mohras and the sanctum
+  being restricted at many devta temples; some restrict the entire precinct;
+  some are relaxed about the building and firm about the ritual. Some post a
+  sign. Many don't, and the absence of a sign is not permission. Ask once, in
+  words, and accept the answer without negotiating. If a gur is present or a
+  ritual is underway, put the phone away before anyone has to ask you. And
+  leave the drone in the bag — over a temple, a procession or a fair it is
+  intrusive in a way obvious to everyone standing underneath it.
+
+  Dress plainly and cover shoulders and knees, men and women both. A shawl or
+  a big scarf is the single most useful thing to carry: it covers shoulders,
+  covers a head where head-covering is expected, and doubles as warmth at
+  altitude, since many of the shrines in this book sit above 2,500 metres and
+  make their own weather. Some temples have additional requests — a covered
+  head, a removed upper garment, no leather. If one applies to you it will
+  usually be said at the door. Being told is not a rebuke. It is how anyone,
+  local or not, finds out.
+
+  Sooner or later you will meet a deity on the road. A palki coming down a
+  trail with drums behind it is not a photo opportunity that has arrived; it
+  is traffic with right of way. Stop, step off the path, stand still, let it
+  pass. Do not walk through the procession. Do not cut across in front of the
+  palanquin to shoot it from the other side. Do not try to overtake it on a
+  narrow section. Where the trail allows it, step to the hill side rather
+  than the drop side — the bearers are carrying real weight on a bad surface
+  and need the whole width; that is trail safety, not ritual. In a vehicle,
+  pull over and wait. Standing quietly with your hands at your sides is
+  generally understood; nobody expects a visitor to perform devotion they
+  don't feel.
+
+  The fairs are where all of this becomes visible, and also where it is most
+  misread. Deities gather, drums run for hours, and the nati circles open in
+  the ground. It looks like a festival anyone can join, and the hospitality
+  is genuine enough that you will probably be fed by someone who has never
+  met you. But the parts that look like performance mostly are not, and a
+  crowd is not consent to film. Watch from the edge, which is where most
+  people are standing anyway. If you are pulled into the circle, that is an
+  invitation; don't manufacture one.
+
+  A few practicalities. Alcohol, tobacco and non-vegetarian food are kept out
+  of many temple precincts, and some deities' areas carry further
+  prohibitions a visitor has no way of deducing — a particular food, a
+  material, an animal product. This is the strongest argument for asking
+  rather than guessing. Small village shrines often have no fixed hours and
+  are opened by the pujari for morning and evening worship, so an afternoon
+  arrival can find a locked door and nothing wrong with it. The deity may
+  also simply be away: palanquins travel to fairs and to other deities, and
+  local accounts describe a temple being effectively shut while its devta is
+  in another valley. If your visit depends on a specific ritual or fair,
+  confirm the date locally in the week before — these follow local calendars,
+  not the Gregorian one.
+
+  Offerings are simple. Use the donation box rather than handing money to
+  anyone, keep the amount unremarkable, and never try to pay your way past a
+  restriction. If prasad is put into your hands, take it with the right hand
+  and eat it.
+
+  If you remember nothing else, remember the two-minute rule. Stand still at
+  the edge of the courtyard for two minutes before you do anything at all.
+  Watch where the shoes stop, where people stop walking forward, who touches
+  what, where the phones are and are not. Then copy the grandmother in front
+  of you. She has done this ten thousand times and she is not going to get it
+  wrong.
+closingQuote: >-
+  A temple in Himachal is not a monument you have arrived at. It is a house you
+  have been let into.
