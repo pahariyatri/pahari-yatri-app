@@ -109,6 +109,7 @@ export default async function Page({ params }: any) {
     contentHtml,
     quote: story.quote || "",
     voice: (story as any).voice || "",
+    authorName: (story as any).authorName || "",
     chapter,
     nextStory,
     minutes,
@@ -116,6 +117,18 @@ export default async function Page({ params }: any) {
   };
 
   const storyUrl = `${siteMetadata.siteUrl}/stories/${slug}`;
+
+  // Real named individual (local/yatri/creator/elder) → Person schema for
+  // E-E-A-T; "editorial" authorType (incl. the literal "Pahari Yatri
+  // Editorial" name used today on every story that sets authorName) stays
+  // Organization — no story currently names a real individual, so this is
+  // forward-wiring for when one does, not a change to any live page's output.
+  const individualAuthorTypes = new Set(["local", "yatri", "creator", "elder"]);
+  const authorName = (story as any).authorName as string | undefined;
+  const authorType = (story as any).authorType as string | undefined;
+  const author = authorName && authorType && individualAuthorTypes.has(authorType)
+    ? { '@type': 'Person', name: authorName }
+    : { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl };
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -127,7 +140,7 @@ export default async function Page({ params }: any) {
     url: storyUrl,
     datePublished: dates.published,
     dateModified: dates.modified,
-    author: { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl },
+    author,
     publisher: {
       '@type': 'Organization',
       name: 'Pahari Yatri',

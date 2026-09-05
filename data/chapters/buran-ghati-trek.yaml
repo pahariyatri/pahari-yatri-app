@@ -10,6 +10,8 @@ location: Pabbar Valley to Kinnaur
 image: /static/images/chapters/buran-ghati-trek/image.avif
 relatedStories:
   - buran-first-light
+relatedChapters:
+  - mural-danda-trek
 giftsFromMountains:
   - Balance
   - Resolve
