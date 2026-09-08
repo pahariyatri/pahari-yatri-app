@@ -10,6 +10,9 @@ location: Sirmaur
 image: /static/images/chapters/churdhar-sacred-ascent/image.avif
 relatedStories:
   - churdhar-bell-echo
+relatedChapters:
+  - himachal-temple-etiquette
+  - devidarh-shikari-devi
 giftsFromMountains:
   - Devotion
   - Endurance

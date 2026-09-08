@@ -9,6 +9,8 @@ location: Kasol
 image: /static/images/chapters/kasol-weekend/image.jpg
 relatedStories:
   - kasol-slow-saturday
+relatedChapters:
+  - kheerganga-buni-buni-pass
 giftsFromMountains:
   - Ease
   - Community

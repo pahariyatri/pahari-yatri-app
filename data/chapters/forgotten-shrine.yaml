@@ -10,6 +10,9 @@ location: Kinnaur skirts
 image: /static/images/chapters/forgotten-shrine/image.jpg
 relatedStories:
   - small-god
+relatedChapters:
+  - pin-bhaba-pass
+  - rupin-pass-trek
 giftsFromMountains:
   - Reverence
   - Memory
