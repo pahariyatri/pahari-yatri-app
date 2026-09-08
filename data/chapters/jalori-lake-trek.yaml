@@ -9,6 +9,9 @@ location: Jalori Pass
 image: /static/images/chapters/jalori-lake-trek/image.jpg
 relatedStories:
   - jalori-small-circle
+relatedChapters:
+  - baga-sarahan-bashleo-pass
+  - rain-prayer
 giftsFromMountains:
   - Gentleness
   - Attention

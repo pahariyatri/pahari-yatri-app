@@ -9,6 +9,8 @@ location: Great Himalayan National Park fringes
 image: /static/images/chapters/mist-valleys/image.jpg
 relatedStories:
   - quiet-compass
+relatedChapters:
+  - cloud-forest-paths
 giftsFromMountains:
   - Attention
   - Humility

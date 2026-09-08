@@ -10,6 +10,9 @@ location: Kullu & Lahul ridges
 image: /static/images/chapters/sunlit-passes/image.jpg
 relatedStories:
   - sunlit-song
+relatedChapters:
+  - meadow-walks
+  - river-sutra
 giftsFromMountains:
   - Warmth in the bones
   - Trust in the path

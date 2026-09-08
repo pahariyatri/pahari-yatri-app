@@ -10,6 +10,9 @@ location: Seraj shrines
 image: /static/images/chapters/rain-prayer/image.jpg
 relatedStories:
   - bell-and-thunder
+relatedChapters:
+  - baga-sarahan-bashleo-pass
+  - jalori-lake-trek
 giftsFromMountains:
   - Devotion
   - Cleansing

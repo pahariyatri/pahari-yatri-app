@@ -10,6 +10,9 @@ location: Jibhi & Shoja cloud belt
 image: /static/images/chapters/cloud-forest-paths/image.avif
 relatedStories:
   - forest-chants
+relatedChapters:
+  - mist-valleys
+  - kheerganga-buni-buni-pass
 giftsFromMountains:
   - Soft strength
   - Listening to weather

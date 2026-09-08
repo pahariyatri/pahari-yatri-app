@@ -1,0 +1,46 @@
+{
+  "crawled": 89,
+  "sitemap_entries": 89,
+  "unique_sitemap_entries": 89,
+  "status_counts": {
+    "200": 89
+  },
+  "missing_title": [],
+  "missing_description": [],
+  "h1_not_one": [
+    [
+      "https://pahariyatri.com/apply",
+      0
+    ],
+    [
+      "https://pahariyatri.com/books/lost-trails",
+      2
+    ],
+    [
+      "https://pahariyatri.com/books/monsoon",
+      2
+    ],
+    [
+      "https://pahariyatri.com/books/summer",
+      2
+    ],
+    [
+      "https://pahariyatri.com/books/temples-traditions",
+      2
+    ],
+    [
+      "https://pahariyatri.com/books/winter",
+      2
+    ],
+    [
+      "https://pahariyatri.com/stories",
+      0
+    ],
+    [
+      "https://pahariyatri.com/why-pahari-yatri",
+      0
+    ]
+  ],
+  "orphans": [],
+  "non200": []
+}

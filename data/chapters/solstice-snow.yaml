@@ -11,6 +11,9 @@ image: /static/images/chapters/solstice-snow/image.jpg
 relatedStories:
   - solstice-fire
   - why-locals-avoid-manali-in-peak-season
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - chandernahan-lake-trek
 giftsFromMountains:
   - Clarity
   - Courage

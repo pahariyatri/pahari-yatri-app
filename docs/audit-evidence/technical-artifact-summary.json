@@ -1,0 +1,76 @@
+{
+  "sitemap_count": 89,
+  "sitemap_unique": 89,
+  "first_path_segment_counts": {
+    "": 1,
+    "library": 1,
+    "books": 6,
+    "chapters": 26,
+    "stories": 21,
+    "responsible-travel": 1,
+    "temples": 1,
+    "folklore": 1,
+    "community": 1,
+    "contribute": 1,
+    "journal": 1,
+    "films": 1,
+    "about": 1,
+    "apply": 1,
+    "why-pahari-yatri": 1,
+    "himachal": 24
+  },
+  "missing_artifacts": [],
+  "canonical_mismatches": [],
+  "duplicate_titles": {
+    "Pahari Yatri — Learn the Himalayas Before You Walk Them": 2
+  },
+  "non_single_h1": [
+    {
+      "url": "https://pahariyatri.com/stories",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/apply",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/why-pahari-yatri",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/books/lost-trails",
+      "h1": [
+        "Lost Trails",
+        "Lost Trails"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/monsoon",
+      "h1": [
+        "Monsoon",
+        "Monsoon"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/summer",
+      "h1": [
+        "Summer",
+        "Summer"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/temples-traditions",
+      "h1": [
+        "Temples & Traditions",
+        "Temples & Traditions"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/winter",
+      "h1": [
+        "Winter",
+        "Winter"
+      ]
+    }
+  ]
+}

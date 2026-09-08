@@ -1,0 +1,906 @@
+[
+  {
+    "route": "/",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 118932
+  },
+  {
+    "route": "/library",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 70875
+  },
+  {
+    "route": "/books",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 53463
+  },
+  {
+    "route": "/chapters",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 158807
+  },
+  {
+    "route": "/stories",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45284
+  },
+  {
+    "route": "/responsible-travel",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 50512
+  },
+  {
+    "route": "/temples",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 54498
+  },
+  {
+    "route": "/folklore",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 53520
+  },
+  {
+    "route": "/community",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 49536
+  },
+  {
+    "route": "/contribute",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45601
+  },
+  {
+    "route": "/journal",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46281
+  },
+  {
+    "route": "/films",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 98275
+  },
+  {
+    "route": "/about",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 42496
+  },
+  {
+    "route": "/apply",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 23688
+  },
+  {
+    "route": "/why-pahari-yatri",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 47076
+  },
+  {
+    "route": "/himachal",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 83980
+  },
+  {
+    "route": "/himachal/travel-guide",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 50861
+  },
+  {
+    "route": "/himachal/places",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45860
+  },
+  {
+    "route": "/himachal/travel-guide/bilaspur",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45481
+  },
+  {
+    "route": "/himachal/travel-guide/chamba",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 47378
+  },
+  {
+    "route": "/himachal/travel-guide/hamirpur",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45491
+  },
+  {
+    "route": "/himachal/travel-guide/kangra",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 47406
+  },
+  {
+    "route": "/himachal/travel-guide/kinnaur",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 52376
+  },
+  {
+    "route": "/himachal/travel-guide/kullu",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 63611
+  },
+  {
+    "route": "/himachal/travel-guide/lahaul-spiti",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 47759
+  },
+  {
+    "route": "/himachal/travel-guide/manali",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 54105
+  },
+  {
+    "route": "/himachal/travel-guide/mandi",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 51606
+  },
+  {
+    "route": "/himachal/travel-guide/shimla",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 50127
+  },
+  {
+    "route": "/himachal/travel-guide/sirmour",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 48329
+  },
+  {
+    "route": "/himachal/travel-guide/solan",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45468
+  },
+  {
+    "route": "/himachal/travel-guide/una",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46545
+  },
+  {
+    "route": "/himachal/places/chintpurni",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45982
+  },
+  {
+    "route": "/himachal/places/jibhi",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46607
+  },
+  {
+    "route": "/himachal/places/kalpa",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46158
+  },
+  {
+    "route": "/himachal/places/manikaran",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46141
+  },
+  {
+    "route": "/himachal/places/mcleod-ganj",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45983
+  },
+  {
+    "route": "/himachal/places/naggar",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46426
+  },
+  {
+    "route": "/himachal/places/sajla",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46188
+  },
+  {
+    "route": "/himachal/places/triund",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 45843
+  },
+  {
+    "route": "/books/lost-trails",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68044
+  },
+  {
+    "route": "/books/monsoon",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 67857
+  },
+  {
+    "route": "/books/summer",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 64140
+  },
+  {
+    "route": "/books/temples-traditions",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46013
+  },
+  {
+    "route": "/books/winter",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 53025
+  },
+  {
+    "route": "/chapters/baga-sarahan-bashleo-pass",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 67480
+  },
+  {
+    "route": "/chapters/buran-ghati-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 74846
+  },
+  {
+    "route": "/chapters/chandernahan-lake-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 74010
+  },
+  {
+    "route": "/chapters/churdhar-sacred-ascent",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 70669
+  },
+  {
+    "route": "/chapters/cloud-forest-paths",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 69442
+  },
+  {
+    "route": "/chapters/devidarh-shikari-devi",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 67327
+  },
+  {
+    "route": "/chapters/echoing-caves",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 67421
+  },
+  {
+    "route": "/chapters/forgotten-shrine",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 69624
+  },
+  {
+    "route": "/chapters/himachal-temple-etiquette",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 108470
+  },
+  {
+    "route": "/chapters/jalori-lake-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68850
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  },
+  {
+    "route": "/chapters/kasol-weekend",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 69225
+  },
+  {
+    "route": "/chapters/kheerganga-buni-buni-pass",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 69646
+  },
+  {
+    "route": "/chapters/meadow-walks",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68658
+  },
+  {
+    "route": "/chapters/mist-valleys",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68998
+  },
+  {
+    "route": "/chapters/mural-danda-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 69624
+  },
+  {
+    "route": "/chapters/parashar-lake-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 79266
+  },
+  {
+    "route": "/chapters/pin-bhaba-pass",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 67323
+  },
+  {
+    "route": "/chapters/rain-prayer",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68926
+  },
+  {
+    "route": "/chapters/river-sutra",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 71130
+  },
+  {
+    "route": "/chapters/rupin-pass-trek",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 74509
+  },
+  {
+    "route": "/chapters/saroa-to-kamrunag",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68520
+  },
+  {
+    "route": "/chapters/shepherds-path",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 66630
+  },
+  {
+    "route": "/chapters/solstice-snow",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 70790
+  },
+  {
+    "route": "/chapters/sunlit-passes",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 68880
+  },
+  {
+    "route": "/stories/bell-and-thunder",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56410
+  },
+  {
+    "route": "/stories/bhaba-moon-road",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56547
+  },
+  {
+    "route": "/stories/buran-first-light",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 57003
+  },
+  {
+    "route": "/stories/churdhar-bell-echo",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56444
+  },
+  {
+    "route": "/stories/forest-chants",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56700
+  },
+  {
+    "route": "/stories/jalori-small-circle",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 57465
+  },
+  {
+    "route": "/stories/kasol-slow-saturday",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 57038
+  },
+  {
+    "route": "/stories/kheerganga-fire-and-water",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 57284
+  },
+  {
+    "route": "/stories/kinnaur-beyond-the-pass-reality",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 54340
+  },
+  {
+    "route": "/stories/meadow-reverie",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56725
+  },
+  {
+    "route": "/stories/mirror-of-stillness",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56599
+  },
+  {
+    "route": "/stories/parashar-floating-island",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 57317
+  },
+  {
+    "route": "/stories/quiet-compass",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56041
+  },
+  {
+    "route": "/stories/river-hymn",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56170
+  },
+  {
+    "route": "/stories/rupin-waterfall-days",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56856
+  },
+  {
+    "route": "/stories/small-god",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 55827
+  },
+  {
+    "route": "/stories/solstice-fire",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56467
+  },
+  {
+    "route": "/stories/sunlit-song",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56907
+  },
+  {
+    "route": "/stories/tirthan-the-slow-valley-reflections",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 54495
+  },
+  {
+    "route": "/stories/why-locals-avoid-manali-in-peak-season",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56743
+  },
+  {
+    "route": "/scan-me",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46329
+  },
+  {
+    "route": "/admin",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19043
+  },
+  {
+    "route": "/keystatic",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19055
+  },
+  {
+    "route": "/api/keystatic/config",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": null,
+    "bytes": 0
+  },
+  {
+    "route": "/api/discord",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 405,
+    "location": null,
+    "content_type": null,
+    "bytes": 0
+  },
+  {
+    "route": "/api/og",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "image/png",
+    "bytes": 72401,
+    "dimensions": [
+      1200,
+      630
+    ]
+  },
+  {
+    "route": "/api/og?type=book&title=Sacred%20Mandi",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "image/png",
+    "bytes": 76307,
+    "dimensions": [
+      1200,
+      630
+    ]
+  },
+  {
+    "route": "/llms.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain; charset=UTF-8",
+    "bytes": 3769
+  },
+  {
+    "route": "/llms-full.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain; charset=UTF-8",
+    "bytes": 2667
+  },
+  {
+    "route": "/robots.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain",
+    "bytes": 439
+  },
+  {
+    "route": "/sitemap.xml",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "application/xml",
+    "bytes": 14225
+  },
+  {
+    "route": "/audit-nonexistent-path",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17776
+  },
+  {
+    "route": "/himachal/places/audit-nonexistent",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17828
+  },
+  {
+    "route": "/books/winter/not-a-chapter",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19076
+  },
+  {
+    "route": "/books/temples-traditions/kamrunag-the-lake-of-oaths",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19176
+  },
+  {
+    "route": "/himachal/stories/bell-and-thunder?utm_source=qa",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 301,
+    "location": "/stories/bell-and-thunder?utm_source=qa",
+    "content_type": null,
+    "bytes": 39
+  },
+  {
+    "route": "/static/images/pahari-yatri-banner.png",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17844
+  },
+  {
+    "route": "/social-share",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17736
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "Googlebot",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "OAI-SearchBot",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "ChatGPT-User",
+    "status": 403,
+    "location": null,
+    "content_type": "application/json",
+    "bytes": 57
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "HeadlessChrome",
+    "status": 403,
+    "location": null,
+    "content_type": "application/json",
+    "bytes": 57
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "facebookexternalhit/1.1",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  }
+]

@@ -10,6 +10,9 @@ location: Parvati Valley
 image: /static/images/chapters/kheerganga-buni-buni-pass/image.jpg
 relatedStories:
   - kheerganga-fire-and-water
+relatedChapters:
+  - kasol-weekend
+  - cloud-forest-paths
 giftsFromMountains:
   - Renewal
   - Ease

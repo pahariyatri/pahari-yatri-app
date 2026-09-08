@@ -10,6 +10,9 @@ location: Upper Beas meadows
 image: /static/images/chapters/meadow-walks/image.jpg
 relatedStories:
   - meadow-reverie
+relatedChapters:
+  - river-sutra
+  - sunlit-passes
 giftsFromMountains:
   - Patience
   - A slower breath

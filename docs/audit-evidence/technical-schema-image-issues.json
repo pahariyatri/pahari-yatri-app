@@ -1,0 +1,140 @@
+[
+  {
+    "url": "https://pahariyatri.com/",
+    "type": "VideoObject",
+    "field": "thumbnailUrl",
+    "value": "https://pahariyatri.com/static/images/pahari-yatri-banner.png"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/regions/himachal/hero.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/bilaspur",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/bilaspur.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/chamba",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/chamba.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/hamirpur",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/hamirpur.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/kangra",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/kangra.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/kinnaur",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/kinnaur.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/kullu",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/kullu.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/lahaul-spiti",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/lahaul-spiti.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/manali",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/manali/image.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/mandi",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/mandi.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/shimla",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/shimla.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/sirmour",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/sirmour.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/solan",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/solan.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/travel-guide/una",
+    "type": "TouristDestination",
+    "field": "image",
+    "value": "/static/images/destinations/una.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/chintpurni",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/chintpurni.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/jibhi",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/jibhi/image.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/kalpa",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/kalpa.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/manikaran",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/manikaran.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/mcleod-ganj",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/mcleod-ganj.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/naggar",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/naggar.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/sajla",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/sajla.jpg"
+  },
+  {
+    "url": "https://pahariyatri.com/himachal/places/triund",
+    "type": "Place",
+    "field": "image",
+    "value": "/static/images/places/triund.jpg"
+  }
+]

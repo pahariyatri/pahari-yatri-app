@@ -1,3 +1,15 @@
+import { resolveImage } from "@/lib/images";
+
+/** Schema.org image values must be absolute URLs, and must actually resolve.
+ *  On-page <img> elements already pass through resolveImage(), so a missing
+ *  source file degrades to a real fallback — but JSON-LD bypassed that entirely.
+ *  The result was 23 structured-data image URLs returning 404 (every district,
+ *  every place, the region hero, one chapter). This routes schema images through
+ *  the same existence check and then makes them absolute. */
+function schemaImage(img: string | null | undefined, siteUrl: string): string {
+    return `${siteUrl}${resolveImage(img)}`;
+}
+
 const LOCATION_MAPPING: Record<string, { sameAs: string; geo: { latitude: number; longitude: number } }> = {
     "Himachal Pradesh": {
         sameAs: "https://www.wikidata.org/wiki/Q1177",
@@ -47,7 +59,7 @@ export function getBlogPostingSchema(story: any, chapter: any, siteUrl: string) 
         "@id": `${siteUrl}/stories/${story.slug}#article`,
         "headline": story.title,
         "description": story.excerpt,
-        "image": [story.image],
+        "image": [schemaImage(story.image, siteUrl)],
         "datePublished": new Date().toISOString(),
         "author": {
             "@type": "Organization",
@@ -82,7 +94,7 @@ export function getDestinationSchema(destination: any, region: any, siteUrl: str
             "name": region.title,
             "@id": `${siteUrl}/${region.slug}#region`
         },
-        "image": destination.image,
+        "image": schemaImage(destination.image, siteUrl),
         "url": `${siteUrl}/${region.slug}/travel-guide/${destination.slug}`,
         "sameAs": locInfo?.sameAs,
         "brand": {
@@ -109,7 +121,7 @@ export function getPlaceSchema(place: any, region: any, siteUrl: string) {
             "latitude": locInfo?.geo.latitude || parseFloat(place.coordinates?.split(',')[0]),
             "longitude": locInfo?.geo.longitude || parseFloat(place.coordinates?.split(',')[1])
         } : undefined,
-        "image": place.image,
+        "image": schemaImage(place.image, siteUrl),
         "url": `${siteUrl}/${region.slug}/places/${place.slug}`,
         "sameAs": locInfo?.sameAs,
         "brand": {
@@ -126,7 +138,7 @@ export function getRegionSchema(region: any, siteUrl: string) {
         "@id": `${siteUrl}/${region.slug}#region`,
         "name": region.title,
         "description": region.description,
-        "image": region.heroImage,
+        "image": schemaImage(region.heroImage, siteUrl),
         "url": `${siteUrl}/${region.slug}`,
         "sameAs": locInfo?.sameAs || `https://www.wikidata.org/wiki/Search?search=${encodeURIComponent(region.title)}`,
         "brand": {
@@ -142,7 +154,7 @@ export function getVideoObjectSchema(banner: any, siteUrl: string) {
         "name": banner.title,
         "description": banner.description,
         "thumbnailUrl": [
-            `${siteUrl}/static/images/pahari-yatri-banner.png`
+            schemaImage("/static/images/pahari-yatri-banner.png", siteUrl)
         ],
         "uploadDate": new Date().toISOString(),
         "contentUrl": `${siteUrl}${banner.media}`,

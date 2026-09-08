@@ -282,6 +282,29 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
+        {/* Where this chapter sits geographically — quiet backlink to its
+            district hub, which otherwise has almost no inbound links */}
+        {journey.districtLink && (
+          <SectionContainer className="py-8">
+            <div className="max-w-2xl mx-auto">
+              <Link
+                href={`/${journey.districtLink.regionSlug}/travel-guide/${journey.districtLink.slug}`}
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-border/50 bg-muted/20 p-6 hover:border-primary/40 transition-colors"
+              >
+                <div>
+                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                    More from this district
+                  </span>
+                  <p className="text-lg font-brandSerif font-medium group-hover:text-primary transition-colors">
+                    {journey.districtLink.title}
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-primary shrink-0 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </SectionContainer>
+        )}
+
         {/* This chapter's home in the library — quiet backlink to its book */}
         {journey.parentBook && (
           <SectionContainer className="py-8">

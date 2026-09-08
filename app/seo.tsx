@@ -1,8 +1,16 @@
 import { Metadata } from 'next'
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '@/keystatic.config';
+import siteMetadata from '@/data/siteMetadata';
 
 const reader = createReader(process.cwd(), keystaticConfig);
+
+// The brand suffix used in OG/Twitter titles. This must match the `title.template`
+// in app/layout.tsx (`%s | Pahari Yatri`) so a shared card and its document title
+// read identically. Deliberately a constant rather than `seo?.title`: the SEO
+// singleton is optional, and when it was absent every hub page shipped an
+// og:title ending in "| undefined".
+const SITE_NAME = 'Pahari Yatri'
 
 interface PageSEOProps {
     title: string
@@ -18,20 +26,21 @@ export async function genPageMetadata({ title, description, image, ...rest }: Pa
     // hotlinked, likely-unlicensed Pinterest image. /api/og generates a real
     // branded card from the page's own title instead.
     const fallbackImage = `/api/og?title=${encodeURIComponent(title)}`;
+    const resolvedDescription = description || seo?.description || siteMetadata.description;
     return {
         title,
-        description: description || seo?.description,
+        description: resolvedDescription,
         openGraph: {
-            title: `${title} | ${seo?.title}`,
-            description: description || seo?.description,
+            title: `${title} | ${SITE_NAME}`,
+            description: resolvedDescription,
             url: './',
-            siteName: seo?.title,
+            siteName: SITE_NAME,
             images: [image || fallbackImage],
             locale: settings?.locale,
             type: 'website',
         },
         twitter: {
-            title: `${title} | ${seo?.title}`,
+            title: `${title} | ${SITE_NAME}`,
             card: 'summary_large_image',
             images: [image || fallbackImage],
         },

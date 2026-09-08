@@ -154,6 +154,24 @@ export async function getChapterView(slug: string) {
     )
   ).filter(Boolean);
 
+  // The district hub this chapter's place belongs to — chapters set a
+  // `district` relationship but nothing ever linked back to the hub, so a
+  // reader (and a crawler) landing on a chapter had no path to the district
+  // page. District hubs otherwise sit at only ~2 inbound links each.
+  let districtLink: { slug: string; title: string; regionSlug: string } | null = null;
+  if (chapter.district) {
+    try {
+      const destination = await reader.collections.destinations.read(chapter.district);
+      if (destination) {
+        districtLink = {
+          slug: chapter.district,
+          title: destination.title || chapter.district,
+          regionSlug: destination.parentRegion,
+        };
+      }
+    } catch {}
+  }
+
   // The book this chapter belongs to — a quiet backlink that keeps readers
   // inside the library — plus the next chapter in reading order, the open
   // loop that turns chapters into episodes rather than dead ends.
@@ -192,6 +210,7 @@ export async function getChapterView(slug: string) {
     relatedChapters,
     parentBook,
     nextChapter,
+    districtLink,
   };
   const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
 

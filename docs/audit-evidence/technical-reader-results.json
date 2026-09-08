@@ -1,0 +1,606 @@
+{
+  "regions": {
+    "listCount": 1,
+    "allCount": 1,
+    "directoryEntries": [],
+    "slugs": [
+      "himachal"
+    ],
+    "entries": [
+      {
+        "slug": "himachal",
+        "title": "Himachal Pradesh"
+      }
+    ]
+  },
+  "destinations": {
+    "listCount": 13,
+    "allCount": 13,
+    "directoryEntries": [],
+    "slugs": [
+      "bilaspur",
+      "chamba",
+      "hamirpur",
+      "kangra",
+      "kinnaur",
+      "kullu",
+      "lahaul-spiti",
+      "manali",
+      "mandi",
+      "shimla",
+      "sirmour",
+      "solan",
+      "una"
+    ],
+    "entries": [
+      {
+        "slug": "bilaspur",
+        "title": "Bilaspur",
+        "contentType": "string",
+        "contentCharacters": 344
+      },
+      {
+        "slug": "chamba",
+        "title": "Chamba",
+        "contentType": "string",
+        "contentCharacters": 402
+      },
+      {
+        "slug": "hamirpur",
+        "title": "Hamirpur",
+        "contentType": "string",
+        "contentCharacters": 350
+      },
+      {
+        "slug": "kangra",
+        "title": "Kangra",
+        "contentType": "string",
+        "contentCharacters": 328
+      },
+      {
+        "slug": "kinnaur",
+        "title": "Kinnaur",
+        "contentType": "string",
+        "contentCharacters": 361
+      },
+      {
+        "slug": "kullu",
+        "title": "Kullu",
+        "contentType": "string",
+        "contentCharacters": 379
+      },
+      {
+        "slug": "lahaul-spiti",
+        "title": "Lahaul and Spiti",
+        "contentType": "string",
+        "contentCharacters": 411
+      },
+      {
+        "slug": "manali",
+        "title": "Manali",
+        "contentType": "string",
+        "contentCharacters": 1963
+      },
+      {
+        "slug": "mandi",
+        "title": "Mandi",
+        "contentType": "string",
+        "contentCharacters": 385
+      },
+      {
+        "slug": "shimla",
+        "title": "Shimla",
+        "contentType": "string",
+        "contentCharacters": 342
+      },
+      {
+        "slug": "sirmour",
+        "title": "Sirmour",
+        "contentType": "string",
+        "contentCharacters": 304
+      },
+      {
+        "slug": "solan",
+        "title": "Solan",
+        "contentType": "string",
+        "contentCharacters": 362
+      },
+      {
+        "slug": "una",
+        "title": "Una",
+        "contentType": "string",
+        "contentCharacters": 341
+      }
+    ]
+  },
+  "places": {
+    "listCount": 8,
+    "allCount": 8,
+    "directoryEntries": [],
+    "slugs": [
+      "chintpurni",
+      "jibhi",
+      "kalpa",
+      "manikaran",
+      "mcleod-ganj",
+      "naggar",
+      "sajla",
+      "triund"
+    ],
+    "entries": [
+      {
+        "slug": "chintpurni",
+        "title": "Chintpurni"
+      },
+      {
+        "slug": "jibhi",
+        "title": "Jibhi"
+      },
+      {
+        "slug": "kalpa",
+        "title": "Kalpa"
+      },
+      {
+        "slug": "manikaran",
+        "title": "Manikaran"
+      },
+      {
+        "slug": "mcleod-ganj",
+        "title": "McLeod Ganj"
+      },
+      {
+        "slug": "naggar",
+        "title": "Naggar"
+      },
+      {
+        "slug": "sajla",
+        "title": "Sajla"
+      },
+      {
+        "slug": "triund",
+        "title": "Triund"
+      }
+    ]
+  },
+  "books": {
+    "listCount": 5,
+    "allCount": 5,
+    "directoryEntries": [],
+    "slugs": [
+      "lost-trails",
+      "monsoon",
+      "summer",
+      "temples-traditions",
+      "winter"
+    ],
+    "entries": [
+      {
+        "slug": "lost-trails",
+        "title": "Lost Trails"
+      },
+      {
+        "slug": "monsoon",
+        "title": "Monsoon"
+      },
+      {
+        "slug": "summer",
+        "title": "Summer"
+      },
+      {
+        "slug": "temples-traditions",
+        "title": "Temples & Traditions"
+      },
+      {
+        "slug": "winter",
+        "title": "Winter"
+      }
+    ]
+  },
+  "chapters": {
+    "listCount": 25,
+    "allCount": 25,
+    "directoryEntries": [],
+    "slugs": [
+      "baga-sarahan-bashleo-pass",
+      "buran-ghati-trek",
+      "chandernahan-lake-trek",
+      "churdhar-sacred-ascent",
+      "cloud-forest-paths",
+      "devidarh-shikari-devi",
+      "echoing-caves",
+      "forgotten-shrine",
+      "himachal-temple-etiquette",
+      "jalori-lake-trek",
+      "kamrunag-the-lake-of-oaths",
+      "kasol-weekend",
+      "kheerganga-buni-buni-pass",
+      "meadow-walks",
+      "mist-valleys",
+      "mural-danda-trek",
+      "parashar-lake-trek",
+      "pin-bhaba-pass",
+      "rain-prayer",
+      "river-sutra",
+      "rupin-pass-trek",
+      "saroa-to-kamrunag",
+      "shepherds-path",
+      "solstice-snow",
+      "sunlit-passes"
+    ],
+    "entries": [
+      {
+        "slug": "baga-sarahan-bashleo-pass",
+        "title": "Baga Sarahan + Bashleo Pass Peak Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "buran-ghati-trek",
+        "title": "Buran Ghati Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "chandernahan-lake-trek",
+        "title": "Chandernahan Lake Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "churdhar-sacred-ascent",
+        "title": "Churdhar Sacred Ascent Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "cloud-forest-paths",
+        "title": "Cloud Forest Paths",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "devidarh-shikari-devi",
+        "title": "Devidarh to Shikari Devi",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "echoing-caves",
+        "title": "Echoing Caves",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "forgotten-shrine",
+        "title": "Forgotten Shrine",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "himachal-temple-etiquette",
+        "title": "Himachal Temple Etiquette",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": false,
+        "verificationStatus": "needs-local-source"
+      },
+      {
+        "slug": "jalori-lake-trek",
+        "title": "Jalori Lake Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "kamrunag-the-lake-of-oaths",
+        "title": "Kamrunag – The Lake of Oaths",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "kasol-weekend",
+        "title": "Kasol Weekend Trail",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "kheerganga-buni-buni-pass",
+        "title": "Kheer Ganga + Buni Buni Pass",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "meadow-walks",
+        "title": "Meadow Walks",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "mist-valleys",
+        "title": "Mist Valleys",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "mural-danda-trek",
+        "title": "Mural Danda Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "parashar-lake-trek",
+        "title": "Parashar Lake Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "pin-bhaba-pass",
+        "title": "Pin Bhaba Pass Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "rain-prayer",
+        "title": "Rain Prayer",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "river-sutra",
+        "title": "River Sutra",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "rupin-pass-trek",
+        "title": "Rupin Pass Trek",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "saroa-to-kamrunag",
+        "title": "Saroa to Kamrunag Lake",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "shepherds-path",
+        "title": "Shepherds’ Path",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "solstice-snow",
+        "title": "Solstice Snow",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      },
+      {
+        "slug": "sunlit-passes",
+        "title": "Sunlit Passes",
+        "hasOffering": false,
+        "hasOverview": true,
+        "hasItinerary": true,
+        "verificationStatus": "unverified"
+      }
+    ]
+  },
+  "stories": {
+    "listCount": 20,
+    "allCount": 20,
+    "directoryEntries": [],
+    "slugs": [
+      "bell-and-thunder",
+      "bhaba-moon-road",
+      "buran-first-light",
+      "churdhar-bell-echo",
+      "forest-chants",
+      "jalori-small-circle",
+      "kasol-slow-saturday",
+      "kheerganga-fire-and-water",
+      "kinnaur-beyond-the-pass-reality",
+      "meadow-reverie",
+      "mirror-of-stillness",
+      "parashar-floating-island",
+      "quiet-compass",
+      "river-hymn",
+      "rupin-waterfall-days",
+      "small-god",
+      "solstice-fire",
+      "sunlit-song",
+      "tirthan-the-slow-valley-reflections",
+      "why-locals-avoid-manali-in-peak-season"
+    ],
+    "entries": [
+      {
+        "slug": "bell-and-thunder",
+        "title": "Bell and Thunder",
+        "contentType": "string",
+        "contentCharacters": 1963
+      },
+      {
+        "slug": "bhaba-moon-road",
+        "title": "Bhaba – Moon Road",
+        "contentType": "string",
+        "contentCharacters": 2011
+      },
+      {
+        "slug": "buran-first-light",
+        "title": "Buran – First Light",
+        "contentType": "string",
+        "contentCharacters": 2094
+      },
+      {
+        "slug": "churdhar-bell-echo",
+        "title": "Churdhar – Bell Echo",
+        "contentType": "string",
+        "contentCharacters": 1866
+      },
+      {
+        "slug": "forest-chants",
+        "title": "Forest Chants",
+        "contentType": "string",
+        "contentCharacters": 2071
+      },
+      {
+        "slug": "jalori-small-circle",
+        "title": "Jalori – Small Circle",
+        "contentType": "string",
+        "contentCharacters": 2333
+      },
+      {
+        "slug": "kasol-slow-saturday",
+        "title": "Kasol – Slow Saturday",
+        "contentType": "string",
+        "contentCharacters": 2027
+      },
+      {
+        "slug": "kheerganga-fire-and-water",
+        "title": "Kheerganga – Fire and Water",
+        "contentType": "string",
+        "contentCharacters": 2094
+      },
+      {
+        "slug": "kinnaur-beyond-the-pass-reality",
+        "title": "Kinnaur: Beyond the Pass Reality",
+        "contentType": "string",
+        "contentCharacters": 916
+      },
+      {
+        "slug": "meadow-reverie",
+        "title": "Meadow Reverie",
+        "contentType": "string",
+        "contentCharacters": 2086
+      },
+      {
+        "slug": "mirror-of-stillness",
+        "title": "Mirror of Stillness",
+        "contentType": "string",
+        "contentCharacters": 1877
+      },
+      {
+        "slug": "parashar-floating-island",
+        "title": "Parashar – Floating Island",
+        "contentType": "string",
+        "contentCharacters": 2103
+      },
+      {
+        "slug": "quiet-compass",
+        "title": "Quiet Compass",
+        "contentType": "string",
+        "contentCharacters": 1829
+      },
+      {
+        "slug": "river-hymn",
+        "title": "River Hymn",
+        "contentType": "string",
+        "contentCharacters": 1856
+      },
+      {
+        "slug": "rupin-waterfall-days",
+        "title": "Rupin – Waterfall Days",
+        "contentType": "string",
+        "contentCharacters": 2094
+      },
+      {
+        "slug": "small-god",
+        "title": "Small God",
+        "contentType": "string",
+        "contentCharacters": 1817
+      },
+      {
+        "slug": "solstice-fire",
+        "title": "Solstice Fire",
+        "contentType": "string",
+        "contentCharacters": 2004
+      },
+      {
+        "slug": "sunlit-song",
+        "title": "Sunlit Song",
+        "contentType": "string",
+        "contentCharacters": 2166
+      },
+      {
+        "slug": "tirthan-the-slow-valley-reflections",
+        "title": "Tirthan: The Slow Valley Reflections",
+        "contentType": "string",
+        "contentCharacters": 873
+      },
+      {
+        "slug": "why-locals-avoid-manali-in-peak-season",
+        "title": "Why Locals Avoid Manali in Peak Season",
+        "contentType": "string",
+        "contentCharacters": 1605
+      }
+    ]
+  },
+  "films": {
+    "listCount": 3,
+    "allCount": 3,
+    "directoryEntries": [],
+    "slugs": [
+      "monsoon-mist-tirthan",
+      "summer-light-kinnaur",
+      "temple-bells-mandi"
+    ],
+    "entries": [
+      {
+        "slug": "monsoon-mist-tirthan",
+        "title": "Monsoon Mist in the Tirthan Valley"
+      },
+      {
+        "slug": "summer-light-kinnaur",
+        "title": "Summer Light on the High Passes"
+      },
+      {
+        "slug": "temple-bells-mandi",
+        "title": "Temple Bells of Mandi"
+      }
+    ]
+  }
+}
