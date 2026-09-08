@@ -226,6 +226,26 @@ export async function getChapterView(slug: string) {
     }
   } catch {}
 
+  // Breadcrumb trail — Home > Library > [Book] > Chapter. This is the
+  // missing link in the Search -> Chapter -> Library journey: chapter pages
+  // previously had no path back up to the hub at all, only sideways links.
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Library", href: "/library" },
+    ...(parentBook ? [{ label: parentBook.title, href: `/books/${parentBook.slug}` }] : []),
+    { label: chapter.title, href: chapterCanonical(slug) },
+  ];
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.label,
+      item: `${siteMetadata.siteUrl}${b.href}`,
+    })),
+  };
+
   // Strip the raw `image` from the spread so only the resolved (verified)
   // path is serialized to the client.
   const { image: _rawImage, ...chapterRest } = chapter;
@@ -237,6 +257,7 @@ export async function getChapterView(slug: string) {
     parentBook,
     nextChapter,
     districtLink,
+    breadcrumbs,
   };
   // Related content — surfaces the same relatedChapters/relatedStories the
   // page already links to, so crawlers see the cluster in structured data
@@ -255,7 +276,7 @@ export async function getChapterView(slug: string) {
   ];
   if (mentions.length > 0) jsonLd.mentions = mentions;
 
-  const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
+  const ldArray = [jsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])];
 
   return { chapter, journeyData, ldArray };
 }

@@ -89,6 +89,32 @@ export default function JourneyPageClient({ journey, slug }: any) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-10 w-full max-w-4xl mx-auto px-6 pb-14 sm:pb-20 text-white"
         >
+          {/* Breadcrumb — the missing path back up to the Library hub that
+              a search visitor previously had no way to find from here */}
+          {Array.isArray(journey.breadcrumbs) && journey.breadcrumbs.length > 0 && (
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center flex-wrap gap-x-2 text-xs text-white/60 mb-5"
+            >
+              {journey.breadcrumbs.map((b: any, i: number) => {
+                const isLast = i === journey.breadcrumbs.length - 1;
+                return (
+                  <span key={b.href} className="flex items-center gap-x-2">
+                    {i > 0 && <span className="opacity-50">/</span>}
+                    {isLast ? (
+                      <span className="text-white/80" aria-current="page">
+                        {b.label}
+                      </span>
+                    ) : (
+                      <Link href={b.href} className="hover:text-white transition-colors hover:underline underline-offset-4">
+                        {b.label}
+                      </Link>
+                    )}
+                  </span>
+                );
+              })}
+            </nav>
+          )}
           <span className="block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4 text-white/85">
             {journey.location ? journey.location : "A Chapter"}
           </span>
