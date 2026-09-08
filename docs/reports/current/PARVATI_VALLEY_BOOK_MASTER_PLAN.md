@@ -46,7 +46,7 @@ Per the brief's own publishing rule: complete and publish-ready, or an honest pl
 
 ## 4. Priority order for continuing
 
-Eight chapters live: Understanding Parvati Valley, Kasol, Kalga, Pulga, Tosh, Kheerganga, Grahan, Malana. Remaining order: Chalal, Rasol, Tulga, Bunbuni Pass, Waichin Valley, Sar Pass → then Manikaran Sahib and Mantalai Lake as the two "add more chapters" candidates worth pursuing.
+**All 16 chapters are now published.** Understanding Parvati Valley, Kasol, Kalga, Pulga, Tosh, Kheerganga, Grahan, Malana, Chalal, Rasol, Tulga, Bunbuni Pass, Waichin Valley, Sar Pass, Manikaran Sahib, Mantalai Lake. Chalal and Tulga are deliberately short — the research base for both was genuinely thin, and both chapters say so directly rather than padding to match the others' length. Everything else received the same research-first, source-cited, conflict-held treatment as the first eight.
 
 **Why not all fourteen chapters in one pass:** each published chapter this session took a fresh research pass (cross-checking multiple independent sources, holding conflicts rather than resolving them by guessing) before a single word was written. Writing the remaining ten chapters to the same standard is roughly ten more research passes' worth of work, not a formatting exercise. Doing it faster would mean either thinner sourcing or filling gaps with invented specificity — both against this project's explicit rules. Continuing chapter by chapter, as the brief itself allows ("then continue chapter by chapter").
 
