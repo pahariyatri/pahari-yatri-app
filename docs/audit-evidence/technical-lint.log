@@ -1,0 +1,14 @@
+COMMAND: npm run lint
+START: 2026-09-07T18:15:26.404255+00:00
+
+> pahari-yatri-app@0.1.0 lint
+> eslint .
+
+
+/home/pankaj-kumar/Workspace/pahari-yatri-app/app/chapters/[...slug]/client-page.tsx
+  35:6  warning  React Hook useEffect has missing dependencies: 'journey?.location' and 'journey?.parentBook'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+✖ 1 problem (0 errors, 1 warning)
+
+
+EXIT_CODE: 0

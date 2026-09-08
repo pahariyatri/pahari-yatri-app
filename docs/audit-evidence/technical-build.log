@@ -1,0 +1,88 @@
+COMMAND: npm run build
+START: 2026-09-07T18:15:29.776877+00:00
+
+> pahari-yatri-app@0.1.0 build
+> npm run clean && next build
+
+
+> pahari-yatri-app@0.1.0 clean
+> rimraf .next node_modules/.cache
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · optimizePackageImports
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 10.3s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 15 workers (0/121) ...
+  Generating static pages using 15 workers (30/121) 
+  Generating static pages using 15 workers (60/121) 
+  Generating static pages using 15 workers (90/121) 
+✓ Generating static pages using 15 workers (121/121) in 4.2s
+  Finalizing page optimization ...
+
+Route (app)                              Revalidate  Expire
+┌ ○ /                                            1h      1y
+├ ○ /_not-found
+├ ● /[...slug]
+│ ├ /himachal
+│ ├ /himachal/travel-guide
+│ ├ /himachal/places
+│ └ [+21 more paths]
+├ ○ /about
+├ ƒ /api/discord
+├ ƒ /api/keystatic/[...params]
+├ ƒ /api/og
+├ ○ /apply
+├ ○ /books
+├ ● /books/[...slug]
+│ ├ /books/lost-trails
+│ ├ /books/monsoon
+│ ├ /books/summer
+│ └ [+2 more paths]
+├ ● /books/[book]/[chapter]
+│ ├ /books/lost-trails/forgotten-shrine
+│ ├ /books/lost-trails/shepherds-path
+│ ├ /books/lost-trails/echoing-caves
+│ └ [+21 more paths]
+├ ○ /chapters
+├ ● /chapters/[...slug]
+│ ├ /chapters/baga-sarahan-bashleo-pass
+│ ├ /chapters/buran-ghati-trek
+│ ├ /chapters/chandernahan-lake-trek
+│ └ [+22 more paths]
+├ ○ /community
+├ ○ /contribute
+├ ○ /films                                       1h      1y
+├ ○ /folklore
+├ ○ /journal
+├ ƒ /keystatic/[[...params]]
+├ ○ /library
+├ ○ /manifest.webmanifest
+├ ○ /responsible-travel
+├ ○ /robots.txt
+├ ○ /scan-me
+├ ○ /sitemap.xml
+├ ○ /stories
+├ ● /stories/[...slug]
+│ ├ /stories/bell-and-thunder
+│ ├ /stories/bhaba-moon-road
+│ ├ /stories/buran-first-light
+│ └ [+17 more paths]
+├ ○ /temples
+└ ○ /why-pahari-yatri
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+
+EXIT_CODE: 0

@@ -1,0 +1,1296 @@
+{
+  "assets": [
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Flost-trails%2FcoverImage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Flost-trails%2FcoverImage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "11835"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fmonsoon%2FcoverImage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fmonsoon%2FcoverImage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "44385"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fsummer%2FcoverImage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fsummer%2FcoverImage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "69755"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Ftemples-traditions%2FcoverImage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Ftemples-traditions%2FcoverImage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fwinter%2FcoverImage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fbooks%2Fwinter%2FcoverImage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "88749"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fbaga-sarahan-bashleo-pass%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fbaga-sarahan-bashleo-pass%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "10644"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fburan-ghati-trek%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fburan-ghati-trek%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchandernahan-lake-trek%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchandernahan-lake-trek%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "256090"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchurdhar-sacred-ascent%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchurdhar-sacred-ascent%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "62491"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fcloud-forest-paths%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fcloud-forest-paths%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fdevidarh-shikari-devi%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fdevidarh-shikari-devi%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "97766"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fechoing-caves%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fechoing-caves%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "34622"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fforgotten-shrine%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fforgotten-shrine%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "88938"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fhimachal-temple-etiquette%2Fimage.jpg&w=3840&q=75",
+      "status": 404,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fjalori-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fjalori-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "211852"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkamrunag-the-lake-of-oaths%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkamrunag-the-lake-of-oaths%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkasol-weekend%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkasol-weekend%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "235107"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkheerganga-buni-buni-pass%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkheerganga-buni-buni-pass%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "152846"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmeadow-walks%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmeadow-walks%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "334510"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmist-valleys%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmist-valleys%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmural-danda-trek%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmural-danda-trek%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "163252"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fparashar-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fparashar-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "235107"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fpin-bhaba-pass%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fpin-bhaba-pass%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "31161"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frain-prayer%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frain-prayer%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "138754"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Friver-sutra%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Friver-sutra%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "211852"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frupin-pass-trek%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frupin-pass-trek%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "162241"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsaroa-to-kamrunag%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsaroa-to-kamrunag%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fshepherds-path%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fshepherds-path%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "138754"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsolstice-snow%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsolstice-snow%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "163252"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsunlit-passes%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsunlit-passes%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "235107"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fhimalaya-fallback.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fhimalaya-fallback.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "240450"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fjourney-banner.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fjourney-banner.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "626537"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=1200&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=1200&q=75",
+      "type": "image/jpeg",
+      "length": "114756"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "923171"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fcommunity.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fcommunity.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "102096"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fcontribute.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fcontribute.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "366656"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ffilms.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ffilms.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "158373"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ffolklore.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ffolklore.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "31884"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fjournal.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fjournal.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "156484"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Flibrary.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Flibrary.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "151871"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fresponsible.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Fresponsible.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "158373"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ftemples.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fpages%2Ftemples.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "97766"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fbell-and-thunder%2Fimage.avif&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fbell-and-thunder%2Fimage.avif&w=3840&q=75",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fbhaba-moon-road%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fbhaba-moon-road%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "34622"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fburan-first-light%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fburan-first-light%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "88938"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fchurdhar-bell-echo%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fchurdhar-bell-echo%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "97766"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fforest-chants%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fforest-chants%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "334510"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fjalori-small-circle%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fjalori-small-circle%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "31161"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkasol-slow-saturday%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkasol-slow-saturday%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "162241"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkheerganga-fire-and-water%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkheerganga-fire-and-water%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "235107"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkinnaur-reality.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fkinnaur-reality.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "34622"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmanali-peak-season%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmanali-peak-season%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "138754"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmeadow-reverie%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmeadow-reverie%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "196170"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmirror-of-stillness%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fmirror-of-stillness%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "211852"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fparashar-floating-island%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fparashar-floating-island%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fquiet-compass%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fquiet-compass%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "136825"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Friver-hymn%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Friver-hymn%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "235107"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Frupin-waterfall-days%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Frupin-waterfall-days%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "211852"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsmall-god%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsmall-god%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "34622"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsolstice-fire%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsolstice-fire%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "163252"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsunlit-song%2Fimage.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Fsunlit-song%2Fimage.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "138754"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Ftirthan-slow-valley.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Fstories%2Ftirthan-slow-valley.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "53059"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Ftrail-alpine-lake.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Ftrail-alpine-lake.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "114754"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Ftrail-night-peaks.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Fimages%2Ftrail-night-peaks.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "171493"
+    },
+    {
+      "url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Flogo.jpg&w=3840&q=75",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/_next/image?url=%2Fstatic%2Flogo.jpg&w=3840&q=75",
+      "type": "image/jpeg",
+      "length": "36942"
+    },
+    {
+      "url": "https://pahariyatri.com/api/og",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=About+Pahari+Yatri&sub=Not+Tourism.+A+Movement.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=About+Pahari+Yatri&sub=Not+Tourism.+A+Movement.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=Contribute%20a%20Story%20to%20the%20Himalayan%20Library",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=Contribute%20a%20Story%20to%20the%20Himalayan%20Library",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=Films%20%26%20Reels%20from%20the%20Himalayas",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=Films%20%26%20Reels%20from%20the%20Himalayas",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=Himalayan%20Folklore%3A%20Myths%20and%20Legends%20of%20the%20Pahari%20World",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=Himalayan%20Folklore%3A%20Myths%20and%20Legends%20of%20the%20Pahari%20World",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=Responsible%20Travel%3A%20The%20Yatri%20Code",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=Responsible%20Travel%3A%20The%20Yatri%20Code",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=Temples%20%26%20Traditions%20of%20the%20Himalayas",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=Temples%20%26%20Traditions%20of%20the%20Himalayas",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=The%20Community%3A%20Become%20a%20Pahari%20Yatri",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=The%20Community%3A%20Become%20a%20Pahari%20Yatri",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=The%20Journal%3A%20Reflections%20on%20Slow%20Himalayan%20Travel",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=The%20Journal%3A%20Reflections%20on%20Slow%20Himalayan%20Travel",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?title=The%20Library",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?title=The%20Library",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=book&title=Lost%20Trails&sub=Footnotes%20of%20history%20hidden%20in%20bramble%20and%20wind.%20Walk%20where%20memory%20outlives%20maps.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=book&title=Lost%20Trails&sub=Footnotes%20of%20history%20hidden%20in%20bramble%20and%20wind.%20Walk%20where%20memory%20outlives%20maps.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=book&title=Monsoon&sub=Rains%20write%20their%20script%20upon%20leaf%20and%20stone.%20Walk%20softly%20through%20cloud%20forests%20where%20every%20drop%20is%20a%20bell.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=book&title=Monsoon&sub=Rains%20write%20their%20script%20upon%20leaf%20and%20stone.%20Walk%20softly%20through%20cloud%20forests%20where%20every%20drop%20is%20a%20bell.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=book&title=Summer&sub=Pages%20of%20light%20and%20wind.%20Walk%20where%20the%20sun%20braids%20gold%20into%20alpine%20grass%20and%20your%20breath%20learns%20a%20quieter%20rhythm.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=book&title=Summer&sub=Pages%20of%20light%20and%20wind.%20Walk%20where%20the%20sun%20braids%20gold%20into%20alpine%20grass%20and%20your%20breath%20learns%20a%20quieter%20rhythm.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=book&title=Temples%20%26%20Traditions&sub=A%20devta%20is%20not%20a%20symbol%20here.%20It%20is%20an%20institution%20with%20a%20name%2C%20an%20office%2C%20and%20a%20door%20you%20enter%20as%20a%20guest.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=book&title=Temples%20%26%20Traditions&sub=A%20devta%20is%20not%20a%20symbol%20here.%20It%20is%20an%20institution%20with%20a%20name%2C%20an%20office%2C%20and%20a%20door%20you%20enter%20as%20a%20guest.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=book&title=Winter&sub=Quiet%20as%20snowfall%2C%20the%20mountain%20listens.%20Your%20steps%20become%20verses%20on%20white%20pages.",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=book&title=Winter&sub=Quiet%20as%20snowfall%2C%20the%20mountain%20listens.%20Your%20steps%20become%20verses%20on%20white%20pages.",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/api/og?type=chapter&title=Himachal%20Temple%20Etiquette&sub=Himachal%20Pradesh",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/api/og?type=chapter&title=Himachal%20Temple%20Etiquette&sub=Himachal%20Pradesh",
+      "type": "image/png",
+      "length": null
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/baga-sarahan-bashleo-pass/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/baga-sarahan-bashleo-pass/image.avif",
+      "type": "image/avif",
+      "length": "10644"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/buran-ghati-trek/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/buran-ghati-trek/image.avif",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/chandernahan-lake-trek/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/chandernahan-lake-trek/image.avif",
+      "type": "image/avif",
+      "length": "256090"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/churdhar-sacred-ascent/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/churdhar-sacred-ascent/image.avif",
+      "type": "image/avif",
+      "length": "62491"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/cloud-forest-paths/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/cloud-forest-paths/image.avif",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/devidarh-shikari-devi/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/devidarh-shikari-devi/image.jpg",
+      "type": "image/jpeg",
+      "length": "117760"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/echoing-caves/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/echoing-caves/image.jpg",
+      "type": "image/jpeg",
+      "length": "40509"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/forgotten-shrine/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/forgotten-shrine/image.jpg",
+      "type": "image/jpeg",
+      "length": "105149"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/jalori-lake-trek/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/jalori-lake-trek/image.jpg",
+      "type": "image/jpeg",
+      "length": "247354"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/kamrunag-the-lake-of-oaths/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/kamrunag-the-lake-of-oaths/image.jpg",
+      "type": "image/jpeg",
+      "length": "63060"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/kasol-weekend/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/kasol-weekend/image.jpg",
+      "type": "image/jpeg",
+      "length": "280178"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/kheerganga-buni-buni-pass/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/kheerganga-buni-buni-pass/image.jpg",
+      "type": "image/jpeg",
+      "length": "183016"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/meadow-walks/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/meadow-walks/image.jpg",
+      "type": "image/jpeg",
+      "length": "403723"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/mist-valleys/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/mist-valleys/image.jpg",
+      "type": "image/jpeg",
+      "length": "63060"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/mural-danda-trek/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/mural-danda-trek/image.jpg",
+      "type": "image/jpeg",
+      "length": "193131"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/parashar-lake-trek/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/parashar-lake-trek/image.jpg",
+      "type": "image/jpeg",
+      "length": "280178"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/pin-bhaba-pass/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/pin-bhaba-pass/image.jpg",
+      "type": "image/jpeg",
+      "length": "36292"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/rain-prayer/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/rain-prayer/image.jpg",
+      "type": "image/jpeg",
+      "length": "164163"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/river-sutra/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/river-sutra/image.jpg",
+      "type": "image/jpeg",
+      "length": "247354"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/rupin-pass-trek/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/rupin-pass-trek/image.jpg",
+      "type": "image/jpeg",
+      "length": "190483"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/saroa-to-kamrunag/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/saroa-to-kamrunag/image.jpg",
+      "type": "image/jpeg",
+      "length": "63060"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/shepherds-path/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/shepherds-path/image.jpg",
+      "type": "image/jpeg",
+      "length": "164163"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/solstice-snow/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/solstice-snow/image.jpg",
+      "type": "image/jpeg",
+      "length": "193131"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/chapters/sunlit-passes/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/chapters/sunlit-passes/image.jpg",
+      "type": "image/jpeg",
+      "length": "280178"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/mountains-bg.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/mountains-bg.jpg",
+      "type": "image/jpeg",
+      "length": "2026213"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/bell-and-thunder/image.avif",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/bell-and-thunder/image.avif",
+      "type": "image/avif",
+      "length": "137422"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/bhaba-moon-road/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/bhaba-moon-road/image.jpg",
+      "type": "image/jpeg",
+      "length": "40509"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/buran-first-light/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/buran-first-light/image.jpg",
+      "type": "image/jpeg",
+      "length": "105149"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/churdhar-bell-echo/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/churdhar-bell-echo/image.jpg",
+      "type": "image/jpeg",
+      "length": "117760"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/forest-chants/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/forest-chants/image.jpg",
+      "type": "image/jpeg",
+      "length": "403723"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/jalori-small-circle/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/jalori-small-circle/image.jpg",
+      "type": "image/jpeg",
+      "length": "36292"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/kasol-slow-saturday/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/kasol-slow-saturday/image.jpg",
+      "type": "image/jpeg",
+      "length": "190483"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/kheerganga-fire-and-water/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/kheerganga-fire-and-water/image.jpg",
+      "type": "image/jpeg",
+      "length": "280178"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/kinnaur-reality.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/kinnaur-reality.jpg",
+      "type": "image/jpeg",
+      "length": "40509"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/manali-peak-season/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/manali-peak-season/image.jpg",
+      "type": "image/jpeg",
+      "length": "164163"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/meadow-reverie/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/meadow-reverie/image.jpg",
+      "type": "image/jpeg",
+      "length": "235657"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/mirror-of-stillness/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/mirror-of-stillness/image.jpg",
+      "type": "image/jpeg",
+      "length": "247354"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/parashar-floating-island/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/parashar-floating-island/image.jpg",
+      "type": "image/jpeg",
+      "length": "63060"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/quiet-compass/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/quiet-compass/image.jpg",
+      "type": "image/jpeg",
+      "length": "161675"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/river-hymn/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/river-hymn/image.jpg",
+      "type": "image/jpeg",
+      "length": "280178"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/rupin-waterfall-days/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/rupin-waterfall-days/image.jpg",
+      "type": "image/jpeg",
+      "length": "247354"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/small-god/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/small-god/image.jpg",
+      "type": "image/jpeg",
+      "length": "40509"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/solstice-fire/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/solstice-fire/image.jpg",
+      "type": "image/jpeg",
+      "length": "193131"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/sunlit-song/image.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/sunlit-song/image.jpg",
+      "type": "image/jpeg",
+      "length": "164163"
+    },
+    {
+      "url": "https://pahariyatri.com/static/images/stories/tirthan-slow-valley.jpg",
+      "status": 200,
+      "final_url": "https://pahariyatri.com/static/images/stories/tirthan-slow-valley.jpg",
+      "type": "image/jpeg",
+      "length": "63060"
+    },
+    {
+      "url": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwFLB-5n&_nc_oc=AdoSp3QXZLNDqEOLSxlkyjWzrbNQh0ieTCez713DiPLyLeVfbD-Acp28t8t8bA4G9ZQ&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIOjMaJqRyyB6Xp9uYCQP3xQR2KNekMWU_ZkdxeMSBrajoU9ikBz8rihF7ckLVQc2ex-sBZBk1wRQ&oh=00_AQI2gYEb4RY-MEyN_9LzTquxFgSxwLTxxY8DmJWt4QaBgw&oe=6AA4C682",
+      "status": 200,
+      "final_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwFLB-5n&_nc_oc=AdoSp3QXZLNDqEOLSxlkyjWzrbNQh0ieTCez713DiPLyLeVfbD-Acp28t8t8bA4G9ZQ&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIOjMaJqRyyB6Xp9uYCQP3xQR2KNekMWU_ZkdxeMSBrajoU9ikBz8rihF7ckLVQc2ex-sBZBk1wRQ&oh=00_AQI2gYEb4RY-MEyN_9LzTquxFgSxwLTxxY8DmJWt4QaBgw&oe=6AA4C682",
+      "type": "image/jpeg",
+      "length": "88166"
+    },
+    {
+      "url": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwHvpLVi&_nc_oc=AdonLx5GpRPufxnoPEtHKEQTxZeZe3Y4oGpH7i0ObG2zORxjOYKMGuygoCXAs0c9oxI&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQK3ZkbZ9_K4XhKZPVhsdwq9B1GeH8YSI94MMIQDQ2U1XFhhCQNyBDtL6Mic_BDCdSGLPc_d2JutYQ&oh=00_AQLOr7_SQPjB1q3aBS7JpL3_Pi3wiQDzx1H2zXCrb6y9NQ&oe=6AA4C682",
+      "status": 200,
+      "final_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwHvpLVi&_nc_oc=AdonLx5GpRPufxnoPEtHKEQTxZeZe3Y4oGpH7i0ObG2zORxjOYKMGuygoCXAs0c9oxI&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQK3ZkbZ9_K4XhKZPVhsdwq9B1GeH8YSI94MMIQDQ2U1XFhhCQNyBDtL6Mic_BDCdSGLPc_d2JutYQ&oh=00_AQLOr7_SQPjB1q3aBS7JpL3_Pi3wiQDzx1H2zXCrb6y9NQ&oe=6AA4C682",
+      "type": "image/jpeg",
+      "length": "88166"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/572238297_1361718525468208_1824158177460410035_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=XpuSTJObU7oQ7kNvwFrOV1E&_nc_oc=AdpfB7572oFbpc3v434upu6Iq0M-guYPLu-ohVt9S7NB1LRC3KouSp8rwzEZrL-gN8g&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQInWbxPsaQGY8S_k-eBlSfdYavi2j-BIMNuVEpvPdj0rxhW4kmwHqd9VNrWjrNYByKem9HsuZuSkQ&oh=00_AQJFZY70iEpUtEVREqZHiiJX9FQmZjxNxoaEjG79vY5R9w&oe=6AA4DAE6",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/572238297_1361718525468208_1824158177460410035_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=XpuSTJObU7oQ7kNvwFrOV1E&_nc_oc=AdpfB7572oFbpc3v434upu6Iq0M-guYPLu-ohVt9S7NB1LRC3KouSp8rwzEZrL-gN8g&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQInWbxPsaQGY8S_k-eBlSfdYavi2j-BIMNuVEpvPdj0rxhW4kmwHqd9VNrWjrNYByKem9HsuZuSkQ&oh=00_AQJFZY70iEpUtEVREqZHiiJX9FQmZjxNxoaEjG79vY5R9w&oe=6AA4DAE6",
+      "type": "image/jpeg",
+      "length": "10924"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/573871711_1138239535124618_6611386927565196457_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=CdLvJi4_n7IQ7kNvwGULBRT&_nc_oc=Adqs9iWdyA0NbzQmPbEVwEeBqQN6GhAAVXCXDshGL5IHBE63XI-9YCgBFfRTyo3tH5A&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIHRxYHDz_F7Uzh7TSXhd-S1RWcfbpy__gCyAX_JwbpLTXfVMCKKGuiDY9eYTZOakdx31MRw3TjlA&oh=00_AQKC4tAON2hj65nEUOzH45vzIpLp0mBlBdqT4j-1n7a-jQ&oe=6AA4DB35",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/573871711_1138239535124618_6611386927565196457_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=CdLvJi4_n7IQ7kNvwGULBRT&_nc_oc=Adqs9iWdyA0NbzQmPbEVwEeBqQN6GhAAVXCXDshGL5IHBE63XI-9YCgBFfRTyo3tH5A&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIHRxYHDz_F7Uzh7TSXhd-S1RWcfbpy__gCyAX_JwbpLTXfVMCKKGuiDY9eYTZOakdx31MRw3TjlA&oh=00_AQKC4tAON2hj65nEUOzH45vzIpLp0mBlBdqT4j-1n7a-jQ&oe=6AA4DB35",
+      "type": "image/jpeg",
+      "length": "17997"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/602494880_18372291379086330_7755096725776026651_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=jGkxzTmSyjQQ7kNvwEk6Fla&_nc_oc=AdooX_8rURuspuc2bJlmrrAjjBNHlDwLE7u6WsegOKsxfSoSY2tGOMcK-8vbT5EQaHE&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJvnO3f48gGTDnTe2RLEWKEin6I6lvuJsGTRzZneULiwCelLjZqj8NShhvo5ELcSEHG7HPc9n-2XA&oh=00_AQJbDwYCnn-OYZSOgmQY7Y_dtLCLsDhRGHmDrmK-mcXk5w&oe=6AA4CF21",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/602494880_18372291379086330_7755096725776026651_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=jGkxzTmSyjQQ7kNvwEk6Fla&_nc_oc=AdooX_8rURuspuc2bJlmrrAjjBNHlDwLE7u6WsegOKsxfSoSY2tGOMcK-8vbT5EQaHE&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJvnO3f48gGTDnTe2RLEWKEin6I6lvuJsGTRzZneULiwCelLjZqj8NShhvo5ELcSEHG7HPc9n-2XA&oh=00_AQJbDwYCnn-OYZSOgmQY7Y_dtLCLsDhRGHmDrmK-mcXk5w&oe=6AA4CF21",
+      "type": "image/jpeg",
+      "length": "94848"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwESDFnk&_nc_oc=Ado8aOiGzk0UptR10YjL-ZkW31RRNA4yaN-9XTU19mLFsmZBY6Ns1ZUhTy16bobCdrs&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJZ9dUKsaTELgxK_AlWh4zceuJIeF_OJttfNDdLnabdkzwHAk0jqtqVGSUvva2XNKb7WR4bXimjgg&oh=00_AQL0BACQq4cGAwkcvqSgXpEDMrSr6W-k6LeqkS3ahWqLRw&oe=6AA4D728",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwESDFnk&_nc_oc=Ado8aOiGzk0UptR10YjL-ZkW31RRNA4yaN-9XTU19mLFsmZBY6Ns1ZUhTy16bobCdrs&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJZ9dUKsaTELgxK_AlWh4zceuJIeF_OJttfNDdLnabdkzwHAk0jqtqVGSUvva2XNKb7WR4bXimjgg&oh=00_AQL0BACQq4cGAwkcvqSgXpEDMrSr6W-k6LeqkS3ahWqLRw&oe=6AA4D728",
+      "type": "image/jpeg",
+      "length": "11672"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwHBjfNR&_nc_oc=AdrMr7Mpmn11DVRzcIzAgp5T6lBewvu3XflSCkCwsE5ilRokVDFIuAP_efCf15NhSW0&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJdwysB9x8xlfddxlFP7ADM5yND8zqtzs4b8O70FCplgpPzEQcbXuQ8CV94ZzXoYTO19CZZL7TDrQ&oh=00_AQJ0C2DEUXBzP2p0y8fj5lNISK_mhwjrdpwZeZmK5_MZ2A&oe=6AA4D728",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwHBjfNR&_nc_oc=AdrMr7Mpmn11DVRzcIzAgp5T6lBewvu3XflSCkCwsE5ilRokVDFIuAP_efCf15NhSW0&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJdwysB9x8xlfddxlFP7ADM5yND8zqtzs4b8O70FCplgpPzEQcbXuQ8CV94ZzXoYTO19CZZL7TDrQ&oh=00_AQJ0C2DEUXBzP2p0y8fj5lNISK_mhwjrdpwZeZmK5_MZ2A&oe=6AA4D728",
+      "type": "image/jpeg",
+      "length": "11672"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwED0wVe&_nc_oc=Adrq1pnEre4cOkK5IQVTRTBHqmNvOqwkW-JSuESvuxTpi9I95WIekKKWbWDSzE0oY5Y&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQLRyJezRiVmd-G43_E0mcLmMKGhVZrWGID5P4gRXQsMoBF4xig28APHo-rc-F_v_ff4rsjci4OxXA&oh=00_AQJ_iWRzMtnHy_U-LBr8QnFqWfwomlbA6NIJXmSYSu1wvA&oe=6AA4B20A",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwED0wVe&_nc_oc=Adrq1pnEre4cOkK5IQVTRTBHqmNvOqwkW-JSuESvuxTpi9I95WIekKKWbWDSzE0oY5Y&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQLRyJezRiVmd-G43_E0mcLmMKGhVZrWGID5P4gRXQsMoBF4xig28APHo-rc-F_v_ff4rsjci4OxXA&oh=00_AQJ_iWRzMtnHy_U-LBr8QnFqWfwomlbA6NIJXmSYSu1wvA&oe=6AA4B20A",
+      "type": "image/jpeg",
+      "length": "146147"
+    },
+    {
+      "url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwFT45Iv&_nc_oc=Ado2vygrxnJFwft0tURTXx_oIW1VDgdhR8gGxpOJxotFcHoB2Mo55WuqyF4rnGwrM5Q&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJtitnwnw8uqvWLejlFTOsaWk-E0Hs3QkBWsaUnsib7TBeJ5BHWYeQUyWAvLbEYWX45S0C7l5r8EQ&oh=00_AQIHq7yGFONNVBHBOMRueXQPf0iF-QZ_5uLYldHBjQlEFQ&oe=6AA4B20A",
+      "status": 200,
+      "final_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwFT45Iv&_nc_oc=Ado2vygrxnJFwft0tURTXx_oIW1VDgdhR8gGxpOJxotFcHoB2Mo55WuqyF4rnGwrM5Q&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJtitnwnw8uqvWLejlFTOsaWk-E0Hs3QkBWsaUnsib7TBeJ5BHWYeQUyWAvLbEYWX45S0C7l5r8EQ&oh=00_AQIHq7yGFONNVBHBOMRueXQPf0iF-QZ_5uLYldHBjQlEFQ&oe=6AA4B20A",
+      "type": "image/jpeg",
+      "length": "146147"
+    }
+  ],
+  "external_links": [
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Bell%20and%20Thunder",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Bhaba%20%E2%80%93%20Moon%20Road",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Buran%20%E2%80%93%20First%20Light",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Churdhar%20%E2%80%93%20Bell%20Echo",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Forest%20Chants",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Jalori%20%E2%80%93%20Small%20Circle",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Kasol%20%E2%80%93%20Slow%20Saturday",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Kheerganga%20%E2%80%93%20Fire%20and%20Water",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Kinnaur%3A%20Beyond%20the%20Pass%20Reality",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Meadow%20Reverie",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Mirror%20of%20Stillness",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Parashar%20%E2%80%93%20Floating%20Island",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Quiet%20Compass",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=River%20Hymn",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Rupin%20%E2%80%93%20Waterfall%20Days",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Small%20God",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Solstice%20Fire",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Sunlit%20Song",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Tirthan%3A%20The%20Slow%20Valley%20Reflections",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=&text=Why%20Locals%20Avoid%20Manali%20in%20Peak%20Season",
+      "status": 403,
+      "note": "HEAD failure is not definitive GET breakage"
+    },
+    {
+      "url": "https://www.facebook.com/pahariyatri",
+      "status": 200,
+      "final_url": "https://www.facebook.com/pahariyatri",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/pahariyatri/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/pahariyatri/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/DQTiOoIEm8l/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/DQTiOoIEm8l/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/DQuQjs8Eo-i/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/DQuQjs8Eo-i/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/DSnAleYEue_/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/DSnAleYEue_/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/DayCLCZybDE/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/DayCLCZybDE/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/Dc33rjByJB7/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/Dc33rjByJB7/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.instagram.com/reel/Dc3y2sqyjRV/",
+      "status": 200,
+      "final_url": "https://www.instagram.com/reel/Dc3y2sqyjRV/",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.threads.net/@pahariyatri",
+      "status": 200,
+      "final_url": "https://www.threads.net/@pahariyatri",
+      "type": "text/html; charset=\"utf-8\"",
+      "length": null
+    },
+    {
+      "url": "https://www.youtube.com/@pahariyatri",
+      "status": 200,
+      "final_url": "https://www.youtube.com/@pahariyatri",
+      "type": "text/html; charset=utf-8",
+      "length": "0"
+    }
+  ],
+  "empty_or_missing_alt": [
+    {
+      "page": "https://pahariyatri.com/",
+      "src": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwHvpLVi&_nc_oc=AdonLx5GpRPufxnoPEtHKEQTxZeZe3Y4oGpH7i0ObG2zORxjOYKMGuygoCXAs0c9oxI&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQK3ZkbZ9_K4XhKZPVhsdwq9B1GeH8YSI94MMIQDQ2U1XFhhCQNyBDtL6Mic_BDCdSGLPc_d2JutYQ&oh=00_AQLOr7_SQPjB1q3aBS7JpL3_Pi3wiQDzx1H2zXCrb6y9NQ&oe=6AA4C682",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwFT45Iv&_nc_oc=Ado2vygrxnJFwft0tURTXx_oIW1VDgdhR8gGxpOJxotFcHoB2Mo55WuqyF4rnGwrM5Q&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJtitnwnw8uqvWLejlFTOsaWk-E0Hs3QkBWsaUnsib7TBeJ5BHWYeQUyWAvLbEYWX45S0C7l5r8EQ&oh=00_AQIHq7yGFONNVBHBOMRueXQPf0iF-QZ_5uLYldHBjQlEFQ&oe=6AA4B20A",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwHBjfNR&_nc_oc=AdrMr7Mpmn11DVRzcIzAgp5T6lBewvu3XflSCkCwsE5ilRokVDFIuAP_efCf15NhSW0&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=9CqRszBEAdqCC7mCLIHNvw&_nc_tpa=Q5bMBQJdwysB9x8xlfddxlFP7ADM5yND8zqtzs4b8O70FCplgpPzEQcbXuQ8CV94ZzXoYTO19CZZL7TDrQ&oh=00_AQJ0C2DEUXBzP2p0y8fj5lNISK_mhwjrdpwZeZmK5_MZ2A&oe=6AA4D728",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/baga-sarahan-bashleo-pass",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fbaga-sarahan-bashleo-pass%2Fimage.avif&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/buran-ghati-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fburan-ghati-trek%2Fimage.avif&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/chandernahan-lake-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchandernahan-lake-trek%2Fimage.avif&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/churdhar-sacred-ascent",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fchurdhar-sacred-ascent%2Fimage.avif&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/cloud-forest-paths",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fcloud-forest-paths%2Fimage.avif&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/devidarh-shikari-devi",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fdevidarh-shikari-devi%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/echoing-caves",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fechoing-caves%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/forgotten-shrine",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fforgotten-shrine%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/himachal-temple-etiquette",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fmountains-bg.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/jalori-lake-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fjalori-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/kamrunag-the-lake-of-oaths",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkamrunag-the-lake-of-oaths%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/kasol-weekend",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkasol-weekend%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/kheerganga-buni-buni-pass",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fkheerganga-buni-buni-pass%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/meadow-walks",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmeadow-walks%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/mist-valleys",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmist-valleys%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/mural-danda-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fmural-danda-trek%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/parashar-lake-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fparashar-lake-trek%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/pin-bhaba-pass",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fpin-bhaba-pass%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/rain-prayer",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frain-prayer%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/river-sutra",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Friver-sutra%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/rupin-pass-trek",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Frupin-pass-trek%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/saroa-to-kamrunag",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsaroa-to-kamrunag%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/shepherds-path",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fshepherds-path%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/solstice-snow",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsolstice-snow%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/chapters/sunlit-passes",
+      "src": "/_next/image?url=%2Fstatic%2Fimages%2Fchapters%2Fsunlit-passes%2Fimage.jpg&w=3840&q=75",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad3-2.cdninstagram.com/v/t51.71878-15/793457880_1775415336992405_8963640468617568391_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=w65IKMMMRZMQ7kNvwFLB-5n&_nc_oc=AdoSp3QXZLNDqEOLSxlkyjWzrbNQh0ieTCez713DiPLyLeVfbD-Acp28t8t8bA4G9ZQ&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIOjMaJqRyyB6Xp9uYCQP3xQR2KNekMWU_ZkdxeMSBrajoU9ikBz8rihF7ckLVQc2ex-sBZBk1wRQ&oh=00_AQI2gYEb4RY-MEyN_9LzTquxFgSxwLTxxY8DmJWt4QaBgw&oe=6AA4C682",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/793802676_18408675631086330_5955921250799563444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PWSwQbvYWWEQ7kNvwED0wVe&_nc_oc=Adrq1pnEre4cOkK5IQVTRTBHqmNvOqwkW-JSuESvuxTpi9I95WIekKKWbWDSzE0oY5Y&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQLRyJezRiVmd-G43_E0mcLmMKGhVZrWGID5P4gRXQsMoBF4xig28APHo-rc-F_v_ff4rsjci4OxXA&oh=00_AQJ_iWRzMtnHy_U-LBr8QnFqWfwomlbA6NIJXmSYSu1wvA&oe=6AA4B20A",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/747612949_18401681056086330_444507817959674693_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yOhHgg0PJTUQ7kNvwESDFnk&_nc_oc=Ado8aOiGzk0UptR10YjL-ZkW31RRNA4yaN-9XTU19mLFsmZBY6Ns1ZUhTy16bobCdrs&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJZ9dUKsaTELgxK_AlWh4zceuJIeF_OJttfNDdLnabdkzwHAk0jqtqVGSUvva2XNKb7WR4bXimjgg&oh=00_AQL0BACQq4cGAwkcvqSgXpEDMrSr6W-k6LeqkS3ahWqLRw&oe=6AA4D728",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/602494880_18372291379086330_7755096725776026651_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=jGkxzTmSyjQQ7kNvwEk6Fla&_nc_oc=AdooX_8rURuspuc2bJlmrrAjjBNHlDwLE7u6WsegOKsxfSoSY2tGOMcK-8vbT5EQaHE&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQJvnO3f48gGTDnTe2RLEWKEin6I6lvuJsGTRzZneULiwCelLjZqj8NShhvo5ELcSEHG7HPc9n-2XA&oh=00_AQJbDwYCnn-OYZSOgmQY7Y_dtLCLsDhRGHmDrmK-mcXk5w&oe=6AA4CF21",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/573871711_1138239535124618_6611386927565196457_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=CdLvJi4_n7IQ7kNvwGULBRT&_nc_oc=Adqs9iWdyA0NbzQmPbEVwEeBqQN6GhAAVXCXDshGL5IHBE63XI-9YCgBFfRTyo3tH5A&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQIHRxYHDz_F7Uzh7TSXhd-S1RWcfbpy__gCyAX_JwbpLTXfVMCKKGuiDY9eYTZOakdx31MRw3TjlA&oh=00_AQKC4tAON2hj65nEUOzH45vzIpLp0mBlBdqT4j-1n7a-jQ&oe=6AA4DB35",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    },
+    {
+      "page": "https://pahariyatri.com/films",
+      "src": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/572238297_1361718525468208_1824158177460410035_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=XpuSTJObU7oQ7kNvwFrOV1E&_nc_oc=AdpfB7572oFbpc3v434upu6Iq0M-guYPLu-ohVt9S7NB1LRC3KouSp8rwzEZrL-gN8g&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=5dcFRhYZaRskZLvB2ioXLQ&_nc_tpa=Q5bMBQInWbxPsaQGY8S_k-eBlSfdYavi2j-BIMNuVEpvPdj0rxhW4kmwHqd9VNrWjrNYByKem9HsuZuSkQ&oh=00_AQJFZY70iEpUtEVREqZHiiJX9FQmZjxNxoaEjG79vY5R9w&oe=6AA4DAE6",
+      "note": "Empty alt can be appropriate for decorative images; review context."
+    }
+  ]
+}

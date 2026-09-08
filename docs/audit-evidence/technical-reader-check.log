@@ -1,0 +1,37 @@
+{
+  "regions": {
+    "list": 1,
+    "all": 1,
+    "directories": []
+  },
+  "destinations": {
+    "list": 13,
+    "all": 13,
+    "directories": []
+  },
+  "places": {
+    "list": 8,
+    "all": 8,
+    "directories": []
+  },
+  "books": {
+    "list": 5,
+    "all": 5,
+    "directories": []
+  },
+  "chapters": {
+    "list": 25,
+    "all": 25,
+    "directories": []
+  },
+  "stories": {
+    "list": 20,
+    "all": 20,
+    "directories": []
+  },
+  "films": {
+    "list": 3,
+    "all": 3,
+    "directories": []
+  }
+}
