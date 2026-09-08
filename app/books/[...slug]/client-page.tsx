@@ -11,6 +11,14 @@ export default function BookPageClient({ book, chapters }: any) {
   return (
     <div className="w-full min-h-screen bg-background text-foreground">
 
+      {/* The book title is painted twice below — once in the mobile cover overlay,
+          once in the desktop column — and CSS hides one of them per breakpoint.
+          Both were <h1>, so every book page shipped two identical <h1> elements to
+          crawlers, and whichever one was display:none dropped out of the
+          accessibility tree entirely. This single sr-only heading is the real <h1>
+          for both breakpoints; the two painted titles are now presentational. */}
+      <h1 className="sr-only">{book.title}</h1>
+
       {/* Hero / Cover Section — sticky (not fixed) cover so the page ends
           cleanly and the footer is never overlapped by scrolling content */}
       <div className="relative w-full flex flex-col lg:flex-row lg:items-start">
@@ -29,7 +37,7 @@ export default function BookPageClient({ book, chapters }: any) {
 
           {/* Mobile Title Overlay */}
           <div className="absolute bottom-0 left-0 p-6 lg:hidden">
-            <h1 className="text-4xl font-bold font-brandSerif text-white mb-2">{book.title}</h1>
+            <p aria-hidden="true" className="text-4xl font-bold font-brandSerif text-white mb-2">{book.title}</p>
             <p className="text-white/80 text-sm">{book.excerpt}</p>
           </div>
         </div>
@@ -48,14 +56,15 @@ export default function BookPageClient({ book, chapters }: any) {
               >
                 The Edition
               </motion.span>
-              <motion.h1
+              <motion.p
+                aria-hidden="true"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 className="text-6xl xl:text-7xl font-bold font-brandSerif text-foreground leading-tight mb-6"
               >
                 {book.title}
-              </motion.h1>
+              </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
