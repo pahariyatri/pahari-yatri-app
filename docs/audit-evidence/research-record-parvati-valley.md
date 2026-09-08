@@ -71,6 +71,37 @@ The live chapter (`kheerganga-buni-buni-pass.yaml`) already tells the Kartikeya 
 12. [Himalayas Digital — Malana no-touch rule](https://himalayasdigital.com/blog/malana-village-himachal-pradesh/)
 13. [Tanhadil — Kheerganga, a peak of myths and beliefs](https://www.tanhadil.in/kheerganga-a-peak-of-myths-and-beliefs/)
 14. [Xngrila — Mysterious Kheer Ganga](https://xngrila.com/kheer-ganga-of-parvati-valley/)
+15. [ThePrint — Kasol's "Mini Israel"](https://theprint.in/ground-reports/kasol-mini-israel-parvati-valley-israeli-backpackers-drugs-tourism/2972285/) (also source 4 above)
+16. [Medium/Jens Kofoed — the hidden Himalayan hippie town](https://medium.com/@jens8533/the-hidden-himalayan-hippie-town-in-the-very-north-of-india-348a2859fba8)
+17. [The Tribune — High in Kasol](https://www.tribuneindia.com/news/spectrum/high-in-kasol/)
+18. [Hill Gypsy / Travelcoffee composite — Grahan village](https://travelcoffee.in/places-to-visit/grahan-village)
+19. [Whistling Hound — Kheerganga Camping Ban 2025](https://whistlinghound.com/kheerganga-camping-ban/)
+20. [The Travelling Slacker — Kheerganga tourist/camping ban](https://travellingslacker.com/kheerganga-tourist-ban/)
+
+## Addendum (2026-09-08, second pass): Kasol, Grahan, Kheerganga camping-ban update
+
+### Kasol
+
+| Field | Evidence | Confidence |
+|---|---|---|
+| Origin of backpacker culture | **VERIFIED FACT (reported):** the global hippie trail moved toward Himachal hill stations from Goa through the 1990s as Goa's scene drew regulation; Israeli backpackers arrived in significant numbers from the 1990s, commonly travelling after mandatory military service.[15][16] | Medium-high, consistent across independent outlets (ThePrint ground report, The Tribune). |
+| "Mini Israel" character | **VERIFIED FACT (reported):** Hebrew signage, Israeli-run cafes and a lasting subculture are independently documented, not just a travel-writer trope.[15][17] | Medium-high. |
+
+### Grahan
+
+| Field | Evidence | Confidence |
+|---|---|---|
+| Location/altitude | **VERIFIED FACT (source-reported):** ~2,298 m, roughly 9 km / 4-5 hours uphill trek from Kasol, no road access.[18] | Medium — single detailed source. |
+| Alcohol-free / "zero cell signal" claims | **UNVERIFIED CLAIM, needs a second source.** Widely repeated on travel sites as a strict village rule and as India's only alcohol-free village, but I found no government or ethnographic source independently confirming either superlative. Treat as a reported local practice, not a verified fact, and do not repeat the "only village in India" framing without a stronger source. | Low-medium — do not publish as settled fact. |
+| Deity / temple architecture | **LOCAL TRADITION (reported):** villagers described as governed by the deity Yagya Maharishi; Kath Khuni-style temple architecture at the village centre.[18] | Medium. |
+
+### Kheerganga — camping ban (supersedes the "legend variants" framing as the most urgent finding)
+
+**VERIFIED FACT, multi-sourced:** overnight camping at Kheerganga has been banned by the Himachal Pradesh Forest Department since July 2024, following a High Court directive, after documented years of tent/waste damage (nearly 500 tents reported at peak, by one account).[19][20] It is now a day trek: arrive before 10 am, descend by 2 pm. **This has already been used to correct the live `kheerganga-buni-buni-pass` chapter** (see commit `c48c0eb`) — flagging here because it's the kind of fast-moving practical fact (a legal/regulatory rule, not a cultural belief) that needs periodic re-checking, unlike the mythology findings above which don't go stale the same way.
+
+### Not yet researched to chapter-publishing standard
+
+Chalal, Rasol, Waichin Valley, "Magic Valley" trails, and Sar Pass got only surface-level searches this session — enough to know they exist and roughly where, not enough to publish a chapter without inventing texture. Rasol and Chalal both have partial coverage already inside the existing `kasol-weekend` chapter's narrative (real, not fabricated — that chapter's author account describes visiting both). Bunbuni Pass likewise has partial coverage inside `kheerganga-buni-buni-pass`. None of these five has enough independent research yet to justify a standalone chapter; see `docs/reports/current/PARVATI_VALLEY_BOOK_PLAN.md` for the per-chapter publishing status.
 
 ## What this dossier does NOT clear
 
