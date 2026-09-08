@@ -332,24 +332,24 @@ export async function buildChapterMetadata(
     const alreadyNamesTrek = /trek/i.test(rawTitle);
     if (trackType === "temple") {
       title = location
-        ? `${rawTitle} — Temple & Pilgrimage in ${location}${locationNamesHimachal ? "" : ", Himachal"}`
-        : `${rawTitle} — Temple & Pilgrimage, Himachal`;
+        ? `${rawTitle}: Temple & Pilgrimage in ${location}${locationNamesHimachal ? "" : ", Himachal"}`
+        : `${rawTitle}: Temple & Pilgrimage, Himachal`;
     } else if (
       (trackType === "trail" || trackType === "pass") &&
       !alreadyNamesTrek
     ) {
       title = location
-        ? `${rawTitle} — Himalayan Trek in ${location}`
-        : `${rawTitle} — Himalayan Trek`;
+        ? `${rawTitle}: Himalayan Trek in ${location}`
+        : `${rawTitle}: Himalayan Trek`;
     } else {
       // lake / village / town / cultural (reflection pieces), or a title
       // that already names itself a Trek — don't repeat "Trek" or assert
       // one where no trek is described.
       title =
         location && !locationNamesHimachal
-          ? `${rawTitle} — ${location}, Himachal Pradesh`
+          ? `${rawTitle}, ${location}, Himachal Pradesh`
           : location
-            ? `${rawTitle} — ${location}`
+            ? `${rawTitle}, ${location}`
             : rawTitle;
     }
   }
