@@ -6,6 +6,20 @@ import type { Metadata } from "next";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+/** Parses the CMS's "lat, lng" text field into schema.org GeoCoordinates.
+ *  Returns undefined for anything blank or malformed rather than guessing —
+ *  the field is documented as verified-source-only. */
+function parseCoordinates(raw?: string) {
+  if (!raw) return undefined;
+  const match = raw.match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
+  if (!match) return undefined;
+  return {
+    "@type": "GeoCoordinates",
+    latitude: Number(match[1]),
+    longitude: Number(match[2]),
+  };
+}
+
 /** Canonical home for every chapter is `/chapters/[slug]`, so the same trek
  *  reachable at `/books/[book]/[chapter]` points its canonical here and we
  *  avoid duplicate-content penalties. */
@@ -88,9 +102,21 @@ export async function getChapterView(slug: string) {
             addressRegion: "Himachal Pradesh",
             addressCountry: "IN",
           },
+          // Only present when a verified coordinate was entered — never
+          // derived or guessed, per the field's own CMS description.
+          geo: parseCoordinates((chapter as any).coordinates),
         }
       : undefined,
     keywords: (chapter.themes || []).join(", "),
+    // Real name only with permission; otherwise this is the Pahari Yatri
+    // organization, not a fabricated individual.
+    author: (chapter as any).authorName
+      ? { "@type": "Person", name: (chapter as any).authorName }
+      : {
+          "@type": "Organization",
+          name: "Pahari Yatri Editorial",
+          url: siteMetadata.siteUrl,
+        },
   };
 
   // FAQPage schema — wins AI answer boxes & Google "People also ask"
@@ -212,6 +238,23 @@ export async function getChapterView(slug: string) {
     nextChapter,
     districtLink,
   };
+  // Related content — surfaces the same relatedChapters/relatedStories the
+  // page already links to, so crawlers see the cluster in structured data
+  // too, not just in rendered HTML.
+  const mentions = [
+    ...relatedChapters.map((c: any) => ({
+      "@type": "TouristTrip",
+      name: c.title,
+      url: `${siteMetadata.siteUrl}${c.link}`,
+    })),
+    ...relatedStories.map((s: any) => ({
+      "@type": "CreativeWork",
+      name: s.title,
+      url: `${siteMetadata.siteUrl}${s.link}`,
+    })),
+  ];
+  if (mentions.length > 0) jsonLd.mentions = mentions;
+
   const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
 
   return { chapter, journeyData, ldArray };

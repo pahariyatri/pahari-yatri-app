@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, ArrowLeft, Leaf } from "lucide-react";
+import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
 import { useEffect } from "react";
 import { track, trackOnce } from "@/lib/analytics";
 
@@ -49,6 +49,11 @@ export default function JourneyPageClient({ journey, slug }: any) {
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
   const relatedChapters = (journey.relatedChapters || []).filter(Boolean);
+  const practicalInfo = [
+    { label: "Distance", value: journey.distance, icon: Navigation },
+    { label: "Max Altitude", value: journey.maxAltitude, icon: MapPin },
+    { label: "Best Time", value: journey.bestTime, icon: CalendarDays },
+  ].filter((item) => item.value);
 
 
   return (
@@ -165,6 +170,50 @@ export default function JourneyPageClient({ journey, slug }: any) {
               )}
             </div>
           </SectionContainer>
+        )}
+
+        {/* Practical Information — distance/altitude/season/access have lived
+            in every chapter's data since 2026-08 but were never rendered
+            anywhere on the page or in structured data. This is that fix. */}
+        {(practicalInfo.length > 0 || journey.gettingThere) && (
+          <section className="py-16 bg-muted/20 border-y border-border/40">
+            <SectionContainer>
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-brandSerif mb-8 flex items-center gap-4">
+                  <span className="w-8 h-px bg-primary" />
+                  Practical Information
+                </h2>
+                {practicalInfo.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                    {practicalInfo.map(({ label, value, icon: Icon }) => (
+                      <div
+                        key={label}
+                        className="flex items-start gap-3 rounded-xl border border-border/40 p-4"
+                      >
+                        <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                            {label}
+                          </span>
+                          <span className="text-base font-medium">{value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {journey.gettingThere && (
+                  <div>
+                    <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70 mb-2">
+                      Getting There
+                    </span>
+                    <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {journey.gettingThere}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </SectionContainer>
+          </section>
         )}
 
         {/* FAQ */}
