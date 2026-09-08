@@ -59,7 +59,7 @@ export default function FinalCTA() {
 
       <div
         ref={contentRef}
-        className="max-w-3xl mx-auto px-6 text-center relative z-10 text-white"
+        className="max-w-4xl mx-auto px-6 text-center relative z-10 text-white"
       >
         <motion.span
           {...reveal(0)}
@@ -72,7 +72,7 @@ export default function FinalCTA() {
 
         <motion.h2
           {...reveal(0.2)}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium font-brandSerif mb-10 leading-[1.12] tracking-tight [text-shadow:0_2px_28px_rgba(0,0,0,0.65)]"
+          className="text-3xl sm:text-5xl md:text-6xl font-medium font-brandSerif mb-10 leading-[1.12] tracking-tight [text-shadow:0_2px_28px_rgba(0,0,0,0.65)]"
         >
           The Himalayas are not asking
           <span className="block text-white/70">to be visited.</span>
