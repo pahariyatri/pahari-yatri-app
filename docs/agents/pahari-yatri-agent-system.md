@@ -2,7 +2,7 @@
 
 A production workflow for growing Pahari Yatri without breaking it.
 
-Ten specialist agents, five repeatable loops, and one rule: **never surprise the founder.**
+Twenty-one specialist agents, thirteen repeatable loops, and one rule: **never surprise the founder.**
 
 ---
 

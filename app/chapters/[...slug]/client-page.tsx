@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, ArrowLeft, Leaf } from "lucide-react";
+import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
 import { useEffect } from "react";
 import { track, trackOnce } from "@/lib/analytics";
 
@@ -49,6 +49,11 @@ export default function JourneyPageClient({ journey, slug }: any) {
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
   const relatedChapters = (journey.relatedChapters || []).filter(Boolean);
+  const practicalInfo = [
+    { label: "Distance", value: journey.distance, icon: Navigation },
+    { label: "Max Altitude", value: journey.maxAltitude, icon: MapPin },
+    { label: "Best Time", value: journey.bestTime, icon: CalendarDays },
+  ].filter((item) => item.value);
 
 
   return (
@@ -84,6 +89,32 @@ export default function JourneyPageClient({ journey, slug }: any) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-10 w-full max-w-4xl mx-auto px-6 pb-14 sm:pb-20 text-white"
         >
+          {/* Breadcrumb — the missing path back up to the Library hub that
+              a search visitor previously had no way to find from here */}
+          {Array.isArray(journey.breadcrumbs) && journey.breadcrumbs.length > 0 && (
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center flex-wrap gap-x-2 text-xs text-white/60 mb-5"
+            >
+              {journey.breadcrumbs.map((b: any, i: number) => {
+                const isLast = i === journey.breadcrumbs.length - 1;
+                return (
+                  <span key={b.href} className="flex items-center gap-x-2">
+                    {i > 0 && <span className="opacity-50">/</span>}
+                    {isLast ? (
+                      <span className="text-white/80" aria-current="page">
+                        {b.label}
+                      </span>
+                    ) : (
+                      <Link href={b.href} className="hover:text-white transition-colors hover:underline underline-offset-4">
+                        {b.label}
+                      </Link>
+                    )}
+                  </span>
+                );
+              })}
+            </nav>
+          )}
           <span className="block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4 text-white/85">
             {journey.location ? journey.location : "A Chapter"}
           </span>
@@ -165,6 +196,50 @@ export default function JourneyPageClient({ journey, slug }: any) {
               )}
             </div>
           </SectionContainer>
+        )}
+
+        {/* Practical Information — distance/altitude/season/access have lived
+            in every chapter's data since 2026-08 but were never rendered
+            anywhere on the page or in structured data. This is that fix. */}
+        {(practicalInfo.length > 0 || journey.gettingThere) && (
+          <section className="py-16 bg-muted/20 border-y border-border/40">
+            <SectionContainer>
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-brandSerif mb-8 flex items-center gap-4">
+                  <span className="w-8 h-px bg-primary" />
+                  Practical Information
+                </h2>
+                {practicalInfo.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                    {practicalInfo.map(({ label, value, icon: Icon }) => (
+                      <div
+                        key={label}
+                        className="flex items-start gap-3 rounded-xl border border-border/40 p-4"
+                      >
+                        <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                            {label}
+                          </span>
+                          <span className="text-base font-medium">{value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {journey.gettingThere && (
+                  <div>
+                    <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70 mb-2">
+                      Getting There
+                    </span>
+                    <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {journey.gettingThere}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </SectionContainer>
+          </section>
         )}
 
         {/* FAQ */}

@@ -147,7 +147,7 @@ import { ChevronRight, MapPin } from "lucide-react";
 
 // Helper for Breadcrumbs. `href: null` renders a plain, non-clickable crumb —
 // used for the "Guides"/"Places"/"Stories" middle crumb, which has no real
-// page behind it yet (see Batch 7 in PAHARI_YATRI_SEO_REFACTOR_REPORT.md).
+// page behind it yet (see Batch 7 in docs/reports/archive/2026-09/PAHARI_YATRI_SEO_REFACTOR_REPORT.md).
 function Breadcrumbs({ items }: { items: { label: string, href: string | null }[] }) {
     return (
         <nav className="flex items-center space-x-2 text-sm text-muted-foreground/60 mb-8 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">

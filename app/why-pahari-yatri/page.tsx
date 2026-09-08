@@ -18,7 +18,7 @@ export default function WhyPahariYatri() {
           {/* This page's headings started at <h2> ("Our Approach") with no <h1>.
               sr-only rather than a new visible title, because the visible copy on
               this page needs a separate founder review anyway — see
-              SEO_CONTENT_AUDIT.md B1. */}
+              docs/reports/current/SEO_CONTENT_AUDIT.md B1. */}
           <h1 className="sr-only">Why Pahari Yatri</h1>
 
           <motion.div
