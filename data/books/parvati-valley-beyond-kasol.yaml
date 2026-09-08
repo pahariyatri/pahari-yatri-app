@@ -1,21 +1,22 @@
-title: Parvati Valley — Beyond Kasol
+title: Parvati Valley, Beyond Kasol
 year: 2026
 invitation: >-
   Kasol is where the road gets small. The valley itself begins after that.
 thesis: >-
-  Kasol is the entrance, not the destination — every village past it has its
+  Kasol is the entrance, not the destination. Every village past it has its
   own name, its own rules, and its own reason for existing that has nothing
   to do with your weekend.
 region: himachal
 description: >-
   A book about the whole Parvati Valley ecosystem, not just its most-searched
-  gateway town — the villages, trails and quieter identities that exist
+  gateway town: the villages, trails and quieter identities that exist
   beyond Kasol, researched and hedged the same way this library treats every
   cultural claim: verified fact separated from local belief, and no chapter
   published on a place this library hasn't actually researched.
 priority: p0
 bookType: primary
-seoTitle: "Parvati Valley Beyond Kasol — Villages, Trails & Culture Guide"
+published: true
+seoTitle: "Parvati Valley Beyond Kasol: Villages, Trails & Culture Guide"
 metaDescription: >-
   Parvati Valley beyond Kasol: Kalga, Pulga, Tosh, Malana, Kheerganga and the
   villages most guides skip. Real research, local truth, and what to know
@@ -23,7 +24,7 @@ metaDescription: >-
 cta: yatri-circle
 excerpt: >-
   Villages, trails, people and stories beyond the famous gateway. Kasol is
-  not Parvati Valley — it is only where the valley starts, and this book
+  not Parvati Valley. It is only where the valley starts, and this book
   follows what comes after.
 coverImage: /static/images/books/parvati-valley-beyond-kasol/coverImage.jpg
 relatedChapters:

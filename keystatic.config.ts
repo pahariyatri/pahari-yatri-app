@@ -142,6 +142,12 @@ export default config({
           ],
           defaultValue: "seasonal",
         }),
+        published: fields.checkbox({
+          label: "Published",
+          description:
+            "Only published books are linked from navigation, listed in the Library, and included in the sitemap. Unpublished books still render at /books/[slug] (so a chapter's parent-book link never breaks) but stay noindex and unlisted.",
+          defaultValue: false,
+        }),
         seoTitle: fields.text({
           label: "SEO Title",
           description:

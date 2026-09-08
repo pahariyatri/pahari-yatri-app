@@ -20,6 +20,7 @@ export async function getAllBooks() {
         excerpt: entry.excerpt || "",
         coverImage: entry.coverImage || "/static/images/himalaya-fallback.jpg",
         relatedChapters: entry.relatedChapters || [],
+        published: Boolean((entry as any).published),
         link: `/books/${slug}`,
       };
     })
@@ -34,6 +35,7 @@ export async function getAllBooks() {
     excerpt: string;
     coverImage: string;
     relatedChapters: readonly (string | null)[];
+    published: boolean;
     link: string;
   }[];
 }

@@ -30,11 +30,12 @@ export async function generateMetadata() {
 }
 
 export default async function LibraryPage() {
-  const [books, chapters, stories] = await Promise.all([
+  const [allBooks, chapters, stories] = await Promise.all([
     getAllBooks(),
     reader.collections.chapters.list(),
     reader.collections.stories.list(),
   ]);
+  const books = allBooks.filter((b) => b.published);
 
   // Grouped like sections of a reading room rather than one flat grid — each
   // group gets its own shelf line beneath it.

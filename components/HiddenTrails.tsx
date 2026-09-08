@@ -43,9 +43,6 @@ export default function HiddenTrails({ id }: Props) {
                     <h2 className="text-3xl md:text-5xl font-brandSerif font-bold text-foreground mb-6">
                         Secret Valleys. Forgotten Trails.
                     </h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-light">
-                        Beyond the maps, where only a Yatri knows the way.
-                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -89,7 +86,7 @@ export default function HiddenTrails({ id }: Props) {
                 </div>
 
                 <div className="mt-16 text-center">
-                    <Link href="/books">
+                    <Link href="/library">
                         <Button variant="outline" className="rounded-full px-8 py-6 border-primary/20 hover:bg-primary/5 text-foreground">
                             Open the full Library
                         </Button>

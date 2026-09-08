@@ -102,7 +102,7 @@ export default function ResponsibleTravelPage() {
             trail journals to see it in practice, or become part of the movement.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/books">
+            <Link href="/library">
               <Button size="lg" className="rounded-full px-8 py-6">
                 Read the trail journals
               </Button>

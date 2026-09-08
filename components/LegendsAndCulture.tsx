@@ -60,10 +60,6 @@ export default function LegendsAndCulture() {
           Where Legends Still Breathe
         </h2>
 
-        <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-16 font-light animate-fade-in-up [animation-delay:200ms]">
-          Travel like a Yatri. Listen to the mountains, the villages, the voices of ancestors.
-        </p>
-
         {/* Elder’s Voice Card */}
         <div className="mt-12 max-w-xl mx-auto bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-10 border border-white/10 shadow-2xl animate-fade-in-up [animation-delay:400ms] group hover:bg-white/10 transition-colors duration-500">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">

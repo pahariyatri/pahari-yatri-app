@@ -19,6 +19,10 @@ export async function generateMetadata({ params }: any) {
   return {
     title: bookEntry.title,
     description: bookEntry.excerpt,
+    // Unpublished books stay reachable (a chapter's parent-book link must
+    // never 404) but shouldn't be indexed or surfaced until the founder
+    // marks them published.
+    robots: bookEntry.published ? undefined : { index: false, follow: true },
     openGraph: {
       title: bookEntry.title,
       description: bookEntry.excerpt,

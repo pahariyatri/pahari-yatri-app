@@ -25,12 +25,6 @@ export default function FinalCTA() {
           The Himalayas are not asking
           <span className="block text-white/70">to be visited.</span>
         </h2>
-
-        <p className="text-base sm:text-xl text-white/80 font-light mb-10 sm:mb-12 max-w-xl mx-auto leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
-          They are asking to be understood. Learn the trails, the temples, and
-          the silence, then walk with awareness.
-        </p>
-
         {/* Primary + secondary actions — full-width at thumb reach on mobile */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
           <YatriCircleLink location="final_cta" label="Begin as a Yatri" className="w-full sm:w-auto">

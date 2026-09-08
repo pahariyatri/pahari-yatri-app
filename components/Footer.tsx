@@ -15,7 +15,6 @@ const columns = [
     label: "The Library",
     links: [
       { href: "/library", title: "Open the Library" },
-      { href: "/books", title: "Seasonal Books" },
       { href: "/chapters", title: "All Chapters" },
       { href: "/stories", title: "Stories" },
       { href: "/films", title: "Films & Reels" },

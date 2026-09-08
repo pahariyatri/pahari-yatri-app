@@ -24,7 +24,7 @@ const ENTRIES = [
     kicker: "On the seasons",
     title: "Four books, four moods of the mountain",
     body: "Summer light, Monsoon mist, Winter silence, and the Lost Trails maps forgot. Why we organise the library by season, not by difficulty.",
-    href: "/books",
+    href: "/library",
     cta: "Open the editions",
   },
   {
