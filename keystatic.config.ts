@@ -281,6 +281,53 @@ export default config({
             "Who still needs to confirm this — a named elder, temple committee, or district source. Travel blogs are not sources.",
           itemLabel: (props) => props.value || "Source",
         }),
+        // ── Public sources (added 2026-09) ─────────────────────────────────
+        // Distinct from `sourcesToVerify` above, which is an internal to-do
+        // list of who still needs to confirm a claim. This is the reader- and
+        // AI-crawler-facing "what this chapter draws on" list — only add a
+        // source here once the claim it supports is actually cleared, not as
+        // a promise to verify later.
+        sources: fields.array(
+          fields.object({
+            label: fields.text({ label: "Source name" }),
+            url: fields.url({ label: "URL" }),
+          }),
+          {
+            label: "Sources",
+            description:
+              "Public, citable references this chapter draws on. Do not add a source you have not actually read.",
+            itemLabel: (props) => props.fields.label.value || "Source",
+          }
+        ),
+        // ── Author (added 2026-09) ──────────────────────────────────────────
+        // Mirrors the Stories collection's authorName/authorType (2026-08).
+        // Real name only with permission — otherwise leave as Pahari Yatri
+        // Editorial. Do not invent a contributor to fill this in.
+        authorName: fields.text({
+          label: "Author Name",
+          description:
+            "Who wrote or verified this chapter. Real name only with their permission — otherwise use 'Pahari Yatri Editorial'.",
+        }),
+        authorType: fields.select({
+          label: "Author Type",
+          options: [
+            { label: "Local", value: "local" },
+            { label: "Yatri (traveller)", value: "yatri" },
+            { label: "Creator", value: "creator" },
+            { label: "Elder", value: "elder" },
+            { label: "Pahari Yatri Editorial", value: "editorial" },
+          ],
+          defaultValue: "editorial",
+        }),
+        // ── Coordinates (added 2026-09) ─────────────────────────────────────
+        // Feeds a real GeoCoordinates into this chapter's JSON-LD Place,
+        // instead of a name-only location. Leave blank rather than guess —
+        // an approximate/uncited coordinate is worse than none.
+        coordinates: fields.text({
+          label: "Coordinates (lat, lng)",
+          description:
+            "Only fill this from a verified source (official map, GPS reading, government page). Leave blank if unverified.",
+        }),
         migrationStatus: fields.select({
           label: "Migration Status",
           description:
