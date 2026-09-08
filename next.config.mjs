@@ -68,6 +68,14 @@ const nextConfig = {
                 // is the more universally understood status for page moves.
                 statusCode: 301,
             },
+            {
+                // The all-editions index added little over /library and forced
+                // a "which books are done" decision on every visit. Individual
+                // book pages (/books/[slug]) are unaffected.
+                source: '/books',
+                destination: '/library',
+                statusCode: 301,
+            },
         ];
     },
     // Keystatic configuration

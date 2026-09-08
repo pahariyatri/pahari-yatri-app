@@ -129,14 +129,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }))
 
-    // Dynamic routes: Books (seasonal editions)
-    const books = await reader.collections.books.list()
-    const bookRoutes = books.map((slug) => ({
-        url: `${siteUrl}/books/${slug}`,
-        lastModified: lastModifiedFor('data/books', slug),
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-    }))
+    // Dynamic routes: Books (seasonal editions) — unpublished books still
+    // render at /books/[slug] (a chapter's parent-book link must not break)
+    // but stay out of the sitemap until the founder marks them published.
+    const books = await reader.collections.books.all()
+    const bookRoutes = books
+        .filter((b) => Boolean((b.entry as any).published))
+        .map(({ slug }) => ({
+            url: `${siteUrl}/books/${slug}`,
+            lastModified: lastModifiedFor('data/books', slug),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        }))
 
     // Dynamic routes: Chapters — the landing pages Reels point at, so they
     // matter more for discovery than anything else in the library.

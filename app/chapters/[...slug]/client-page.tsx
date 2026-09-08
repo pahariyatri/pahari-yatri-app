@@ -5,6 +5,7 @@ import ResponsiveImage from "@/components/common/ResponsiveImage";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
+import PageTurnLink from "@/components/common/PageTurnLink";
 import {
   Accordion,
   AccordionContent,
@@ -444,16 +445,18 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
-        {/* The next chapter — an open loop, not a dead end */}
+        {/* The next chapter — an open loop, not a dead end. Uses a view
+            transition (PageTurnLink) so moving on reads like turning a page
+            rather than loading a new, unrelated URL. */}
         {journey.nextChapter && (
           <SectionContainer className="py-8">
             <div className="max-w-2xl mx-auto">
               <span className="block text-center text-xs uppercase tracking-[0.2em] text-primary/80 mb-6">
                 The book continues
               </span>
-              <Link
+              <PageTurnLink
                 href={`/chapters/${journey.nextChapter.slug}`}
-                className="group grid sm:grid-cols-[180px_1fr] gap-5 items-center rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/40 transition-colors"
+                className="group grid sm:grid-cols-[180px_1fr] gap-5 items-center rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/40 hover:shadow-lg transition-all"
               >
                 <div className="relative h-36 sm:h-full w-full min-h-[9rem]">
                   <ResponsiveImage
@@ -472,11 +475,15 @@ export default function JourneyPageClient({ journey, slug }: any) {
                   <h3 className="text-xl font-brandSerif font-medium mt-1 mb-1.5 group-hover:text-primary transition-colors">
                     {journey.nextChapter.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
                     {journey.nextChapter.excerpt}
                   </p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary/80 group-hover:text-primary transition-colors">
+                    Turn the page
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
                 </div>
-              </Link>
+              </PageTurnLink>
             </div>
           </SectionContainer>
         )}
@@ -570,7 +577,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
                 </Button>
               </Link>
               <Link
-                href="/books"
+                href="/library"
                 className="text-sm text-white/70 underline-offset-4 hover:text-white hover:underline transition-colors"
               >
                 Explore more chapters

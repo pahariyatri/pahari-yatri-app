@@ -119,7 +119,7 @@ const HeroBanner = ({
             className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto"
           >
             {buttonText && (
-              <Link href={buttonLink || "/books"} className="w-full sm:w-auto">
+              <Link href={buttonLink || "/library"} className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto bg-white text-zinc-900 hover:bg-white/90 rounded-full px-8 py-6 text-base font-medium transition-all duration-300 hover:scale-[1.03] shadow-xl"

@@ -259,3 +259,39 @@
 .story-article a:hover {
   color: hsl(var(--primary) / 0.8) !important;
 }
+
+/* Book-like page-turn transition, toggled on <html> by PageTurnLink right
+   before a chapter-to-chapter navigation. Browsers without View Transitions
+   support just never get the `.pt-transition` class, so navigation is a
+   normal instant swap there — no fallback branch needed in CSS. */
+.pt-transition::view-transition-old(root) {
+  animation: pt-page-out 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.pt-transition::view-transition-new(root) {
+  animation: pt-page-in 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes pt-page-out {
+  from {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    transform: translateX(-4%) scale(0.98);
+    opacity: 0;
+    filter: brightness(0.85);
+  }
+}
+
+@keyframes pt-page-in {
+  from {
+    transform: translateX(4%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

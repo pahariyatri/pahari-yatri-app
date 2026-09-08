@@ -220,7 +220,7 @@ export default function ThankYouStep({ formData }: Props) {
             size="lg"
             className="w-full h-13 rounded-xl text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground justify-center"
           >
-            <Link href="/books">
+            <Link href="/library">
               <BookOpen className="h-4 w-4 shrink-0 text-muted-foreground mr-1" />
               Read the Book of Journeys
             </Link>

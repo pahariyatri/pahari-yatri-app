@@ -168,7 +168,7 @@ export default function BookPageClient({ book, chapters }: any) {
                   </Link>
                 )}
                 <Link
-                  href="/books"
+                  href="/library"
                   className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                 >
                   Browse other editions
