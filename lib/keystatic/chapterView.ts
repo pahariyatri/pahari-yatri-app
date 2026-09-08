@@ -91,6 +91,9 @@ export async function getChapterView(slug: string) {
         }
       : undefined,
     keywords: (chapter.themes || []).join(", "),
+    author: (chapter as any).authorName
+      ? { "@type": "Person", name: (chapter as any).authorName }
+      : { "@type": "Organization", name: "Pahari Yatri Editorial", url: siteMetadata.siteUrl },
   };
 
   // FAQPage schema — wins AI answer boxes & Google "People also ask"
@@ -124,6 +127,27 @@ export async function getChapterView(slug: string) {
               excerpt: story.excerpt,
               image: resolveImage(story.image),
               link: `/stories/${storySlug}`,
+            }
+          : null;
+      })
+    )
+  ).filter(Boolean);
+
+  // Resolve sideways cross-links to other genuinely related chapters.
+  const relatedChapters = (
+    await Promise.all(
+      (chapter.relatedChapters || []).map(async (c: any) => {
+        const chapterSlug = typeof c === "string" ? c : null;
+        if (!chapterSlug || chapterSlug === slug) return null;
+        const rc = await reader.collections.chapters.read(chapterSlug);
+        return rc
+          ? {
+              slug: chapterSlug,
+              title: rc.title,
+              excerpt: rc.excerpt || rc.invitation || "",
+              location: rc.location || "",
+              image: resolveImage(rc.image),
+              link: `/chapters/${chapterSlug}`,
             }
           : null;
       })
@@ -165,6 +189,7 @@ export async function getChapterView(slug: string) {
     ...chapterRest,
     image: resolveImage(chapter.image),
     relatedStories,
+    relatedChapters,
     parentBook,
     nextChapter,
   };

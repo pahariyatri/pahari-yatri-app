@@ -147,6 +147,61 @@ export default config({
         }),
         location: fields.text({ label: "Region / Trailhead" }),
 
+        // ── SEO + editorial fields (added 2026-09, Parvati Valley book) ────
+        targetKeyword: fields.text({
+          label: "Target Keyword",
+          description: "The one query this chapter should rank for.",
+        }),
+        secondaryKeywords: fields.array(fields.text({ label: "Keyword" }), {
+          label: "Secondary Keywords",
+          itemLabel: (props) => props.value || "Keyword",
+        }),
+        localTruth: fields.text({
+          label: "Local Truth",
+          multiline: true,
+          description:
+            "The thing a tourist would not know. Separate from narrative — practical/cultural fact, not story.",
+        }),
+        sources: fields.array(
+          fields.object({
+            label: fields.text({ label: "Source name" }),
+            url: fields.url({ label: "URL" }),
+          }),
+          {
+            label: "Sources",
+            description: "Public, citable references this chapter draws on.",
+            itemLabel: (props) => props.fields.label.value || "Source",
+          }
+        ),
+        authorName: fields.text({
+          label: "Author Name",
+          description:
+            "Real name only with permission — otherwise leave blank / 'Pahari Yatri Editorial'.",
+        }),
+        authorType: fields.select({
+          label: "Author Type",
+          options: [
+            { label: "Local", value: "local" },
+            { label: "Yatri (traveller)", value: "yatri" },
+            { label: "Creator", value: "creator" },
+            { label: "Pahari Yatri Editorial", value: "editorial" },
+          ],
+          defaultValue: "editorial",
+        }),
+        relatedChapters: fields.array(
+          fields.relationship({ label: "Related Chapter", collection: "chapters" }),
+          {
+            label: "Related Chapters",
+            description: "Sideways links to genuinely related places.",
+            itemLabel: (props) => {
+              const v = props.value;
+              if (v && typeof v === "object") return (v as any).title ?? "Select a Chapter";
+              if (typeof v === "string") return v;
+              return "Select a Chapter";
+            },
+          }
+        ),
+
         // ── The Journey (first-person narrative) ──────────────────────────
         narrative: fields.text({
           label: "The Journey — first-person narrative",

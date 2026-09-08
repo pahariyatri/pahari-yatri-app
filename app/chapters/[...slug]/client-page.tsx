@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, ArrowLeft, Leaf } from "lucide-react";
+import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
 
 function paragraphs(text?: string) {
   return (text || "")
@@ -35,6 +35,12 @@ export default function JourneyPageClient({ journey }: any) {
     (f: any) => f?.question && f?.answer
   );
   const relatedStories = (journey.relatedStories || []).filter(Boolean);
+  const relatedChapters = (journey.relatedChapters || []).filter(Boolean);
+  const practicalInfo = [
+    { label: "Distance", value: journey.distance, icon: Navigation },
+    { label: "Max Altitude", value: journey.maxAltitude, icon: MapPin },
+    { label: "Best Time", value: journey.bestTime, icon: CalendarDays },
+  ].filter((item) => item.value);
 
 
   return (
@@ -153,6 +159,48 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
+        {/* Practical Information */}
+        {(practicalInfo.length > 0 || journey.gettingThere) && (
+          <section className="py-16 bg-muted/20 border-y border-border/40">
+            <SectionContainer>
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-brandSerif mb-8 flex items-center gap-4">
+                  <span className="w-8 h-px bg-primary" />
+                  Practical Information
+                </h2>
+                {practicalInfo.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                    {practicalInfo.map(({ label, value, icon: Icon }) => (
+                      <div
+                        key={label}
+                        className="flex items-start gap-3 rounded-xl border border-border/40 p-4"
+                      >
+                        <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                            {label}
+                          </span>
+                          <span className="text-base font-medium">{value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {journey.gettingThere && (
+                  <div>
+                    <span className="block text-[11px] uppercase tracking-widest text-muted-foreground/70 mb-2">
+                      Getting There
+                    </span>
+                    <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {journey.gettingThere}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </SectionContainer>
+          </section>
+        )}
+
         {/* FAQ */}
         {faqs.length > 0 && (
           <section className="py-20 bg-muted/30 border-y border-border/40">
@@ -212,6 +260,48 @@ export default function JourneyPageClient({ journey }: any) {
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">
                         {s.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </SectionContainer>
+        )}
+
+        {/* Related Chapters — sideways links that build the topical cluster */}
+        {relatedChapters.length > 0 && (
+          <SectionContainer className="py-20">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary" />
+                Related Places
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedChapters.map((c: any) => (
+                  <Link
+                    key={c.slug}
+                    href={c.link}
+                    className="group block rounded-2xl overflow-hidden border border-border/40 hover:border-primary/40 transition-colors"
+                  >
+                    {c.image && (
+                      <div className="relative h-44 w-full overflow-hidden">
+                        <ResponsiveImage
+                          src={c.image}
+                          alt={c.title}
+                          fill
+                          sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                          className="group-hover:scale-105 transition-transform duration-500"
+                          fallbackSrc="/static/images/mountains-bg.jpg"
+                        />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <h3 className="font-brandSerif text-lg mb-2 group-hover:text-primary transition-colors">
+                        {c.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {c.excerpt}
                       </p>
                     </div>
                   </Link>
