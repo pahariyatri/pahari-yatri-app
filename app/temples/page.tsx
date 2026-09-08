@@ -120,7 +120,7 @@ export default function TemplesPage() {
             href="/contribute"
             className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
           >
-            Know a temple's story? Contribute it to the archive →
+            Know a temple&apos;s story? Contribute it to the archive →
           </Link>
         </div>
       </SectionContainer>

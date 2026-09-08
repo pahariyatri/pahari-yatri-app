@@ -108,9 +108,11 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
               <PenLine className="h-5 w-5" />
             </div>
             <div>
-              <span className="block text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">Narrator / Voice</span>
+              <span className="block text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
+                {blog.authorName ? "Written by" : "Narrator / Voice"}
+              </span>
               <span className="font-brandSerif text-base font-medium text-foreground">
-                {blog.voice ? blog.voice : siteMetadata.author}
+                {blog.authorName || blog.voice || siteMetadata.author}
               </span>
             </div>
           </div>

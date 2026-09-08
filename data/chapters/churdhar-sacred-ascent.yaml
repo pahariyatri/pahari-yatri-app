@@ -1,4 +1,7 @@
 title: Churdhar Sacred Ascent Trek
+district: sirmour
+trackType: temple
+parentBook: lost-trails
 invitation: A long devotion across ridge and cloud.
 excerpt: >-
   The trail carries temple bells and cedar breath. At the summit, the sky feels
@@ -7,6 +10,9 @@ location: Sirmaur
 image: /static/images/chapters/churdhar-sacred-ascent/image.avif
 relatedStories:
   - churdhar-bell-echo
+relatedChapters:
+  - himachal-temple-etiquette
+  - devidarh-shikari-devi
 giftsFromMountains:
   - Devotion
   - Endurance

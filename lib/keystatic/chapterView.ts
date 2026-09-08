@@ -6,6 +6,20 @@ import type { Metadata } from "next";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
+/** Parses the CMS's "lat, lng" text field into schema.org GeoCoordinates.
+ *  Returns undefined for anything blank or malformed rather than guessing —
+ *  the field is documented as verified-source-only. */
+function parseCoordinates(raw?: string) {
+  if (!raw) return undefined;
+  const match = raw.match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
+  if (!match) return undefined;
+  return {
+    "@type": "GeoCoordinates",
+    latitude: Number(match[1]),
+    longitude: Number(match[2]),
+  };
+}
+
 /** Canonical home for every chapter is `/chapters/[slug]`, so the same trek
  *  reachable at `/books/[book]/[chapter]` points its canonical here and we
  *  avoid duplicate-content penalties. */
@@ -88,12 +102,21 @@ export async function getChapterView(slug: string) {
             addressRegion: "Himachal Pradesh",
             addressCountry: "IN",
           },
+          // Only present when a verified coordinate was entered — never
+          // derived or guessed, per the field's own CMS description.
+          geo: parseCoordinates((chapter as any).coordinates),
         }
       : undefined,
     keywords: (chapter.themes || []).join(", "),
+    // Real name only with permission; otherwise this is the Pahari Yatri
+    // organization, not a fabricated individual.
     author: (chapter as any).authorName
       ? { "@type": "Person", name: (chapter as any).authorName }
-      : { "@type": "Organization", name: "Pahari Yatri Editorial", url: siteMetadata.siteUrl },
+      : {
+          "@type": "Organization",
+          name: "Pahari Yatri Editorial",
+          url: siteMetadata.siteUrl,
+        },
   };
 
   // FAQPage schema — wins AI answer boxes & Google "People also ask"
@@ -133,7 +156,10 @@ export async function getChapterView(slug: string) {
     )
   ).filter(Boolean);
 
-  // Resolve sideways cross-links to other genuinely related chapters.
+  // Resolve sideways cross-links to other genuinely related chapters (the
+  // "2–4 sideways links" the schema already promises via relatedChapters —
+  // this is what actually builds a topical cluster instead of leaving
+  // chapters as book-order-only dead ends).
   const relatedChapters = (
     await Promise.all(
       (chapter.relatedChapters || []).map(async (c: any) => {
@@ -153,6 +179,24 @@ export async function getChapterView(slug: string) {
       })
     )
   ).filter(Boolean);
+
+  // The district hub this chapter's place belongs to — chapters set a
+  // `district` relationship but nothing ever linked back to the hub, so a
+  // reader (and a crawler) landing on a chapter had no path to the district
+  // page. District hubs otherwise sit at only ~2 inbound links each.
+  let districtLink: { slug: string; title: string; regionSlug: string } | null = null;
+  if (chapter.district) {
+    try {
+      const destination = await reader.collections.destinations.read(chapter.district);
+      if (destination) {
+        districtLink = {
+          slug: chapter.district,
+          title: destination.title || chapter.district,
+          regionSlug: destination.parentRegion,
+        };
+      }
+    } catch {}
+  }
 
   // The book this chapter belongs to — a quiet backlink that keeps readers
   // inside the library — plus the next chapter in reading order, the open
@@ -182,6 +226,26 @@ export async function getChapterView(slug: string) {
     }
   } catch {}
 
+  // Breadcrumb trail — Home > Library > [Book] > Chapter. This is the
+  // missing link in the Search -> Chapter -> Library journey: chapter pages
+  // previously had no path back up to the hub at all, only sideways links.
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Library", href: "/library" },
+    ...(parentBook ? [{ label: parentBook.title, href: `/books/${parentBook.slug}` }] : []),
+    { label: chapter.title, href: chapterCanonical(slug) },
+  ];
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.label,
+      item: `${siteMetadata.siteUrl}${b.href}`,
+    })),
+  };
+
   // Strip the raw `image` from the spread so only the resolved (verified)
   // path is serialized to the client.
   const { image: _rawImage, ...chapterRest } = chapter;
@@ -192,14 +256,59 @@ export async function getChapterView(slug: string) {
     relatedChapters,
     parentBook,
     nextChapter,
+    districtLink,
+    breadcrumbs,
   };
-  const ldArray = faqJsonLd ? [jsonLd, faqJsonLd] : [jsonLd];
+  // Related content — surfaces the same relatedChapters/relatedStories the
+  // page already links to, so crawlers see the cluster in structured data
+  // too, not just in rendered HTML.
+  const mentions = [
+    ...relatedChapters.map((c: any) => ({
+      "@type": "TouristTrip",
+      name: c.title,
+      url: `${siteMetadata.siteUrl}${c.link}`,
+    })),
+    ...relatedStories.map((s: any) => ({
+      "@type": "CreativeWork",
+      name: s.title,
+      url: `${siteMetadata.siteUrl}${s.link}`,
+    })),
+  ];
+  if (mentions.length > 0) jsonLd.mentions = mentions;
+
+  const ldArray = [jsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])];
 
   return { chapter, journeyData, ldArray };
 }
 
+/** First paragraph of a multi-paragraph field, trimmed near `max` chars for
+ *  a SERP-shaped meta description instead of the poetic `excerpt`. Prefers
+ *  cutting at the end of a whole sentence — several `overview` fields hedge
+ *  a devta/temple claim ("local belief holds...") in the sentence right
+ *  after the fact that fits the char budget, and a raw word-boundary cut
+ *  was landing mid-claim, before the hedge, which reads as an unqualified
+ *  assertion in the search snippet. */
+function firstParagraphTruncated(text: string, max: number): string {
+  const first = (text || "").split(/\n{2,}/)[0].replace(/\s+/g, " ").trim();
+  if (!first || first.length <= max) return first;
+  const window = first.slice(0, max + 40); // allow a bit of overrun to find a sentence end
+  const sentenceEnd = window.slice(0, max).match(/^.*[.!?](?=\s|$)/);
+  if (sentenceEnd && sentenceEnd[0].length > max * 0.5) {
+    return sentenceEnd[0].trim();
+  }
+  const cut = first.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${cut.slice(0, lastSpace > 0 ? lastSpace : max)}…`;
+}
+
 /** Metadata for a chapter detail page. `canonicalPath` lets the books route
- *  point back to the canonical `/chapters/[slug]` URL. */
+ *  point back to the canonical `/chapters/[slug]` URL.
+ *
+ *  Prefers the per-chapter `seoTitle`/`metaDescription` overrides when a
+ *  chapter sets them. Otherwise falls back to a `trackType`-aware template:
+ *  temple chapters get pilgrimage framing, reflection ("cultural") chapters
+ *  don't falsely claim to be a trek, and any title that already contains
+ *  "Trek" isn't doubled up ("... Trek — Himalayan Trek in ..."). */
 export async function buildChapterMetadata(
   slug: string,
   canonicalPath: string = chapterCanonical(slug)
@@ -207,10 +316,51 @@ export async function buildChapterMetadata(
   const chapter = await reader.collections.chapters.read(slug);
   if (!chapter) return {};
 
-  const title = chapter.location
-    ? `${chapter.title} — Himalayan Trek in ${chapter.location}`
-    : `${chapter.title} — Himalayan Trek`;
-  const description = chapter.excerpt || chapter.invitation || "";
+  const location = chapter.location || "";
+  const locationNamesHimachal = /himachal/i.test(location);
+  const rawTitle = chapter.title || "";
+  const seoTitleOverride = ((chapter as any).seoTitle || "").trim();
+
+  // Note: the root layout's metadata already applies `%s | Pahari Yatri` to
+  // whatever string `title` resolves to here, so this builds the page-name
+  // half only — appending the brand again would double it.
+  let title: string;
+  if (seoTitleOverride) {
+    title = seoTitleOverride;
+  } else {
+    const trackType = (chapter as any).trackType || "trail";
+    const alreadyNamesTrek = /trek/i.test(rawTitle);
+    if (trackType === "temple") {
+      title = location
+        ? `${rawTitle} — Temple & Pilgrimage in ${location}${locationNamesHimachal ? "" : ", Himachal"}`
+        : `${rawTitle} — Temple & Pilgrimage, Himachal`;
+    } else if (
+      (trackType === "trail" || trackType === "pass") &&
+      !alreadyNamesTrek
+    ) {
+      title = location
+        ? `${rawTitle} — Himalayan Trek in ${location}`
+        : `${rawTitle} — Himalayan Trek`;
+    } else {
+      // lake / village / town / cultural (reflection pieces), or a title
+      // that already names itself a Trek — don't repeat "Trek" or assert
+      // one where no trek is described.
+      title =
+        location && !locationNamesHimachal
+          ? `${rawTitle} — ${location}, Himachal Pradesh`
+          : location
+            ? `${rawTitle} — ${location}`
+            : rawTitle;
+    }
+  }
+
+  const metaDescriptionOverride = ((chapter as any).metaDescription || "").trim();
+  const description =
+    metaDescriptionOverride ||
+    firstParagraphTruncated((chapter as any).overview || "", 155) ||
+    chapter.excerpt ||
+    chapter.invitation ||
+    "";
   const ogImage = chapterOgImage(chapter);
 
   return {

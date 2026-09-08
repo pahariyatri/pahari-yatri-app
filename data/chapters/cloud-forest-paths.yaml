@@ -1,4 +1,7 @@
 title: Cloud Forest Paths
+district: kullu
+trackType: cultural
+parentBook: monsoon
 invitation: Walk under leaves tuned to rain; each drop keeps good time.
 excerpt: >-
   The monsoon chapter drifts through fern and fog. Footsteps soften, and the
@@ -7,6 +10,9 @@ location: Jibhi & Shoja cloud belt
 image: /static/images/chapters/cloud-forest-paths/image.avif
 relatedStories:
   - forest-chants
+relatedChapters:
+  - mist-valleys
+  - kheerganga-buni-buni-pass
 giftsFromMountains:
   - Soft strength
   - Listening to weather

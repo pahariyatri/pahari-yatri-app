@@ -28,7 +28,7 @@ export default async function Page({ params }: any) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(view.ldArray) }}
       />
-      <JourneyPageClient journey={view.journeyData} />
+      <JourneyPageClient journey={view.journeyData} slug={slug} />
     </>
   );
 }

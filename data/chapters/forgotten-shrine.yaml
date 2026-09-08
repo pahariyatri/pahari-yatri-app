@@ -1,4 +1,7 @@
 title: Forgotten Shrine
+district: kinnaur
+trackType: cultural
+parentBook: lost-trails
 invitation: The small gods never left; they waited.
 excerpt: >-
   A hillside shrine under cedar shade. Footnotes of a village still whisper in
@@ -7,6 +10,9 @@ location: Kinnaur skirts
 image: /static/images/chapters/forgotten-shrine/image.jpg
 relatedStories:
   - small-god
+relatedChapters:
+  - pin-bhaba-pass
+  - rupin-pass-trek
 giftsFromMountains:
   - Reverence
   - Memory

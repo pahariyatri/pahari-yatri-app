@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-07",
+  "root": "/home/pankaj-kumar/Workspace/pahari-yatri-app",
+  "excluded_directories": [
+    ".git",
+    "node_modules",
+    ".next",
+    ".openclaw-cli-images",
+    "docs/audit-evidence"
+  ],
+  "candidate_files": [
+    "PERFORMANCE.md"
+  ],
+  "method": "Recursive filename discovery: csv/xlsx/zip or gsc/search-console/searchconsole/query/queries/performance; git tracked-file query also returned no matches."
+}

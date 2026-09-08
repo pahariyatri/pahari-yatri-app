@@ -1,4 +1,7 @@
 title: Jalori Lake Trek
+district: kullu
+trackType: lake
+parentBook: monsoon
 invitation: A circle of water tucked into quiet hills.
 excerpt: >-
   Short and generous, the trail finds a lake that likes to listen.
@@ -6,6 +9,9 @@ location: Jalori Pass
 image: /static/images/chapters/jalori-lake-trek/image.jpg
 relatedStories:
   - jalori-small-circle
+relatedChapters:
+  - baga-sarahan-bashleo-pass
+  - rain-prayer
 giftsFromMountains:
   - Gentleness
   - Attention

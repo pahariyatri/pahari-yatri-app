@@ -1,11 +1,15 @@
 title: Echoing Caves
+district: lahaul-spiti
+trackType: cultural
+parentBook: lost-trails
 invitation: Speak once and listen twice.
 excerpt: >-
   Stone mouths repeating old names. We carry a lamp and find ourselves.
 location: Spiti gorge
 image: /static/images/chapters/echoing-caves/image.jpg
-relatedStories:
-  - echo-keeper
+relatedChapters:
+  - shepherds-path
+  - forgotten-shrine
 giftsFromMountains:
   - Reflection
   - Courage

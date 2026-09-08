@@ -12,6 +12,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
+import { useEffect } from "react";
+import { track, trackOnce } from "@/lib/analytics";
 
 function paragraphs(text?: string) {
   return (text || "")
@@ -20,7 +22,18 @@ function paragraphs(text?: string) {
     .filter(Boolean);
 }
 
-export default function JourneyPageClient({ journey }: any) {
+export default function JourneyPageClient({ journey, slug }: any) {
+  // The core funnel metric: a Reel sent someone here and the chapter opened.
+  useEffect(() => {
+    if (!slug) return;
+    trackOnce(`chapter_view:${slug}`, "chapter_view", {
+      chapter_slug: slug,
+      chapter_title: journey?.title,
+      book: journey?.parentBook?.title ?? journey?.parentBook,
+      region: journey?.location,
+    });
+  }, [slug, journey?.title]);
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -76,6 +89,32 @@ export default function JourneyPageClient({ journey }: any) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-10 w-full max-w-4xl mx-auto px-6 pb-14 sm:pb-20 text-white"
         >
+          {/* Breadcrumb — the missing path back up to the Library hub that
+              a search visitor previously had no way to find from here */}
+          {Array.isArray(journey.breadcrumbs) && journey.breadcrumbs.length > 0 && (
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center flex-wrap gap-x-2 text-xs text-white/60 mb-5"
+            >
+              {journey.breadcrumbs.map((b: any, i: number) => {
+                const isLast = i === journey.breadcrumbs.length - 1;
+                return (
+                  <span key={b.href} className="flex items-center gap-x-2">
+                    {i > 0 && <span className="opacity-50">/</span>}
+                    {isLast ? (
+                      <span className="text-white/80" aria-current="page">
+                        {b.label}
+                      </span>
+                    ) : (
+                      <Link href={b.href} className="hover:text-white transition-colors hover:underline underline-offset-4">
+                        {b.label}
+                      </Link>
+                    )}
+                  </span>
+                );
+              })}
+            </nav>
+          )}
           <span className="block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4 text-white/85">
             {journey.location ? journey.location : "A Chapter"}
           </span>
@@ -159,7 +198,9 @@ export default function JourneyPageClient({ journey }: any) {
           </SectionContainer>
         )}
 
-        {/* Practical Information */}
+        {/* Practical Information — distance/altitude/season/access have lived
+            in every chapter's data since 2026-08 but were never rendered
+            anywhere on the page or in structured data. This is that fix. */}
         {(practicalInfo.length > 0 || journey.gettingThere) && (
           <section className="py-16 bg-muted/20 border-y border-border/40">
             <SectionContainer>
@@ -225,6 +266,53 @@ export default function JourneyPageClient({ journey }: any) {
               </div>
             </SectionContainer>
           </section>
+        )}
+
+        {/* Related Chapters — sideways links that build the topical cluster */}
+        {relatedChapters.length > 0 && (
+          <SectionContainer className="py-20">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary" />
+                Related Chapters
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedChapters.map((c: any) => (
+                  <Link
+                    key={c.slug}
+                    href={c.link}
+                    className="group block rounded-2xl overflow-hidden border border-border/40 hover:border-primary/40 transition-colors"
+                  >
+                    {c.image && (
+                      <div className="relative h-44 w-full overflow-hidden">
+                        <ResponsiveImage
+                          src={c.image}
+                          alt={c.title}
+                          fill
+                          sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                          className="group-hover:scale-105 transition-transform duration-500"
+                          fallbackSrc="/static/images/mountains-bg.jpg"
+                        />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      {c.location && (
+                        <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                          {c.location}
+                        </span>
+                      )}
+                      <h3 className="font-brandSerif text-lg mb-2 group-hover:text-primary transition-colors">
+                        {c.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {c.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </SectionContainer>
         )}
 
         {/* Related Stories */}
@@ -307,6 +395,29 @@ export default function JourneyPageClient({ journey }: any) {
                   </Link>
                 ))}
               </div>
+            </div>
+          </SectionContainer>
+        )}
+
+        {/* Where this chapter sits geographically — quiet backlink to its
+            district hub, which otherwise has almost no inbound links */}
+        {journey.districtLink && (
+          <SectionContainer className="py-8">
+            <div className="max-w-2xl mx-auto">
+              <Link
+                href={`/${journey.districtLink.regionSlug}/travel-guide/${journey.districtLink.slug}`}
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-border/50 bg-muted/20 p-6 hover:border-primary/40 transition-colors"
+              >
+                <div>
+                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                    More from this district
+                  </span>
+                  <p className="text-lg font-brandSerif font-medium group-hover:text-primary transition-colors">
+                    {journey.districtLink.title}
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-primary shrink-0 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </SectionContainer>
         )}
@@ -441,7 +552,15 @@ export default function JourneyPageClient({ journey }: any) {
               then walk this chapter with awareness.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/apply">
+              <Link
+                href="/apply"
+                onClick={() =>
+                  track("join_yatri_circle_click", {
+                    location: "chapter",
+                    label: "Begin as a Yatri",
+                  })
+                }
+              >
                 <Button
                   size="lg"
                   className="rounded-full px-10 py-7 text-lg bg-white text-zinc-900 hover:bg-white/90 hover:scale-[1.03] transition-all duration-300 shadow-xl"

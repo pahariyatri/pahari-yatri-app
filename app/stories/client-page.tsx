@@ -6,7 +6,7 @@ import FeaturedCard from "@/components/cards/FeaturedCard";
 import SectionContainer from "@/components/common/SectionContainer";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import Loading from '../loading';
+import Loading from '@/components/common/Loading';
 
 interface BlogClientPageProps {
   blogData: {
@@ -64,15 +64,20 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
 
   const featuredBlog = blogData[0];
 
-  // Loading state with mountain-themed loader
-  if (isLoading) {
-    return (
-      <Loading message='Loading Himalayan stories...'></Loading>
-
-    );
-  }
-
   return (
+    <>
+      {/*
+        The loader is an overlay, not an early return. It used to be
+        `if (isLoading) return <Loading/>`, gated on an 800ms timer, which meant
+        the server sent "Loading Himalayan stories..." and nothing else — no <h1>,
+        no story links — to any crawler that doesn't execute JS. The story data is
+        already resolved server-side and passed in as props, so there is nothing to
+        wait for. This mirrors app/chapters/client-page.tsx, which does it this way.
+      */}
+      <AnimatePresence>
+        {isLoading ? <Loading message='Loading Himalayan stories...' /> : null}
+      </AnimatePresence>
+
     <AnimatePresence mode="wait">
       <motion.div key="blog-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <SectionContainer className="pt-24 md:pt-32">
@@ -204,5 +209,6 @@ export default function BlogClientPage({ blogData }: BlogClientPageProps) {
         </SectionContainer>
       </motion.div>
     </AnimatePresence>
+    </>
   );
 }

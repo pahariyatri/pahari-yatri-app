@@ -1,0 +1,418 @@
+[
+  {
+    "device": "desktop",
+    "route": "/",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 631,
+          "load": 631.6999999992549,
+          "ttfb": 513.1999999992549
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/books/temples-traditions",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 96.20000000298023,
+          "load": 96.60000000149012,
+          "ttfb": 63.20000000298023
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_books_temples-traditions.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 180.69999999925494,
+          "load": 181.19999999925494,
+          "ttfb": 138.30000000074506
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_chapters_kamrunag-the-lake-of-oaths.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/stories/mirror-of-stillness",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 109.30000000074506,
+          "load": 109.90000000223517,
+          "ttfb": 71.20000000298023
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_stories_mirror-of-stillness.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/himachal/travel-guide/mandi",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 96.19999999925494,
+          "load": 96.69999999925494,
+          "ttfb": 66.09999999776483
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_himachal_travel-guide_mandi.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/himachal/places/manikaran",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 102.5,
+          "load": 102.90000000223517,
+          "ttfb": 67.90000000223517
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_himachal_places_manikaran.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/stories",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 101,
+          "load": 101.30000000074506,
+          "ttfb": 68.30000000074506
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_stories.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "desktop",
+    "route": "/why-pahari-yatri",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 145.79999999701977,
+          "load": 146.39999999850988,
+          "ttfb": 78.5
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-desktop-_why-pahari-yatri.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 307.3999999985099,
+          "load": 308.0999999977648,
+          "ttfb": 262.5
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/books/temples-traditions",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 114.80000000074506,
+          "load": 115.30000000074506,
+          "ttfb": 77
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_books_temples-traditions.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 108.89999999850988,
+          "load": 109.29999999701977,
+          "ttfb": 73.39999999850988
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_chapters_kamrunag-the-lake-of-oaths.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/stories/mirror-of-stillness",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 141.5,
+          "load": 142,
+          "ttfb": 62.79999999701977
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_stories_mirror-of-stillness.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/himachal/travel-guide/mandi",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 99.89999999850988,
+          "load": 100.39999999850988,
+          "ttfb": 67.5
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_himachal_travel-guide_mandi.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/himachal/places/manikaran",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 108,
+          "load": 108.40000000223517,
+          "ttfb": 73.40000000223517
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_himachal_places_manikaran.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/stories",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 88.29999999701977,
+          "load": 88.59999999776483,
+          "ttfb": 57.399999998509884
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_stories.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  },
+  {
+    "device": "mobile",
+    "route": "/why-pahari-yatri",
+    "status": 403,
+    "dom": {
+      "title": "",
+      "h1": [],
+      "overflow": false,
+      "brokenImages": [],
+      "links": [],
+      "text": "{\"message\":\"Access Denied: Automated access restricted.\"}",
+      "performance": [
+        {
+          "domContentLoaded": 108.90000000223517,
+          "load": 109.30000000074506,
+          "ttfb": 75.30000000074506
+        }
+      ]
+    },
+    "screenshot": "/home/pankaj-kumar/Workspace/pahari-yatri-app/docs/audit-evidence/browser-mobile-_why-pahari-yatri.png",
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "failedRequests": []
+  }
+]

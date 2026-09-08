@@ -1,0 +1,261 @@
+# Pahari Yatri — SEO, Content & Authority Refactor Report
+
+Status: **Batches 0–7 implemented, build/typecheck-verified, and QA-gated (three checkpoints, all PASS WITH NOTES, all notes addressed). Batch 8 (temple etiquette chapter) drafted, cultural-verified, and edited — awaiting a founder publish decision, deliberately uncommitted. Batch 9 (larger content expansion) not yet started.**
+Last updated: 2026-09-02
+
+---
+
+## 0. How this report was produced
+
+The growth loop for this task was run via `growth-orchestrator`. The orchestrator itself hit a session-level API rate limit partway through (this is an account/session quota, unrelated to code) and did not get to run every specialist in the original scope (content-architect, analytics-tracking-agent, portal-brand-bridge-editor, nextjs-production-engineer, qa-security-reviewer). Before it failed, it had already dispatched one specialist pass that completed a full, live-verified technical SEO / information-architecture / GEO audit. That audit is Part 1 below, reproduced with corrections (see 0.1).
+
+Everything in this report is either (a) directly verified against the live repo/build in this session, or (b) carried over from the specialist audit and flagged where verified vs. not yet independently re-checked.
+
+### 0.1 Correction to the specialist audit
+
+The audit states the site has no mechanism for chapter-to-chapter sideways links or per-chapter SEO title/meta overrides, and recommends adding `seoTitle`, `pageType`, and a `district` relationship field to the `chapters` schema.
+
+**This is incorrect as stated.** `keystatic.config.ts` (chapters collection, comment: "Chapter architecture & SEO — added 2026-08") already defines: `seoTitle`, `metaDescription`, `targetKeyword`, `secondaryKeywords`, `trackType` (enum: lake/temple/village/trail/pass/town/cultural — functionally the same as the proposed `pageType`), `region` (relationship to a `regions` collection), and **`relatedChapters`** (array relationship to `chapters`, described in-schema as *"2–4 sideways links to genuinely related places. Builds the cluster."* — this is exactly the sideways-linking mechanism the audit says is missing).
+
+Verified: **zero of the 24 chapter YAML files populate any of these fields**, and `lib/keystatic/chapterView.ts` does not read `seoTitle`, `metaDescription`, `trackType`, `region`, or `targetKeyword` anywhere (confirmed by grep — no matches). So the real situation is: **the schema was built ahead of both the data and the rendering code**, then abandoned mid-build. This changes the implementation plan — the work is "wire the existing fields into the view layer and populate them," not "design and add new schema."
+
+This is exactly the kind of stale-assumption error `CLAUDE.md` warns about re-verifying rather than trusting. Treat every fact below the same way — re-check before acting on it if time has passed.
+
+---
+
+## 1. Executive summary
+
+Pahari Yatri's content is stronger than its rendering and linking layer. The best individual asset on the site (`data/destinations/manali.mdx`) is being served to users and to Google as literal, unrendered Markdown source (`**bold**`, `## heading` visible as text) because of a rendering bug, not a content gap. Three of the most literally-titled, search-shaped stories on the site have zero internal links pointing at them. Seven chapters (including two of the three flagship "Sacred Mandi" chapters) point at story slugs that don't exist, so those links silently render as nothing. Two soft-404 utility pages receive 21 internal links combined. And 21 live pages carry an identical, fabricated "local knowledge" sentence ("locals shop at the Tuesday mandi," "the real viewpoint is 200m behind the temple") asserted as fact regardless of whether it's true for that place — a direct violation of this project's own local-verification standard, and the single most urgent fix in the report.
+
+None of this requires new pages, a redesign, or more Local Connect promotion. It requires: fixing what's broken, wiring up schema that already exists, removing fabricated claims, and expanding roughly 8 chapters and 3 stories that already have the strongest keyword fit and the weakest competition.
+
+## 2. Current-state audit (technical + IA)
+
+See the full specialist findings below (Part A). Headline items, live-verified:
+
+- **Indexation**: ~70 URLs in the sitemap, an estimated ~19 indexed (per the specialist's GSC read — not independently re-verified this session).
+- **Rendering bug**: `app/[...slug]/page.tsx` renders destination-page MDX via `.toString()` into `dangerouslySetInnerHTML` instead of an MDX/HTML renderer. Confirmed live on `/himachal/travel-guide/manali` — visible body text contains literal `##` and `**` markdown syntax. Zero `<h2>` tags on any of the 13 destination pages or 8 place pages.
+- **Soft 404s**: `/himachal/travel-guide` and `/himachal/places` return HTTP 200 with ~80 words of chrome and the generic homepage `<title>`. Linked from every destination/place page's breadcrumbs (21 internal links total pointing at empty pages).
+- **Broken relatedStories**: 7 of 24 chapters referenced story slugs that don't exist in `data/stories/`. **Fixed this session** — see Part 3.
+- **Orphan stories**: `why-locals-avoid-manali-in-peak-season`, `kinnaur-beyond-the-pass-reality`, `tirthan-the-slow-valley-reflections` have no `relatedChapter` set and are linked from nowhere, despite being the three most literally search-shaped stories on the site.
+- **Fabricated local-knowledge boilerplate**: identical unverified claims hardcoded into the destination/place page template, live on 21 URLs.
+- **llms.txt**: already exists at `/llms.txt`, well-formed, but links only hub pages — no chapters. Low-cost, low-but-real value; not a ranking mechanism.
+- **Redirects, canonicals, JSON-LD FAQPage on chapters, AI-crawler robots access**: all already correct — explicitly confirmed as "don't touch, don't redo."
+
+## 3. What has actually been changed (commits `ca4e8b9` through `8b9acbb`)
+
+### 3.0 Critical, unplanned finding — sitewide 404s returned HTTP 200
+
+While verifying Batch 7 (the two soft-404 hub pages), a much bigger bug turned up: **every dead, mistyped, or removed URL on the entire live site returned HTTP 200, not 404** — verified directly against `https://pahariyatri.com` with curl, not just the local build. Root cause: `app/loading.tsx` existed at the app root. A root-level `loading.tsx` implicitly wraps the whole route tree in `<Suspense>`, and per Next.js's own documented behavior, that starts streaming the response immediately — which locks the HTTP status to 200 before any nested `notFound()` call later in the tree can change it. This is documented Next.js behavior (confirmed via the framework's own `not-found` and streaming docs, and matches a long-standing, well-known class of Next.js App Router reports), not a version-specific bug.
+
+Fix: moved the file to `components/common/Loading.tsx` (it's also directly imported as a component by two client pages, so it couldn't simply be deleted) — removing it from Next's route-file-convention scanning without losing the reusable spinner. Verified before/after with curl against a production build: nonexistent paths now return 404, real pages still return 200.
+
+This is a bigger deal than anything else in this report. It means the sitewide indexation numbers cited elsewhere in this document (~19/~70 indexed) were measured against a site where Google could never distinguish a real page from a dead one by status code — every crawl signal about broken/removed URLs was silently wrong until this fix.
+
+### 3.1 Batches 0–5 — implemented, build/typecheck-verified
+
+| Batch | What changed | Files | Verification |
+|---|---|---|---|
+| 0 | Sitewide 404-status bug (above) | `app/loading.tsx` → `components/common/Loading.tsx`, 2 import updates | curl before/after on real build; fake paths 404, real pages 200 |
+| 1 | Removed fabricated "local knowledge" boilerplate (Tuesday-market claim, "200m behind the temple" claim) from destination + place templates | `app/[...slug]/page.tsx` | grep confirms the strings are gone from rendered output on sample pages |
+| 2 | Fixed raw-markdown-as-text rendering bug on destination pages; reused the existing Markdoc renderer pattern from `app/stories/[...slug]/page.tsx` instead of adding a dependency | `app/[...slug]/page.tsx` | `/himachal/travel-guide/manali` now renders 5 real `<h2>` tags, zero literal `##`/`**` in output |
+| 3 | Wired the 3 orphan stories to their chapter via `relatedChapter` + a second `relatedStories` entry | 3 story `.mdx` files, 3 chapter `.yaml` files | curl confirms `href` to each orphan story now present on its chapter page |
+| 4 | Wired the dormant `relatedChapters` schema field into `chapterView.ts` + the chapter detail page; populated the Sacred Lakes cluster (Kamrunag ↔ Saroa bidirectional, Kamrunag/Parashar/Chandernahan cross-links) | `lib/keystatic/chapterView.ts`, `app/chapters/[...slug]/client-page.tsx`, 4 chapter `.yaml` files | curl confirms all cross-links render with correct `href`s |
+| 5 | `trackType`-aware title/meta template with `seoTitle`/`metaDescription` override support; classified all 24 chapters by `trackType` (temple/lake/pass/cultural/default-trail) | `lib/keystatic/chapterView.ts`, 22 chapter `.yaml` files | Spot-checked titles across every `trackType`: no doubled brand suffix, no "Trek — ... Trek", no doubled "Himachal Pradesh" |
+
+`npm run build` and `npx tsc --noEmit` both clean after every step above. `qa-security-reviewer` is running against this checkpoint as of this writing — see §11 for the verdict once it lands.
+
+### 3.2 Batches 6–7 — implemented (commits `16a99fd`, `8b9acbb`)
+
+**Batch 6, structural half only** — added a `district` relationship field to both the `chapters` and `places` schemas (pointing at the `destinations` collection, which represents the 13 real districts), populated it on all 24 chapters and 8 places, and built a real link block on every destination page (`getDistrictLinks()` in `app/[...slug]/page.tsx`) so a district hub actually links to every chapter/place/story that belongs there. Mandi's hub now links to its 4 chapters and 2 stories — the single highest-impact internal-linking gap the original audit found.
+
+**Deliberately not done**: rewriting destination-page prose into 150–250 word "honest orientation" copy for Mandi/Kullu/Manali. New factual/cultural claims about a place belong through the `chapter-editor`/`local-verification-editor` gate like any other content, not freehanded inside a code batch — the link block is the structural fix; prose expansion is deferred to a future content pass (see §14, N5-equivalent: `bilaspur`/`solan`/`hamirpur` are still genuine dead ends with nothing to link to, since no chapter/place is assigned to them).
+
+**District mapping** — best-effort geographic classification from each chapter/place's existing `location` field and narrative content, not derived from any authoritative source. Most are unambiguous; three are judgment calls QA flagged and are recorded here rather than silently decided:
+
+| Chapter | Assigned district | Note |
+|---|---|---|
+| `baga-sarahan-bashleo-pass` | `kullu` | Genuinely two-district — Baga/Sarahan (the chapter's own place names) are on the Shimla side (Rampur); Bashleo Pass is the Kullu/Shimla boundary itself. Least defensible of the 32 assignments; a local reader should confirm. |
+| `solstice-snow` | `manali` | `manali` is a *destination hub entry*, not an actual Himachal district (Manali is a town within Kullu district) — `keystatic.config.ts` labels the field "District" but it really means "destination hub." Internally consistent, but the label overclaims precision. Splits this chapter and 2 stories off Kullu's cluster onto the Manali hub as a deliberate product choice, not a geography claim. |
+| `rupin-pass-trek` | `kinnaur` | Correct — the trek ends in Sangla, Kinnaur, which is where its content and search intent live — but the original commit's stated rationale ("trailhead/majority district") was backwards: the trailhead is Dhaula, **Uttarakhand**; Kinnaur is the endpoint. Value is right, reasoning as originally written was not. |
+
+Full 32-item mapping lives in the `district:` field of each `data/chapters/*.yaml` and `data/places/*.yaml` file — not duplicated here.
+
+**Batch 7** — built `/{region}/travel-guide` and `/{region}/places` as real, statically-generated index pages (previously `slug.length === 2`, which fell through to `notFound()` after the Batch 0 fix, or silently 200'd empty before it — either way, a dead end reached from every destination/place page's breadcrumb). Added to `generateStaticParams`, `app/sitemap.ts`, and given real `openGraph`/canonical metadata. Breadcrumbs on destination/place pages now link to these real pages again.
+
+### 3.3 Batch 8 — drafted, verified, edited. Still not committed.
+
+New chapter `data/chapters/himachal-temple-etiquette.yaml` (slug `himachal-temple-etiquette`) drafted by `chapter-editor`, then reviewed claim-by-claim by `local-verification-editor`. Targets "himachal temple etiquette" (near-zero competition per the original audit); ~2,000 on-page words across narrative + an 8-question FAQ block (down from 10 — two were removed, see below); `seoTitle`/`metaDescription` explicit overrides; `verificationStatus: needs-local-source` throughout, nothing marked verified or local-source-confirmed.
+
+**Verification verdict: NOT PUBLISHABLE AS DRAFTED. Now edited to PUBLISHABLE AT `needs-local-source`.** Two blocks were removed entirely, not hedged, per this project's rule that women's-access/community-custom claims need a named source or omission:
+
+- **Menstruation-related temple access** (a narrative paragraph + one FAQ) — removed. Hedging doesn't satisfy the rule here; the paragraph as drafted also editorialised about the custom while claiming not to ("we are not going to pretend the rule doesn't exist..."), which is a second, independent violation. Returns only with a named woman from a temple-owning village describing her own valley's practice.
+- **Entry restrictions by community/section** (one FAQ) — removed and labeled **unsafe**, a step beyond `needs-local-source`. As drafted it described what reads as caste-shaped exclusion as a normal, unquestionable posted rule — which is also unlawful (Article 17, Protection of Civil Rights Act 1955; HP High Court precedent against barring communities from worship at their own devta's temple). Returns only as a fact about one specific, named temple, told by that temple's own committee on the record — never as general etiquette.
+
+Roughly a dozen further claims were rewritten to properly attribute unsourced statements ("local accounts describe...", "ethnographic work describes...") rather than stating them as established fact, including the chapter's central claim — that village disputes are still brought to the deity first — which the verification pass found has **no precedent elsewhere on this site** (the drafting brief incorrectly assumed `kamrunag-the-lake-of-oaths.yaml` and `devidarh-shikari-devi.yaml` already asserted this; they don't). A regulatory claim about drone airspace was corrected to avoid an easily-checked-wrong overstatement, and office-holder terminology (kardar, gur, pujari, bajantri, mohra, rath) was confirmed **verified** against `kulludussehra.hp.gov.in`, an official HP government source.
+
+**A more important, sitewide finding surfaced during this pass, unrelated to this one chapter's content**: `verificationStatus` is a documentation field only — **nothing in the codebase enforces it.** `lib/keystatic/chapters.ts` and `app/sitemap.ts` both list every chapter unfiltered; a "DO NOT PUBLISH" comment in a YAML file's header is not a technical gate, and any chapter — this one or a future one — publishes and gets indexed the moment it's committed, regardless of its `verificationStatus` value. **This is not something to silently code-fix**: every one of the 24 existing, currently-live chapters has *no* `verificationStatus` set at all (confirmed: `grep -L "^verificationStatus:" data/chapters/*.yaml` returns all 24), meaning they default to `unverified`. A hard filter on that field would immediately deindex the entire existing chapter library — a large, destructive, unplanned action, not a safe cleanup. Flagged for a founder decision (§14), not acted on here. The practical safeguard in place right now is procedural: this file stays uncommitted and unpushed, so it cannot reach production through this repo's normal (git-based) path.
+
+**The file remains uncommitted and unwired** — not staged, not cross-linked from the sacred chapters it's meant to serve — pending a founder decision on whether `needs-local-source` content should publish now (honest about its own limits) or wait for the sourcing conversations listed in its `sourcesToVerify` field (five, prioritized — one conversation with a Kamrunag kardar would clear most of the remaining unsourced claims).
+
+One structural finding from drafting this, worth fixing before Batch 9: `overview` is not rendered anywhere on the live chapter page (`app/chapters/[...slug]/client-page.tsx` never reads it — it only feeds JSON-LD description). Every chapter's real body has to live in `narrative`, which renders as plain, unstructured paragraphs with no heading support. This is a ceiling Batch 9's content-expansion pass will hit on every chapter it touches, not just this new one.
+
+### 3.4 Not yet implemented
+
+Batch 9 (the larger 8-chapter/3-story content expansion) is approved by the founder ("yes do all") but not yet started — by design, per its own entry below, it's meant to run as its own loop through `chapter-editor`/`local-verification-editor`/`chapter-upgrade-loop`, not be bundled into this SEO-focused session.
+
+## 4. Content authority audit
+
+- Strongest asset: `data/destinations/manali.mdx` — real "who this is for / who should avoid it" framing, named villages, a genuine FAQ block. Undermined entirely by the rendering bug in §2.
+- Weakest tier: the 8 `places` collection entries. The schema has **no content field at all** (`title`, `parentRegion`, `description`, `image`, `coordinates` only) — these pages are structurally incapable of holding more than ~40 unique words, independent of any writing effort.
+- Duplicate/fabricated concept: the 21-page local-knowledge boilerplate (§2) is simultaneously a duplicate-content problem and a trust/brand-standard violation — it asserts unverified specific local claims as fact, which is exactly what `local-verification-editor` exists to prevent, applied here to destination-page template copy instead of chapter narrative.
+- 10 of 24 chapters are intentionally "reflection" pieces (poetic titles: `Echoing Caves`, `Rain Prayer`, `River Sutra`, etc.) — these are correctly brand texture, not search assets, but the current title template falsely asserts "— Himalayan Trek in [location]" on several of them where no trek is described.
+- Median story length is ~360 words; the 3 orphan stories are the thinnest (155–275 words) *and* the most literal/searchable — link equity is currently inverted (poetic, unsearchable stories get the links).
+
+## 5. AI-search / GEO readinesss
+
+- No submission mechanism exists for ChatGPT/Gemini/Perplexity/etc. — none is claimed or should be.
+- Real levers, in priority order: (1) third-party citations — currently near zero, the actual bottleneck; (2) extractable single-sentence factual claims per section (chapters' `overview` field already does this well; it's just not exposed as visible headed sections); (3) FAQPage JSON-LD — already implemented well on all 24 chapters, absent on destination/place pages; (4) heading structure — currently zero `<h2>` on 21 pages, same bug as §2; (5) AI-crawler robots access — already correct, no action needed.
+- `llms.txt` recommendation: keep it, add a curated 8–12 chapter list with one-line literal descriptions (currently links zero chapters). Do not oversell its impact — it is a hedge, not a growth lever.
+
+## 6. Information architecture
+
+Recommended structure uses **only URL patterns that already exist** — no new URL shapes, no programmatic page generation:
+
+```
+/himachal → /himachal/travel-guide/{district} → /chapters/{slug} → /stories/{slug}
+cross-cutting: /temples, /folklore, /responsible-travel
+reading axis (secondary): /books/{book}/{chapter}
+```
+
+Explicit recommendation against programmatic pages: the site has ~70 URLs and roughly ~19 indexed — the constraint is quality per URL, not URL count. Every one of the 13 destination pages and 8 place pages should be preserved (none deleted, none redirected, none 410'd) but reclassified: destination pages become real "district index" pages (150–250 words of honest orientation + a real link block to every chapter/story/place in that district), not attempted 2,000-word guides.
+
+One new page is recommended: a temple/etiquette chapter. It's a structural prerequisite — the rule "every sacred chapter links to the etiquette page" cannot be implemented because the page doesn't exist yet.
+
+## 7. Local Connect boundary
+
+Not audited in depth this session (scope ran out of budget before `portal-brand-bridge-editor` ran). Existing CTA discipline in the destination/chapter templates was not found to be a problem in what was reviewed — no evidence of over-promotion or sales-page tone was flagged by the specialist pass. Flag for a follow-up run once approved changes are implemented, so cross-linking copy can be reviewed together with the new pillar links.
+
+## 8. Analytics audit
+
+**Not run this session** — `analytics-tracking-agent` did not get to execute before the orchestrator hit its rate limit. This is an open item, not a "no issues found."
+
+## 9. Performance audit
+
+**Not run in depth this session.** The one relevant data point gathered: production build is clean, 116 static pages, no build-time errors or warnings surfaced in the output reviewed.
+
+## 10. Staged implementation plan
+
+Founder approved all 9 batches ("yes do all"). Batches 0–5 are implemented (§3.1); this section is kept as the record of what each batch was and tracks 6–9 as not-yet-started.
+
+**Batch 0 — done.** Sitewide 404-status bug. See §3.0.
+
+**Batch 1 — done.** Remove the fabricated local-knowledge boilerplate.
+
+**Batch 2 — done.** Fix the MDX rendering bug.
+
+**Batch 3 — done.** Wire the 3 orphan stories in.
+
+**Batch 4 — done.** Wire the existing `relatedChapters` schema field into `chapterView.ts` and populate it for the Sacred Lakes cluster.
+
+**Batch 5 — done.** Fix the chapter title/meta-description template. Live-SERP impact expected — 4–8 weeks of noisy CTR data on 24 indexed URLs while Google recrawls.
+
+**Batch 6 — done (structural half; prose-expansion half deferred, see §3.2). District hub reclassification.** Rewrite the 13 destination pages down from "attempted guide" to "honest orientation + real link block," starting with Mandi/Kullu/Manali. Removes boilerplate (covered by Batch 1), adds internal links to chapters. Public copy change on 13 live URLs — needs approval and ideally `chapter-editor`/`local-verification-editor` involvement for the orientation paragraphs.
+
+**Batch 7 — done. Build `/himachal/travel-guide` and `/himachal/places` as real index pages.**
+
+**Batch 8 — drafted, verified, edited; awaiting a founder publish decision. Write the temple/etiquette chapter.** One new URL. Went through `local-verification-editor`; two blocks removed, ~12 claims corrected — see §3.3.
+
+**Batch 9 — not started. Content expansion.** The ~8 chapters and 3 stories identified as best keyword-fit/lowest-competition (Kamrunag pillar, Parashar, Shikari Devi, Churdhar, Chandernahan, Kheerganga hot spring angle, the 3 orphan stories, the new Parvati-villages-beyond-Kasol chapter). Owned by `chapter-editor` + `local-verification-editor`, run as its own loop per existing project process (`chapter-upgrade-loop`), not bundled into this SEO batch.
+
+**Not recommended, flagged explicitly so it isn't attempted by accident:** merging the two Kamrunag chapters, redirecting/deleting any of the 13 destination or 8 place pages, any programmatic page generation, renaming `manali`'s URL to fit under `kullu` more "correctly."
+
+## 11. QA verdicts
+
+### 11.1 Checkpoint 1 (commit `ca4e8b9`) — the 7-file dead-reference cleanup
+
+**Verdict: PASS WITH NOTES. No blocking issues.**
+
+The "zero live rendering difference" claim was verified empirically, not just argued: QA built the repo post-fix, stashed the fix, rebuilt pre-fix, and diffed the two output trees. All 24 chapter pages and all 27 book-route pages were byte-identical except the build ID and build timestamp. `tsc --noEmit` clean, `npm run build` clean (116 pages), sitemap byte-identical (86 URLs, all 7 affected chapters present with unique titles, not soft-404s), redirects unchanged, no secrets in the diff, no banned brand language, no content/prose changed — only a machine-readable relationship key removed.
+
+Non-blocking notes surfaced, worth acting on:
+
+1. **The change is uncommitted and unstaged.** `git diff --cached` is empty. Nothing has been committed — see §13 for the exact state.
+2. **This report file itself is untracked** and not in `.gitignore`. A future `git add .` would sweep it in — decide deliberately whether it should ship in a commit.
+3. **A latent repeat of this exact bug class exists in dead code**: `lib/schema.ts:85-86` (`getTouristTripSchema`) reads the raw, unfiltered `relatedStories` array and would build JSON-LD `TouristTrip` URLs straight from it — no resolution, no null-filtering. It has zero callers today, which is the only reason it never shipped broken structured data. If anyone wires this function up later, the same dangling-slug bug returns in JSON-LD. Worth a one-line filter fix if that code is ever activated.
+4. **`lib/keystatic/chapters.ts` is an entirely unimported module** duplicating logic that lives for real in `chapterView.ts`. Its own `relatedStories` handling can silently drift from the live path. Candidate for deletion — flagged, not acted on (founder call).
+5. Pre-existing and unrelated to this change: `app/layout.tsx:161-162` sets JSON-LD `datePublished`/`dateModified` to build time, so every page reports as "modified" on every deploy. Noted only because it's what produced the byte-diff noise QA had to normalize past.
+6. **Open question, not yet resolved**: were the 7 dangling story slugs (`ridge-to-vows`, `shikari-bells-in-wind`, etc.) meant to eventually become real stories, rather than being dead typos? Deleting the reference is correct either way for the *data*, but it does drop the only remaining record of those intended slugs. If they were planned content, note it before this gets forgotten — Batch 9 story-writing work should account for it if so.
+
+This checkpoint was committed as `ca4e8b9`.
+
+### 11.2 Checkpoint 2 (commit `d6ca5fc`) — Batches 0–5
+
+**Verdict: PASS WITH NOTES. No blocking issues.**
+
+QA independently proved the headline fix (§3.0) with a controlled counterfactual: built with the fix, tested 5 fake + 2 real URLs, restored `app/loading.tsx`, rebuilt, re-tested the same URLs — every fake URL flipped 404→200 and back, confirming causation rather than correlation. Also verified: build/typecheck clean, all 24 chapter titles across every `trackType` (no doubled brand/`"Trek"`/`"Himachal Pradesh"`), the Sacred Lakes cluster and all 3 orphan-story links render on live HTML, canonicals correct, sitemap complete, no secrets, no banned brand language, no redesign, clean rollback.
+
+Seven notes, none blocking, all addressed in a follow-up commit (`a9a75ce`):
+
+- **N1**: `rupin-pass-trek`'s title labeled its Uttarakhand start point as Himachal Pradesh (the guard only checked for "himachal" in the location string, and this is the one cross-state chapter). Fixed via a `seoTitle` override.
+- **N2**: meta-description truncation could cut mid-sentence, landing a couple of chapters' SERP snippets on an unhedged devta/temple claim right before the source's own hedge ("local belief holds..."). Fixed to prefer a sentence-boundary cut.
+- **N3**: the "Guides"/"Places"/"Stories" breadcrumb crumb links to `/{region}/{type}`, which isn't a real route — this was already true before Batch 0, but invisible (soft-200); now that 404s are honest, it's a visible dead link on 21 live pages until Batch 7 lands. Mitigated by rendering that one crumb as plain text instead of a link.
+- **N4**: two more fabricated-claim blocks in the same file Batch 1 touched, missed the first pass — a "Verified Region Hub / By Pahari Yatri Collective" badge with no verification process behind it (the exact pattern `CLAUDE.md` calls out by name), an "As a team deeply rooted in {region}..." claim, and generic "Locals Know signal" filler on story pages. Removed, same treatment as Batch 1.
+- **N5**: destination and story pages each render their own real `<h1>` from the entry title, and the rendered MDX/markdown body can also open with its own `# Title` — Batch 2's rendering fix (correctly) turned that into a second, duplicate `<h1>`. Fixed with a shared `lib/markdown.ts` (also resolves the prior duplication between the destination and story renderers) plus a `demoteHeadings()` step, applied to both pages — not just the one this session's diff touched.
+- **N6 (partial)**: `app/sitemap.ts` listed `himachal` once as a static route and again via the dynamic region loop — deduped. The other half of N6, 13 destination + 8 place hero images missing from disk (`public/static/images/destinations/` doesn't exist), is a pre-existing asset gap, not a code bug — flagged in §14, not fixed here.
+- **N7**: aligned a minor string-coercion divergence between the two content readers, moot now that both share `lib/markdown.ts`.
+
+All seven verified fixed with fresh curl checks against a rebuilt production server (see commit `a9a75ce`).
+
+### 11.3 Checkpoint 3 (commit `16a99fd`) — Batches 6–7
+
+**Verdict: PASS WITH NOTES.** QA independently crawled every internal href on all 13 district hubs, both new index pages, and the 2 place pages against a running production build — confirmed every content link resolves 200, the empty-district guard (Bilaspur/Solan/Hamirpur) renders no section rather than an empty one, real static generation (not just intent) for the two new index pages, correct canonicals/`index,follow`, no prose changes snuck into any destination/place file (mechanically verified via diff), and no 404 regression across 8 different fake-URL shapes. Also validated all 32 `district` assignments resolve to a real destination slug — zero silent-zero-match typos, including the `sirmour`-vs-`Sirmaur` spelling trap.
+
+One item QA called "blocking" was the untracked Batch 8 draft chapter appearing mid-review — correctly caught (an accidental `git add -A` would have shipped unverified cultural claims), but expected: that file was mid-flight to `local-verification-editor`, exactly as it should be, and was never staged. Six non-blocking notes, five addressed in commit `8b9acbb`:
+
+- **N1**: `getDestinationSchema`/`getPlaceSchema`/`getBlogPostingSchema` were called with the raw region entry (no `.slug` — Keystatic's reader doesn't return one), producing a literal `"undefined"` in every destination and place page's JSON-LD `@id`/`url`. Pre-existing, not introduced by this batch, but sitting on the exact pages it touches. Fixed.
+- **N2**: dead `Sparkles` import left over from the "Official Guide Hub" badge removal. Fixed.
+- **N3**: this report hadn't been updated with the district-mapping rationale the commit message referenced — see §3.2 above, now current.
+- **N4**: `getDistrictLinks()` filtered places by district only, then built a region-prefixed link using the destination's region — harmless with one region, latent 404 risk with two. Fixed with a `parentRegion` guard.
+- **N5**: Bilaspur/Solan/Hamirpur are still genuine dead ends (no chapter/place assigned) — not a regression, the deferred prose/content pass is what would address it, noted in §3.2.
+- **N6**: the two new index pages had no explicit OpenGraph tags, so shares fell back to the homepage's `og:title`/`og:url`. Fixed.
+- **N7/N8** (pre-existing, not from this batch, not fixed here): missing destination/place hero images (already tracked in §14), and `npm run lint` doesn't work at all on Next 16 (`next lint` was removed) — added to §14.
+
+All five code fixes verified with curl against a rebuilt production server (commit `8b9acbb`).
+
+### 11.4 Batch 8 verification — complete
+
+**Verdict: NOT PUBLISHABLE AS DRAFTED → edited to PUBLISHABLE AT `needs-local-source`.** Full detail in §3.3. Two blocks removed (one flagged `unsafe`, not just unsourced), ~12 claims rewritten for honest attribution, office-holder terminology confirmed against an official HP government source, banned-language sweep independently re-confirmed clean. The verification pass also surfaced the sitewide `verificationStatus`-isn't-enforced finding in §3.3/§14 — bigger than this one chapter.
+
+Edits applied directly to the file per the verification agent's line-by-line instructions (not re-authored — this was mechanical execution of specific, sourced editorial decisions, not new judgment calls). File remains uncommitted.
+
+## 12. Rollback
+
+- Checkpoint 1 (7-file dead-reference cleanup): `git revert ca4e8b9`
+- Checkpoint 2 (Batches 0–5, including the critical loading.tsx / 404-status fix): `git revert d6ca5fc` — **note this restores `app/loading.tsx` and re-breaks the sitewide 404 status back to 200.** If you only want to undo Batches 1–5 and keep the 404 fix, revert the commit and then re-delete/re-move that one file rather than reverting wholesale.
+- Checkpoint 2 fix-up (QA notes N1–N7): `git revert a9a75ce`
+- Checkpoint 3 (Batches 6–7, district hubs + real index pages): `git revert 16a99fd`
+- Checkpoint 3 fix-up (QA notes N1/N2/N4/N6): `git revert 8b9acbb`
+- All are ordinary commits on `main`; nothing has been pushed to any remote, nothing deployed. `data/chapters/himachal-temple-etiquette.yaml` (Batch 8) is untracked/uncommitted — `rm` it to discard, no git command needed.
+
+## 13. Known pre-existing issues found but not fixed in this pass
+
+Surfaced during QA on checkpoint 2, not caused by any change in this report, not fixed here — flagged for a separate pass:
+
+- **13 destination + 8 place hero images are missing from disk.** `public/static/images/destinations/` doesn't exist at all; every destination and place page's hero image 400s from `/_next/image` locally. All 24 chapter images are present and correct — this is isolated to destinations/places. Needs real photo assets, not a code fix; out of scope for this report to fabricate placeholders.
+- **`lib/schema.ts:85-86` (`getTouristTripSchema`)** reads `relatedStories` raw and unfiltered — if ever wired up (it has zero callers today), it would emit broken JSON-LD `TouristTrip` URLs for any dangling slug, the same bug class Batch 3 fixed in the view layer. One-line fix if that function is ever activated.
+- **`lib/keystatic/chapters.ts`** is an entirely unimported module duplicating logic that lives for real in `chapterView.ts`. Candidate for deletion — flagged, not acted on (founder call, not blocking any SEO work).
+- **`app/layout.tsx:161-162`** sets JSON-LD `datePublished`/`dateModified` to build time, so every page reports as "modified" on every deploy regardless of whether content actually changed.
+- **`npm run lint` doesn't work on Next 16.** It shells out to `next lint`, which Next.js 16 removed; running it errors with "Invalid project directory provided" rather than linting anything. Surfaced during checkpoint 3 QA — a working lint config would have caught the dead `Sparkles` import (N2) automatically. Needs a real ESLint flat-config setup, which is its own small project, not something to improvise inside this report.
+- **`chapterView.ts`'s chapter detail page never renders the `overview` field** — it only feeds JSON-LD description. A chapter's entire visible body has to live in `narrative`, which renders as unstructured plain paragraphs with no heading support at all. Found while drafting Batch 8 (§3.3); will affect every chapter Batch 9 touches, not just the new one.
+- **`verificationStatus` is a documentation field only — nothing enforces it.** Neither `lib/keystatic/chapters.ts` nor `app/sitemap.ts` filter on it; any chapter publishes and gets indexed on commit regardless of its value. Found while verifying Batch 8 (§3.3). **Not a simple fix**: all 24 existing chapters have no `verificationStatus` set (default `unverified`), so a hard filter would deindex the entire current library. Needs a founder decision — likely either (a) a retroactive audit that sets a real status on all 24 existing chapters before any enforcement is added, or (b) a narrower gate that only applies to chapters created after a cutoff date. Flagged, not solved here.
+
+## 14. What to do next
+
+1. Founder approved all 9 batches. Batches 0–7 are implemented, committed, and QA-gated (three rounds, all PASS WITH NOTES, all notes addressed).
+2. Batch 8 (temple etiquette chapter) is drafted, verified, and edited (§3.3, §11.4) — publishable at `needs-local-source` if the founder wants it live now, or held for the sourcing conversations in its `sourcesToVerify` field first. Either way it needs an explicit founder decision to commit and wire it into the sacred chapters' `relatedChapters`; that hasn't happened.
+3. The `verificationStatus`-isn't-enforced finding (§13) is worth resolving before any more chapters accumulate an unaudited status — a founder call on retroactive-audit vs. cutoff-date gating, not something to decide unilaterally here.
+4. Batch 9 (the larger 8-chapter/3-story content expansion) has not started — by design, it's meant to run as its own loop through `chapter-editor`/`local-verification-editor`, not be bundled into this session. Before it starts, fix the `overview`-doesn't-render issue above so expanded chapters have somewhere to put real heading structure.
+5. Analytics (§8) and Local Connect boundary (§7) audits are still open — worth a follow-up loop, since they don't depend on the code changes above.
+4. §14's pre-existing issues are worth a founder decision on priority, especially the missing destination/place images — those pages will look broken to any visitor until real photos are sourced, independent of anything in this report.
+5. Nothing in this report has been pushed to a remote or deployed. All work so far is local commits on `main`.

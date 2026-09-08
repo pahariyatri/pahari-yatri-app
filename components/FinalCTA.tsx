@@ -1,23 +1,18 @@
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
-import Image from "next/image";
+import YatriCircleLink from "@/components/common/YatriCircleLink";
 import { ArrowRight, BookOpen } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section className="w-full py-20 sm:py-28 md:py-36 relative overflow-hidden">
-      {/* Layered backdrop: photo softened + heavy scrim + vignette so the
-          text stays fully readable on any screen and any image crop */}
+    <section className="w-full py-20 sm:py-28 md:py-36 relative overflow-hidden bg-zinc-950">
+      {/* CSS-only backdrop — no image request, nothing to decode or shift
+          layout while it loads. Removed the stock mountains-bg.jpg photo
+          previously used here: it wasn't real Pahari Yatri photography, it
+          added an LCP-weight image load to the page's final section, and it
+          was fully hidden behind an 85% scrim anyway. */}
       <div className="absolute inset-0">
-        <Image
-          src="/static/images/mountains-bg.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center scale-105 blur-[2px]"
-        />
-        <div className="absolute inset-0 bg-zinc-950/85" />
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-transparent to-zinc-950/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
       </div>
 
@@ -38,7 +33,7 @@ export default function FinalCTA() {
 
         {/* Primary + secondary actions — full-width at thumb reach on mobile */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
-          <Link href="/apply" className="w-full sm:w-auto">
+          <YatriCircleLink location="final_cta" label="Begin as a Yatri" className="w-full sm:w-auto">
             <Button
               size="lg"
               className="w-full sm:w-auto rounded-full px-10 py-7 text-base sm:text-lg font-medium bg-white text-zinc-900 hover:bg-white/90 shadow-[0_8px_30px_rgba(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgba(255,255,255,0.25)] hover:scale-[1.02] transition-all duration-300"
@@ -46,7 +41,7 @@ export default function FinalCTA() {
               Begin as a Yatri
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-          </Link>
+          </YatriCircleLink>
           <Link href="/library" className="w-full sm:w-auto">
             <Button
               size="lg"

@@ -1,0 +1,14 @@
+title: Pahari Yatri — Learn the Himalayas Before You Walk Them
+author: Pahari Yatri
+description: >-
+  Pahari Yatri is a digital Himalayan library and community for people who want
+  to understand the mountains before they travel. Read trail journals, temple
+  stories, folklore, and responsible travel guides from Himachal and the wider
+  Himalayas.
+# Identical to the previous hardcoded fallback in app/layout.tsx, with one
+# removal: "hidden places in Himachal" is banned brand language.
+keywords: >-
+  Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal
+  travel stories, Himalayan culture, Himalayan temples, Himalayan folklore,
+  spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas,
+  Himalayan village stories, travel like a local Himalayas, Pahari culture

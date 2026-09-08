@@ -2,8 +2,8 @@ import AboutClient from "./client-page";
 
 // SEO Metadata Generation
 export async function generateMetadata() {
-  const title = 'About Us — Trekking & Spiritual Yatras in the Himalayas';
-  const description = 'Discover authentic, sustainable, and personalized trekking experiences across the Indian Himalayas with Pahari Yatri. Specializing in spiritual yatras to sacred peaks and destinations throughout the Himalayan belt.';
+  const title = 'About Pahari Yatri — Yatri, Not Tourist';
+  const description = 'Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel — not a trekking company. Read our story and the Yatri Code for responsible travel across Himachal and the Indian Himalayas.';
   const url = `https://pahariyatri.com/about`;
   const image = `https://pahariyatri.com/api/og?title=About+Pahari+Yatri&sub=Not+Tourism.+A+Movement.`;
 
@@ -18,7 +18,7 @@ export async function generateMetadata() {
       images: [
         {
           url: image,
-          alt: 'Pahari Yatri - Trekking and Spiritual Yatras in the Indian Himalayas',
+          alt: 'Pahari Yatri — Himalayan stories and responsible travel',
           width: 1200,
           height: 630,
         },

@@ -1,0 +1,200 @@
+{
+  "sitemap_checked": 89,
+  "sitemap_status_counts": {
+    "200": 89
+  }
+}
+[
+  {
+    "route": "/scan-me",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46329
+  },
+  {
+    "route": "/admin",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19043
+  },
+  {
+    "route": "/keystatic",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19055
+  },
+  {
+    "route": "/api/keystatic/config",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": null,
+    "bytes": 0
+  },
+  {
+    "route": "/api/discord",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 405,
+    "location": null,
+    "content_type": null,
+    "bytes": 0
+  },
+  {
+    "route": "/api/og",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "image/png",
+    "bytes": 72401,
+    "dimensions": [
+      1200,
+      630
+    ]
+  },
+  {
+    "route": "/api/og?type=book&title=Sacred%20Mandi",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "image/png",
+    "bytes": 76307,
+    "dimensions": [
+      1200,
+      630
+    ]
+  },
+  {
+    "route": "/llms.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain; charset=UTF-8",
+    "bytes": 3769
+  },
+  {
+    "route": "/llms-full.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain; charset=UTF-8",
+    "bytes": 2667
+  },
+  {
+    "route": "/robots.txt",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "text/plain",
+    "bytes": 439
+  },
+  {
+    "route": "/sitemap.xml",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 200,
+    "location": null,
+    "content_type": "application/xml",
+    "bytes": 14225
+  },
+  {
+    "route": "/audit-nonexistent-path",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17776
+  },
+  {
+    "route": "/himachal/places/audit-nonexistent",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17828
+  },
+  {
+    "route": "/books/winter/not-a-chapter",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19076
+  },
+  {
+    "route": "/books/temples-traditions/kamrunag-the-lake-of-oaths",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19176
+  },
+  {
+    "route": "/himachal/stories/bell-and-thunder?utm_source=qa",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 301,
+    "location": "/stories/bell-and-thunder?utm_source=qa",
+    "content_type": null,
+    "bytes": 39
+  },
+  {
+    "route": "/static/images/pahari-yatri-banner.png",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17844
+  },
+  {
+    "route": "/social-share",
+    "ua": "Mozilla/5.0 technical-local-audit",
+    "status": 404,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17736
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "Googlebot",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "OAI-SearchBot",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "ChatGPT-User",
+    "status": 403,
+    "location": null,
+    "content_type": "application/json",
+    "bytes": 57
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "HeadlessChrome",
+    "status": 403,
+    "location": null,
+    "content_type": "application/json",
+    "bytes": 57
+  },
+  {
+    "route": "/chapters/kamrunag-the-lake-of-oaths",
+    "ua": "facebookexternalhit/1.1",
+    "status": 200,
+    "location": null,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 78469
+  }
+]

@@ -1,0 +1,32 @@
+User-Agent: *
+Allow: /
+Allow: /api/og/*
+Disallow: /keystatic/
+Disallow: /api/keystatic/
+
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: Googlebot-Extended
+Allow: /
+
+User-Agent: DuckAssistant
+Allow: /
+
+User-Agent: Diffbot
+Allow: /
+
+User-Agent: YouBot
+Allow: /
+
+Host: https://pahariyatri.com
+Sitemap: https://pahariyatri.com/sitemap.xml

@@ -1,0 +1,81 @@
+{
+  "sitemap_count": 89,
+  "sitemap_unique": 89,
+  "first_path_segment_counts": {
+    "": 1,
+    "library": 1,
+    "books": 6,
+    "chapters": 26,
+    "stories": 21,
+    "responsible-travel": 1,
+    "temples": 1,
+    "folklore": 1,
+    "community": 1,
+    "contribute": 1,
+    "journal": 1,
+    "films": 1,
+    "about": 1,
+    "apply": 1,
+    "why-pahari-yatri": 1,
+    "himachal": 24
+  },
+  "missing_artifacts": [],
+  "canonical_mismatches": [],
+  "duplicate_titles": {
+    "Pahari Yatri — Learn the Himalayas Before You Walk Them": 2
+  },
+  "non_single_h1": [
+    {
+      "url": "https://pahariyatri.com/stories",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/apply",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/why-pahari-yatri",
+      "h1": []
+    },
+    {
+      "url": "https://pahariyatri.com/books/lost-trails",
+      "h1": [
+        "Lost Trails",
+        "Lost Trails"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/monsoon",
+      "h1": [
+        "Monsoon",
+        "Monsoon"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/summer",
+      "h1": [
+        "Summer",
+        "Summer"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/temples-traditions",
+      "h1": [
+        "Temples & Traditions",
+        "Temples & Traditions"
+      ]
+    },
+    {
+      "url": "https://pahariyatri.com/books/winter",
+      "h1": [
+        "Winter",
+        "Winter"
+      ]
+    }
+  ]
+}
+/stories {"title": "Stories from the Himalayas | Real Yatri Journals | Pahari Yatri", "h1": [], "canonical": ["https://pahariyatri.com/stories"], "visible_word_count": 83, "meta": {"": [""], "viewport": ["width=device-width, initial-scale=1"], "next-size-adjust": [""], "msapplication-TileColor": ["#000000"], "theme-color": ["#ffffff", "#000000"], "description": ["First-person Himalayan stories from Yatris who walked the trails of Himachal Pradesh. Village memories, temple bells, and quiet moments from Parashar, Kheerganga, Churdhar, Buran Ghati, and more."], "keywords": ["Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture"], "robots": ["index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"], "author": ["Pahari Yatri"], "publisher": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "copyright": ["© 2026 Pahari Yatri"], "facebook-domain-verification": ["gh95ztf6xe7jx5k1mrb19aepkk8zfy"], "og:title": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "og:description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "og:url": ["https://pahariyatri.com"], "og:site_name": ["Pahari Yatri"], "og:locale": ["en-US"], "og:image": ["https://pahariyatri.com/api/og"], "og:image:width": ["1200"], "og:image:height": ["630"], "og:image:alt": ["Pahari Yatri — a digital Himalayan library and responsible travel community"], "og:type": ["website"], "twitter:card": ["summary_large_image"], "twitter:site": ["@pahariyatri"], "twitter:creator": ["@pahariyatri"], "twitter:title": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "twitter:description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "twitter:image": ["https://pahariyatri.com/api/og"]}}
+/chapters {"title": "Pahari Yatri — Learn the Himalayas Before You Walk Them", "h1": ["Each trail is a story.Choose the one that calls you."], "canonical": ["https://pahariyatri.com/chapters"], "visible_word_count": 711, "meta": {"": [""], "viewport": ["width=device-width, initial-scale=1"], "next-size-adjust": [""], "msapplication-TileColor": ["#000000"], "theme-color": ["#ffffff", "#000000"], "description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "keywords": ["Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture"], "robots": ["index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"], "author": ["Pahari Yatri"], "publisher": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "copyright": ["© 2026 Pahari Yatri"], "facebook-domain-verification": ["gh95ztf6xe7jx5k1mrb19aepkk8zfy"], "og:title": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "og:description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "og:url": ["https://pahariyatri.com"], "og:site_name": ["Pahari Yatri"], "og:locale": ["en-US"], "og:image": ["https://pahariyatri.com/api/og"], "og:image:width": ["1200"], "og:image:height": ["630"], "og:image:alt": ["Pahari Yatri — a digital Himalayan library and responsible travel community"], "og:type": ["website"], "twitter:card": ["summary_large_image"], "twitter:site": ["@pahariyatri"], "twitter:creator": ["@pahariyatri"], "twitter:title": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "twitter:description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "twitter:image": ["https://pahariyatri.com/api/og"]}}
+/chapters/kamrunag-the-lake-of-oaths {"title": "Kamrunag – The Lake of Oaths — Kamrunag, Mandi, Himachal Pradesh | Pahari Yatri", "h1": ["Kamrunag – The Lake of Oaths"], "canonical": ["https://pahariyatri.com/chapters/kamrunag-the-lake-of-oaths"], "visible_word_count": 657, "meta": {"": [""], "viewport": ["width=device-width, initial-scale=1"], "next-size-adjust": [""], "msapplication-TileColor": ["#000000"], "theme-color": ["#ffffff", "#000000"], "description": ["Kamrunag Lake rests at about 3,334 m (10,938 ft) in the Mandi district of Himachal Pradesh, hidden in dense deodar forest below the Kamrunag ridge."], "keywords": ["Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture"], "robots": ["index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"], "author": ["Pahari Yatri"], "publisher": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "copyright": ["© 2026 Pahari Yatri"], "facebook-domain-verification": ["gh95ztf6xe7jx5k1mrb19aepkk8zfy"], "og:title": ["Kamrunag – The Lake of Oaths — Kamrunag, Mandi, Himachal Pradesh"], "og:description": ["Kamrunag Lake rests at about 3,334 m (10,938 ft) in the Mandi district of Himachal Pradesh, hidden in dense deodar forest below the Kamrunag ridge."], "og:image": ["https://pahariyatri.com/static/images/chapters/kamrunag-the-lake-of-oaths/image.jpg"], "og:image:width": ["1200"], "og:image:height": ["630"], "og:image:alt": ["Kamrunag – The Lake of Oaths — Kamrunag, Mandi, Himachal Pradesh"], "og:type": ["website"], "twitter:card": ["summary_large_image"], "twitter:title": ["Kamrunag – The Lake of Oaths — Kamrunag, Mandi, Himachal Pradesh"], "twitter:description": ["Kamrunag Lake rests at about 3,334 m (10,938 ft) in the Mandi district of Himachal Pradesh, hidden in dense deodar forest below the Kamrunag ridge."], "twitter:image": ["https://pahariyatri.com/static/images/chapters/kamrunag-the-lake-of-oaths/image.jpg"]}}
+/chapters/parashar-lake-trek {"title": "Parashar Lake Trek — Mandi, Himachal Pradesh | Pahari Yatri", "h1": ["Parashar Lake Trek"], "canonical": ["https://pahariyatri.com/chapters/parashar-lake-trek"], "visible_word_count": 641, "meta": {"": [""], "viewport": ["width=device-width, initial-scale=1"], "next-size-adjust": [""], "msapplication-TileColor": ["#000000"], "theme-color": ["#ffffff", "#000000"], "description": ["Parashar Lake sits at roughly 2,730 m (8,960 ft) in the Mandi district of Himachal Pradesh, cradled by alpine meadows and ringed by snow peaks."], "keywords": ["Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture"], "robots": ["index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"], "author": ["Pahari Yatri"], "publisher": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "copyright": ["© 2026 Pahari Yatri"], "facebook-domain-verification": ["gh95ztf6xe7jx5k1mrb19aepkk8zfy"], "og:title": ["Parashar Lake Trek — Mandi, Himachal Pradesh"], "og:description": ["Parashar Lake sits at roughly 2,730 m (8,960 ft) in the Mandi district of Himachal Pradesh, cradled by alpine meadows and ringed by snow peaks."], "og:image": ["https://pahariyatri.com/static/images/chapters/parashar-lake-trek/image.jpg"], "og:image:width": ["1200"], "og:image:height": ["630"], "og:image:alt": ["Parashar Lake Trek — Mandi, Himachal Pradesh"], "og:type": ["website"], "twitter:card": ["summary_large_image"], "twitter:title": ["Parashar Lake Trek — Mandi, Himachal Pradesh"], "twitter:description": ["Parashar Lake sits at roughly 2,730 m (8,960 ft) in the Mandi district of Himachal Pradesh, cradled by alpine meadows and ringed by snow peaks."], "twitter:image": ["https://pahariyatri.com/static/images/chapters/parashar-lake-trek/image.jpg"]}}
+/stories/bell-and-thunder {"title": "Bell and Thunder | Pahari Yatri", "h1": ["Bell and Thunder"], "canonical": ["https://pahariyatri.com/stories/bell-and-thunder"], "visible_word_count": 572, "meta": {"": [""], "viewport": ["width=device-width, initial-scale=1"], "next-size-adjust": [""], "msapplication-TileColor": ["#000000"], "theme-color": ["#ffffff", "#000000"], "description": ["I record sound for films. One monsoon in Seraj, a temple drum answered the thunder, and my equipment could not hold what my chest could."], "keywords": ["Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture"], "robots": ["index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"], "author": ["Pahari Yatri"], "publisher": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "copyright": ["© 2026 Pahari Yatri"], "facebook-domain-verification": ["gh95ztf6xe7jx5k1mrb19aepkk8zfy"], "og:title": ["Bell and Thunder"], "og:description": ["I record sound for films. One monsoon in Seraj, a temple drum answered the thunder, and my equipment could not hold what my chest could."], "og:image": ["https://pahariyatri.com/static/images/stories/bell-and-thunder/image.avif"], "og:image:width": ["1200"], "og:image:height": ["630"], "og:type": ["article"], "twitter:card": ["summary_large_image"], "twitter:site": ["@pahariyatri"], "twitter:creator": ["@pahariyatri"], "twitter:title": ["Pahari Yatri — Learn the Himalayas Before You Walk Them"], "twitter:description": ["Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas."], "twitter:image": ["https://pahariyatri.com/api/og"]}}

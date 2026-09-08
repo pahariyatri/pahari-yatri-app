@@ -1,4 +1,6 @@
 title: Kasol Weekend Trail
+district: kullu
+parentBook: parvati-valley-beyond-kasol
 targetKeyword: kasol travel guide
 secondaryKeywords:
   - kasol to kheerganga
@@ -18,11 +20,6 @@ sources:
     url: https://theprint.in/ground-reports/kasol-mini-israel-parvati-valley-israeli-backpackers-drugs-tourism/2972285/
   - label: The Tribune — High in Kasol
     url: https://www.tribuneindia.com/news/spectrum/high-in-kasol/
-relatedChapters:
-  - understanding-parvati-valley
-  - grahan-protects-its-traditions
-  - chalal-first-step-away
-  - manikaran-sahib-and-its-culture
 invitation: A soft walk through cafes and cedars—gentle and bright.
 excerpt: >-
   Short days by the river, small bridges of conversation, and a trail that asks
@@ -31,6 +28,12 @@ location: Kasol
 image: /static/images/chapters/kasol-weekend/image.jpg
 relatedStories:
   - kasol-slow-saturday
+relatedChapters:
+  - understanding-parvati-valley
+  - grahan-protects-its-traditions
+  - chalal-first-step-away
+  - manikaran-sahib-and-its-culture
+  - kheerganga-buni-buni-pass
 giftsFromMountains:
   - Ease
   - Community

@@ -1,4 +1,7 @@
 title: River Sutra
+district: kullu
+trackType: cultural
+parentBook: summer
 invitation: Let the river speak. Walk beside its sentence until it ends.
 excerpt: >-
   A bendwise chapter along sunlit water. Stones as commas, dragonflies as
@@ -7,6 +10,9 @@ location: Tirthan valley
 image: /static/images/chapters/river-sutra/image.jpg
 relatedStories:
   - river-hymn
+  - tirthan-the-slow-valley-reflections
+relatedChapters:
+  - meadow-walks
 giftsFromMountains:
   - Flow
   - Clarity

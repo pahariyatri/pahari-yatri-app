@@ -1,4 +1,7 @@
 title: Meadow Walks
+district: kullu
+trackType: cultural
+parentBook: summer
 invitation: Sit with the small grasses; they know what we forget.
 excerpt: >-
   Low, green country where the day lingers and the mind loosens. The chapter
@@ -7,6 +10,9 @@ location: Upper Beas meadows
 image: /static/images/chapters/meadow-walks/image.jpg
 relatedStories:
   - meadow-reverie
+relatedChapters:
+  - river-sutra
+  - sunlit-passes
 giftsFromMountains:
   - Patience
   - A slower breath

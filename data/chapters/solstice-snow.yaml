@@ -1,4 +1,7 @@
 title: Solstice Snow
+district: manali
+trackType: cultural
+parentBook: winter
 invitation: Fire speaks softly in long nights. Walk by its answer.
 excerpt: >-
   A ridge-side winter wander with lanterns and breath-clouds. The mountain
@@ -7,6 +10,10 @@ location: Above Manali
 image: /static/images/chapters/solstice-snow/image.jpg
 relatedStories:
   - solstice-fire
+  - why-locals-avoid-manali-in-peak-season
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - chandernahan-lake-trek
 giftsFromMountains:
   - Clarity
   - Courage

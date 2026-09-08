@@ -1,4 +1,5 @@
 import SectionContainer from "@/components/common/SectionContainer";
+import ChannelLink from "@/components/common/ChannelLink";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 import Image from "@/components/common/Image";
 
@@ -34,10 +35,10 @@ export default function About() {
           {/* Quick Contact Options */}
           <div className="w-full md:w-1/2 flex flex-col gap-6">
             {/* WhatsApp Contact */}
-            <a
+            <ChannelLink
+              channel="whatsapp"
               href="https://wa.me/6280888188"
-              target="_blank"
-              rel="noopener noreferrer"
+              location="scan_me"
               className="flex items-center bg-green-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-green-600"
             >
               <ResponsiveImage
@@ -47,7 +48,7 @@ export default function About() {
                 aspectRatio="1:1"
               />
               Contact Us on WhatsApp
-            </a>
+            </ChannelLink>
 
             {/* Email Contact */}
             <a

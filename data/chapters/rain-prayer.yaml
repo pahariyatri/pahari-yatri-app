@@ -1,4 +1,7 @@
 title: Rain Prayer
+district: kullu
+trackType: cultural
+parentBook: monsoon
 invitation: Offer your breath; the sky returns it as mist.
 excerpt: >-
   A temple-side walk through ringing drops. Incense and thunder discuss the
@@ -7,6 +10,9 @@ location: Seraj shrines
 image: /static/images/chapters/rain-prayer/image.jpg
 relatedStories:
   - bell-and-thunder
+relatedChapters:
+  - baga-sarahan-bashleo-pass
+  - jalori-lake-trek
 giftsFromMountains:
   - Devotion
   - Cleansing

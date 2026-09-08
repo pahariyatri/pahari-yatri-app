@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
 import siteMetadata from "@/data/siteMetadata";
+import { markdownToHtml, demoteHeadings } from "@/lib/markdown";
+import { resolveImage } from "@/lib/images";
 import {
     getRegionSchema,
     getDestinationSchema,
@@ -9,7 +11,75 @@ import {
     getBlogPostingSchema
 } from "@/lib/schema";
 
+/** Real per-page OG image + canonical, instead of silently falling through to
+ *  the root layout's homepage card (wrong URL, wrong image) — the bug that
+ *  hit every destination and place page before this. */
+function ogFor(pathname: string, title: string, description: string, image?: string | null) {
+    const resolved = resolveImage(image);
+    const absoluteImage = resolved.startsWith("http") ? resolved : `${siteMetadata.siteUrl}${resolved}`;
+    return {
+        alternates: { canonical: pathname },
+        openGraph: {
+            title,
+            description,
+            url: pathname,
+            images: [{ url: absoluteImage, width: 1200, height: 630, alt: title }],
+            type: "website" as const,
+        },
+        twitter: {
+            card: "summary_large_image" as const,
+            title,
+            description,
+            images: [absoluteImage],
+        },
+    };
+}
+
 const reader = createReader(process.cwd(), keystaticConfig);
+
+/** Everything real that lives in one district — the "real link block" a
+ *  district hub is actually for, instead of the fabricated boilerplate it
+ *  carried before. Chapters and places declare their district explicitly
+ *  (see keystatic.config.ts); stories are pulled in transitively through
+ *  whichever chapter they belong to, since a story has no district of its
+ *  own. */
+async function getDistrictLinks(districtSlug: string, regionSlug: string) {
+    const [allChapters, allPlaces, allStories] = await Promise.all([
+        reader.collections.chapters.all(),
+        reader.collections.places.all(),
+        reader.collections.stories.all(),
+    ]);
+
+    const chapters = allChapters
+        .filter((c) => c.entry.district === districtSlug)
+        .map((c) => ({
+            slug: c.slug,
+            title: c.entry.title as string,
+            excerpt: (c.entry.excerpt as string) || (c.entry.invitation as string) || "",
+            location: (c.entry.location as string) || "",
+        }));
+
+    // Guard against a place whose district sits in a different region than
+    // its own parentRegion — today there's only one region so this can't
+    // actually happen, but the link below is built from regionSlug, and
+    // without this check a future second region could silently 404.
+    const places = allPlaces
+        .filter((p) => p.entry.district === districtSlug && p.entry.parentRegion === regionSlug)
+        .map((p) => ({
+            slug: p.slug,
+            title: p.entry.title as string,
+        }));
+
+    const chapterSlugs = new Set(chapters.map((c) => c.slug));
+    const stories = allStories
+        .filter((s) => s.entry.relatedChapter && chapterSlugs.has(s.entry.relatedChapter as string))
+        .map((s) => ({
+            slug: s.slug,
+            title: s.entry.title as string,
+        }));
+
+    return { chapters, places, stories };
+}
 
 export async function generateMetadata({ params }: any) {
     const { slug } = await params;
@@ -23,29 +93,47 @@ export async function generateMetadata({ params }: any) {
         return {
             title: region.title,
             description: region.description,
-            openGraph: {
-                title: region.title,
-                description: region.description,
-                images: [region.heroImage || ""],
-            }
+            ...ogFor(`/${regionSlug}`, region.title, region.description || "", region.heroImage),
         };
+    }
+
+    if (slug.length === 2) {
+        const type = slug[1];
+        if (type === "travel-guide" || type === "places") {
+            const title = type === "travel-guide" ? `Travel Guides | ${region.title}` : `Places | ${region.title}`;
+            const description = type === "travel-guide"
+                ? `Every district travel guide Pahari Yatri has published for ${region.title} — where to go and what it's actually like.`
+                : `Every place Pahari Yatri has published for ${region.title}.`;
+            return {
+                title,
+                description,
+                ...ogFor(`/${regionSlug}/${type}`, title, description, region.heroImage),
+            };
+        }
     }
 
     if (slug.length === 3) {
         const type = slug[1];
         const itemSlug = slug[2];
+        const pathname = `/${regionSlug}/${type}/${itemSlug}`;
 
         if (type === "travel-guide") {
             const dest = await reader.collections.destinations.read(itemSlug);
-            if (dest) return { title: `${dest.title} Travel Guide | ${region.title}`, description: dest.description };
+            if (dest) {
+                const title = `${dest.title} Travel Guide | ${region.title}`;
+                return { title, description: dest.description, ...ogFor(pathname, title, dest.description || "", dest.image) };
+            }
         }
         if (type === "places") {
             const place = await reader.collections.places.read(itemSlug);
-            if (place) return { title: `${place.title} | Places in ${region.title}`, description: place.description };
+            if (place) {
+                const title = `${place.title} | Places in ${region.title}`;
+                return { title, description: place.description, ...ogFor(pathname, title, place.description || "", place.image) };
+            }
         }
         if (type === "stories") {
             const story = await reader.collections.stories.read(itemSlug);
-            if (story) return { title: story.title, description: story.excerpt };
+            if (story) return { title: story.title, description: story.excerpt, ...ogFor(pathname, story.title, story.excerpt || "", (story as any).image) };
         }
     }
 
@@ -55,41 +143,27 @@ export async function generateMetadata({ params }: any) {
 import Image from "@/components/common/Image";
 import Link from "next/link";
 import SectionContainer from "@/components/common/SectionContainer";
-import { ArrowLeft, ChevronRight, Info, MapPin, Sparkles } from "lucide-react";
+import { ChevronRight, MapPin } from "lucide-react";
 
-// Helper for Breadcrumbs
-function Breadcrumbs({ items }: { items: { label: string, href: string }[] }) {
+// Helper for Breadcrumbs. `href: null` renders a plain, non-clickable crumb —
+// used for the "Guides"/"Places"/"Stories" middle crumb, which has no real
+// page behind it yet (see Batch 7 in docs/reports/archive/2026-09/PAHARI_YATRI_SEO_REFACTOR_REPORT.md).
+function Breadcrumbs({ items }: { items: { label: string, href: string | null }[] }) {
     return (
         <nav className="flex items-center space-x-2 text-sm text-muted-foreground/60 mb-8 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
             {items.map((item, i) => (
-                <div key={item.href} className="flex items-center">
+                <div key={item.label} className="flex items-center">
                     {i > 0 && <ChevronRight className="w-3 h-3 mx-2 opacity-30" />}
-                    <Link href={item.href} className="hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4">
-                        {item.label}
-                    </Link>
+                    {item.href ? (
+                        <Link href={item.href} className="hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4">
+                            {item.label}
+                        </Link>
+                    ) : (
+                        <span>{item.label}</span>
+                    )}
                 </div>
             ))}
         </nav>
-    );
-}
-
-// Helper for Local Knowledge Card
-function LocalKnowledgeCard({ title, children }: { title: string, children: React.ReactNode }) {
-    return (
-        <div className="relative group overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-transparent p-8 my-12 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Sparkles className="w-12 h-12 text-primary" />
-            </div>
-            <h3 className="text-2xl font-brandSerif mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Info className="w-4 h-4 text-primary" />
-                </span>
-                {title}
-            </h3>
-            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
-                {children}
-            </div>
-        </div>
     );
 }
 
@@ -119,7 +193,7 @@ export default async function Page({ params }: any) {
                 {/* Hero - Mobile First Optimized */}
                 <div className="relative h-[65vh] md:h-[85vh] flex items-end overflow-hidden pt-40 md:pt-32">
                     <Image
-                        src={region.heroImage || "/static/images/placeholder.jpg"}
+                        src={resolveImage(region.heroImage)}
                         alt={region.title}
                         fill
                         className="object-cover scale-105"
@@ -133,15 +207,10 @@ export default async function Page({ params }: any) {
                         <h1 className="text-[clamp(2.5rem,10vw,7rem)] font-brandSerif tracking-tighter leading-[0.9] mb-8 max-w-[90%]">
                             {region.title}
                         </h1>
-                        <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 border-l border-primary/30 pl-8 py-3">
+                        <div className="border-l border-primary/30 pl-8 py-3">
                             <p className="text-lg md:text-xl font-light text-muted-foreground/90 max-w-2xl leading-relaxed">
                                 {region.description}
                             </p>
-                            <div className="hidden xl:block w-px h-16 bg-border/50" />
-                            <div className="flex flex-col gap-1">
-                                <span className="text-[10px] uppercase tracking-[0.3em] font-black text-primary/40">Verified Region Hub</span>
-                                <span className="text-foreground text-sm font-brandSerif font-bold italic">By Pahari Yatri Collective</span>
-                            </div>
                         </div>
                     </SectionContainer>
                 </div>
@@ -154,13 +223,6 @@ export default async function Page({ params }: any) {
                                     <p>{region.description}</p>
                                 </div>
                             </div>
-
-                            <LocalKnowledgeCard title="The Local View">
-                                <div className="space-y-6">
-                                    <p>As a team deeply rooted in {region.title}, we see what standard guides miss. The essence of this region is found in its <strong>shoulder seasons</strong>—March to April and September to October—when the trails are quiet and the local culture is most transparent.</p>
-                                    <p>Pahari Yatri prioritizes slow, sustainable movement through these valleys, focusing on reciprocity with village hosts rather than just tourism transit.</p>
-                                </div>
-                            </LocalKnowledgeCard>
                         </div>
 
                         {/* Sidebar Bridge - Responsive Layout */}
@@ -206,34 +268,91 @@ export default async function Page({ params }: any) {
         );
     }
 
-    // 2. Hierarchical Pages (Travel Guide / Places / Stories)
+    // 2. District-index pages: /{region}/travel-guide and /{region}/places.
+    // These used to fall through to notFound() while still being linked
+    // from every destination/place page's breadcrumb — a real dead end.
+    // Building the actual index is cheaper than making the crumb text-only
+    // everywhere, and it's a genuinely useful page: an index of every
+    // published district guide / place in the region.
+    if (slug.length === 2) {
+        const type = slug[1];
+        if (type !== "travel-guide" && type !== "places") notFound();
+
+        const items = type === "travel-guide"
+            ? (await reader.collections.destinations.all()).filter((d) => d.entry.parentRegion === regionSlug)
+            : (await reader.collections.places.all()).filter((p) => p.entry.parentRegion === regionSlug);
+
+        const heading = type === "travel-guide" ? "Travel Guides" : "Places";
+        const indexBreadcrumbs = [
+            { label: "Home", href: "/" },
+            { label: region.title, href: `/${regionSlug}` },
+            { label: heading, href: null },
+        ];
+
+        return (
+            <main className="min-h-screen">
+                <SectionContainer className="py-20 md:py-32 max-w-4xl">
+                    <Breadcrumbs items={indexBreadcrumbs} />
+                    <h1 className="text-[clamp(2.5rem,7vw,5rem)] font-brandSerif mb-10 tracking-tighter leading-[0.9]">
+                        {heading} — {region.title}
+                    </h1>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        {items.map((item) => (
+                            <Link
+                                key={item.slug}
+                                href={type === "travel-guide" ? `/${regionSlug}/travel-guide/${item.slug}` : `/${regionSlug}/places/${item.slug}`}
+                                className="block rounded-2xl border border-border/40 p-5 hover:border-primary/40 transition-colors"
+                            >
+                                <span className="font-brandSerif text-xl">{(item.entry as any).title}</span>
+                                {(item.entry as any).description && (
+                                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{(item.entry as any).description}</p>
+                                )}
+                            </Link>
+                        ))}
+                    </div>
+                </SectionContainer>
+            </main>
+        );
+    }
+
+    // 3. Hierarchical Pages (Travel Guide / Places / Stories)
     if (slug.length === 3) {
         const type = slug[1];
         const itemSlug = slug[2];
         const breadcrumbItems = [
             { label: "Home", href: "/" },
             { label: region.title, href: `/${regionSlug}` },
-            { label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories", href: `/${regionSlug}/${type}` }
+            {
+                label: type === "travel-guide" ? "Guides" : type === "places" ? "Places" : "Stories",
+                // Stories has no /{region}/stories index page (canonical
+                // story URLs are /stories/{slug}; the region-prefixed form
+                // 301s away — see next.config.mjs), so that one crumb stays
+                // plain text. travel-guide/places now have real index pages.
+                href: type === "stories" ? null : `/${regionSlug}/${type}`,
+            }
         ];
 
         if (type === "travel-guide") {
             const dest = await reader.collections.destinations.read(itemSlug);
             if (!dest || dest.parentRegion !== regionSlug) notFound();
 
-            let contentStr = "";
+            let contentHtml = "";
             try {
                 if (typeof dest.content === "function") {
-                    const contentData = await dest.content();
-                    contentStr = typeof (contentData as any)?.toString === "function" ? (contentData as any).toString() : "";
+                    const raw = await dest.content();
+                    const rawStr = typeof raw === "string" ? raw : String(raw ?? "");
+                    contentHtml = rawStr ? demoteHeadings(markdownToHtml(rawStr)) : "";
                 }
             } catch (e) { }
 
-            const jsonLd = getDestinationSchema({ ...dest, slug: itemSlug }, region, siteUrl);
+            const { chapters: districtChapters, places: districtPlaces, stories: districtStories } = await getDistrictLinks(itemSlug, regionSlug);
+
+            const jsonLd = getDestinationSchema({ ...dest, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[55vh] md:h-[75vh] flex items-end overflow-hidden pt-40 md:pt-32">
-                        <Image src={dest.image || "/static/images/placeholder.jpg"} alt={dest.title} fill className="object-cover scale-105" />
+                        <Image src={resolveImage(dest.image)} alt={dest.title} fill className="object-cover scale-105" />
                         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/40 to-transparent" />
                         <SectionContainer className="relative pb-16">
                             <div className="mb-10">
@@ -242,10 +361,6 @@ export default async function Page({ params }: any) {
                             <h1 className="text-[clamp(3rem,9vw,6.5rem)] font-brandSerif mb-6 tracking-tighter leading-[0.9] max-w-4xl">
                                 {dest.title}
                             </h1>
-                            <div className="flex items-center gap-4 text-[10px] md:text-xs uppercase tracking-[0.3em] font-black text-primary bg-primary/5 w-fit px-4 py-2 rounded-full border border-primary/10">
-                                <Sparkles className="w-4 h-4 animate-pulse" />
-                                <span>Official Guide Hub</span>
-                            </div>
                         </SectionContainer>
                     </div>
 
@@ -254,21 +369,60 @@ export default async function Page({ params }: any) {
                             <p className="leading-relaxed text-muted-foreground">{dest.description}</p>
                         </div>
 
-                        <LocalKnowledgeCard title="Direct Reality Check">
-                            <div className="space-y-6 font-sans text-lg">
-                                <p>To reach {dest.title} without the tourist fatigue, take the early morning local HRTC bus or a shared taxi. Avoid the main square hubs and head to the outskirts where the traditional architecture still breathes.</p>
-                                <div className="p-6 bg-primary/5 rounded-3xl border border-primary/10 shadow-sm overflow-hidden relative">
-                                    <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 blur-2xl" />
-                                    <p className="relative z-10 italic text-muted-foreground font-brandSerif text-xl md:text-2xl">
-                                        &quot;Locals avoid the overpriced cafes in the town center and instead shop at the local mandis (markets) on Tuesdays for the freshest produce and authentic woolens.&quot;
-                                    </p>
-                                </div>
-                            </div>
-                        </LocalKnowledgeCard>
-
-                        <div className="prose prose-lg md:prose-xl dark:prose-invert font-sans mt-24">
-                            {contentStr && <div dangerouslySetInnerHTML={{ __html: contentStr }} />}
+                        <div className="prose prose-lg md:prose-xl dark:prose-invert font-sans mt-12">
+                            {contentHtml && <div dangerouslySetInnerHTML={{ __html: contentHtml }} />}
                         </div>
+
+                        {(districtChapters.length > 0 || districtPlaces.length > 0 || districtStories.length > 0) && (
+                            <div className="mt-20 pt-12 border-t border-border/50">
+                                <h2 className="text-2xl md:text-3xl font-brandSerif mb-8">
+                                    {dest.title} in the library
+                                </h2>
+                                {districtChapters.length > 0 && (
+                                    <div className="mb-10">
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Chapters</h3>
+                                        <ul className="grid sm:grid-cols-2 gap-3">
+                                            {districtChapters.map((c) => (
+                                                <li key={c.slug}>
+                                                    <Link href={`/chapters/${c.slug}`} className="block rounded-xl border border-border/40 p-4 hover:border-primary/40 transition-colors">
+                                                        <span className="font-brandSerif text-lg">{c.title}</span>
+                                                        {c.excerpt && <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{c.excerpt}</p>}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {districtPlaces.length > 0 && (
+                                    <div className="mb-10">
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Places</h3>
+                                        <ul className="flex flex-wrap gap-3">
+                                            {districtPlaces.map((p) => (
+                                                <li key={p.slug}>
+                                                    <Link href={`/${regionSlug}/places/${p.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                        {p.title}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {districtStories.length > 0 && (
+                                    <div>
+                                        <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Stories</h3>
+                                        <ul className="flex flex-wrap gap-3">
+                                            {districtStories.map((s) => (
+                                                <li key={s.slug}>
+                                                    <Link href={`/stories/${s.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                        {s.title}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </SectionContainer>
                 </main>
             );
@@ -278,12 +432,12 @@ export default async function Page({ params }: any) {
             const place = await reader.collections.places.read(itemSlug);
             if (!place || place.parentRegion !== regionSlug) notFound();
 
-            const jsonLd = getPlaceSchema({ ...place, slug: itemSlug }, region, siteUrl);
+            const jsonLd = getPlaceSchema({ ...place, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[50vh] md:h-[60vh] bg-muted/30 border-b border-border/50 overflow-hidden pt-40 md:pt-32">
-                        {place.image && <Image src={place.image} alt={place.title} fill className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />}
+                        <Image src={resolveImage(place.image)} alt={place.title} fill className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />
                         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/60 to-transparent" />
                         <SectionContainer className="relative h-full flex flex-col justify-end pb-16">
                             <div className="mb-10">
@@ -306,15 +460,6 @@ export default async function Page({ params }: any) {
                                     </div>
                                 )}
                             </div>
-
-                            <LocalKnowledgeCard title="Access & Atmosphere">
-                                <div className="space-y-6">
-                                    <p>Visit {place.title} at dawn when the light hits the peaks. This is the &quot;blue hour&quot; locals use for prayer and reflection. The best vantage point is not the ticketed viewpoint, but the ridge trail 200 meters behind the temple.</p>
-                                    <p className="font-brandSerif text-xl md:text-2xl text-primary/80 border-b border-primary/20 pb-4">
-                                        Silence is louder than any guide book description.
-                                    </p>
-                                </div>
-                            </LocalKnowledgeCard>
                         </div>
                     </SectionContainer>
                 </main>
@@ -325,7 +470,7 @@ export default async function Page({ params }: any) {
             const story = await reader.collections.stories.read(itemSlug);
             if (!story || (story as any).parentRegion !== regionSlug) notFound();
 
-            const jsonLd = getBlogPostingSchema({ ...story, slug: itemSlug }, region, siteUrl);
+            const jsonLd = getBlogPostingSchema({ ...story, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -340,10 +485,6 @@ export default async function Page({ params }: any) {
                         <div className="prose prose-xl md:prose-2xl dark:prose-invert font-brandSerif mb-16 opacity-80 border-l-2 border-primary/30 pl-8">
                             <p className="italic leading-relaxed">&quot;{story.excerpt}&quot;</p>
                         </div>
-
-                        <LocalKnowledgeCard title="The Connection">
-                            <p className="text-lg">This experience reflects the true <strong>Locals Know</strong> signal of {region.title}. By sharing these intimate moments, Pahari Yatri ensures the future of travel remains human-centered and honest.</p>
-                        </LocalKnowledgeCard>
                     </SectionContainer>
                 </main>
             );
@@ -357,12 +498,13 @@ export async function generateStaticParams() {
     const regions = await reader.collections.regions.list();
     const destinations = await reader.collections.destinations.all();
     const places = await reader.collections.places.all();
-    const stories = await reader.collections.stories.all();
 
     const paths: { slug: string[] }[] = [];
 
     regions.forEach(r => {
         paths.push({ slug: [r] });
+        paths.push({ slug: [r, "travel-guide"] });
+        paths.push({ slug: [r, "places"] });
     });
 
     destinations.forEach(d => {
@@ -373,11 +515,9 @@ export async function generateStaticParams() {
         paths.push({ slug: [p.entry.parentRegion, "places", p.slug] });
     });
 
-    stories.forEach(s => {
-        if ((s.entry as any).parentRegion) {
-            paths.push({ slug: [(s.entry as any).parentRegion, "stories", s.slug] });
-        }
-    });
+    // Stories are deliberately not prerendered here. /{region}/stories/{slug}
+    // now 301s to the canonical /stories/{slug} (see next.config.mjs), so
+    // building these would only produce pages nothing can reach.
 
     return paths;
 }

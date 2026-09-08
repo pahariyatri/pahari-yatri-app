@@ -1,0 +1,90 @@
+{
+  "robots.txt": {
+    "status": 200,
+    "final_url": "https://pahariyatri.com/robots.txt",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "194838",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline",
+      "Content-Length": "439",
+      "Content-Type": "text/plain",
+      "Date": "Mon, 07 Sep 2026 18:15:21 GMT",
+      "Etag": "\"5c896999d7521a394a8ae641b1e0241e\"",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "Vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "X-Matched-Path": "/robots.txt",
+      "X-Vercel-Cache": "HIT",
+      "X-Vercel-Id": "bom1::jmqhj-1788804920351-180c40728721",
+      "Connection": "close"
+    }
+  },
+  "sitemap.xml": {
+    "status": 200,
+    "final_url": "https://pahariyatri.com/sitemap.xml",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "196002",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline",
+      "Content-Length": "14225",
+      "Content-Type": "application/xml",
+      "Date": "Mon, 07 Sep 2026 18:15:22 GMT",
+      "Etag": "\"4340fc93c21aadbb450b447f5a2627ee\"",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "Vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "X-Matched-Path": "/sitemap.xml",
+      "X-Vercel-Cache": "HIT",
+      "X-Vercel-Id": "bom1::fbjj4-1788804922209-72ab8e0fef4c",
+      "Connection": "close"
+    }
+  },
+  "llms.txt": {
+    "status": 200,
+    "final_url": "https://pahariyatri.com/llms.txt",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "0",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline; filename=\"llms.txt\"",
+      "Content-Length": "3769",
+      "Content-Type": "text/plain; charset=utf-8",
+      "Date": "Mon, 07 Sep 2026 18:15:22 GMT",
+      "Etag": "\"01a3b502fcb1ea82eaee070dc338a1bd\"",
+      "Last-Modified": "Mon, 07 Sep 2026 18:15:23 GMT",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "X-Matched-Path": "/llms.txt",
+      "X-Vercel-Cache": "MISS",
+      "X-Vercel-Id": "bom1::cgzzl-1788804922808-90bb4f6de3e6",
+      "Connection": "close"
+    }
+  },
+  "llms-full.txt": {
+    "status": 200,
+    "final_url": "https://pahariyatri.com/llms-full.txt",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "0",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline; filename=\"llms-full.txt\"",
+      "Content-Length": "2667",
+      "Content-Type": "text/plain; charset=utf-8",
+      "Date": "Mon, 07 Sep 2026 18:15:23 GMT",
+      "Etag": "\"a4818658b98ff3081e7e6e3b32b577af\"",
+      "Last-Modified": "Mon, 07 Sep 2026 18:15:24 GMT",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "X-Matched-Path": "/llms-full.txt",
+      "X-Vercel-Cache": "MISS",
+      "X-Vercel-Id": "bom1::5fwx9-1788804923701-cafc8050784d",
+      "Connection": "close"
+    }
+  }
+}

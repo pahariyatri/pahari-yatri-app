@@ -2,22 +2,13 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { createReader } from "@keystatic/core/reader";
-import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "@/keystatic.config";
 import { resolveImage } from "@/lib/images";
 import BlogPageClient from "./client-page";
 import siteMetadata from "@/data/siteMetadata";
+import { markdownToHtml, demoteHeadings } from "@/lib/markdown";
 
 const reader = createReader(process.cwd(), keystaticConfig);
-
-/** Convert the raw MDX/markdown body into HTML at build time so paragraphs,
- *  headings, and emphasis render properly and the full text ships in the
- *  static HTML (readable without JS, indexable by crawlers). */
-function markdownToHtml(source: string): string {
-  const ast = Markdoc.parse(source);
-  const content = Markdoc.transform(ast);
-  return Markdoc.renderers.html(content);
-}
 
 /** Real publish/modified dates from the content file on disk (flat .mdx or
  *  folder entry), instead of claiming "today" on every build. */
@@ -83,7 +74,7 @@ export default async function Page({ params }: any) {
   if (!story) notFound();
 
   const rawContent = await readStoryContent(story);
-  const contentHtml = rawContent ? markdownToHtml(rawContent) : "";
+  const contentHtml = rawContent ? demoteHeadings(markdownToHtml(rawContent)) : "";
 
   // Resolve the related chapter (for reading context + onward link)
   let chapter: { slug: string; title: string } | null = null;
@@ -118,6 +109,7 @@ export default async function Page({ params }: any) {
     contentHtml,
     quote: story.quote || "",
     voice: (story as any).voice || "",
+    authorName: (story as any).authorName || "",
     chapter,
     nextStory,
     minutes,
@@ -125,6 +117,18 @@ export default async function Page({ params }: any) {
   };
 
   const storyUrl = `${siteMetadata.siteUrl}/stories/${slug}`;
+
+  // Real named individual (local/yatri/creator/elder) → Person schema for
+  // E-E-A-T; "editorial" authorType (incl. the literal "Pahari Yatri
+  // Editorial" name used today on every story that sets authorName) stays
+  // Organization — no story currently names a real individual, so this is
+  // forward-wiring for when one does, not a change to any live page's output.
+  const individualAuthorTypes = new Set(["local", "yatri", "creator", "elder"]);
+  const authorName = (story as any).authorName as string | undefined;
+  const authorType = (story as any).authorType as string | undefined;
+  const author = authorName && authorType && individualAuthorTypes.has(authorType)
+    ? { '@type': 'Person', name: authorName }
+    : { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl };
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -136,7 +140,7 @@ export default async function Page({ params }: any) {
     url: storyUrl,
     datePublished: dates.published,
     dateModified: dates.modified,
-    author: { '@type': 'Organization', name: 'Pahari Yatri', url: siteMetadata.siteUrl },
+    author,
     publisher: {
       '@type': 'Organization',
       name: 'Pahari Yatri',

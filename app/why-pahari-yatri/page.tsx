@@ -5,6 +5,7 @@ import PageTitle from "@/components/common/TitleCover";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "@/components/common/Image";
 import Link from "@/components/common/Link";
+import YatriCircleLink from "@/components/common/YatriCircleLink";
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 
@@ -13,6 +14,12 @@ export default function WhyPahariYatri() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
         <SectionContainer className="pt-24 md:pt-32">
           {/* Reserved for brand story grid (server-rendered) */}
+
+          {/* This page's headings started at <h2> ("Our Approach") with no <h1>.
+              sr-only rather than a new visible title, because the visible copy on
+              this page needs a separate founder review anyway — see
+              docs/reports/current/SEO_CONTENT_AUDIT.md B1. */}
+          <h1 className="sr-only">Why Pahari Yatri</h1>
 
           <motion.div
             className="text-center mb-10 md:mb-14 relative"
@@ -213,7 +220,7 @@ export default function WhyPahariYatri() {
               <p className="text-base md:text-lg text-muted-foreground mb-5 md:mb-6 leading-relaxed">
                 We carefully select our guests to ensure meaningful connections and shared values. Our journeys are not mass tourism—they are intimate gatherings of like-minded souls seeking transformation.
               </p>
-              <Link href="/apply">
+              <YatriCircleLink location="why_pahari_yatri" label="Apply to Join">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 md:px-8 py-2 md:py-3 text-sm md:text-base flex items-center gap-2 group">
                   Apply to Join
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
@@ -221,7 +228,7 @@ export default function WhyPahariYatri() {
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
                 </Button>
-              </Link>
+              </YatriCircleLink>
             </div>
           </div>
 

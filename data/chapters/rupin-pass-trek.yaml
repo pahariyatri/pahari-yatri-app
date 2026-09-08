@@ -1,4 +1,8 @@
 title: Rupin Pass Trek
+district: kinnaur
+trackType: pass
+seoTitle: Rupin Pass Trek — Uttarakhand to Kinnaur, Himachal (Sangla)
+parentBook: summer
 invitation: Follow the river’s grammar to the high sentence of stone.
 excerpt: >-
   Waterfalls, snow gullies, and a pass that edits your doubts. The route is
@@ -7,6 +11,10 @@ location: Uttarakhand to Kinnaur (Sangla)
 image: /static/images/chapters/rupin-pass-trek/image.jpg
 relatedStories:
   - rupin-waterfall-days
+  - kinnaur-beyond-the-pass-reality
+relatedChapters:
+  - pin-bhaba-pass
+  - buran-ghati-trek
 giftsFromMountains:
   - Tenacity
   - Clarity

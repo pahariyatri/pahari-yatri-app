@@ -1,12 +1,17 @@
 title: Chandernahan Lake Trek
+district: shimla
+trackType: lake
+parentBook: winter
 invitation: A lake that keeps winter’s precise memory.
 excerpt: >-
   Snow basins and long light. The climb is patient; the view is a careful
   kindness.
 location: Rohru region
 image: /static/images/chapters/chandernahan-lake-trek/image.avif
-relatedStories:
-  - chandernahan-sky-notes
+relatedChapters:
+  - kamrunag-the-lake-of-oaths
+  - parashar-lake-trek
+  - mural-danda-trek
 giftsFromMountains:
   - Stillness
   - Precision
