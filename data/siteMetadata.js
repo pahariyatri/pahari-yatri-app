@@ -4,7 +4,10 @@ const siteMetadata = {
     author: 'Pahari Yatri',
     headerTitle: 'Pahari Yatri',
     description: 'A digital Himalayan library and community. Trail journals, temple stories, folklore, seasonal editions, and the art of responsible travel across Himachal and the wider Himalayas.',
-    keywords: 'Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture',
+    // Keep in sync with data/seo/index.yaml (the Keystatic-editable source of
+    // truth) and the fallback string in app/layout.tsx. "hidden places in
+    // Himachal" was removed from all three - banned brand language.
+    keywords: 'Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, local voices Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture',
     language: 'en-us',
     theme: 'dark',
     siteUrl: 'https://pahariyatri.com',
@@ -13,8 +16,9 @@ const siteMetadata = {
     email: 'info@pahariyatri.com',
     instagram: 'https://www.instagram.com/pahariyatri/',
     youtube: 'https://www.youtube.com/@pahariyatri',
-    facebook: 'https://www.facebook.com/pahariyatri',
+    facebook: 'https://www.facebook.com/fb.pahariyatri',
     threads: 'https://www.threads.net/@pahariyatri',
+    linkedin: 'https://www.linkedin.com/company/pahari-yatri',
     locale: 'en-US',
     analytics: {
         // If you want to use an analytics provider you have to add it to the

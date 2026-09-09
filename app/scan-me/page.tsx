@@ -85,7 +85,7 @@ export default function About() {
             {/* Social Media Links */}
             <div className="flex space-x-4 justify-center">
               <a
-                href="https://facebook.com/pahariyatri"
+                href="https://facebook.com/fb.pahariyatri"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"

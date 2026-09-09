@@ -41,7 +41,7 @@ export default function HiddenTrails({ id }: Props) {
                         For the Seekers
                     </span>
                     <h2 className="text-3xl md:text-5xl font-brandSerif font-bold text-foreground mb-6">
-                        Secret Valleys. Forgotten Trails.
+                        Forgotten Trails. Living Stories.
                     </h2>
                 </div>
 
