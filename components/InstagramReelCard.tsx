@@ -44,12 +44,15 @@ export default function InstagramReelCard({ reel }: { reel: InstagramReel }) {
         <button
           type="button"
           onClick={toggle}
+          // The accessible name must contain the visible label below
+          // (WCAG 2.5.3) — "Play reel" didn't contain "Play here", and
+          // "Paused" wasn't in either state's label at all.
           aria-label={
             !started
-              ? `Play reel: ${reel.caption || "Instagram reel"}`
+              ? `Play here: ${reel.caption || "Instagram reel"}`
               : playing
                 ? "Pause reel"
-                : "Play reel"
+                : "Paused. Play reel"
           }
           className="absolute inset-0 w-full flex flex-col items-center justify-center text-center p-6"
         >
@@ -75,8 +78,14 @@ export default function InstagramReelCard({ reel }: { reel: InstagramReel }) {
 
           {!started && (
             <>
-              {/* Glassmorphic category badge */}
-              <span className="absolute top-3 left-3 z-10 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] font-semibold tracking-wider text-white uppercase backdrop-blur-md">
+              {/* Glassmorphic category badge — decorative; the button's
+                  aria-label already says "Instagram reel" in its fallback,
+                  and this text isn't in that label, which is exactly what
+                  axe's label-content-name-mismatch check was flagging. */}
+              <span
+                aria-hidden="true"
+                className="absolute top-3 left-3 z-10 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] font-semibold tracking-wider text-white uppercase backdrop-blur-md"
+              >
                 Instagram Reel
               </span>
 

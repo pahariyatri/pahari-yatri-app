@@ -84,6 +84,7 @@ export default function Footer() {
                 youtube={siteMetadata.youtube}
                 facebook={siteMetadata.facebook}
                 threads={siteMetadata.threads}
+                linkedin={siteMetadata.linkedin}
                 className="opacity-70 hover:opacity-100 transition-all"
                 iconSize="sm"
               />
@@ -100,9 +101,13 @@ export default function Footer() {
           <nav className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10 sm:gap-12" aria-label="Footer Site Map">
             {columns.map((col) => (
               <div key={col.label} className="space-y-5">
-                <h4 className="text-[10px] uppercase font-bold tracking-[0.2em] text-primary/60">
+                {/* h3 (not h4): the last heading before the footer in DOM
+                    order is an h2, and axe's heading-order check flagged
+                    the level-4 skip. text-primary/80 (not /60): the same
+                    check flagged this text as failing contrast at 10px. */}
+                <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-primary/80">
                   {col.label}
-                </h4>
+                </h3>
                 <ul className="space-y-3.5 text-sm font-medium">
                   {col.links.map((l) => (
                     <li key={l.href}>
