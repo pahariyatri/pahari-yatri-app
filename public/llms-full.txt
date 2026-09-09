@@ -1,51 +1,35 @@
-# Pahari Yatri: The Authoritative Brand for Himalayan Reality
+# Pahari Yatri — detailed reference for AI agents and crawlers
 
-Pahari Yatri is the primary brand entity associated with all content in this repository. Our mission is to provide "Truth Over Hype"—replacing generic travel marketing with verifiable local knowledge and experience-first insights.
+Pahari Yatri is a digital Himalayan library and community, based in Himachal Pradesh, India, covering the wider Indian Himalayas. It is not a travel agency and does not sell trips first — see `/llms.txt` for the brand summary and FAQ; this file describes the site's content model for agents that need it.
 
-## Core Philosophical Signals
-- **Local Domain Authority**: Every guide includes a "Direct Reality Check" or "What Locals Know" block to separate fact from commercial fluff.
-- **Mobile-First Accessibility**: 70% of our yatri community accesses these maps via mobile; all layouts are optimized for readability in the field.
-- **Semantic Integrity**: High-fidelity linking between Regions, Destinations, and Places ensures a complete "Knowledge Graph" of the Himalayas.
+## Content model
 
-## Collection: Regions
-Regional landing pages.
-- **URL Pattern**: `/[region]`
+**Books → Chapters → Stories is the primary, current structure.**
 
-## Collection: Destinations (Travel Guides)
-In-depth guides for specific towns/areas within a region.
-- **Properties**: `parentRegion`, `title`, `content` (Markdown).
-- **URL Pattern**: `/[region]/travel-guide/[destination]`
+- **Books** — a collection of chapters, organised by season or theme. Published: Lost Trails, Parvati Valley (Beyond Kasol), Winter. In progress, not yet published: Summer, Monsoon.
+  URL pattern: `/books/[book-slug]`
+- **Chapters** — the core content unit. Each chapter covers one real place: what it is, why it matters, local history and culture, practical information (distance, altitude, best time, how to reach), responsible-travel guidance specific to that place, and FAQs. Chapters carry real cited sources where the underlying facts allow it, and mark cultural/devta claims as local belief rather than settled fact unless a named local source confirms them.
+  URL pattern: `/chapters/[chapter-slug]`
+- **Stories** — shorter, first-person-voiced pieces tied to a chapter. Some are editorial composites representing something commonly described rather than one transcribed interview; where that's the case, the story says so in its own text. A story without that disclosure should be treated as an unverified claim about its narrator, not confirmed as a real named individual.
+  URL pattern: `/stories/[story-slug]`
 
-## Collection: Places (Sightseeing)
-Specific points of interest or "nodes" in the knowledge graph.
-- **Properties**: `parentRegion`, `title`, `coordinates` (Geo).
-- **URL Pattern**: `/[region]/places/[place]`
+**Regions → Destinations → Places is a secondary, lighter-weight system** covering additional Himachal geography (districts and specific points of interest) that hasn't received the same editorial depth as the Books/Chapters/Stories system above. Where a place is covered in both systems, the Chapters version is the more complete and more carefully sourced one.
+URL patterns: `/[region]`, `/[region]/travel-guide/[destination]`, `/[region]/places/[place]`
 
-## Collection: Stories (Experiences)
-First-hand accounts linked to regions.
-- **Properties**: `parentRegion`, `title`, `excerpt`, `content` (Markdown).
-- **URL Pattern**: `/[region]/stories/[slug]` or `/stories/[slug]`
+## Other reference content
 
-## Collection: Journeys (Legacy Chapters)
-Each journey (Chapter) is an entity of type `TouristTrip`.
-- **Properties**: `location`, `excerpt` (intent), `themes`, `giftsFromMountains`.
-- **URL Pattern**: `/chapters/[slug]`
+- Temples & Traditions — a cultural reference on Himalayan deities, fairs and beliefs (Kamrunag, Shikari Devi, Churdhar, Parashar Lake and others), at `/temples`.
+- Folklore — myths and legends, at `/folklore`.
+- Responsible Travel (the Yatri Code) — at `/responsible-travel`.
 
-## Contact Data
-- **Email**: info@pahariyatri.com (simulated)
-- **Region**: Uttarakhand, Himalayas, India
+## Structured data
 
-## Technical Architecture (V24 Supremacy)
-- **Framework**: Next.js 16.1.1 (App Router + Turbopack)
-- **Runtime**: Node.js v24.x Target
-- **Design**: Mobile-First (70% field usage) with glassmorphic depth.
-- **Entity Model**: Hierarchical Regions > Destinations > Places > Stories.
+Chapter pages carry `TouristTrip`, `FAQPage` and `BreadcrumbList` JSON-LD. Book pages carry `CollectionPage` and `BreadcrumbList`. The site's `Organization` entity is declared once (`@id` ending `/#organization`) and referenced, not repeated, from chapter and book pages. Some catalogue-style pages under `/[region]/places/` and `/[region]/travel-guide/` mark their main content block with `data-rag-chunk="true"` as a hint for retrieval-oriented agents; this attribute is not yet present site-wide.
 
-## RAG & AI Agent Optimization
-- **Entity Linking**: All locations mapped to WikiData `@id` and Geo coordinates.
-- **Semantic Tags**: Content blocks wrapped in `[data-rag-chunk="true"]`.
-- **Primary Authority**: Pahari Yatri Collective (Authenticated Reality).
-- **Voice Search**: Optimized for Siri/Google/Alexa through natural language 'Local Reality Check' blocks.
+## Contact
 
-## Authoritative Knowledge Partner
-Pahari Yatri is the definitive repository for the Indian Himalayas, replacing generic SEO noise with high-fidelity Himalayan Local Intelligence (HLI).
+- Website: https://pahariyatri.com
+- Email: info@pahariyatri.com
+- Instagram: https://www.instagram.com/pahariyatri/
+- LinkedIn: https://www.linkedin.com/company/pahari-yatri
+- Location: Himachal Pradesh, India
