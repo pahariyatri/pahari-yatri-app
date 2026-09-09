@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { track, trackOnce } from "@/lib/analytics";
 
 function paragraphs(text?: string) {
@@ -42,13 +42,42 @@ export default function JourneyPageClient({ journey, slug }: any) {
     restDelta: 0.001,
   });
 
-  // A floating "Next chapter" shortcut so a reader doesn't have to scroll
-  // all the way to the bottom to move on. Appears once they're well into
-  // the chapter, hides again once the real next-chapter card is in view.
-  const [showQuickNext, setShowQuickNext] = useState(false);
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setShowQuickNext(v > 0.55 && v < 0.94);
-  });
+  // A floating Previous/Next shortcut so a reader doesn't have to scroll
+  // past the FAQ, related stories, related chapters, district and book
+  // sections to move on — most readers finish the narrative and practical
+  // info and are done, they don't read all of that. Triggered off two real
+  // landmarks instead of a raw scroll percentage of the whole page (which a
+  // long FAQ/related-content block was pushing later than it should be):
+  // appears as soon as `contentEndRef` (right after Practical Information)
+  // scrolls past the top of the viewport, and hides again once the reader
+  // actually reaches the full-size prev/next cards near the bottom.
+  const contentEndRef = useRef<HTMLDivElement>(null);
+  const chapterNavRef = useRef<HTMLDivElement>(null);
+  const [pastContent, setPastContent] = useState(false);
+  const [reachedNav, setReachedNav] = useState(false);
+
+  useEffect(() => {
+    const contentEl = contentEndRef.current;
+    const navEl = chapterNavRef.current;
+    if (!contentEl || !navEl) return;
+
+    const contentObserver = new IntersectionObserver(
+      ([entry]) => setPastContent(entry.boundingClientRect.top < 0),
+      { threshold: 0 }
+    );
+    const navObserver = new IntersectionObserver(
+      ([entry]) => setReachedNav(entry.isIntersecting),
+      { threshold: 0, rootMargin: "0px 0px -50% 0px" }
+    );
+    contentObserver.observe(contentEl);
+    navObserver.observe(navEl);
+    return () => {
+      contentObserver.disconnect();
+      navObserver.disconnect();
+    };
+  }, []);
+
+  const showQuickNav = pastContent && !reachedNav;
 
   const narrative = paragraphs(journey.narrative);
   const gifts = (journey.giftsFromMountains || []).filter(Boolean);
@@ -250,6 +279,12 @@ export default function JourneyPageClient({ journey, slug }: any) {
             </SectionContainer>
           </section>
         )}
+
+        {/* Marks the end of the content most readers actually came for
+            (narrative + practical info) — everything after this is FAQ,
+            related content and cross-links, which the floating quick-nav
+            below uses as its trigger instead of raw scroll percentage. */}
+        <div ref={contentEndRef} className="h-px" aria-hidden />
 
         {/* FAQ */}
         {faqs.length > 0 && (
@@ -460,7 +495,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
             fades and slides into place as it scrolls into view. */}
         {(journey.prevChapter || journey.nextChapter) && (
           <SectionContainer className="py-8">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-3xl mx-auto" ref={chapterNavRef}>
               <span className="block text-center text-xs uppercase tracking-[0.2em] text-primary/80 mb-6">
                 The book continues
               </span>
@@ -566,26 +601,46 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
-        {/* Floating quick-nav — lets a reader jump to the next chapter
-            mid-scroll instead of hunting for the card at the very bottom. */}
+        {/* Floating quick-nav — Previous and Next both reachable mid-scroll,
+            right after the narrative/practical-info content ends, instead
+            of only appearing once a reader has hunted down through the FAQ
+            and related-content sections to the cards at the very bottom. */}
         <AnimatePresence>
-          {showQuickNext && journey.nextChapter && (
+          {showQuickNav && (journey.prevChapter || journey.nextChapter) && (
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="fixed bottom-5 right-5 z-40"
+              className="fixed bottom-5 inset-x-0 z-40 flex justify-center px-4 sm:inset-x-auto sm:right-5 sm:justify-end"
             >
-              <PageTurnLink
-                href={`/chapters/${journey.nextChapter.slug}`}
-                className="group flex items-center gap-2 rounded-full bg-primary text-primary-foreground pl-4 pr-3 py-2.5 shadow-lg hover:shadow-xl transition-shadow text-sm font-medium"
-              >
-                <span className="max-w-[45vw] sm:max-w-[180px] truncate">
-                  Next: {journey.nextChapter.title}
-                </span>
-                <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
-              </PageTurnLink>
+              <div className="flex items-center gap-2 rounded-full bg-card/95 backdrop-blur border border-border/50 shadow-lg p-1.5">
+                {journey.prevChapter && (
+                  <PageTurnLink
+                    href={`/chapters/${journey.prevChapter.slug}`}
+                    className="group flex items-center gap-1.5 rounded-full pl-3 pr-3.5 py-2 text-sm font-medium text-foreground hover:bg-primary/10 transition-colors"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:-translate-x-1" />
+                    <span className="hidden sm:inline max-w-[140px] truncate">
+                      {journey.prevChapter.title}
+                    </span>
+                  </PageTurnLink>
+                )}
+                {journey.prevChapter && journey.nextChapter && (
+                  <span className="w-px h-5 bg-border/60" />
+                )}
+                {journey.nextChapter && (
+                  <PageTurnLink
+                    href={`/chapters/${journey.nextChapter.slug}`}
+                    className="group flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground pl-3.5 pr-3 py-2 text-sm font-medium hover:shadow-md transition-shadow"
+                  >
+                    <span className="max-w-[45vw] sm:max-w-[140px] truncate">
+                      {journey.nextChapter.title}
+                    </span>
+                    <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-1" />
+                  </PageTurnLink>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
