@@ -315,3 +315,28 @@ No LinkedIn analytics were available this session and **no LinkedIn baseline exi
 - No fabricated traction. If a number is small, use it honestly or leave it out.
 - No unverified cultural claim — the website's gate applies here identically.
 - No banned language, including in comments and replies.
+
+---
+
+## 7. Growth strategy & best practices — added 2026-09-09
+
+**Real baseline now exists** (contradicts §5's "no baseline exists" note above, which was written before live access — kept for the record, superseded here): 77 followers, **zero posts ever published**, 37 search appearances in the last 7 days (down 24.5%), 0 new followers/impressions/visitors. Full detail: `marketing/SOCIAL_MEDIA_AUDIT.md` §6.
+
+**What actually moves a page from zero to something, at this size — in order of leverage:**
+
+1. **Post consistency beats post quality, until there's a baseline.** A page with 0 posts and 77 followers doesn't have an engagement problem yet — it has a nothing-to-engage-with problem. The first 4-8 posts matter more for *establishing that the page is alive* than for optimizing any single post's copy. Cadence: 1 founder post/week (cap already set, §5 reconciliation elsewhere in this doc) + 2 company posts/week, and hold that cadence for a full month before judging anything.
+2. **The founder's personal profile will outperform the company page for reach, and that's normal, not a problem to fix.** LinkedIn's algorithm favors personal profiles over company pages by a wide margin — a founder post reaching their own network, then having the company page comment/reshare, reliably beats the company page posting the same thing cold. Company-page-first is the weaker sequence.
+3. **Comment on your own post in the first 30-60 minutes with something substantive** (a source, a caveat, an answer to an obvious question) — this is a standard, non-manipulative way to give LinkedIn's algorithm an early engagement signal without needing outside engagement first. Not the same as engagement-bait ("comment YES below") which reads as spam and should never be used here.
+4. **The first post should not have a CTA.** C1 (the drafted opening post, see `marketing/linkedin-september-plan.md`) correctly has none — a page with zero history asking for something before it's given anything reads as presumptuous. Earn a few posts of pure value before asking for anything.
+5. **Employee/founder reshares compound; company-page-only distribution doesn't.** If anyone else is listed as working at Pahari Yatri on LinkedIn, a personal reshare with one added line of their own commentary reaches a second, separate network for free. Don't script what they'd say — ask if they'd genuinely share it.
+6. **Hashtags: 3-5, specific, not generic.** `#HimachalPradesh`, `#ResponsibleTravel`, `#HimalayanCulture` over `#travel` `#tourism` — broad tags put the post in front of a huge, irrelevant pool; specific tags put it in front of a small, actually-interested one. This matters more on a page with no existing audience to fall back on.
+7. **Dwell time (how long a viewer spends reading) is one of LinkedIn's stronger ranking signals** — native text posts with real line breaks and a genuine narrative outperform a link-with-a-caption most of the time, because a link invites the viewer to leave immediately. Where a post does link out (C2, /start), put the link in the **first comment**, not the post body — LinkedIn's own algorithm still measurably deprioritizes posts with an outbound link in the body.
+
+**How traffic/engagement will actually be measured, concretely — no new tooling needed:**
+
+- **LinkedIn native analytics** (Company Page Admin → Analytics): impressions, reactions, comments, reshares, and — the number that matters most at this stage — **follower count change per post**, checked weekly.
+- **UTM-tagged links** for anything that points back to the site: every post in `marketing/linkedin-september-plan.md` and `marketing/september-content-calendar.md` that includes a link already carries `utm_source=linkedin&utm_medium=social&utm_campaign={post-specific}` — these show up in GA4 as real, attributable sessions, the same way Instagram Reel traffic is tracked via `reel_source_visit`.
+- **The real baseline to compare against**, from today's audit: LinkedIn currently drives **zero** measurable site traffic (it's never posted). Any non-zero `utm_source=linkedin` session in GA4 after the first post is a genuine first, not noise — same framing as `marketing/INSTAGRAM_REELS_PLAN.md`'s "small integers are the correct unit here" note for a similarly small account.
+- **Do not benchmark against `@indiahikes`-scale accounts** (655K followers, referenced in `marketing/SOCIAL_MEDIA_AUDIT.md` §9.4) or generic "good LinkedIn engagement rate" numbers pulled from marketing blogs — those describe a completely different account size and industry position. The only honest baseline for month one is this account's own zero.
+
+**What "a few days" realistically shows, stated in advance so it isn't re-litigated later:** LinkedIn's own algorithm favors accounts with posting history — a brand-new page's first few posts typically get modest reach (low hundreds of impressions is normal, not a failure) while LinkedIn "learns" the page. Meaningful, compounding reach is a months-not-days timescale on a page starting from zero. What a few days *can* show: whether the posting habit holds, whether the founder's network engages at all, and whether the first UTM-tagged click shows up in GA4.
