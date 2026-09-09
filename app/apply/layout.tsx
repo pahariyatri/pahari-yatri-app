@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
+// The form this page renders (components/application/ApplicationForm +
+// conversation.ts) asks what brings you to Pahari Yatri — stories and
+// culture, mindful travel, or contributing — and how to stay connected.
+// It is the Yatri Circle join flow, not a trek application. The previous
+// title/description described a trip nobody applies for on this page.
 export const metadata: Metadata = {
-  title: "Apply to Walk — Join a Pahari Yatri Himalayan Trek",
+  title: "Join the Yatri Circle — Pahari Yatri",
   description:
-    "Apply to join a small-group Himalayan trek with Pahari Yatri. Tell us your intention and we'll match you to a journey that fits your spirit and fitness. We review every application and reply within 24 hours.",
+    "The Yatri Circle is Pahari Yatri's community for people drawn to Himalayan stories, mindful travel, or contributing what they know. Tell us what brings you, and how to stay connected.",
   alternates: { canonical: "/apply" },
 };
 

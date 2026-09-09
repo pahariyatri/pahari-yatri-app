@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { track, trackOnce } from "@/lib/analytics";
 
 function paragraphs(text?: string) {
@@ -40,6 +40,14 @@ export default function JourneyPageClient({ journey, slug }: any) {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
+  });
+
+  // A floating "Next chapter" shortcut so a reader doesn't have to scroll
+  // all the way to the bottom to move on. Appears once they're well into
+  // the chapter, hides again once the real next-chapter card is in view.
+  const [showQuickNext, setShowQuickNext] = useState(false);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setShowQuickNext(v > 0.55 && v < 0.94);
   });
 
   const narrative = paragraphs(journey.narrative);
@@ -445,48 +453,142 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
-        {/* The next chapter — an open loop, not a dead end. Uses a view
-            transition (PageTurnLink) so moving on reads like turning a page
-            rather than loading a new, unrelated URL. */}
-        {journey.nextChapter && (
+        {/* Previous / next chapter — an open loop, not a dead end. Uses a
+            view transition (PageTurnLink) so moving on reads like turning a
+            page rather than loading a new, unrelated URL. Both directions
+            get equal-weight buttons so readers can move either way; each
+            fades and slides into place as it scrolls into view. */}
+        {(journey.prevChapter || journey.nextChapter) && (
           <SectionContainer className="py-8">
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-3xl mx-auto">
               <span className="block text-center text-xs uppercase tracking-[0.2em] text-primary/80 mb-6">
                 The book continues
               </span>
-              <PageTurnLink
-                href={`/chapters/${journey.nextChapter.slug}`}
-                className="group grid sm:grid-cols-[180px_1fr] gap-5 items-center rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/40 hover:shadow-lg transition-all"
+              <div
+                className={`grid gap-5 ${
+                  journey.prevChapter && journey.nextChapter ? "sm:grid-cols-2" : ""
+                }`}
               >
-                <div className="relative h-36 sm:h-full w-full min-h-[9rem]">
-                  <ResponsiveImage
-                    src={journey.nextChapter.image}
-                    alt={journey.nextChapter.title}
-                    fill
-                    sizes="180px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    fallbackSrc="/static/images/himalaya-fallback.jpg"
-                  />
-                </div>
-                <div className="p-5 sm:pr-8">
-                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
-                    Next chapter
-                  </span>
-                  <h3 className="text-xl font-brandSerif font-medium mt-1 mb-1.5 group-hover:text-primary transition-colors">
-                    {journey.nextChapter.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
-                    {journey.nextChapter.excerpt}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary/80 group-hover:text-primary transition-colors">
-                    Turn the page
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </PageTurnLink>
+                {journey.prevChapter && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  >
+                    <PageTurnLink
+                      href={`/chapters/${journey.prevChapter.slug}`}
+                      className="group flex h-full items-center gap-4 rounded-2xl overflow-hidden border border-border/50 bg-card p-4 hover:border-primary/40 hover:shadow-lg transition-all"
+                    >
+                      <ArrowLeft className="w-4 h-4 text-primary/70 shrink-0 transition-transform group-hover:-translate-x-1" />
+                      <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-xl overflow-hidden">
+                        <ResponsiveImage
+                          src={journey.prevChapter.image}
+                          alt={journey.prevChapter.title}
+                          fill
+                          sizes="80px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          fallbackSrc="/static/images/himalaya-fallback.jpg"
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                          Previous chapter
+                        </span>
+                        <h3 className="text-base font-brandSerif font-medium mt-0.5 truncate group-hover:text-primary transition-colors">
+                          {journey.prevChapter.title}
+                        </h3>
+                      </div>
+                    </PageTurnLink>
+                  </motion.div>
+                )}
+
+                {journey.nextChapter && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: journey.prevChapter ? 0.1 : 0 }}
+                  >
+                    <PageTurnLink
+                      href={`/chapters/${journey.nextChapter.slug}`}
+                      className={`group flex h-full items-center gap-4 rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/40 hover:shadow-lg transition-all ${
+                        journey.prevChapter ? "p-4" : "grid sm:grid-cols-[180px_1fr] gap-5 items-center"
+                      }`}
+                    >
+                      <div
+                        className={`relative shrink-0 overflow-hidden ${
+                          journey.prevChapter
+                            ? "h-16 w-16 sm:h-20 sm:w-20 rounded-xl"
+                            : "h-36 sm:h-full w-full min-h-[9rem]"
+                        }`}
+                      >
+                        <ResponsiveImage
+                          src={journey.nextChapter.image}
+                          alt={journey.nextChapter.title}
+                          fill
+                          sizes={journey.prevChapter ? "80px" : "180px"}
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          fallbackSrc="/static/images/himalaya-fallback.jpg"
+                        />
+                      </div>
+                      <div className={`min-w-0 ${journey.prevChapter ? "" : "p-5 sm:pr-8"}`}>
+                        <span className="text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                          Next chapter
+                        </span>
+                        <h3
+                          className={`font-brandSerif font-medium mt-0.5 group-hover:text-primary transition-colors ${
+                            journey.prevChapter ? "text-base truncate" : "text-xl mb-1.5"
+                          }`}
+                        >
+                          {journey.nextChapter.title}
+                        </h3>
+                        {!journey.prevChapter && (
+                          <>
+                            <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
+                              {journey.nextChapter.excerpt}
+                            </p>
+                            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary/80 group-hover:text-primary transition-colors">
+                              Turn the page
+                              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      {journey.prevChapter && (
+                        <ArrowRight className="w-4 h-4 text-primary/70 shrink-0 ml-auto transition-transform group-hover:translate-x-1" />
+                      )}
+                    </PageTurnLink>
+                  </motion.div>
+                )}
+              </div>
             </div>
           </SectionContainer>
         )}
+
+        {/* Floating quick-nav — lets a reader jump to the next chapter
+            mid-scroll instead of hunting for the card at the very bottom. */}
+        <AnimatePresence>
+          {showQuickNext && journey.nextChapter && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed bottom-5 right-5 z-40"
+            >
+              <PageTurnLink
+                href={`/chapters/${journey.nextChapter.slug}`}
+                className="group flex items-center gap-2 rounded-full bg-primary text-primary-foreground pl-4 pr-3 py-2.5 shadow-lg hover:shadow-xl transition-shadow text-sm font-medium"
+              >
+                <span className="max-w-[45vw] sm:max-w-[180px] truncate">
+                  Next: {journey.nextChapter.title}
+                </span>
+                <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+              </PageTurnLink>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Closing quote — one line to carry home */}
         {journey.closingQuote && (

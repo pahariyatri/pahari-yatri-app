@@ -47,7 +47,7 @@ async function getMetadata() {
     "Pahari Yatri is a digital Himalayan library and community for people who want to understand the mountains before they travel. Read trail journals, temple stories, folklore, and responsible travel guides from Himachal and the wider Himalayas.";
   const keywords =
     seo?.keywords ??
-    "Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, hidden places in Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture";
+    "Pahari Yatri, Himalayan travel guide, responsible travel Himalayas, Himachal travel stories, Himalayan culture, Himalayan temples, Himalayan folklore, spiritual travel Himalayas, seasonal Himalayan trails, slow travel Himalayas, local voices Himachal, Himalayan village stories, travel like a local Himalayas, Pahari culture";
   const socialBanner =
     (seo as any)?.ogImage ||
     `${siteMetadata.siteUrl}/api/og`;
@@ -129,6 +129,10 @@ export default async function RootLayout({
   const jsonLdWebsite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    // Referenced by other pages' schema (e.g. app/start/page.tsx's isPartOf)
+    // via this @id — without it, those references point at a node this
+    // object never actually declares.
+    "@id": `${siteUrl}/#website`,
     url: siteUrl,
     name: seo?.title || "Pahari Yatri",
     description:
@@ -150,9 +154,11 @@ export default async function RootLayout({
       width: 1200,
       height: 630,
     },
+    // siteMetadata.author is "Pahari Yatri" — the brand, not an individual.
+    // Person here would assert an individual authored the site; this
+    // references the same Organization node declared below instead.
     author: {
-      "@type": "Person",
-      name: siteMetadata.author,
+      "@id": `${siteUrl}/#organization`,
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -177,10 +183,11 @@ export default async function RootLayout({
     description:
       "A digital Himalayan library and community for people who want to experience the mountains with respect, awareness, culture, and inner purpose.",
     sameAs: [
-      "https://facebook.com/pahariyatri",
+      "https://facebook.com/fb.pahariyatri",
       "https://instagram.com/pahariyatri",
       "https://twitter.com/pahariyatri",
       "https://www.youtube.com/@pahariyatri",
+      siteMetadata.linkedin,
     ],
     contactPoint: {
       "@type": "ContactPoint",

@@ -97,6 +97,8 @@ Location: `.claude/agents/`
 | `social-brand-consistency-editor` | Bios/descriptions/pinned posts aligned across every platform | sonnet |
 | `reddit-community-researcher` | Reddit listening, pain points, content gaps, no-spam replies | opus |
 | `reputation-local-trust-agent` | Reviews, testimonial ethics, contributor credibility, "verified local" wording | opus |
+| `competitor-analysis-agent` | Himachal/Himalaya competitor positioning, content gaps, platform presence, SERP overlap — research only, never copies their tone | opus |
+| `outreach-relationship-agent` | Personalized LinkedIn/Instagram collaboration, story-submission and relationship drafts — drafts only, never sends, refuses bulk spam | sonnet |
 
 ## Commands added by this system
 
@@ -143,7 +145,9 @@ Avoid on the portal: cheap Himachal packages · lowest price · instant booking 
 
 Use instead: local access · verified local partners · plan with people who know the place · travel with context · responsible local support · request local options · match with local partners · founder/community verified (only if true).
 
-**The live trip-builder CTA currently reads "Create my package"** (`app/[lang]/builder/page.tsx` in `local-connect-app`) — this is the one banned word from the list above sitting on the product's highest-intent screen. Top-priority copy fix.
+~~**The live trip-builder CTA currently reads "Create my package"**~~ — **RESOLVED, verified 2026-09-09** against `local-connect-app` @ `e57cefd`. `dictionaries/en.json:468` now reads `"createPackage": "Create my Yatra plan"`, the French translation matches, and the step-6 button's accessible name is `"Create my Yatra plan, ₹X"`. The banned word is gone from all user-facing copy. Residual, low priority: the JSON *key* is still `createPackage` and the code path is still `PackageBuilderStep` / `handleCreatePackage` — internal identifiers only.
+
+**Still live and unresolved on the highest-intent screen** (verified 2026-09-09): `dictionaries/en.json:483` `"price": "Best Price Guarantee"`, rendered at `builder/page.tsx:380`. Guaranteed pricing is on the avoid-list above and no mechanism backs it. Also `app/[lang]/page.tsx:335` `Verified locals. Direct booking.`, which contradicts the request-based flow the same site describes elsewhere. See `docs/growth/september-audit.md` §3.5.
 
 ### 3. SEO strategy for both properties
 
@@ -163,7 +167,9 @@ Audit and classify every route with this table shape:
 
 | Route | Purpose | Public/Private | Index/Noindex | Current issue | Recommendation |
 
-As last checked, production `robots.ts` (in `local-connect-app`) already correctly disallows: `/*/auth/`, `/*/profile`, `/*/admin`, `/*/bookings`, `/*/checkout`, `/*/vendor/onboarding`, `/*/vendor/dashboard`, `/*/vendor/payouts`, `/*/vendor/calendar`, `/*/vendor/contracts`, `/*/vendor/partnerships`, `/*/vendor/services`, `/*/vendor/bookings`, `/*/journey/view`. That part is in good shape — don't redo it, extend it as new private routes appear.
+**Updated 2026-09-09** against `local-connect-app` @ `e57cefd`. Production `robots.ts` disallows: `/*/auth/`, `/*/profile`, `/*/admin`, `/*/bookings`, `/*/checkout`, `/*/vendor/dashboard`, `/*/vendor/payouts`, `/*/vendor/calendar`, `/*/vendor/contracts`, `/*/vendor/partnerships`, `/*/vendor/services`, `/*/vendor/bookings`, and now `/*/docs`. Two changes from the previous note: **`/*/vendor/onboarding` is deliberately no longer disallowed** (documented founder decision, `middleware.ts:51-54` + `app/robots.ts:33-37`), and `/*/journey/view` is gone because the route no longer exists. That part is in good shape — don't redo it, extend it as new private routes appear.
+
+**Still unprotected and indexable** (verified 2026-09-09): `/[lang]/vendor/[id]/book/[serviceId]`, `/[lang]/vendor/onboarding/confirmation`, `/[lang]/vendor/community`, and `/[lang]/sitemap` (an internal dev link directory). Separately, `/[lang]/docs` returns HTTP 200 to anyone — a robots disallow is an indexing hint, not access control.
 
 ### 6. Portal private/noindex pages
 
@@ -180,13 +186,17 @@ Login, dashboard, admin, vendor dashboard, traveller request status, payment pag
 - Forms can be client components; page copy, headings, FAQs, and internal links should be server-rendered.
 - Metadata, canonical, OG, schema, and robots rules must be server-defined.
 
-**Known issue:** `app/[lang]/layout.tsx` in `local-connect-app` is a client component (`"use client"`). It wraps every real page in the app. Because it can't export `metadata`, canonical/OG/etc. all had to move up to the (server) root `app/layout.tsx` via `generateMetadata` — which the team has actually done well (locale-aware title/description/canonical/hreflang via `BRAND_CONFIG`). The risk is future pages assuming they can set their own metadata from inside `[lang]/layout.tsx` and silently failing to.
+~~**Known issue:** `app/[lang]/layout.tsx` is a client component~~ — **RESOLVED, verified 2026-09-09.** It was converted to an async server component (its own comment records "Converted from a client component (2026-09)"). Root `app/layout.tsx` still owns `generateMetadata`, now fed the real path via an `x-pathname` header set in `middleware.ts:98`. Per-segment metadata works — `results/layout.tsx` and `auth/layout.tsx` both export `robots` successfully. This is a sound pattern now; the old "future pages will silently fail to set metadata" risk is gone.
+
+**The real rendering issue now** is different: `/[lang]`, `/[lang]/explore`, `/[lang]/about`, `/[lang]/builder`, `/[lang]/vendor/onboarding` and the legal pages are all still `"use client"`, so the provider list, listings and page copy are fetched in `useEffect` and are **absent from the SSR HTML** a crawler sees. Server-render the copy/headings/FAQ shell; keep only the forms client-side.
 
 ### 8. Tracking events
 
 **Code is built; nothing is live yet — those are two different claims, keep them separate.** `local-connect-app` has `lib/analytics.ts` (single `pushEvent()` → `window.dataLayer`, one function per event) and a conditional GTM loader in `app/layout.tsx`, wired to all 14 portal events plus `app_landing_view`/`portal_cta_click` on the landing page. **Never say tracking is "live" or "on" without independently verifying the deployed bundle actually contains a GTM ID** — see the deploy note below for exactly how.
 
 Required events — main site bridge: `portal_cta_click` · `request_local_options_click` · `vendor_apply_click` · `app_landing_view`.
+
+**Naming mismatch, open decision (2026-09-09).** Those four names describe events *on the portal side*, and all of them exist there. On the **main site** (`pahari-yatri-app`), the equivalent outbound bridge click is implemented as a single event, **`portal_redirect_click`** (`lib/analytics.ts`), carrying `location`, `destination` and `campaign`. It is deliberately distinct from `outbound_click` because the portal is our own second property, not link attrition. Either rename the main-site event to match this list, or update this list to name `portal_redirect_click` — **do not add a second overlapping event**, which would double-count the same click. Founder/analytics decision.
 
 Required events — portal: `app_landing_view` · `traveller_request_start` · `traveller_destination_select` · `traveller_need_select` · `traveller_date_select` · `traveller_people_select` · `traveller_stop_add` · `traveller_plan_preview` · `traveller_request_submit` · `vendor_apply_start` · `vendor_apply_submit` · `whatsapp_contact_click` · `partner_profile_view` · `partner_contact_click`.
 
@@ -268,3 +278,81 @@ Location: `.claude/commands/` (this repo)
 - `/portal-seo-plan` — keyword/page/index plan for the portal
 - `/portal-implementation-plan` — exact files to change, staged, after audit approval
 - `/brand-bridge-plan` — main-site ↔ portal CTA and linking map
+
+---
+
+## Growth Marketing Automation Workflow
+
+Added 2026-09-09. This section **documents and sequences work the existing agents and commands already do**. It does not create a parallel system, and it does not supersede anything above it. The golden rule still governs every step: Inspect → Report → Plan → **Approve** → Implement → Test → QA → Document → Recommend.
+
+Working files live in `/marketing/`: `SOCIAL_MEDIA_AUDIT.md`, `SOCIAL_STRATEGY.md`, `LINKEDIN_PLAN.md`, `INSTAGRAM_REELS_PLAN.md`, `OUTREACH_SYSTEM.md`, `MONTHLY_GROWTH_REPORT.md`, plus the month-specific `september-content-calendar.md` and `linkedin-september-plan.md`.
+
+Sprint-scoped artefacts live in `/docs/growth/`: `september-audit.md` (Phase 0 baseline), `chapter-upgrade-queue.md` (the one-at-a-time chapter priority order), `september-final-report.md` (one-off sprint retrospective), alongside the standing `content-growth-system.md` and `reel-to-chapter-workflow.md`.
+
+### What "automatic" actually means here
+
+**It means the founder brings the data and the agents turn it into a plan. It does not mean unattended.**
+
+This matters because the word "automation" implies something this environment cannot currently do. There is **no GSC API, no GA4 API, no Meta Graph API, and no LinkedIn API configured in this repo**. `platform-presence-auditor` already works exactly this way and says so in its own file: it expects the orchestrating session to hand it logged-in data when available, and otherwise checks public pages directly.
+
+So the loop is automated in the sense that *the analysis, prioritisation and drafting are automated*. The **data collection is manual** and the **publishing is manual**, by design. Publishing stays manual permanently — that is an approval rule, not a tooling gap. Data collection could be automated later if API access is configured; nothing here assumes it will be.
+
+### The weekly loop
+
+| # | Step | Runs via | Data access |
+|---|---|---|---|
+| 1 | Check Google Search Console — impressions, clicks, CTR, position, new queries | `/weekly-growth-review` step 1 (`analytics-tracking-agent`) | **Founder-supplied.** No GSC API. Needs a logged-in Chrome session or an export. |
+| 2 | Check GA4 — sessions by source, all tracked events, funnel | `/weekly-growth-review` step 1 | **Founder-supplied.** No GA4 API. |
+| 3 | Check social analytics — IG reach/saves/shares, Shorts views, FB reach | `/weekly-growth-review` step 1 | **Founder-supplied.** No Meta or YouTube API. Public follower counts are readable without login; nothing else is. |
+| 4 | Identify keyword opportunities | `/weekly-growth-review` step 3 (`seo-research-strategist`) | **Works without login.** Live SERP inspection via WebFetch/WebSearch. Volume/difficulty are labelled directional judgements, never measured metrics. |
+| 5 | Find trending topics and real questions | `reddit-community-researcher`, `/reddit-market-listening` | **Works without login.** Public subreddits and People-also-ask. |
+| 6 | Check what competitors are doing | `competitor-analysis-agent` | **Works without login.** Public pages only. Never invents a competitor or a follower count. |
+| 7 | Suggest next chapters | `chapter-editor`, gated by `local-verification-editor` | **Works offline.** Reads the repo. |
+| 8 | Suggest next Reels/Shorts | `instagram-shorts-strategist`, per `INSTAGRAM_REELS_PLAN.md` | **Works offline**, but the 2-of-4 promotion bar needs step 3's numbers to mean anything. |
+| 9 | Suggest LinkedIn posts | `linkedin-brand-strategist`, per `LINKEDIN_PLAN.md` | **Works offline.** |
+| 10 | Draft outreach | `outreach-relationship-agent`, per `OUTREACH_SYSTEM.md` | **Works offline.** Drafts only. The founder sends, personally, always. |
+
+Steps 4–10 run today with no credentials. Steps 1–3 produce `no data this session` until the founder supplies an export or reconnects a logged-in Chrome session — this has been done successfully at least once (2026-09-09: real GSC, GA4, Meta Business Suite, GBP and LinkedIn data pulled live via browser automation, all in `marketing/SOCIAL_MEDIA_AUDIT.md` §0). It is not an API integration and does not run unattended — it requires an interactive session with the founder's logged-in Chrome profile. **A step that cannot get data says so. It never estimates.**
+
+**Day-of-week mapping.** Added 2026-09-09. This sequences the same 10 steps above across a working week — it does not add new steps or new agents, and it does not override the founder-supplied-data rule for steps 1–3.
+
+| Day | Steps | What actually runs |
+|---|---|---|
+| Monday | 1–4 | Pull whatever GSC/GA4/social data is available (founder-supplied or a fresh logged-in session), then `seo-research-strategist` turns it into keyword opportunities. |
+| Tuesday | 5, 7 | `reddit-community-researcher` for real questions/trends, `chapter-editor` (gated by `local-verification-editor`) for next-chapter suggestions — see `docs/growth/chapter-upgrade-queue.md` for the current priority order. |
+| Wednesday | 6, 8–9 | `competitor-analysis-agent` refresh, then `instagram-shorts-strategist` and `linkedin-brand-strategist` turn Monday's + Tuesday's findings into the week's Reels and LinkedIn posts. |
+| Friday | — | Generate/refresh `marketing/MONTHLY_GROWTH_REPORT.md` (the recurring monthly report) and, once a month, the equivalent one-off sprint report if one is in flight (e.g. `docs/growth/september-final-report.md`). Step 10 (outreach drafting) runs whenever a real candidate exists, not on a fixed day. |
+
+Fix **one** thing per week, per the existing weekly rule.
+
+### The monthly loop
+
+1. `/platform-presence-audit` — full cross-platform audit, refreshing `marketing/SOCIAL_MEDIA_AUDIT.md`.
+2. `/social-copy-pack` — one consistent bio/description/CTA set across every platform.
+3. `competitor-analysis-agent` — refresh the competitor section.
+4. Generate the next edition of `marketing/MONTHLY_GROWTH_REPORT.md`, compared against the previous edition where one exists.
+
+Prioritise highest-trust-value, lowest-effort fixes first — bio drift, dead links, inconsistent CTA — before category or structural changes to any profile. Any category, address, or business-name change on a public profile is reported with its impact before it is ever proposed for approval.
+
+### Cadence reconciliations recorded here so they are not re-litigated
+
+Three documented rules were adjusted, openly rather than silently:
+
+- **LinkedIn.** `linkedin-brand-strategist` caps founder posts at **1 per week**, and that cap is unchanged. The requested 3 posts/week is met as **1 founder post + 2 company-page posts**. The cap protects the founder's personal voice, which is the scarce asset; the company page is a separate surface and was never covered by it.
+- **Instagram.** `instagram-shorts-strategist` defines **4 Reels/week** across four slots. A fifth slot is added for **Voice of Himalaya**. All four original slots and the collapse rule are unchanged: if a week falls apart, ship slots 2 and 3. Slot 5 ships **only when a real, named, consented voice exists**, and is left empty otherwise.
+- **Report files.** Added 2026-09-09. The September Growth Sprint spec asked for both a recurring monthly GA4 growth report and a September final report. Rather than create a third competing monthly-report file: **`marketing/MONTHLY_GROWTH_REPORT.md` is THE recurring monthly growth report** — the artefact the monthly loop regenerates, numbered by edition, compared against the previous one. **`docs/growth/september-final-report.md` is a one-off sprint retrospective** with a different purpose and lifecycle, not regenerated monthly. **`docs/growth/september-audit.md`** is that sprint's one-off Phase 0 baseline. Do not create a second recurring monthly report.
+
+### Data honesty — binding on every step above
+
+- Never state a metric that was not actually read this session. Mark it `not verified this session — needs founder-supplied export or a reconnected Chrome session`.
+- Never carry a number forward from an older audit as if it were current. Re-verify or label it as a stale baseline.
+- Never invent a competitor, a follower count, a review, a testimonial, or a traction figure. `reputation-local-trust-agent`'s no-fabrication rule applies to growth reporting identically to how it applies to chapters.
+- Never claim tracking is "live" without verifying it fires. Configured and live are two different claims. Verify in **Chrome, not Brave** — Brave Shields blocks googletagmanager.com, so events push to the dataLayer and never reach GA4 or Meta.
+
+### Approval boundary
+
+Allowed without asking: read the repo, check public pages, run audits, draft copy, draft outreach, propose changes, write to `/marketing/`.
+
+**Ask first, always:** publishing anything to Instagram, Facebook, LinkedIn, YouTube, Reddit or GBP; sending any outreach message; changing live public copy or slugs; changing a public profile's name, category or address; anything affecting UTM attribution.
+
+**Never:** send a message, publish a profile change, run or boost ads, fabricate any number or claim, or continue past a login, OTP, passkey, payment, permission or billing screen. Stop and hand back to the founder.

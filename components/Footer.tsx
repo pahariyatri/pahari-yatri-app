@@ -14,6 +14,11 @@ const columns = [
   {
     label: "The Library",
     links: [
+      // /start is the orientation page cold arrivals land on from the
+      // Instagram bio, the printed QR and brand-name search. It needs at
+      // least one inbound internal link or it stays an orphan, and orphans
+      // are exactly what is not getting indexed on this site right now.
+      { href: "/start", title: "Start Here" },
       { href: "/library", title: "Open the Library" },
       { href: "/chapters", title: "All Chapters" },
       { href: "/stories", title: "Stories" },

@@ -81,18 +81,12 @@ export async function getChapterView(slug: string) {
           "@type": "Offer",
           name: "Energy Exchange",
           description: chapter.offering,
-          seller: {
-            "@type": "Organization",
-            name: "Pahari Yatri",
-            url: siteMetadata.siteUrl,
-          },
+          // References the one Organization node declared in app/layout.tsx
+          // rather than re-declaring a fresh, unlinked duplicate per chapter.
+          seller: { "@id": `${siteMetadata.siteUrl}/#organization` },
         }
       : undefined,
-    provider: {
-      "@type": "Organization",
-      name: "Pahari Yatri",
-      url: siteMetadata.siteUrl,
-    },
+    provider: { "@id": `${siteMetadata.siteUrl}/#organization` },
     location: chapter.location
       ? {
           "@type": "Place",
@@ -108,12 +102,17 @@ export async function getChapterView(slug: string) {
         }
       : undefined,
     keywords: (chapter.themes || []).join(", "),
-    // Real name only with permission; otherwise this is the Pahari Yatri
-    // organization, not a fabricated individual.
+    // Real name only with permission; otherwise this is the editorial team,
+    // not a fabricated individual. Deliberately a distinct, stable node from
+    // "@id": siteUrl+"/#organization" (the publisher/business entity) rather
+    // than the same one reused 39 times with no @id at all — "Pahari Yatri
+    // Editorial" is an honest byline for unverified-authorship narrative
+    // content, not a claim that the business itself wrote it.
     author: (chapter as any).authorName
       ? { "@type": "Person", name: (chapter as any).authorName }
       : {
           "@type": "Organization",
+          "@id": `${siteMetadata.siteUrl}/#editorial`,
           name: "Pahari Yatri Editorial",
           url: siteMetadata.siteUrl,
         },
@@ -199,10 +198,12 @@ export async function getChapterView(slug: string) {
   }
 
   // The book this chapter belongs to — a quiet backlink that keeps readers
-  // inside the library — plus the next chapter in reading order, the open
-  // loop that turns chapters into episodes rather than dead ends.
+  // inside the library — plus the previous and next chapters in reading
+  // order, the open loop that turns chapters into episodes rather than
+  // dead ends.
   let parentBook: { slug: string; title: string } | null = null;
   let nextChapter: { slug: string; title: string; excerpt: string; image: string } | null = null;
+  let prevChapter: { slug: string; title: string; excerpt: string; image: string } | null = null;
   try {
     const books = await reader.collections.books.all();
     const owner = books.find((b) =>
@@ -213,6 +214,8 @@ export async function getChapterView(slug: string) {
       const order = ((owner.entry.relatedChapters as any[]) || []).filter(Boolean);
       const idx = order.indexOf(slug);
       const nextSlug = idx >= 0 && order.length > 1 ? order[(idx + 1) % order.length] : null;
+      const prevSlug =
+        idx >= 0 && order.length > 1 ? order[(idx - 1 + order.length) % order.length] : null;
       if (nextSlug) {
         const nc = await reader.collections.chapters.read(nextSlug);
         if (nc)
@@ -221,6 +224,16 @@ export async function getChapterView(slug: string) {
             title: nc.title || nextSlug,
             excerpt: nc.excerpt || "",
             image: resolveImage(nc.image),
+          };
+      }
+      if (prevSlug) {
+        const pc = await reader.collections.chapters.read(prevSlug);
+        if (pc)
+          prevChapter = {
+            slug: prevSlug,
+            title: pc.title || prevSlug,
+            excerpt: pc.excerpt || "",
+            image: resolveImage(pc.image),
           };
       }
     }
@@ -256,6 +269,7 @@ export async function getChapterView(slug: string) {
     relatedChapters,
     parentBook,
     nextChapter,
+    prevChapter,
     districtLink,
     breadcrumbs,
   };
