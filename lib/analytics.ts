@@ -26,6 +26,7 @@ export type ClickLocation =
     | 'mobile_nav'
     | 'why_pahari_yatri'
     | 'scan_me'
+    | 'start'
     | 'other';
 
 export interface EventParams {
@@ -60,6 +61,32 @@ export interface EventParams {
     };
     /** Clicked one of our own social profile links. */
     social_click: { platform: string; location: ClickLocation; url?: string };
+    /**
+     * A click on a navigational card or CTA on /start, the orientation page
+     * new visitors land on from Instagram bio, QR and search. `section` tells
+     * apart which block of that page actually does the work, which is the
+     * whole reason the page exists.
+     */
+    start_page_click: {
+        section:
+            | 'hero'
+            | 'featured_book'
+            | 'popular_chapter'
+            | 'why_pahari_yatri'
+            | 'community';
+        label: string;
+        destination: string;
+    };
+    /**
+     * Clicked the soft bridge out to the app portal (app.pahariyatri.com).
+     * Deliberately distinct from `outbound_click`: the portal is our own
+     * second property, so these clicks are a funnel step, not link attrition.
+     */
+    portal_redirect_click: {
+        location: ClickLocation;
+        destination: string;
+        campaign?: string;
+    };
     /** Clicked any other link leaving the site. */
     outbound_click: { url: string; domain: string };
 }

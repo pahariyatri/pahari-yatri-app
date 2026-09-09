@@ -63,6 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // entries with their own content file.
     const routes = [
         '',
+        // The orientation page new visitors land on from the Instagram bio,
+        // the printed QR and brand-name search. Ranked just under the
+        // homepage and level with chapters: it is the second-most-important
+        // entry point on the site, and it was missing from this list when it
+        // shipped, on a site where 90 of 127 pages are already unindexed.
+        'start',
         'library',
         'books',
         'chapters',
@@ -81,7 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${siteUrl}/${route}`,
         lastModified: lastModifiedFor(route === '' ? 'app' : `app/${route}`, 'page'),
         changeFrequency: 'monthly' as const,
-        priority: route === '' ? 1 : 0.8,
+        priority: route === '' ? 1 : route === 'start' ? 0.9 : 0.8,
     }))
 
     // Dynamic routes: Regions
