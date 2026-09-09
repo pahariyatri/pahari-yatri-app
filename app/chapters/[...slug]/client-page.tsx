@@ -43,37 +43,47 @@ export default function JourneyPageClient({ journey, slug }: any) {
   });
 
   // A floating Previous/Next shortcut so a reader doesn't have to scroll
-  // past the FAQ, related stories, related chapters, district and book
-  // sections to move on — most readers finish the narrative and practical
-  // info and are done, they don't read all of that. Triggered off two real
-  // landmarks instead of a raw scroll percentage of the whole page (which a
-  // long FAQ/related-content block was pushing later than it should be):
-  // appears as soon as `contentEndRef` (right after Practical Information)
-  // scrolls past the top of the viewport, and hides again once the reader
-  // actually reaches the full-size prev/next cards near the bottom.
+  // past Practical Information, FAQ, related stories, related chapters,
+  // district and book sections to move on — most readers finish the main
+  // narrative and are done, they don't read all of that. Triggered off two
+  // real landmarks instead of a raw scroll percentage of the whole page
+  // (which was pushing it later than it should be): appears as soon as
+  // `contentEndRef` (right after "What the Mountains Give") scrolls past
+  // the top of the viewport, and hides again once the reader actually
+  // reaches the full-size prev/next cards near the bottom.
   const contentEndRef = useRef<HTMLDivElement>(null);
   const chapterNavRef = useRef<HTMLDivElement>(null);
   const [pastContent, setPastContent] = useState(false);
   const [reachedNav, setReachedNav] = useState(false);
 
   useEffect(() => {
-    const contentEl = contentEndRef.current;
-    const navEl = chapterNavRef.current;
-    if (!contentEl || !navEl) return;
-
-    const contentObserver = new IntersectionObserver(
-      ([entry]) => setPastContent(entry.boundingClientRect.top < 0),
-      { threshold: 0 }
-    );
-    const navObserver = new IntersectionObserver(
-      ([entry]) => setReachedNav(entry.isIntersecting),
-      { threshold: 0, rootMargin: "0px 0px -50% 0px" }
-    );
-    contentObserver.observe(contentEl);
-    navObserver.observe(navEl);
+    // Not IntersectionObserver: with a hairline sentinel and threshold: 0,
+    // a fast or large scroll (Page Down, flick-scroll, a big wheel tick)
+    // can jump the sentinel from "below the viewport" straight to "above
+    // it" between two of the browser's periodic intersection checks — the
+    // ratio reads 0% both times, no threshold crossing is ever detected,
+    // and the callback silently never fires. Confirmed live: worked under
+    // small manual scrolls, failed under a 3-5-tick scroll. A rAF-throttled
+    // scroll listener checking actual position doesn't have that gap.
+    let ticking = false;
+    const check = () => {
+      ticking = false;
+      const contentEl = contentEndRef.current;
+      const navEl = chapterNavRef.current;
+      if (contentEl) setPastContent(contentEl.getBoundingClientRect().top < 0);
+      if (navEl) setReachedNav(navEl.getBoundingClientRect().top < window.innerHeight * 0.5);
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     return () => {
-      contentObserver.disconnect();
-      navObserver.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, []);
 
@@ -236,6 +246,12 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
+        {/* Marks the end of the narrative — the part almost every reader
+            actually reads. Moved here (before Practical Information, FAQ,
+            and everything after) per feedback that the floating quick-nav
+            below was still taking too much scrolling to appear. */}
+        <div ref={contentEndRef} className="h-px" aria-hidden />
+
         {/* Practical Information — distance/altitude/season/access have lived
             in every chapter's data since 2026-08 but were never rendered
             anywhere on the page or in structured data. This is that fix. */}
@@ -279,12 +295,6 @@ export default function JourneyPageClient({ journey, slug }: any) {
             </SectionContainer>
           </section>
         )}
-
-        {/* Marks the end of the content most readers actually came for
-            (narrative + practical info) — everything after this is FAQ,
-            related content and cross-links, which the floating quick-nav
-            below uses as its trigger instead of raw scroll percentage. */}
-        <div ref={contentEndRef} className="h-px" aria-hidden />
 
         {/* FAQ */}
         {faqs.length > 0 && (

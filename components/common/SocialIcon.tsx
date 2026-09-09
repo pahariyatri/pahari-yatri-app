@@ -26,6 +26,15 @@ const sizeClasses = {
   lg: "h-6 w-6"
 };
 
+const platformLabels: Record<string, string> = {
+  facebook: "Facebook",
+  instagram: "Instagram",
+  twitter: "Twitter",
+  youtube: "YouTube",
+  linkedin: "LinkedIn",
+  threads: "Threads",
+};
+
 export default function SocialIcon({ platform, href, size = 'md', className = '', location = 'footer' }: SocialIconProps) {
   const iconPath = iconPaths[platform] || '';
   const sizeClass = sizeClasses[size] || sizeClasses.md;
@@ -33,16 +42,20 @@ export default function SocialIcon({ platform, href, size = 'md', className = ''
   return (
     <a
       href={href}
+      // Icon-only link — no accessible name without this. Lighthouse
+      // (link-name audit) flagged all six of these as unlabelled.
+      aria-label={`Pahari Yatri on ${platformLabels[platform] || platform}`}
       className={`bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors duration-300 ${className}`}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => track('social_click', { platform, location, url: href })}
     >
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        className={`${sizeClass} text-primary`} 
-        fill="currentColor" 
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className={`${sizeClass} text-primary`}
+        fill="currentColor"
         viewBox="0 0 24 24"
+        aria-hidden="true"
       >
         <path d={iconPath} />
       </svg>

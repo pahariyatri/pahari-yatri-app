@@ -136,6 +136,7 @@ export default function BookCarousel({ books }: BookCarouselProps) {
                 <Button
                     variant="outline"
                     size="icon"
+                    aria-label="Previous book"
                     className="rounded-full border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors"
                     onClick={scrollPrev}
                 >
@@ -144,6 +145,7 @@ export default function BookCarousel({ books }: BookCarouselProps) {
                 <Button
                     variant="outline"
                     size="icon"
+                    aria-label="Next book"
                     className="rounded-full border-primary/20 hover:bg-primary/10 hover:text-primary transition-colors"
                     onClick={scrollNext}
                 >
