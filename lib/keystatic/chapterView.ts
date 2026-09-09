@@ -199,10 +199,12 @@ export async function getChapterView(slug: string) {
   }
 
   // The book this chapter belongs to — a quiet backlink that keeps readers
-  // inside the library — plus the next chapter in reading order, the open
-  // loop that turns chapters into episodes rather than dead ends.
+  // inside the library — plus the previous and next chapters in reading
+  // order, the open loop that turns chapters into episodes rather than
+  // dead ends.
   let parentBook: { slug: string; title: string } | null = null;
   let nextChapter: { slug: string; title: string; excerpt: string; image: string } | null = null;
+  let prevChapter: { slug: string; title: string; excerpt: string; image: string } | null = null;
   try {
     const books = await reader.collections.books.all();
     const owner = books.find((b) =>
@@ -213,6 +215,8 @@ export async function getChapterView(slug: string) {
       const order = ((owner.entry.relatedChapters as any[]) || []).filter(Boolean);
       const idx = order.indexOf(slug);
       const nextSlug = idx >= 0 && order.length > 1 ? order[(idx + 1) % order.length] : null;
+      const prevSlug =
+        idx >= 0 && order.length > 1 ? order[(idx - 1 + order.length) % order.length] : null;
       if (nextSlug) {
         const nc = await reader.collections.chapters.read(nextSlug);
         if (nc)
@@ -221,6 +225,16 @@ export async function getChapterView(slug: string) {
             title: nc.title || nextSlug,
             excerpt: nc.excerpt || "",
             image: resolveImage(nc.image),
+          };
+      }
+      if (prevSlug) {
+        const pc = await reader.collections.chapters.read(prevSlug);
+        if (pc)
+          prevChapter = {
+            slug: prevSlug,
+            title: pc.title || prevSlug,
+            excerpt: pc.excerpt || "",
+            image: resolveImage(pc.image),
           };
       }
     }
@@ -256,6 +270,7 @@ export async function getChapterView(slug: string) {
     relatedChapters,
     parentBook,
     nextChapter,
+    prevChapter,
     districtLink,
     breadcrumbs,
   };
