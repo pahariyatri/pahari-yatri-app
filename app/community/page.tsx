@@ -1,6 +1,6 @@
 import Link from "@/components/common/Link";
 import YatriCircleLink from "@/components/common/YatriCircleLink";
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import { genPageMetadata } from "@/app/seo";
@@ -36,14 +36,13 @@ const WAYS = [
 export default function CommunityPage() {
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="The Movement"
         title="Not a trip. A way of walking."
-        subtitle="Pahari Yatri is a slow, intentional community for people who want to understand the Himalayas, not just visit them."
-        image="/static/images/pages/community.jpg"
+        subtitle="People, stories and contributions that help us understand the mountains. Pahari Yatri is a slow, intentional community for people who want to understand the Himalayas, not just visit them."
       />
 
-      <SectionContainer className="py-16 sm:py-24">
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-brandSerif font-medium mb-6 leading-tight">
             We are Yatris, not tourists.

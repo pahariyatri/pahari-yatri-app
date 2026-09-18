@@ -1,5 +1,5 @@
 import Link from "@/components/common/Link";
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import FilmsList from "@/components/FilmsList";
 import { getInstagramReels } from "@/lib/instagram";
@@ -33,14 +33,13 @@ export default async function FilmsPage() {
 
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="Films & Reels"
         title="Watch the mountains move."
-        subtitle="Short films and reels from the trail: the light, the weather, the temples, and the quiet moments that photos cannot hold."
-        image="/static/images/pages/films.jpg"
+        subtitle="Short films and visual stories from the Himalaya: the light, the weather, the temples, and the quiet moments that photos cannot hold."
       />
 
-      <SectionContainer className="py-16 sm:py-24">
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
         {/* Direct channels — always visible, films or not */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-12 rounded-2xl border border-border/50 bg-muted/20 p-6 sm:p-8">
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-light max-w-xl text-center sm:text-left">
@@ -64,6 +63,9 @@ export default async function FilmsPage() {
         </div>
 
         {/* Dynamic Filterable Film List */}
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-6">
+          Latest films &amp; reels
+        </h2>
         <FilmsList initialFilms={films} instagramReels={instagramReels} />
 
         <div className="mt-16 text-center">

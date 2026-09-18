@@ -11,8 +11,26 @@ import FilmsSection from "@/components/FilmsSection";
 
 import { getVideoObjectSchema } from "@/lib/schema";
 import siteMetadata from "@/data/siteMetadata";
+import { execFileSync } from "node:child_process";
 
 const reader = createReader(process.cwd(), keystaticConfig);
+
+// The hero banner has no editable date field in Keystatic, and the schema
+// previously fell back to `new Date()` — a fresh, meaningless "uploadDate"
+// on every render. The banner's own last real commit is a truthful stand-in,
+// same approach as `lastModifiedFor` in app/sitemap.ts.
+function bannerUploadDate(): string | undefined {
+  try {
+    const out = execFileSync(
+      "git",
+      ["log", "-1", "--format=%aI", "--", "data/banners/"],
+      { cwd: process.cwd(), encoding: "utf8" }
+    ).trim();
+    return out || undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 // The homepage is the only route with no page-level metadata, so it fell
 // through to the root layout's `alternates.canonical: "./"` default —
@@ -33,7 +51,9 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const heroBanner = await reader.singletons.banners.readOrThrow();
-  const videoSchema = heroBanner ? getVideoObjectSchema(heroBanner, siteMetadata.siteUrl) : null;
+  const videoSchema = heroBanner
+    ? getVideoObjectSchema(heroBanner, siteMetadata.siteUrl, bannerUploadDate())
+    : null;
 
   return (
     <div className="min-h-screen">

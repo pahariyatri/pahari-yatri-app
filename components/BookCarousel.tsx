@@ -74,6 +74,7 @@ export default function BookCarousel({ books }: BookCarouselProps) {
                                                     src={book.coverImage}
                                                     alt={book.title}
                                                     fill
+                                                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 85vw"
                                                     className="object-cover transition-transform duration-700 group-hover/card:scale-110"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />

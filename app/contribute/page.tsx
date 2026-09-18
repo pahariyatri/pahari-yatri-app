@@ -1,4 +1,4 @@
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import ContributeForm from "./contribute-form";
 import { genPageMetadata } from "@/app/seo";
@@ -15,21 +15,13 @@ export async function generateMetadata() {
 export default function ContributePage() {
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="Add your voice"
         title="Your story can become a chapter."
-        subtitle="The library grows through the people who walk it. Share a trail, a village memory, a temple, or a piece of folklore."
-        image="/static/images/pages/contribute.jpg"
+        subtitle="Help document the Himalaya through stories, photographs, knowledge and local voices. Write the way you'd tell it by a fire, honestly, in your own voice — we read every contribution, and the ones that belong become part of the digital Himalayan library, credited to you."
       />
 
-      <SectionContainer className="py-16 sm:py-24">
-        <div className="max-w-xl mx-auto mb-14 text-center">
-          <p className="text-lg text-muted-foreground leading-relaxed font-light">
-            Write the way you&apos;d tell it by a fire, honestly, in your own
-            voice. We read every contribution, and the ones that belong become
-            part of the digital Himalayan library, credited to you.
-          </p>
-        </div>
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
         <ContributeForm />
       </SectionContainer>
     </div>

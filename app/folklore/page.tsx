@@ -1,5 +1,5 @@
 import Link from "@/components/common/Link";
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import { genPageMetadata } from "@/app/seo";
 
@@ -60,22 +60,13 @@ const TALES = [
 export default function FolklorePage() {
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="Folklore"
         title="The stories the mountains tell about themselves."
-        subtitle="Passed down village to village, fire to fire, these are the myths that explain why a lake keeps oaths and a shrine refuses a roof."
-        image="/static/images/pages/folklore.jpg"
+        subtitle="Stories and oral traditions from the Himalaya, clearly separated from verified historical facts. Passed down village to village, fire to fire, these are the myths that explain why a lake keeps oaths and a shrine refuses a roof — the operating instructions of the mountains, told by the people who live inside them."
       />
 
-      <SectionContainer className="py-16 sm:py-24">
-        <div className="max-w-3xl mx-auto mb-16 text-center">
-          <p className="text-lg text-muted-foreground leading-relaxed font-light">
-            Folklore is how the Himalayas remember. These tales are not
-            decoration. They are the operating instructions of the mountains,
-            told by the people who live inside them.
-          </p>
-        </div>
-
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {TALES.map((t) => (
             <article

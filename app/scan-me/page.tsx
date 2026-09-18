@@ -1,132 +1,103 @@
+import type { Metadata } from "next";
+import Link from "@/components/common/Link";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import ChannelLink from "@/components/common/ChannelLink";
-import ResponsiveImage from "@/components/common/ResponsiveImage";
-import Image from "@/components/common/Image";
+import SocialLinks from "@/components/common/SocialLinks";
+import { Button } from "@/components/ui/button";
+import siteMetadata from "@/data/siteMetadata";
+import { Mail, Volume2 } from "lucide-react";
 
-export default function About() {
+// Thin, contact-only utility page for people who scan the printed QR code —
+// not meant to compete in search against real content pages, so it's kept
+// out of the sitemap and explicitly noindexed rather than left to inherit
+// the homepage's title/description as an accidental duplicate.
+export const metadata: Metadata = {
+  title: "Quick Contact",
+  description:
+    "Scanned the Pahari Yatri code? Here's the fastest way to reach us — join the community channels, start the library, or send an email.",
+  alternates: { canonical: "/scan-me" },
+  robots: { index: false, follow: true },
+};
+
+// Real, currently-used community channels (same URLs as the Yatri Circle
+// thank-you flow in components/application/steps/ThankYouStep.tsx), not the
+// unverified personal phone number this page used to show.
+const whatsappChannelUrl = "https://whatsapp.com/channel/0029VbBQ3PLElagxCgWywv1S";
+const discordUrl = "https://discord.gg/uxyqQjjesU";
+
+export default function ScanMePage() {
   return (
-    <SectionContainer>
-      <div className="flex flex-col items-center justify-center">
-        {/* Title Section */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:text-5xl">
-            Quick Contact
-          </h2>
-          <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
-            Get in touch with us quickly and easily.
-          </p>
-        </div>
+    <div>
+      <PageIntro
+        kicker="Quick Contact"
+        title="You scanned the code. Here's where to go."
+        subtitle="Join the community channels, start the library, or send us a note directly."
+        align="center"
+      />
 
-        {/* Main Contact Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start w-full gap-8 max-w-4xl">
-          {/* Contact Details */}
-          <div className="w-full md:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Our Address</h3>
-            <p className="text-lg text-gray-700 dark:text-gray-300">
-              Pahari Yatri Pvt. Ltd.<br />
-              123 Mountain View Road,<br />
-              Himachal Pradesh, India<br />
-              Zip Code: 171001<br />
-              Phone: <a href="tel:+916280888188" className="text-blue-500 hover:underline">+91-6280888188</a><br />
-              Email: <a href="mailto:info@pahariyatri.com" className="text-blue-500 hover:underline">info@pahariyatri.com</a>
-            </p>
-          </div>
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
+        <div className="max-w-md mx-auto space-y-4">
+          <ChannelLink
+            channel="whatsapp"
+            href={whatsappChannelUrl}
+            location="scan_me"
+            className="block"
+          >
+            <Button size="lg" className="w-full rounded-xl gap-3 justify-center">
+              <Volume2 className="h-4.5 w-4.5 shrink-0" />
+              Join the WhatsApp Channel
+            </Button>
+          </ChannelLink>
 
-          {/* Quick Contact Options */}
-          <div className="w-full md:w-1/2 flex flex-col gap-6">
-            {/* WhatsApp Contact */}
-            <ChannelLink
-              channel="whatsapp"
-              href="https://wa.me/6280888188"
-              location="scan_me"
-              className="flex items-center bg-green-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-green-600"
+          <ChannelLink
+            channel="discord"
+            href={discordUrl}
+            location="scan_me"
+            className="block"
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full rounded-xl gap-3 justify-center"
             >
-              <ResponsiveImage
-                src="/static/icons/whatsapp logo_icon.svg"
-                alt="WhatsApp"
-                className="w-6 h-6 mr-2"
-                aspectRatio="1:1"
-              />
-              Contact Us on WhatsApp
-            </ChannelLink>
+              Join the Discord
+            </Button>
+          </ChannelLink>
 
-            {/* Email Contact */}
-            <a
-              href="mailto:info@pahariyatri.com"
-              className="flex items-center bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600"
+          <Link href="/start" className="block">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full rounded-xl gap-3 justify-center"
             >
-              <Image
-                src="/static/icons/email.svg"
-                alt="Email"
-                width={24}
-                height={24}
-                className="mr-2"
-              />
-              Send Us an Email
-            </a>
+              Start the Library
+            </Button>
+          </Link>
 
-            {/* Book a Trip or Generate a Query */}
-            <a
-              href="https://forms.gle/your-google-form-url"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center bg-yellow-500 text-white text-lg px-6 py-3 rounded-lg shadow-lg hover:bg-yellow-600"
+          <a href={`mailto:${siteMetadata.email}`} className="block">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full rounded-xl gap-3 justify-center"
             >
-              <Image
-                src="/icons/booking.svg"
-                alt="Book"
-                width={24}
-                height={24}
-                className="mr-2"
-              />
-              Book Your Trip or Generate a Query
-            </a>
+              <Mail className="h-4.5 w-4.5 shrink-0" />
+              {siteMetadata.email}
+            </Button>
+          </a>
 
-            {/* Social Media Links */}
-            <div className="flex space-x-4 justify-center">
-              <a
-                href="https://facebook.com/fb.pahariyatri"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"
-              >
-                <Image
-                  src="/static/icons/facebook logo_icon.svg"
-                  alt="Facebook"
-                  width={24}
-                  height={24}
-                />
-              </a>
-              <a
-                href="https://instagram.com/pahariyatri"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-pink-500 text-white p-3 rounded-full shadow-lg hover:bg-pink-600"
-              >
-                <Image
-                  src="/static/icons/instagram logo_icon.svg"
-                  alt="Instagram"
-                  width={24}
-                  height={24}
-                />
-              </a>
-              <a
-                href="https://twitter.com/pahariyatri"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-400 text-white p-3 rounded-full shadow-lg hover:bg-blue-500"
-              >
-                <Image
-                  src="/static/icons/linkedin logo_icon.svg"
-                  alt="Twitter"
-                  width={24}
-                  height={24}
-                />
-              </a>
-            </div>
+          <div className="pt-4 flex justify-center">
+            <SocialLinks
+              instagram={siteMetadata.instagram}
+              youtube={siteMetadata.youtube}
+              facebook={siteMetadata.facebook}
+              threads={siteMetadata.threads}
+              linkedin={siteMetadata.linkedin}
+              iconSize="md"
+            />
           </div>
         </div>
-      </div>
-    </SectionContainer>
+      </SectionContainer>
+    </div>
   );
 }

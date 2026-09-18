@@ -147,7 +147,12 @@ export function getRegionSchema(region: any, siteUrl: string) {
     };
 }
 
-export function getVideoObjectSchema(banner: any, siteUrl: string) {
+// A fixed fallback rather than `new Date()` — the latter reports request/build
+// time on every render, which is exactly the "report a plausible-looking but
+// meaningless date" mistake app/sitemap.ts already avoids for lastModified.
+const SCHEMA_FALLBACK_DATE = "2026-01-01T00:00:00.000Z";
+
+export function getVideoObjectSchema(banner: any, siteUrl: string, uploadDate?: string) {
     return {
         "@context": "https://schema.org",
         "@type": "VideoObject",
@@ -156,9 +161,12 @@ export function getVideoObjectSchema(banner: any, siteUrl: string) {
         "thumbnailUrl": [
             schemaImage("/static/images/pahari-yatri-banner.png", siteUrl)
         ],
-        "uploadDate": new Date().toISOString(),
+        "uploadDate": uploadDate || SCHEMA_FALLBACK_DATE,
+        // No `embedUrl` — this is a self-hosted background mp4, not an
+        // embeddable player page, and the `/social-share` route it used to
+        // point at doesn't exist (a real 404 inside JSON-LD). `contentUrl`
+        // alone correctly and truthfully describes this video.
         "contentUrl": `${siteUrl}${banner.media}`,
-        "embedUrl": `${siteUrl}/social-share`,
         "publisher": {
             "@type": "Organization",
             "@id": `${siteUrl}/#organization`

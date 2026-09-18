@@ -20,6 +20,7 @@ People should not think "Pahari Yatri sells trips." They should think "Pahari Ya
 
 ## Site map for AI and search
 - Home: https://pahariyatri.com
+- Start here (orientation for new readers): https://pahariyatri.com/start
 - Library (hub): https://pahariyatri.com/library
 - Books (seasonal editions): https://pahariyatri.com/books
 - Stories: https://pahariyatri.com/stories
