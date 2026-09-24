@@ -176,6 +176,17 @@ export default config({
           publicPath: "/static/images/books/",
           validation: { isRequired: true },
         }),
+        coverImageAlt: fields.text({
+          label: "Cover Image Alt Text",
+          description: "What the photo actually shows, e.g. 'The Parvati Valley seen from Ratocha village'.",
+        }),
+        coverImageCredit: fields.text({
+          label: "Cover Image Credit",
+          description: "Photographer / licence / source, e.g. 'Jane Doe / CC BY-SA 4.0 via Wikimedia Commons'. Required for any licensed photo.",
+        }),
+        coverImageCreditUrl: fields.url({
+          label: "Cover Image Source URL",
+        }),
         relatedChapters: fields.array(
           fields.relationship({
             label: "Chapters in this Edition",
@@ -483,6 +494,17 @@ export default config({
           directory: "public/static/images/chapters",
           publicPath: "/static/images/chapters/",
           validation: { isRequired: true },
+        }),
+        imageAlt: fields.text({
+          label: "Featured Image Alt Text",
+          description: "What the photo actually shows. Never name a place the photo does not show.",
+        }),
+        imageCredit: fields.text({
+          label: "Featured Image Credit",
+          description: "Photographer / licence / source, e.g. 'Jane Doe / CC BY-SA 4.0 via Wikimedia Commons'. Required for any licensed photo.",
+        }),
+        imageCreditUrl: fields.url({
+          label: "Featured Image Source URL",
         }),
         relatedStories: fields.array(
           fields.relationship({

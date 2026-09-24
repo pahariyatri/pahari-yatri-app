@@ -1,5 +1,5 @@
 import Link from "@/components/common/Link";
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import BookCarousel from "@/components/BookCarousel";
 import { genPageMetadata } from "@/app/seo";
@@ -115,18 +115,17 @@ export default async function LibraryPage() {
 
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="A digital Himalayan library"
         title="Everything the mountains have to teach, in one place."
-        subtitle="Read slowly. Every trail here is a chapter, every season a book. The mountains are in no hurry, and neither are we."
-        image="/static/images/pages/library.jpg"
+        subtitle="Himalayan stories, books, places and knowledge collected through Pahari Yatri. Read slowly — every trail here is a chapter, every season a book."
       />
 
       {/* The featured shelf — real book covers standing side by side, so the
           page reads as an actual library shelf before it reads as a site
           directory. Same component and physical-book treatment as the
           homepage, for one consistent Pahari Yatri "shelf" everywhere. */}
-      <SectionContainer className="pt-16 sm:pt-24 pb-4 sm:pb-8 relative overflow-hidden">
+      <SectionContainer className="pt-2 sm:pt-4 pb-4 sm:pb-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.06] via-background to-background -z-10" />
         <div className="max-w-2xl mb-10 sm:mb-14">
           <span className="text-primary text-xs font-bold tracking-[0.2em] uppercase">

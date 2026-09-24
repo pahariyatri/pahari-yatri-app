@@ -2,60 +2,24 @@
 
 import { motion } from "framer-motion";
 import SectionContainer from "@/components/common/SectionContainer";
+import PageIntro from "@/components/common/PageIntro";
 import Link from "@/components/common/Link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function AboutClient() {
     return (
         <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
 
-            {/* Hero / Origin */}
-            <section className="relative min-h-[80vh] flex flex-col justify-center items-center text-center px-6 py-20 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src="/static/images/mountains-bg.jpg"
-                        alt="Himalayan Peaks"
-                        fill
-                        sizes="100vw"
-                        className="object-cover opacity-30 grayscale"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
-                </div>
-
-                <div className="relative z-10 max-w-4xl mx-auto space-y-8">
-                    <motion.span
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-primary text-sm font-bold tracking-[0.3em] uppercase"
-                    >
-                        The Origin
-                    </motion.span>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl sm:text-7xl md:text-8xl font-brandSerif font-medium tracking-tight leading-tight"
-                    >
-                        We are not <br /> <span className="italic text-muted-foreground">tourists.</span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl sm:text-2xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed"
-                    >
-                        We are Yatris. Seekers of the sacred. Wanderers of the high passes.
-                    </motion.p>
-                </div>
-            </section>
+            {/* Origin — plain editorial header, no hero image or entrance
+                animation. The founder story below carries the page. */}
+            <PageIntro
+                kicker="The Origin"
+                title="Why Pahari Yatri exists and what we are building."
+                subtitle="We are Yatris, not tourists. Seekers of the sacred, wanderers of the high passes — building a digital Himalayan library and a slow, intentional community, not a trekking company."
+            />
 
             {/* The Story */}
-            <SectionContainer className="py-24 sm:py-32">
+            <SectionContainer className="pt-2 sm:pt-4 pb-24 sm:pb-32">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
                     <div className="lg:col-span-4 lg:sticky lg:top-32">
                         <h2 className="text-3xl font-brandSerif mb-6">The Awakening</h2>

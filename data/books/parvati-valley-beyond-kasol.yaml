@@ -26,7 +26,10 @@ excerpt: >-
   Villages, trails, people and stories beyond the famous gateway. Kasol is
   not Parvati Valley. It is only where the valley starts, and this book
   follows what comes after.
-coverImage: /static/images/books/parvati-valley-beyond-kasol/coverImage.jpg
+coverImage: /static/images/books/parvati-valley-beyond-kasol/parvati-valley-from-ratocha.jpg
+coverImageAlt: "The Parvati Valley seen from Ratocha village"
+coverImageCredit: "Methemfetamine / CC BY 3.0 via Wikimedia Commons"
+coverImageCreditUrl: https://commons.wikimedia.org/wiki/File:Parvati_Valley_from_Ratocha_Village.jpg
 relatedChapters:
   - understanding-parvati-valley
   - kasol-weekend

@@ -196,6 +196,7 @@ export default async function Page({ params }: any) {
                         src={resolveImage(region.heroImage)}
                         alt={region.title}
                         fill
+                        sizes="100vw"
                         className="object-cover scale-105"
                         priority
                     />
@@ -352,7 +353,7 @@ export default async function Page({ params }: any) {
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[55vh] md:h-[75vh] flex items-end overflow-hidden pt-40 md:pt-32">
-                        <Image src={resolveImage(dest.image)} alt={dest.title} fill className="object-cover scale-105" />
+                        <Image src={resolveImage(dest.image)} alt={dest.title} fill sizes="100vw" priority className="object-cover scale-105" />
                         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/40 to-transparent" />
                         <SectionContainer className="relative pb-16">
                             <div className="mb-10">
@@ -437,7 +438,7 @@ export default async function Page({ params }: any) {
                 <main className="min-h-screen">
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
                     <div className="relative h-[50vh] md:h-[60vh] bg-muted/30 border-b border-border/50 overflow-hidden pt-40 md:pt-32">
-                        <Image src={resolveImage(place.image)} alt={place.title} fill className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />
+                        <Image src={resolveImage(place.image)} alt={place.title} fill sizes="100vw" priority className="object-cover opacity-70 scale-110 blur-[2px] md:blur-none" />
                         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/60 to-transparent" />
                         <SectionContainer className="relative h-full flex flex-col justify-end pb-16">
                             <div className="mb-10">

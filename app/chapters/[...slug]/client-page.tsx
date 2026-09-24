@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
+import PhotoCredit from "@/components/common/PhotoCredit";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
@@ -119,7 +120,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
         <div className="absolute inset-0">
           <ResponsiveImage
             src={journey.image}
-            alt={journey.title}
+            alt={journey.imageAlt || journey.title}
             fill
             sizes="100vw"
             priority
@@ -172,6 +173,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
           <p className="text-base sm:text-xl font-light text-white/90 max-w-2xl leading-relaxed drop-shadow">
             {journey.excerpt}
           </p>
+          <PhotoCredit credit={journey.imageCredit} url={journey.imageCreditUrl} className="mt-6" />
         </motion.div>
       </header>
 

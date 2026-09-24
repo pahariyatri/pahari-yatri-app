@@ -123,7 +123,6 @@ export default async function RootLayout({
   const seo = await reader.singletons.seo.read();
 
   const siteUrl = siteMetadata.siteUrl;
-  const currentDate = new Date().toISOString();
 
   // Schema.org JSON-LD
   const jsonLdWebsite = {
@@ -164,8 +163,10 @@ export default async function RootLayout({
       "@type": "WebPage",
       "@id": siteUrl,
     },
-    datePublished: currentDate,
-    dateModified: currentDate,
+    // No datePublished/dateModified here — WebSite isn't a dated creative
+    // work, and this was previously `new Date()` at request time, which
+    // changed on every single page load site-wide (every page includes this
+    // block). A fake, ever-changing "last modified" is worse than none.
   };
 
   const jsonLdOrg = {
@@ -239,7 +240,6 @@ export default async function RootLayout({
           sizes="16x16"
           href="/static/favicons/favicon-16x16.png"
         />
-        <link rel="manifest" href="/static/favicons/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
           name="theme-color"

@@ -20,7 +20,6 @@ const columns = [
       // are exactly what is not getting indexed on this site right now.
       { href: "/start", title: "Start Here" },
       { href: "/library", title: "Open the Library" },
-      { href: "/chapters", title: "All Chapters" },
       { href: "/stories", title: "Stories" },
       { href: "/films", title: "Films & Reels" },
       { href: "/journal", title: "Journal" },

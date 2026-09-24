@@ -76,6 +76,15 @@ const nextConfig = {
                 destination: '/library',
                 statusCode: 301,
             },
+            {
+                // The /chapters index was a separate, dated card-grid page that
+                // duplicated what /library already does better. Individual
+                // chapter pages (/chapters/[slug]) are unaffected and keep their
+                // own canonical URLs — only the index goes away.
+                source: '/chapters',
+                destination: '/library',
+                statusCode: 301,
+            },
         ];
     },
     // Keystatic configuration

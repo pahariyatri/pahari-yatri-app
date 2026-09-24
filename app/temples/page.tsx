@@ -1,5 +1,5 @@
 import Link from "@/components/common/Link";
-import PageHero from "@/components/common/PageHero";
+import PageIntro from "@/components/common/PageIntro";
 import SectionContainer from "@/components/common/SectionContainer";
 import { genPageMetadata } from "@/app/seo";
 
@@ -72,22 +72,13 @@ const TEMPLES = [
 export default function TemplesPage() {
   return (
     <div>
-      <PageHero
+      <PageIntro
         kicker="Temples & Traditions"
         title="The sacred grammar of the mountains."
-        subtitle="In the Himalayas, gods are neighbours. Before you visit a temple, learn what it means to those who have kept it for centuries."
-        image="/static/images/pages/temples.jpg"
+        subtitle="Stories, traditions and local knowledge around Himalayan temples and devtas. These are not attractions — they are living places of faith, governed by devtas, fairs, and rules older than any map. This archive grows as travellers and locals contribute what they know."
       />
 
-      <SectionContainer className="py-16 sm:py-24">
-        <div className="max-w-3xl mx-auto mb-16 text-center">
-          <p className="text-lg text-muted-foreground leading-relaxed font-light">
-            These are not attractions. They are living places of faith, governed
-            by devtas, fairs, and rules older than any map. This archive grows as
-            travellers and locals contribute what they know.
-          </p>
-        </div>
-
+      <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {TEMPLES.map((t) => (
             <article

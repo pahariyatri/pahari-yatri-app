@@ -56,6 +56,7 @@ export default function HiddenTrails({ id }: Props) {
                                 src={location.image}
                                 alt={location.name}
                                 fill
+                                sizes="(min-width: 768px) 33vw, 100vw"
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                             {/* Readable gradient scrim — content always legible, no blur-gate */}

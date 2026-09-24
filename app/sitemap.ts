@@ -65,13 +65,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '',
         // The orientation page new visitors land on from the Instagram bio,
         // the printed QR and brand-name search. Ranked just under the
-        // homepage and level with chapters: it is the second-most-important
-        // entry point on the site, and it was missing from this list when it
-        // shipped, on a site where 90 of 127 pages are already unindexed.
+        // homepage: it is the second-most-important entry point on the
+        // site, and it was missing from this list when it shipped, on a
+        // site where 90 of 127 pages are already unindexed.
         'start',
         'library',
-        'books',
-        'chapters',
+        // 'books' is deliberately not listed — the static /books index 301s
+        // to /library (next.config.mjs), so it was a sitemap entry that only
+        // ever resolved as a redirect. Individual book pages (bookRoutes,
+        // below) are real, canonical URLs and stay in the sitemap.
         'stories',
         'responsible-travel',
         'temples',

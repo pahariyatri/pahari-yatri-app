@@ -62,6 +62,7 @@ const HeroBanner = ({
           fill
           priority
           fetchPriority="high"
+          sizes="100vw"
           className={`object-cover transition-opacity duration-1000 ${videoReady ? "opacity-0" : "opacity-100"}`}
         />
 

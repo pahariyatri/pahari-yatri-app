@@ -246,16 +246,16 @@ export default async function StartPage() {
 
                 <div className="mt-10">
                     <StartLink
-                        href="/chapters"
+                        href="/library"
                         section="popular_chapter"
-                        label="All chapters"
+                        label="Open the library"
                         className="inline-flex"
                     >
                         <Button
                             variant="outline"
                             className="rounded-full px-7 py-5 border-primary/20 hover:bg-primary/5 text-foreground"
                         >
-                            Read every chapter
+                            Open the library
                         </Button>
                     </StartLink>
                 </div>
