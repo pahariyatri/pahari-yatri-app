@@ -25,7 +25,10 @@ excerpt: >-
   Short days by the river, small bridges of conversation, and a trail that asks
   for nothing more than presence.
 location: Kasol
-image: /static/images/chapters/kasol-weekend/image.jpg
+image: /static/images/chapters/kasol-weekend/old-kasol-mountain-view.jpg
+imageAlt: "Mountain view from Old Kasol"
+imageCredit: "BenSalo / CC BY-SA 3.0 via Wikimedia Commons"
+imageCreditUrl: https://commons.wikimedia.org/wiki/File:Kasol_mountain_view.jpg
 relatedStories:
   - kasol-slow-saturday
 relatedChapters:

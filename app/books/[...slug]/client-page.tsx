@@ -6,6 +6,7 @@ import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
 import { ArrowRight } from "lucide-react";
+import PhotoCredit from "@/components/common/PhotoCredit";
 
 export default function BookPageClient({ book, chapters }: any) {
   return (
@@ -27,7 +28,7 @@ export default function BookPageClient({ book, chapters }: any) {
         <div className="relative w-full lg:w-1/2 h-[60svh] lg:h-screen lg:sticky lg:top-0 z-10 overflow-hidden">
           <Image
             src={book.coverImage}
-            alt={book.title}
+            alt={book.coverImageAlt || book.title}
             fill
             sizes="(min-width:1024px) 50vw, 100vw"
             className="object-cover"
@@ -39,7 +40,14 @@ export default function BookPageClient({ book, chapters }: any) {
           <div className="absolute bottom-0 left-0 p-6 lg:hidden">
             <p aria-hidden="true" className="text-4xl font-bold font-brandSerif text-white mb-2">{book.title}</p>
             <p className="text-white/80 text-sm">{book.excerpt}</p>
+            <PhotoCredit credit={book.coverImageCredit} url={book.coverImageCreditUrl} className="mt-3" />
           </div>
+          {/* Desktop: credit sits at the cover's base */}
+          <PhotoCredit
+            credit={book.coverImageCredit}
+            url={book.coverImageCreditUrl}
+            className="hidden lg:block absolute bottom-4 left-6"
+          />
         </div>
 
         {/* Right: Content Scroll */}
@@ -123,7 +131,7 @@ export default function BookPageClient({ book, chapters }: any) {
                       <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl">
                         <Image
                           src={chapter.coverImage}
-                          alt={chapter.title}
+                          alt={chapter.coverImageAlt || chapter.title}
                           fill
                           sizes="112px"
                           className="object-cover transition-transform duration-500 group-hover:scale-105"

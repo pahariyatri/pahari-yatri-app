@@ -49,6 +49,9 @@ export default async function Page({ params }: any) {
     excerpt: bookEntry.excerpt,
     invitation: bookEntry.invitation,
     coverImage: resolveImage(bookEntry.coverImage),
+    coverImageAlt: bookEntry.coverImageAlt || null,
+    coverImageCredit: bookEntry.coverImageCredit || null,
+    coverImageCreditUrl: bookEntry.coverImageCreditUrl || null,
     relatedChapters: bookEntry.relatedChapters || [],
   };
 
@@ -65,6 +68,7 @@ export default async function Page({ params }: any) {
             description: chapter.excerpt,
             location: chapter.location || "",
             coverImage: resolveImage(chapter.image),
+            coverImageAlt: chapter.imageAlt || null,
           }
           : null;
       })
