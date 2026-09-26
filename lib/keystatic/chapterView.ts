@@ -101,7 +101,7 @@ export async function getChapterView(slug: string) {
           geo: parseCoordinates((chapter as any).coordinates),
         }
       : undefined,
-    keywords: (chapter.themes || []).join(", "),
+    keywords: [chapter.targetKeyword, ...(chapter.secondaryKeywords || []), ...(chapter.themes || [])].filter(Boolean).join(", "),
     // Real name only with permission; otherwise this is the editorial team,
     // not a fabricated individual. Deliberately a distinct, stable node from
     // "@id": siteUrl+"/#organization" (the publisher/business entity) rather
@@ -380,6 +380,7 @@ export async function buildChapterMetadata(
   return {
     title,
     description,
+    keywords: [chapter.targetKeyword, ...(chapter.secondaryKeywords || [])].filter(Boolean),
     alternates: { canonical: canonicalPath },
     openGraph: {
       title,

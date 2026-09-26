@@ -218,6 +218,36 @@ export default function JourneyPageClient({ journey, slug }: any) {
           </SectionContainer>
         )}
 
+        {journey.editorialNotes?.length > 0 && (
+          <SectionContainer className="py-10">
+            <div className="max-w-2xl mx-auto space-y-8">
+              {journey.editorialNotes.map((note: { title: string; body: string }, i: number) => (
+                <section key={i} className="border-l-2 border-primary/30 pl-5">
+                  <h2 className="font-brandSerif text-2xl mb-3">{note.title}</h2>
+                  <p className="font-brandSerif text-lg leading-relaxed text-foreground/80">{note.body}</p>
+                </section>
+              ))}
+            </div>
+          </SectionContainer>
+        )}
+
+        {journey.sources?.length > 0 && (
+          <SectionContainer className="py-8">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="font-brandSerif text-2xl mb-4">Sources for this chapter</h2>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                {journey.sources.map((source: { label: string; url: string }) => (
+                  <li key={source.url}>
+                    <a href={source.url} className="underline underline-offset-4 hover:text-primary break-words">
+                      {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </SectionContainer>
+        )}
+
         {/* Gifts & Themes (poetic) */}
         {(gifts.length > 0 || themes.length > 0) && (
           <SectionContainer className="py-16 text-center">
@@ -512,7 +542,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
                 The book continues
               </span>
               <div
-                className={`grid gap-5 ${
+                className={`grid grid-cols-1 gap-5 ${
                   journey.prevChapter && journey.nextChapter ? "sm:grid-cols-2" : ""
                 }`}
               >
