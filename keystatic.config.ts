@@ -408,6 +408,17 @@ export default config({
         }),
 
         // ── Practical Trek Guide (for SEO + first-time visitors) ──────────
+        editorialNotes: fields.array(
+          fields.object({
+            title: fields.text({ label: "Note title" }),
+            body: fields.text({ label: "Note", multiline: true }),
+          }),
+          {
+            label: "Additional editorial notes",
+            description: "Add context or current access information without rewriting approved narrative.",
+            itemLabel: (props) => props.fields.title.value || "Note",
+          }
+        ),
         overview: fields.text({
           label: "Trek Overview (SEO intro)",
           multiline: true,

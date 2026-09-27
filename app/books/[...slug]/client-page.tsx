@@ -137,7 +137,7 @@ export default function BookPageClient({ book, chapters }: any) {
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         <span className="absolute top-1.5 left-1.5 text-[10px] font-bold font-sans text-white bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
-                          {`0${index + 1}`}
+                          {String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
 
