@@ -13,6 +13,11 @@ export default function InstagramReelCard({ reel }: { reel: InstagramReel }) {
   const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
 
+  // No raw video from the API (Instagram withholds it for many reels):
+  // play through Instagram's embed, the same one ReelCard uses.
+  const code = reel.permalink.match(/instagram\.com\/(?:reel|reels|p|tv)\/([A-Za-z0-9_-]+)/)?.[1];
+  const embedUrl = !reel.mediaUrl && code ? `https://www.instagram.com/reel/${code}/embed` : null;
+
   const toggle = () => {
     if (!started) {
       setStarted(true);
@@ -27,7 +32,16 @@ export default function InstagramReelCard({ reel }: { reel: InstagramReel }) {
   return (
     <figure className="group flex flex-col">
       <div className="relative w-full aspect-[9/16] overflow-hidden rounded-2xl border border-border/40 bg-muted/20 shadow-md group-hover:shadow-lg group-hover:shadow-primary/5 transition-all duration-500">
-        {started && (
+        {started && embedUrl && (
+          <iframe
+            src={embedUrl}
+            title={reel.caption || "Instagram reel"}
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 z-20 h-full w-full border-0 bg-background"
+          />
+        )}
+        {started && !embedUrl && (
           <video
             ref={videoRef}
             src={reel.mediaUrl}
