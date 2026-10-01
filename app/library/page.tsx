@@ -92,7 +92,7 @@ export default async function LibraryPage() {
           href: "/films",
           icon: Film,
           title: "Films & Reels",
-          count: "Watch the mountains",
+          count: "From our Instagram & YouTube",
           desc: "Short films and reels of the light, weather, temples, and quiet of the Himalayas.",
         },
         {

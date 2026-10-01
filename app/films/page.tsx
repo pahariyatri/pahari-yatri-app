@@ -14,7 +14,7 @@ export async function generateMetadata() {
   return genPageMetadata({
     title: "Films & Reels from the Himalayas",
     description:
-      "Short films and reels from Pahari Yatri: the light, weather, temples, and quiet moments of the Himalayas. Watch the mountains move.",
+      "Short films and reels from Pahari Yatri: the light, weather, temples, and quiet moments of the Himalayas.",
     alternates: { canonical: "/films" },
   });
 }
@@ -35,8 +35,8 @@ export default async function FilmsPage() {
     <div>
       <PageIntro
         kicker="Films & Reels"
-        title="Watch the mountains move."
-        subtitle="Short films and visual stories from the Himalaya: the light, the weather, the temples, and the quiet moments that photos cannot hold."
+        title="Reels and films from the trail."
+        subtitle="Pulled directly from our Instagram and YouTube: the newest reels appear here on their own, within the hour."
       />
 
       <SectionContainer className="pt-2 sm:pt-4 pb-16 sm:pb-24">

@@ -13,6 +13,13 @@ export async function getFilms(): Promise<Film[]> {
     slugs.map(async (slug) => {
       const entry = (await reader.collections.films.read(slug)) as any;
       if (!entry) return null;
+      // Only real films render: an entry needs a real video (uploaded file,
+      // direct URL, or a platform URL that isn't a placeholder).
+      const hasVideo =
+        entry.directVideo ||
+        entry.directUrl ||
+        (entry.url && !/EXAMPLE/i.test(entry.url));
+      if (!hasVideo) return null;
 
       const related: FilmContextLink[] = [];
       if (entry.relatedChapter) {

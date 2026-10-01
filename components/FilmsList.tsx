@@ -21,6 +21,7 @@ export default function FilmsList({ initialFilms, instagramReels }: FilmsListPro
   const [searchQuery, setSearchQuery] = useState("");
 
   const hasLiveReels = instagramReels && instagramReels.length > 0;
+  const hasYouTube = initialFilms.some((film) => film.platform === "youtube");
 
   // Filter films from Keystatic
   const filteredFilms = initialFilms.filter((film) => {
@@ -65,7 +66,10 @@ export default function FilmsList({ initialFilms, instagramReels }: FilmsListPro
                 { label: "Short Reels", value: "reels" },
                 { label: "Documentaries", value: "youtube" },
               ] as const
-            ).map((tab) => {
+            )
+              // Don't offer a filter that can only ever come back empty.
+              .filter((tab) => tab.value !== "youtube" || hasYouTube)
+              .map((tab) => {
               const active = filter === tab.value;
               return (
                 <button
@@ -155,7 +159,9 @@ export default function FilmsList({ initialFilms, instagramReels }: FilmsListPro
             <Grid className="h-10 w-10 text-muted-foreground/60 mx-auto mb-4" strokeWidth={1.5} />
             <h3 className="text-lg font-brandSerif font-medium mb-2">No films found</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              We couldn&apos;t find any films matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or searching a different term.
+              {searchQuery
+                ? <>We couldn&apos;t find any films matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or searching a different term.</>
+                : <>New reels land on Instagram and YouTube first. They&apos;ll appear here once they&apos;re live.</>}
             </p>
           </motion.div>
         )}

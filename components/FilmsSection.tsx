@@ -37,10 +37,10 @@ export default async function FilmsSection() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <div>
             <span className="text-primary text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
-              Films &amp; Reels
+              Latest from @pahariyatri
             </span>
             <h2 className="text-3xl md:text-5xl font-brandSerif font-medium text-foreground leading-tight">
-              Watch the mountains move.
+              Straight from our channels.
             </h2>
           </div>
           <Link href="/films" className="shrink-0">
