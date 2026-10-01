@@ -105,6 +105,8 @@ export default async function Page({ params }: any) {
     title: story.title || "",
     excerpt: story.excerpt || "",
     image,
+    imageCredit: (story as any).imageCredit || "",
+    imageCreditUrl: (story as any).imageCreditUrl || "",
     slug,
     contentHtml,
     quote: story.quote || "",

@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   alternates: { canonical: '/stories' },
 };
 
-/** ~200 wpm over the MDX body (frontmatter stripped). */
+/** ~200 wpm over the MDX body (frontmatter stripped), matching the story page. */
 function readingMinutes(slug: string): number | null {
   try {
     const raw = fs.readFileSync(path.join(process.cwd(), 'data/stories', `${slug}.mdx`), 'utf8');
     const words = raw.replace(/^---[\s\S]*?---/, '').split(/\s+/).filter(Boolean).length;
-    return Math.max(1, Math.round(words / 200));
+    return Math.max(2, Math.round(words / 200)); // same floor as the story page
   } catch {
     return null;
   }
