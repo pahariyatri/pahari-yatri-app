@@ -70,6 +70,19 @@ export default function BlogPageClient({ blog }: BlogPageClientProps) {
           <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 bg-gradient-to-t from-background via-black/50 to-black/10 z-10" />
         </div>
 
+        {/* Licence attribution for photos we didn't take (CC BY / BY-SA). */}
+        {blog.imageCredit && (
+          <p className="absolute bottom-2 right-3 z-30 max-w-[90%] truncate text-[10px] text-white/60">
+            {blog.imageCreditUrl ? (
+              <a href={blog.imageCreditUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">
+                {blog.imageCredit}
+              </a>
+            ) : (
+              blog.imageCredit
+            )}
+          </p>
+        )}
+
         <div className="relative z-20 w-full max-w-3xl mx-auto px-6 pb-12 sm:pb-16 text-center">
           {blog.chapter && (
             <motion.span

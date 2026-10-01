@@ -640,6 +640,15 @@ export default config({
           directory: "public/static/images/stories",
           publicPath: "/static/images/stories/",
         }),
+        imageCredit: fields.text({
+          label: "Image Credit",
+          description:
+            "Required for any photo you didn't take, e.g. 'Photo: Name, CC BY-SA 4.0, via Wikimedia Commons'. Shown on the story page.",
+        }),
+        imageCreditUrl: fields.url({
+          label: "Image Credit Link",
+          description: "The photo's source page (for Wikimedia Commons, the File: page).",
+        }),
         content: fields.mdx({
           label: "Story Content",
           extension: "mdx",
