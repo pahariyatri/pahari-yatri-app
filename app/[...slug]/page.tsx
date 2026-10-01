@@ -144,6 +144,8 @@ export async function generateMetadata({ params }: any) {
                 title,
                 description,
                 ...ogFor(`/${regionSlug}/${type}`, title, description, region.heroImage),
+                // The places index only lists noindexed place stubs.
+                ...(type === "places" ? { robots: { index: false, follow: true } } : {}),
             };
         }
     }
@@ -161,7 +163,10 @@ export async function generateMetadata({ params }: any) {
                 // stub. Keep it reachable but out of the index (and out of
                 // sitemap.ts) until the library actually covers it.
                 const links = await getDistrictLinks(itemSlug, regionSlug);
-                const isEmpty = links.chapters.length + links.places.length + links.stories.length === 0;
+                // Places don't count: they are two-sentence stubs themselves
+                // (noindexed below), so a district covered only by places is
+                // still a stub.
+                const isEmpty = links.chapters.length + links.stories.length === 0;
                 return {
                     title,
                     description: dest.description,
@@ -174,7 +179,16 @@ export async function generateMetadata({ params }: any) {
             const place = await reader.collections.places.read(itemSlug);
             if (place) {
                 const title = `${place.title} | Places in ${region.title}`;
-                return { title, description: place.description, ...ogFor(pathname, title, place.description || "", place.image) };
+                // A place entry is a two-sentence description — on its own a
+                // thin page. Keep it reachable (it links into the library)
+                // but out of the index and sitemap.ts until places get a real
+                // body field.
+                return {
+                    title,
+                    description: place.description,
+                    ...ogFor(pathname, title, place.description || "", place.image),
+                    robots: { index: false, follow: true },
+                };
             }
         }
         if (type === "stories") {

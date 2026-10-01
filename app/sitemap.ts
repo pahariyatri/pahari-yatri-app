@@ -101,9 +101,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }))
 
-    // Dynamic routes: per-region Travel Guides / Places index pages —
-    // real pages now (see app/[...slug]/page.tsx), not the soft-404s they
-    // used to be, so they belong in the sitemap.
+    // Dynamic routes: per-region Travel Guides index pages — real pages
+    // now (see app/[...slug]/page.tsx), not the soft-404s they used to be,
+    // so they belong in the sitemap.
     const regionIndexRoutes = regions.flatMap((slug) => [
         {
             url: `${siteUrl}/${slug}/travel-guide`,
@@ -111,26 +111,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly' as const,
             priority: 0.6,
         },
-        {
-            url: `${siteUrl}/${slug}/places`,
-            lastModified: lastModifiedFor('data/regions', slug),
-            changeFrequency: 'monthly' as const,
-            priority: 0.6,
-        },
     ])
 
     // Dynamic routes: Destinations
-    // Districts with no chapter, place or story are noindexed stubs (see
-    // generateMetadata in app/[...slug]/page.tsx) — keep them out of the
-    // sitemap too so the two signals agree. Same rule as getDistrictLinks().
-    const [sitemapChapters, sitemapPlaces] = await Promise.all([
-        reader.collections.chapters.all(),
-        reader.collections.places.all(),
-    ])
-    const coveredDistricts = new Set<string>([
-        ...sitemapChapters.map((c) => c.entry.district as string),
-        ...sitemapPlaces.map((p) => p.entry.district as string),
-    ].filter(Boolean))
+    // Districts with no chapter are noindexed stubs (see generateMetadata
+    // in app/[...slug]/page.tsx) — keep them out of the sitemap too so the
+    // two signals agree.
+    const sitemapChapters = await reader.collections.chapters.all()
+    const coveredDistricts = new Set<string>(
+        sitemapChapters.map((c) => c.entry.district as string).filter(Boolean)
+    )
     const destinations = (await reader.collections.destinations.all())
         .filter((d) => coveredDistricts.has(d.slug))
     const destRoutes = destinations.map((d) => ({
@@ -140,14 +130,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }))
 
-    // Dynamic routes: Places
-    const places = (await reader.collections.places.all())
-    const placeRoutes = places.map((p) => ({
-        url: `${siteUrl}/${p.entry.parentRegion}/places/${p.slug}`,
-        lastModified: lastModifiedFor('data/places', p.slug),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-    }))
+    // Place pages are noindexed two-sentence stubs (see generateMetadata in
+    // app/[...slug]/page.tsx), so they stay out of the sitemap, and so does
+    // the /places index that only lists them.
 
     // Dynamic routes: Books (seasonal editions) — unpublished books still
     // render at /books/[slug] (a chapter's parent-book link must not break)
@@ -189,7 +174,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...regionRoutes,
         ...regionIndexRoutes,
         ...destRoutes,
-        ...placeRoutes,
         ...bookRoutes,
         ...chapterRoutes,
         ...storyRoutes,
