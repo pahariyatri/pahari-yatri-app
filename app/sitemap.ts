@@ -120,7 +120,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ])
 
     // Dynamic routes: Destinations
+    // Districts with no chapter, place or story are noindexed stubs (see
+    // generateMetadata in app/[...slug]/page.tsx) — keep them out of the
+    // sitemap too so the two signals agree. Same rule as getDistrictLinks().
+    const [sitemapChapters, sitemapPlaces] = await Promise.all([
+        reader.collections.chapters.all(),
+        reader.collections.places.all(),
+    ])
+    const coveredDistricts = new Set<string>([
+        ...sitemapChapters.map((c) => c.entry.district as string),
+        ...sitemapPlaces.map((p) => p.entry.district as string),
+    ].filter(Boolean))
     const destinations = (await reader.collections.destinations.all())
+        .filter((d) => coveredDistricts.has(d.slug))
     const destRoutes = destinations.map((d) => ({
         url: `${siteUrl}/${d.entry.parentRegion}/travel-guide/${d.slug}`,
         lastModified: lastModifiedFor('data/destinations', d.slug),
