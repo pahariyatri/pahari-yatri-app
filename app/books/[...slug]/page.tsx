@@ -17,16 +17,21 @@ export async function generateMetadata({ params }: any) {
 
   if (!bookEntry) return {};
 
+  // seoTitle/metaDescription are authored per book in Keystatic; the literary
+  // title ("Winter") stays the H1 but is too vague to rank as a title tag.
+  const title = ((bookEntry as any).seoTitle || "").trim() || bookEntry.title;
+  const description = ((bookEntry as any).metaDescription || "").trim() || bookEntry.excerpt;
+
   return {
-    title: bookEntry.title,
-    description: bookEntry.excerpt,
+    title,
+    description,
     // Unpublished books stay reachable (a chapter's parent-book link must
     // never 404) but shouldn't be indexed or surfaced until the founder
     // marks them published.
     robots: bookEntry.published ? undefined : { index: false, follow: true },
     openGraph: {
-      title: bookEntry.title,
-      description: bookEntry.excerpt,
+      title,
+      description,
       images: [{ url: `https://pahariyatri.com/api/og?type=book&title=${encodeURIComponent(bookEntry.title)}&sub=${encodeURIComponent(bookEntry.invitation || bookEntry.excerpt || '')}`, width: 1200, height: 630 }],
       type: "website",
     },

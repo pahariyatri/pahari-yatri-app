@@ -81,6 +81,42 @@ async function getDistrictLinks(districtSlug: string, regionSlug: string) {
     return { chapters, places, stories };
 }
 
+/** A place page's way back into the library: its district guide, any
+ *  chapter that names the place (slug, title or location), and the other
+ *  places in the same district. Before this, every place page was a dead
+ *  end with no outgoing content links. */
+async function getPlaceLinks(placeSlug: string, placeTitle: string, districtSlug: string | null, regionSlug: string) {
+    const [district, allChapters, allPlaces] = await Promise.all([
+        districtSlug ? reader.collections.destinations.read(districtSlug) : null,
+        reader.collections.chapters.all(),
+        reader.collections.places.all(),
+    ]);
+
+    const name = placeTitle.toLowerCase();
+    const chapters = allChapters
+        .filter((c) =>
+            c.slug.includes(placeSlug) ||
+            String(c.entry.title ?? "").toLowerCase().includes(name) ||
+            String(c.entry.location ?? "").toLowerCase().includes(name))
+        .map((c) => ({
+            slug: c.slug,
+            title: c.entry.title as string,
+            excerpt: (c.entry.excerpt as string) || (c.entry.invitation as string) || "",
+        }));
+
+    const nearbyPlaces = districtSlug
+        ? allPlaces
+            .filter((p) => p.slug !== placeSlug && p.entry.district === districtSlug && p.entry.parentRegion === regionSlug)
+            .map((p) => ({ slug: p.slug, title: p.entry.title as string }))
+        : [];
+
+    return {
+        district: district && districtSlug ? { slug: districtSlug, title: district.title as string } : null,
+        chapters,
+        nearbyPlaces,
+    };
+}
+
 export async function generateMetadata({ params }: any) {
     const { slug } = await params;
     if (!slug || slug.length === 0) return {};
@@ -108,6 +144,8 @@ export async function generateMetadata({ params }: any) {
                 title,
                 description,
                 ...ogFor(`/${regionSlug}/${type}`, title, description, region.heroImage),
+                // The places index only lists noindexed place stubs.
+                ...(type === "places" ? { robots: { index: false, follow: true } } : {}),
             };
         }
     }
@@ -121,14 +159,36 @@ export async function generateMetadata({ params }: any) {
             const dest = await reader.collections.destinations.read(itemSlug);
             if (dest) {
                 const title = `${dest.title} Travel Guide | ${region.title}`;
-                return { title, description: dest.description, ...ogFor(pathname, title, dest.description || "", dest.image) };
+                // A district with no chapter, place or story is a ~160-word
+                // stub. Keep it reachable but out of the index (and out of
+                // sitemap.ts) until the library actually covers it.
+                const links = await getDistrictLinks(itemSlug, regionSlug);
+                // Places don't count: they are two-sentence stubs themselves
+                // (noindexed below), so a district covered only by places is
+                // still a stub.
+                const isEmpty = links.chapters.length + links.stories.length === 0;
+                return {
+                    title,
+                    description: dest.description,
+                    ...ogFor(pathname, title, dest.description || "", dest.image),
+                    ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
+                };
             }
         }
         if (type === "places") {
             const place = await reader.collections.places.read(itemSlug);
             if (place) {
                 const title = `${place.title} | Places in ${region.title}`;
-                return { title, description: place.description, ...ogFor(pathname, title, place.description || "", place.image) };
+                // A place entry is a two-sentence description — on its own a
+                // thin page. Keep it reachable (it links into the library)
+                // but out of the index and sitemap.ts until places get a real
+                // body field.
+                return {
+                    title,
+                    description: place.description,
+                    ...ogFor(pathname, title, place.description || "", place.image),
+                    robots: { index: false, follow: true },
+                };
             }
         }
         if (type === "stories") {
@@ -433,6 +493,7 @@ export default async function Page({ params }: any) {
             const place = await reader.collections.places.read(itemSlug);
             if (!place || place.parentRegion !== regionSlug) notFound();
 
+            const placeLinks = await getPlaceLinks(itemSlug, place.title as string, (place.district as string) || null, regionSlug);
             const jsonLd = getPlaceSchema({ ...place, slug: itemSlug }, { ...region, slug: regionSlug }, siteUrl);
             return (
                 <main className="min-h-screen">
@@ -461,6 +522,51 @@ export default async function Page({ params }: any) {
                                     </div>
                                 )}
                             </div>
+
+                            {(placeLinks.district || placeLinks.chapters.length > 0 || placeLinks.nearbyPlaces.length > 0) && (
+                                <div className="pt-12 border-t border-border/50">
+                                    <h2 className="text-2xl md:text-3xl font-brandSerif mb-8">
+                                        {place.title} in the library
+                                    </h2>
+                                    {placeLinks.chapters.length > 0 && (
+                                        <div className="mb-10">
+                                            <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Chapters</h3>
+                                            <ul className="grid sm:grid-cols-2 gap-3">
+                                                {placeLinks.chapters.map((c) => (
+                                                    <li key={c.slug}>
+                                                        <Link href={`/chapters/${c.slug}`} className="block rounded-xl border border-border/40 p-4 hover:border-primary/40 transition-colors">
+                                                            <span className="font-brandSerif text-lg">{c.title}</span>
+                                                            {c.excerpt && <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{c.excerpt}</p>}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                    {placeLinks.district && (
+                                        <div className="mb-10">
+                                            <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">District</h3>
+                                            <Link href={`/${regionSlug}/travel-guide/${placeLinks.district.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                {placeLinks.district.title} travel guide
+                                            </Link>
+                                        </div>
+                                    )}
+                                    {placeLinks.nearbyPlaces.length > 0 && (
+                                        <div>
+                                            <h3 className="text-[11px] uppercase tracking-widest font-bold mb-4 text-muted-foreground">Also in {placeLinks.district?.title}</h3>
+                                            <ul className="flex flex-wrap gap-3">
+                                                {placeLinks.nearbyPlaces.map((p) => (
+                                                    <li key={p.slug}>
+                                                        <Link href={`/${regionSlug}/places/${p.slug}`} className="inline-block rounded-full border border-border/40 px-4 py-2 text-sm hover:border-primary/40 hover:text-primary transition-colors">
+                                                            {p.title}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </SectionContainer>
                 </main>

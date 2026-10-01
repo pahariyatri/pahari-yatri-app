@@ -342,7 +342,9 @@ export async function buildChapterMetadata(
   if (seoTitleOverride) {
     title = seoTitleOverride;
   } else {
-    const trackType = (chapter as any).trackType || "trail";
+    // No trackType set means "not classified", not "trek" — defaulting to
+    // "trail" titled Malana and Manikaran Sahib as Himalayan treks.
+    const trackType = (chapter as any).trackType || "";
     const alreadyNamesTrek = /trek/i.test(rawTitle);
     if (trackType === "temple") {
       title = location
