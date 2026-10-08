@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
 import YatriCircleLink from "@/components/common/YatriCircleLink";
@@ -32,29 +33,22 @@ export default function FinalCTA() {
   return (
     <section
       ref={sectionRef}
-      className="w-full py-24 sm:py-32 md:py-40 relative overflow-hidden bg-zinc-950"
+      className="w-full py-24 sm:py-32 md:py-40 relative overflow-hidden bg-[#090c0b]"
     >
-      {/* Cinematic backdrop — CSS-only, no new image requests. A dusk
-          gradient, two slow-breathing glow orbs standing in for alpenglow
-          and mist, a hairline mountain horizon (a 446-byte SVG, not a
-          photo), and the same film-grain overlay already used elsewhere on
-          the homepage. Oversized on the y-axis so the parallax drift never
-          reveals an edge. */}
+      {/* A separate alpine-at-dusk image gives the closing scene its own
+          moment while keeping the homepage's Himalayan palette. */}
       <motion.div className="absolute -inset-y-[8%] inset-x-0" style={{ y: bgY }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
-        <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-primary/20 blur-[110px] animate-glow" />
-        <div className="absolute -bottom-24 -right-16 w-[24rem] h-[24rem] rounded-full bg-white/10 blur-[110px] animate-pulse-slow" />
-        <div
-          className="absolute bottom-0 inset-x-0 h-24 sm:h-32 opacity-[0.08]"
-          style={{
-            backgroundImage: "url('/static/images/himalayan-silhouette.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "bottom",
-            backgroundRepeat: "no-repeat",
-          }}
+        <Image
+          src="/static/images/trail-alpine-lake.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-55"
         />
-        <div className="absolute inset-0 bg-[url('/static/images/noise-pattern.svg')] opacity-[0.08] mix-blend-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/35 via-[#17140f]/45 to-zinc-950/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,_rgba(191,142,74,0.22),transparent_62%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div className="absolute inset-0 bg-[url('/static/images/noise-pattern.svg')] opacity-[0.045] mix-blend-overlay" />
       </motion.div>
 
       <div
@@ -68,7 +62,7 @@ export default function FinalCTA() {
           The way of the Yatri
         </motion.span>
 
-        <motion.div {...reveal(0.1)} className="w-10 h-px bg-primary/50 mx-auto mb-8" />
+        <motion.div {...reveal(0.1)} className="w-12 h-px bg-secondary/70 mx-auto mb-8" />
 
         <motion.h2
           {...reveal(0.2)}
