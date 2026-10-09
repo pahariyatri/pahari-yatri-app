@@ -2,11 +2,11 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
 import { ArrowRight } from "lucide-react";
 import PhotoCredit from "@/components/common/PhotoCredit";
+import styles from "./reading.module.css";
 
 export default function BookPageClient({ book, chapters }: any) {
   const prefersReducedMotion = useReducedMotion() !== false;
@@ -25,9 +25,10 @@ export default function BookPageClient({ book, chapters }: any) {
     .map((slug: string) => chapterBySlug.get(slug))
     .filter(Boolean);
   const primaryChapterCount = primaryChapters.length;
+  const isParvatiEdition = book.slug === "parvati-valley-beyond-kasol";
 
   return (
-    <div className="w-full min-h-screen bg-background text-foreground">
+    <div className={`${styles.book} w-full min-h-screen bg-background text-foreground`}>
 
       {/* The book title is painted twice below — once in the mobile cover overlay,
           once in the desktop column — and CSS hides one of them per breakpoint.
@@ -39,10 +40,10 @@ export default function BookPageClient({ book, chapters }: any) {
 
       {/* Hero / Cover Section — sticky (not fixed) cover so the page ends
           cleanly and the footer is never overlapped by scrolling content */}
-      <div className="relative w-full flex flex-col lg:flex-row lg:items-start">
+      <div className="relative mx-auto w-full max-w-7xl flex flex-col lg:flex-row lg:items-start lg:gap-12 lg:px-10 lg:py-16">
 
         {/* Left: Sticky Cover (Desktop) / Top Cover (Mobile) */}
-        <div className="relative w-full lg:w-1/2 h-[60svh] lg:h-screen lg:sticky lg:top-0 z-10 overflow-hidden">
+        <div className="relative w-full lg:w-[38%] h-[55svh] lg:h-[72svh] lg:sticky lg:top-24 z-10 overflow-hidden lg:rounded-sm lg:shadow-xl">
           <Image
             src={book.coverImage}
             alt={book.coverImageAlt || book.title}
@@ -57,19 +58,23 @@ export default function BookPageClient({ book, chapters }: any) {
           <div className="absolute bottom-0 left-0 p-6 lg:hidden">
             <p aria-hidden="true" className="text-4xl font-bold font-brandSerif text-white mb-2">{book.title}</p>
             <p className="text-white/80 text-sm">{book.excerpt}</p>
-            <PhotoCredit credit={book.coverImageCredit} url={book.coverImageCreditUrl} className="mt-3" />
+            {!isParvatiEdition && (
+              <PhotoCredit credit={book.coverImageCredit} url={book.coverImageCreditUrl} className="mt-3" />
+            )}
           </div>
           {/* Desktop: credit sits at the cover's base */}
-          <PhotoCredit
-            credit={book.coverImageCredit}
-            url={book.coverImageCreditUrl}
-            className="hidden lg:block absolute bottom-4 left-6"
-          />
+          {!isParvatiEdition && (
+            <PhotoCredit
+              credit={book.coverImageCredit}
+              url={book.coverImageCreditUrl}
+              className="hidden lg:block absolute bottom-4 left-6"
+            />
+          )}
         </div>
 
         {/* Right: Content Scroll */}
-        <div className="w-full lg:w-1/2 relative z-20 bg-background">
-          <div className="px-6 py-16 sm:px-12 sm:py-24 lg:px-20 lg:py-32 max-w-2xl mx-auto">
+        <div className="w-full lg:flex-1 lg:min-w-0 relative z-20 bg-background">
+          <div className="px-6 py-10 sm:px-10 sm:py-14 lg:px-0 lg:py-6 max-w-2xl mx-auto">
 
             {/* Desktop Title */}
             <div className="hidden lg:block mb-16">
@@ -79,14 +84,14 @@ export default function BookPageClient({ book, chapters }: any) {
                 transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="text-primary text-sm font-bold tracking-[0.2em] uppercase block mb-4"
               >
-                The Edition
+                A Himalayan reading edition
               </motion.span>
               <motion.p
                 aria-hidden="true"
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 }}
-                className="text-6xl xl:text-7xl font-bold font-brandSerif text-foreground leading-tight mb-6"
+                className="text-5xl xl:text-6xl font-bold font-brandSerif text-foreground leading-tight mb-6"
               >
                 {book.title}
               </motion.p>
@@ -110,26 +115,32 @@ export default function BookPageClient({ book, chapters }: any) {
               </motion.div>
             </div>
 
+            <nav aria-label="Book navigation" className="mb-10 flex flex-wrap items-center gap-5 border-b border-border pb-5 text-sm text-muted-foreground">
+              <Link href="/library" className="hover:text-foreground">← Library</Link>
+              <a href="#book-contents" className="hover:text-foreground">Contents</a>
+              <span className="ml-auto">{primaryChapterCount} chapters{furtherJourneys.length > 0 ? ` · ${furtherJourneys.length} further journeys` : ""}</span>
+            </nav>
+
             {/* Invitation */}
             <motion.div
               initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
               whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={prefersReducedMotion ? undefined : { once: true }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8 }}
-              className="prose prose-lg dark:prose-invert mb-20"
+              className="prose prose-lg dark:prose-invert mb-12"
             >
-              <h3 className="font-brandSerif text-3xl mb-6">The Invitation</h3>
+              <h2 className="font-brandSerif text-3xl mb-6">The Invitation</h2>
               <p className="text-muted-foreground leading-loose">
                 {book.invitation}
               </p>
             </motion.div>
 
             {/* Table of Contents */}
-            <div className="mb-24">
-              <h3 className="font-brandSerif text-3xl mb-10 flex items-center gap-4">
+            <div id="book-contents" className="mb-14 scroll-mt-24">
+              <h2 className="font-brandSerif text-3xl mb-10 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary"></span>
                 Table of Contents
-              </h3>
+              </h2>
 
               <p className="mb-8 max-w-prose text-sm leading-relaxed text-muted-foreground">
                 The reading order connects places and themes; it is not a continuous trekking route.
@@ -142,12 +153,12 @@ export default function BookPageClient({ book, chapters }: any) {
 
                   return (
                     <section key={part.title} aria-labelledby={`book-part-${partIndex}`}>
-                      <h4
+                      <h3
                         id={`book-part-${partIndex}`}
                         className="mb-4 border-b border-border/50 pb-3 font-brandSerif text-2xl"
                       >
                         {part.title}
-                      </h4>
+                      </h3>
                       <ol className="space-y-4">
                         {part.chapters.map((chapter: any) => {
                           chapterNumber += 1;
@@ -155,20 +166,11 @@ export default function BookPageClient({ book, chapters }: any) {
                             <li key={chapter.slug}>
                               <Link
                                 href={`/chapters/${chapter.slug}`}
-                                className="group flex gap-4 sm:gap-5 items-center rounded-2xl border border-border/50 p-3 sm:p-4 hover:border-primary/40 hover:bg-muted/30 transition-colors"
+                                className="group flex gap-4 sm:gap-5 items-center border-b border-border/60 py-5 hover:border-primary/60 hover:bg-muted/20 transition-colors"
                               >
-                                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl">
-                                  <Image
-                                    src={chapter.coverImage}
-                                    alt={chapter.coverImageAlt || chapter.title}
-                                    fill
-                                    sizes="112px"
-                                    className="object-cover"
-                                  />
-                                  <span className="absolute top-1.5 left-1.5 text-[10px] font-bold font-sans text-white bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
-                                    {String(chapterNumber).padStart(2, "0")}
-                                  </span>
-                                </div>
+                                <span className="w-8 shrink-0 self-start pt-1 font-brandSerif text-xl text-primary/60 tabular-nums" aria-hidden="true">
+                                  {String(chapterNumber).padStart(2, "0")}
+                                </span>
 
                                 <div className="min-w-0 flex-1">
                                   {chapter.location && (
@@ -176,9 +178,9 @@ export default function BookPageClient({ book, chapters }: any) {
                                       {chapter.location}
                                     </span>
                                   )}
-                                  <h5 className="mb-1 font-brandSerif text-lg font-medium leading-tight transition-colors group-hover:text-primary sm:text-xl">
+                                  <h4 className="mb-1 font-brandSerif text-lg font-medium leading-tight transition-colors group-hover:text-primary sm:text-xl">
                                     {chapter.title}
-                                  </h5>
+                                  </h4>
                                   <p className="line-clamp-2 text-sm font-light text-muted-foreground/80">
                                     {chapter.description}
                                   </p>
@@ -197,11 +199,11 @@ export default function BookPageClient({ book, chapters }: any) {
 
               {furtherJourneys.length > 0 && (
                 <section className="mt-12 border-t border-border/60 pt-8" aria-labelledby="further-journeys">
-                  <h4 id="further-journeys" className="font-brandSerif text-2xl">
+                  <h3 id="further-journeys" className="font-brandSerif text-2xl">
                     Further Journeys
-                  </h4>
+                  </h3>
                   <p className="mb-5 mt-2 max-w-prose text-sm leading-relaxed text-muted-foreground">
-                    Related reading beyond the main 16-chapter sequence.
+                    Related reading beyond the main {primaryChapterCount}-chapter sequence.
                   </p>
                   <ul className="space-y-3">
                     {furtherJourneys.map((chapter: any) => (
@@ -227,10 +229,23 @@ export default function BookPageClient({ book, chapters }: any) {
               )}
             </div>
 
+            {isParvatiEdition && book.coverImageCredit && (
+              <section aria-labelledby="cover-acknowledgement" className="mb-12 border-t border-border pt-6 text-xs leading-relaxed text-muted-foreground">
+                <h2 id="cover-acknowledgement" className="mb-2 font-medium text-foreground">Cover photograph</h2>
+                <p>
+                  {book.coverImageAlt}. {book.coverImageCredit}. Displayed with a responsive crop.
+                  {book.coverImageCreditUrl && (
+                    <> <a href={book.coverImageCreditUrl} target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">Photograph source</a>.</>
+                  )}
+                  {" "}<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">Licence terms</a>.
+                </p>
+              </section>
+            )}
+
             {/* CTA */}
             <div className="text-center lg:text-left pt-12 border-t border-border">
               <p className="text-muted-foreground mb-6 italic font-brandSerif">
-                &quot;Read the season slowly. The mountains keep their own time.&quot;
+                &quot;{isParvatiEdition ? "Read the valley slowly. The mountains keep their own time." : "Read the season slowly. The mountains keep their own time."}&quot;
               </p>
               <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4">
                 {primaryChapters[0] && (

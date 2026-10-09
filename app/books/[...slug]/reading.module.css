@@ -1,0 +1,41 @@
+.book,
+.chapter {
+  overflow-wrap: anywhere;
+}
+
+.book :global(a),
+.chapter :global(a) {
+  text-underline-offset: 0.25em;
+}
+
+.book :global(a:focus-visible),
+.chapter :global(a:focus-visible) {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 5px;
+}
+
+.narrative {
+  font-size: var(--reading-size, 1.15rem);
+  max-width: 62ch;
+  margin-inline: auto;
+  text-wrap: pretty;
+}
+
+.narrative p {
+  line-height: 1.9;
+}
+
+@media (min-width: 640px) {
+  .narrative {
+    font-size: calc(var(--reading-size, 1.15rem) + 0.1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book *,
+  .chapter * {
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
