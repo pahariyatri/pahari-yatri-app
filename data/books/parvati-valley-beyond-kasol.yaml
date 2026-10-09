@@ -1,7 +1,7 @@
 title: Parvati Valley, Beyond Kasol
 year: 2026
 invitation: >-
-  Kasol is where the road gets small. The valley itself begins after that.
+  Kasol is a gateway, not a summary. The places gathered here ask to be read one by one.
 thesis: >-
   Kasol is the entrance, not the destination. Every village past it has its
   own name, its own rules, and its own reason for existing that has nothing
@@ -51,4 +51,35 @@ relatedChapters:
   - manikaran-sahib-and-its-culture
   - devta-trails-parvati-valley
   - mantalai-lake-the-source
+  - pin-parvati-pass-meets-spiti
+editorialParts:
+  - title: "Part I — Where the Valley Opens"
+    chapters:
+      - understanding-parvati-valley
+      - kasol-weekend
+      - manikaran-sahib-and-its-culture
+      - chalal-first-step-away
+  - title: "Part II — Villages and Neighbourhoods"
+    chapters:
+      - rasol-remote-mountain-village
+      - grahan-protects-its-traditions
+      - kalga-slow-mountain-life
+      - pulga-forests-and-silence
+      - tulga-the-forgotten-neighbour
+      - tosh-village-above-the-valley
+      - malana-myth-and-reality
+  - title: "Part III — Walking the Upper Valley"
+    chapters:
+      - kheerganga-buni-buni-pass
+      - bunbuni-pass-trail-beyond-kheerganga
+      - waichin-valley-high-meadow
+  - title: "Part IV — High Country and Watershed"
+    chapters:
+      - sar-pass-trekking-culture
+      - mantalai-lake-the-source
+furtherJourneys:
+  - barshaini-valley-roadhead
+  - kutla-quiet-trail-beyond-tosh
+  - biskeri-thach-meadows-above-the-forest
+  - devta-trails-parvati-valley
   - pin-parvati-pass-meets-spiti

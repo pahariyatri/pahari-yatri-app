@@ -211,11 +211,32 @@ export async function getChapterView(slug: string) {
     );
     if (owner) {
       parentBook = { slug: owner.slug, title: owner.entry.title || owner.slug };
-      const order = ((owner.entry.relatedChapters as any[]) || []).filter(Boolean);
+      const primaryOrder = (
+        ((owner.entry as any).editorialParts || []) as Array<{
+          chapters?: Array<string | null>;
+        }>
+      ).flatMap((part) => part.chapters || []).filter(
+        (chapter): chapter is string => typeof chapter === "string"
+      );
+      const furtherOrder = (
+        ((owner.entry as any).furtherJourneys || []) as Array<string | null>
+      ).filter((chapter): chapter is string => typeof chapter === "string");
+      const allChapters = ((owner.entry.relatedChapters as any[]) || []).filter(Boolean);
+      const hasStructuredOrder = primaryOrder.length > 0 || furtherOrder.length > 0;
+      const order = primaryOrder.includes(slug)
+        ? primaryOrder
+        : furtherOrder.includes(slug)
+          ? furtherOrder
+          : allChapters;
       const idx = order.indexOf(slug);
-      const nextSlug = idx >= 0 && order.length > 1 ? order[(idx + 1) % order.length] : null;
+      const nextSlug =
+        idx >= 0 && order.length > 1
+          ? order[hasStructuredOrder ? idx + 1 : (idx + 1) % order.length] ?? null
+          : null;
       const prevSlug =
-        idx >= 0 && order.length > 1 ? order[(idx - 1 + order.length) % order.length] : null;
+        idx >= 0 && order.length > 1
+          ? order[hasStructuredOrder ? idx - 1 : (idx - 1 + order.length) % order.length] ?? null
+          : null;
       if (nextSlug) {
         const nc = await reader.collections.chapters.read(nextSlug);
         if (nc)

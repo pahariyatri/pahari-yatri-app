@@ -187,13 +187,50 @@ export default config({
         coverImageCreditUrl: fields.url({
           label: "Cover Image Source URL",
         }),
-        relatedChapters: fields.array(
+        editorialParts: fields.array(
+          fields.object({
+            title: fields.text({ label: "Part title", validation: { isRequired: true } }),
+            chapters: fields.array(
+              fields.relationship({
+                label: "Chapter",
+                collection: "chapters",
+              }),
+              {
+                label: "Chapters in this part",
+                itemLabel: (props) =>
+                  typeof props.value === "string" ? props.value : "Select a chapter",
+              }
+            ),
+          }),
+          {
+            label: "Primary reading parts",
+            description:
+              "Ordered chapter groups for the main reading journey. This does not define a continuous physical route.",
+            itemLabel: (props) => props.fields.title.value || "Part",
+          }
+        ),
+        furtherJourneys: fields.array(
           fields.relationship({
-            label: "Chapters in this Edition",
+            label: "Further Journey",
             collection: "chapters",
           }),
           {
-            label: "Chapters",
+            label: "Further Journeys",
+            description:
+              "Related reading outside the book's primary chapter sequence.",
+            itemLabel: (props) =>
+              typeof props.value === "string" ? props.value : "Select a chapter",
+          }
+        ),
+        relatedChapters: fields.array(
+          fields.relationship({
+            label: "All chapters with routes in this edition",
+            collection: "chapters",
+          }),
+          {
+            label: "Route membership",
+            description:
+              "Keep every existing chapter slug here so book chapter URLs remain valid. Reading order is controlled by Primary reading parts and Further Journeys.",
             itemLabel: (props) => {
               const v = props.value;
               if (v && typeof v === "object") return (v as any).title ?? "Select or create a Chapter";
