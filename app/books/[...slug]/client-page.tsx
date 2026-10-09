@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,23 @@ import { ArrowRight } from "lucide-react";
 import PhotoCredit from "@/components/common/PhotoCredit";
 
 export default function BookPageClient({ book, chapters }: any) {
+  const prefersReducedMotion = useReducedMotion() !== false;
+  const chapterBySlug = new Map(chapters.map((chapter: any) => [chapter.slug, chapter]));
+  const configuredParts = (book.editorialParts || []).map((part: any) => ({
+    title: part.title,
+    chapters: (part.chapters || [])
+      .map((slug: string) => chapterBySlug.get(slug))
+      .filter(Boolean),
+  }));
+  const parts = configuredParts.length > 0
+    ? configuredParts
+    : [{ title: "Chapters", chapters }];
+  const primaryChapters = parts.flatMap((part: any) => part.chapters);
+  const furtherJourneys = (book.furtherJourneys || [])
+    .map((slug: string) => chapterBySlug.get(slug))
+    .filter(Boolean);
+  const primaryChapterCount = primaryChapters.length;
+
   return (
     <div className="w-full min-h-screen bg-background text-foreground">
 
@@ -57,48 +74,48 @@ export default function BookPageClient({ book, chapters }: any) {
             {/* Desktop Title */}
             <div className="hidden lg:block mb-16">
               <motion.span
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="text-primary text-sm font-bold tracking-[0.2em] uppercase block mb-4"
               >
                 The Edition
               </motion.span>
               <motion.p
                 aria-hidden="true"
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 }}
                 className="text-6xl xl:text-7xl font-bold font-brandSerif text-foreground leading-tight mb-6"
               >
                 {book.title}
               </motion.p>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.4 }}
                 className="text-xl text-muted-foreground font-light leading-relaxed"
               >
                 {book.excerpt}
               </motion.p>
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.5 }}
                 className="mt-6 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground/70"
               >
                 {book.year && <span>Edition {book.year}</span>}
-                {book.year && chapters.length > 0 && <span className="text-primary/40">•</span>}
-                {chapters.length > 0 && <span>{chapters.length} chapters</span>}
+                {book.year && primaryChapterCount > 0 && <span className="text-primary/40">•</span>}
+                {primaryChapterCount > 0 && <span>{primaryChapterCount} chapters</span>}
               </motion.div>
             </div>
 
             {/* Invitation */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8 }}
               className="prose prose-lg dark:prose-invert mb-20"
             >
               <h3 className="font-brandSerif text-3xl mb-6">The Invitation</h3>
@@ -114,52 +131,100 @@ export default function BookPageClient({ book, chapters }: any) {
                 Table of Contents
               </h3>
 
-              <div className="space-y-4">
-                {chapters.map((chapter: any, index: number) => (
-                  <motion.div
-                    key={chapter.slug || index}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.06 }}
-                  >
-                    <Link
-                      href={`/chapters/${chapter.slug}`}
-                      className="group flex gap-4 sm:gap-5 items-center rounded-2xl border border-border/50 p-3 sm:p-4 hover:border-primary/40 hover:bg-muted/30 transition-all duration-300"
-                    >
-                      {/* Chapter thumbnail */}
-                      <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl">
-                        <Image
-                          src={chapter.coverImage}
-                          alt={chapter.coverImageAlt || chapter.title}
-                          fill
-                          sizes="112px"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <span className="absolute top-1.5 left-1.5 text-[10px] font-bold font-sans text-white bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
+              <p className="mb-8 max-w-prose text-sm leading-relaxed text-muted-foreground">
+                The reading order connects places and themes; it is not a continuous trekking route.
+              </p>
+              <div className="space-y-10">
+                {parts.map((part: any, partIndex: number) => {
+                  let chapterNumber = parts
+                    .slice(0, partIndex)
+                    .reduce((count: number, earlierPart: any) => count + earlierPart.chapters.length, 0);
 
-                      <div className="min-w-0 flex-1">
-                        {chapter.location && (
-                          <span className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 truncate">
-                            {chapter.location}
-                          </span>
-                        )}
-                        <h4 className="text-lg sm:text-xl font-brandSerif font-medium group-hover:text-primary transition-colors leading-tight mb-1">
-                          {chapter.title}
-                        </h4>
-                        <p className="text-muted-foreground/80 text-sm line-clamp-2 font-light">
-                          {chapter.description}
-                        </p>
-                      </div>
+                  return (
+                    <section key={part.title} aria-labelledby={`book-part-${partIndex}`}>
+                      <h4
+                        id={`book-part-${partIndex}`}
+                        className="mb-4 border-b border-border/50 pb-3 font-brandSerif text-2xl"
+                      >
+                        {part.title}
+                      </h4>
+                      <ol className="space-y-4">
+                        {part.chapters.map((chapter: any) => {
+                          chapterNumber += 1;
+                          return (
+                            <li key={chapter.slug}>
+                              <Link
+                                href={`/chapters/${chapter.slug}`}
+                                className="group flex gap-4 sm:gap-5 items-center rounded-2xl border border-border/50 p-3 sm:p-4 hover:border-primary/40 hover:bg-muted/30 transition-colors"
+                              >
+                                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl">
+                                  <Image
+                                    src={chapter.coverImage}
+                                    alt={chapter.coverImageAlt || chapter.title}
+                                    fill
+                                    sizes="112px"
+                                    className="object-cover"
+                                  />
+                                  <span className="absolute top-1.5 left-1.5 text-[10px] font-bold font-sans text-white bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
+                                    {String(chapterNumber).padStart(2, "0")}
+                                  </span>
+                                </div>
 
-                      <ArrowRight className="w-5 h-5 text-muted-foreground/50 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
-                    </Link>
-                  </motion.div>
-                ))}
+                                <div className="min-w-0 flex-1">
+                                  {chapter.location && (
+                                    <span className="mb-1 block truncate text-[10px] uppercase tracking-widest text-primary/70">
+                                      {chapter.location}
+                                    </span>
+                                  )}
+                                  <h5 className="mb-1 font-brandSerif text-lg font-medium leading-tight transition-colors group-hover:text-primary sm:text-xl">
+                                    {chapter.title}
+                                  </h5>
+                                  <p className="line-clamp-2 text-sm font-light text-muted-foreground/80">
+                                    {chapter.description}
+                                  </p>
+                                </div>
+
+                                <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground/50 transition-colors group-hover:text-primary" />
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    </section>
+                  );
+                })}
               </div>
+
+              {furtherJourneys.length > 0 && (
+                <section className="mt-12 border-t border-border/60 pt-8" aria-labelledby="further-journeys">
+                  <h4 id="further-journeys" className="font-brandSerif text-2xl">
+                    Further Journeys
+                  </h4>
+                  <p className="mb-5 mt-2 max-w-prose text-sm leading-relaxed text-muted-foreground">
+                    Related reading beyond the main 16-chapter sequence.
+                  </p>
+                  <ul className="space-y-3">
+                    {furtherJourneys.map((chapter: any) => (
+                      <li key={chapter.slug}>
+                        <Link
+                          href={`/chapters/${chapter.slug}`}
+                          className="flex items-center justify-between gap-4 rounded-xl border border-border/50 px-4 py-3 transition-colors hover:border-primary/40 hover:bg-muted/30"
+                        >
+                          <span>
+                            {chapter.location && (
+                              <span className="mb-1 block text-[10px] uppercase tracking-widest text-primary/70">
+                                {chapter.location}
+                              </span>
+                            )}
+                            <span className="font-brandSerif text-lg">{chapter.title}</span>
+                          </span>
+                          <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground/50" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
             </div>
 
             {/* CTA */}
@@ -168,8 +233,8 @@ export default function BookPageClient({ book, chapters }: any) {
                 &quot;Read the season slowly. The mountains keep their own time.&quot;
               </p>
               <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4">
-                {chapters[0] && (
-                  <Link href={`/chapters/${chapters[0].slug}`}>
+                {primaryChapters[0] && (
+                  <Link href={`/chapters/${primaryChapters[0].slug}`}>
                     <Button size="lg" className="rounded-full px-10 py-6 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all hover:scale-[1.03]">
                       Read the first chapter
                     </Button>

@@ -58,6 +58,8 @@ export default async function Page({ params }: any) {
     coverImageCredit: bookEntry.coverImageCredit || null,
     coverImageCreditUrl: bookEntry.coverImageCreditUrl || null,
     relatedChapters: bookEntry.relatedChapters || [],
+    editorialParts: bookEntry.editorialParts || [],
+    furtherJourneys: bookEntry.furtherJourneys || [],
   };
 
   // Fetch full chapters
@@ -132,4 +134,3 @@ export async function generateStaticParams() {
   const slugs = await reader.collections.books.list();
   return slugs.map((slug: string) => ({ slug: [slug] })); // 👈 fix: wrap in array
 }
-
