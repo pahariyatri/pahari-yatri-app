@@ -22,18 +22,30 @@ export async function generateMetadata({ params }: any) {
   const title = ((bookEntry as any).seoTitle || "").trim() || bookEntry.title;
   const description = ((bookEntry as any).metaDescription || "").trim() || bookEntry.excerpt;
 
+  const pageUrl = `${siteMetadata.siteUrl}/books/${slug}`;
+  const ogImage = `${siteMetadata.siteUrl}/api/og?type=book&title=${encodeURIComponent(bookEntry.title)}&sub=${encodeURIComponent(bookEntry.invitation || bookEntry.excerpt || '')}`;
+
   return {
     title,
     description,
+    alternates: { canonical: pageUrl },
     // Unpublished books stay reachable (a chapter's parent-book link must
     // never 404) but shouldn't be indexed or surfaced until the founder
     // marks them published.
-    robots: bookEntry.published ? undefined : { index: false, follow: true },
+    robots: { index: Boolean(bookEntry.published), follow: true },
     openGraph: {
       title,
       description,
-      images: [{ url: `https://pahariyatri.com/api/og?type=book&title=${encodeURIComponent(bookEntry.title)}&sub=${encodeURIComponent(bookEntry.invitation || bookEntry.excerpt || '')}`, width: 1200, height: 630 }],
+      url: pageUrl,
+      siteName: "Pahari Yatri",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: bookEntry.title }],
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
     },
   };
 }
@@ -49,6 +61,7 @@ export default async function Page({ params }: any) {
   if (!bookEntry) notFound();
 
   const bookData = {
+    slug,
     title: bookEntry.title,
     year: bookEntry.year || null,
     excerpt: bookEntry.excerpt,

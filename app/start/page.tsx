@@ -12,7 +12,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
 /**
  * /start — the orientation page.
  *
- * Every cold arrival (Instagram bio link, the printed QR on /scan-me, a
+ * Every cold arrival (Instagram bio link, a shared /start link, a
  * brand-name search) currently lands on the homepage, which is written for
  * people who already know what this is. GA4 shows the cost of that: 83 users
  * and 7 chapter reads in 28 days. This page has one job — get a stranger from

@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
-import PhotoCredit from "@/components/common/PhotoCredit";
+import styles from "@/app/books/[...slug]/reading.module.css";
 import SectionContainer from "@/components/common/SectionContainer";
 import { Button } from "@/components/ui/button";
 import Link from "@/components/common/Link";
@@ -14,7 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft, Leaf, MapPin, CalendarDays, Navigation } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { track, trackOnce } from "@/lib/analytics";
 
 function paragraphs(text?: string) {
@@ -90,7 +90,12 @@ export default function JourneyPageClient({ journey, slug }: any) {
 
   const showQuickNav = pastContent && !reachedNav;
 
+  const [largeText, setLargeText] = useState(false);
   const narrative = paragraphs(journey.narrative);
+  const readingMinutes = Math.max(1, Math.ceil(narrative.join(" ").split(/\s+/).filter(Boolean).length / 200));
+  const requiresImageCredit = journey.imageCredit && !/\bCC0\b|public domain/i.test(journey.imageCredit);
+  const licence = (journey.imageCredit || "").match(/CC BY(-SA)? (\d\.\d)/i);
+  const licenceUrl = licence ? `https://creativecommons.org/licenses/by${licence[1] ? "-sa" : ""}/${licence[2]}/` : null;
   const gifts = (journey.giftsFromMountains || []).filter(Boolean);
   const themes = (journey.themes || []).filter(Boolean);
   const faqs = (journey.faqs || []).filter(
@@ -106,7 +111,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
 
 
   return (
-    <div className="bg-background text-foreground font-sans">
+    <div className={`${styles.chapter} bg-background text-foreground font-sans`} style={{ "--reading-size": largeText ? "1.4rem" : "1.15rem" } as CSSProperties}>
       {/* Reading progress */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
@@ -116,7 +121,7 @@ export default function JourneyPageClient({ journey, slug }: any) {
       {/* Static hero — solid, readable, no scroll-jacking. Image sits behind a
           strong bottom gradient; the title lives at the base where contrast is
           highest, so text is legible on every image and every screen size. */}
-      <header className="relative w-full h-[82svh] min-h-[480px] overflow-hidden flex items-end">
+      <header className="relative w-full h-[58svh] min-h-[380px] sm:min-h-[440px] overflow-hidden flex items-end">
         <div className="absolute inset-0">
           <ResponsiveImage
             src={journey.image}
@@ -167,21 +172,30 @@ export default function JourneyPageClient({ journey, slug }: any) {
           <span className="block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase mb-4 text-white/85">
             {journey.location ? journey.location : "A Chapter"}
           </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-brandSerif font-medium mb-5 leading-[1.05] drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-brandSerif font-medium mb-5 leading-[1.05] drop-shadow-lg">
             {journey.title}
           </h1>
           <p className="text-base sm:text-xl font-light text-white/90 max-w-2xl leading-relaxed drop-shadow">
             {journey.excerpt}
           </p>
-          <PhotoCredit credit={journey.imageCredit} url={journey.imageCreditUrl} className="mt-6" />
+
         </motion.div>
       </header>
+
+      <nav aria-label="Reading controls" className="mx-auto flex max-w-3xl flex-wrap items-center gap-4 border-b border-border px-6 py-5 text-sm text-muted-foreground">
+        {journey.parentBook && <Link href={`/books/${journey.parentBook.slug}#book-contents`} className="mr-auto hover:text-foreground">← Book contents</Link>}
+        <span>{readingMinutes} min narrative</span>
+        <a href="#chapter-reading" className="hover:text-foreground">Read chapter ↓</a>
+        <button type="button" aria-pressed={largeText} onClick={() => setLargeText(!largeText)} className="rounded-full border border-border px-4 py-2 text-foreground hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+          {largeText ? "Standard text" : "Larger text"}
+        </button>
+      </nav>
 
       {/* Content */}
       <div className="relative bg-background">
         {/* The Invitation (poetic soul) */}
         {journey.invitation && (
-          <SectionContainer className="py-20 sm:py-24">
+          <SectionContainer className="py-8 sm:py-12">
             <div className="max-w-3xl mx-auto text-center">
               <span className="block text-primary text-sm font-bold tracking-[0.2em] uppercase mb-8">
                 The Invitation
@@ -195,20 +209,20 @@ export default function JourneyPageClient({ journey, slug }: any) {
 
         {/* The Journey — the chapter lived in first person, the heart of the page */}
         {narrative.length > 0 && (
-          <SectionContainer className="py-12 sm:py-16">
+          <SectionContainer id="chapter-reading" className="py-8 sm:py-12 scroll-mt-24">
             <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-brandSerif mb-10 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary" />
                 The Journey
               </h2>
               <div
-                className="space-y-6 text-lg sm:text-xl leading-[1.9] font-brandSerif text-foreground/90
+                className={`${styles.narrative} space-y-7 leading-[1.9] font-brandSerif text-foreground/90
                            [&>p:first-of-type]:first-letter:text-6xl
                            [&>p:first-of-type]:first-letter:font-medium
                            [&>p:first-of-type]:first-letter:float-left
                            [&>p:first-of-type]:first-letter:mr-3
                            [&>p:first-of-type]:first-letter:mt-1
-                           [&>p:first-of-type]:first-letter:text-primary"
+                           [&>p:first-of-type]:first-letter:text-primary`}
               >
                 {narrative.map((p, i) => (
                   <p key={i}>{p}</p>
@@ -697,6 +711,18 @@ export default function JourneyPageClient({ journey, slug }: any) {
               </blockquote>
               <div className="w-8 h-px bg-primary/40 mx-auto mt-8" />
             </figure>
+          </SectionContainer>
+        )}
+
+        {requiresImageCredit && (
+          <SectionContainer className="py-4">
+            <details className="mx-auto max-w-2xl border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
+              <summary className="cursor-pointer py-2 font-medium text-foreground">Photograph acknowledgements</summary>
+              <p className="mt-3">{journey.imageCredit}. Displayed with a responsive crop.
+                {journey.imageCreditUrl && <> <a href={journey.imageCreditUrl} className="underline underline-offset-2" target="_blank" rel="noopener noreferrer nofollow">Photograph source</a>.</>}
+                {licenceUrl && <> <a href={licenceUrl} className="underline underline-offset-2" target="_blank" rel="noopener noreferrer nofollow">Licence terms</a>.</>}
+              </p>
+            </details>
           </SectionContainer>
         )}
 
