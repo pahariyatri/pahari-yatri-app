@@ -35,6 +35,24 @@ const columns = [
     ],
   },
   {
+    // Search Console shows the whole Parvati cluster as "Discovered –
+    // currently not indexed" with no referring page. The footer is on every
+    // indexed page, so one link here gives each of these an internal path.
+    label: "Parvati Valley",
+    links: [
+      { href: "/books/parvati-valley-beyond-kasol", title: "Parvati, Beyond Kasol" },
+      { href: "/chapters/understanding-parvati-valley", title: "Understanding Parvati" },
+      { href: "/chapters/kasol-weekend", title: "Kasol" },
+      { href: "/chapters/manikaran-sahib-and-its-culture", title: "Manikaran" },
+      { href: "/chapters/barshaini-valley-roadhead", title: "Barshaini" },
+      { href: "/chapters/kalga-slow-mountain-life", title: "Kalga" },
+      { href: "/chapters/pulga-forests-and-silence", title: "Pulga" },
+      { href: "/chapters/tosh-village-above-the-valley", title: "Tosh" },
+      { href: "/chapters/kheerganga-buni-buni-pass", title: "Kheer Ganga" },
+      { href: "/chapters/malana-myth-and-reality", title: "Malana" },
+    ],
+  },
+  {
     label: "The Movement",
     links: [
       { href: "/about", title: "About" },
@@ -97,7 +115,7 @@ export default function Footer() {
           </div>
 
           {/* Site map */}
-          <nav className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10 sm:gap-12" aria-label="Footer Site Map">
+          <nav className="md:col-span-7 grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12" aria-label="Footer Site Map">
             {columns.map((col) => (
               <div key={col.label} className="space-y-5">
                 {/* h3 (not h4): the last heading before the footer in DOM
